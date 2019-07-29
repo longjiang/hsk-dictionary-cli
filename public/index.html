@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>hsk-dictionary-cli</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+
+    <link href="vendor/css-spinners/spinner/heartbeat.css" rel="stylesheet" />
+    <link
+      href="vendor/annotator-js/css/annotator.css?v=5.5.0"
+      rel="stylesheet"
+    />
+    <link href="vendor/annotator-js/css/tipped.css?v=5.5.0" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/hsk-dictionary.css?v=5.5.0" />
+    <title>Dictionary | Chinese Zero to Hero</title>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but hsk-dictionary-cli doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but the Dictionary doesn't work properly without JavaScript
+        enabled. Please enable it to continue.</strong
+      >
     </noscript>
-    <div id="app"></div>
+    <div id="hsk-dictionary"></div>
+    <script src="vendor/pinyinify/pinyinify.js"></script>
+    <script src="vendor/annotator-js/js/annotator.js"></script>
+    <script src="vendor/annotator-js/js/annotator-tooltip.js"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>
