@@ -743,6 +743,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   border-radius: 0.3rem 0.3rem 0 0;
   color: white;
   display: inline-block;
+  margin-right: 0.2rem;
 }
 
 .tab-saved-words {
