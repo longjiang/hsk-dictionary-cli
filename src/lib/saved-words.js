@@ -2,6 +2,7 @@ import HSK from './hsk'
 import CEDICT from './cedict'
 import SavedHSKWords from './saved-hsk-words'
 import SavedCEDICTWords from './saved-cedict-words'
+import SavedWords from './saved-words'
 import $ from 'jquery'
 
 export default {
@@ -49,7 +50,6 @@ export default {
     }
   },
   updateSavedWordsDisplay() {
-    let SavedWords = this
     try {
       this.$root.savedWordsKey += 1
       if (window.hskDictionaryApp.$refs.entry) {
@@ -82,7 +82,7 @@ export default {
     }, 500)
   },
   saveWordClick: function(e) {
-    let SavedWords = this
+    console.log(SavedWords, 'SavedWords')
     var $target = $(e.target)
     if (e.target.tagName.toLowerCase() === 'i') {
       $target = $target.parent()
@@ -94,7 +94,6 @@ export default {
     SavedWords.updateSavedWordsDisplay()
   },
   removeWordClick: function(e) {
-    let SavedWords = this
     var $target = $(e.target)
     if (e.target.tagName.toLowerCase() === 'i') {
       $target = $target.parent()

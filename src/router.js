@@ -27,7 +27,7 @@ export default new Router({
     },
     {
       path: '/saved-words',
-      name: 'learn',
+      name: 'saved-words',
       component: () => import('./views/SavedWords.vue')
     }
   ]

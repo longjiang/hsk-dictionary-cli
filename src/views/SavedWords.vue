@@ -126,6 +126,7 @@
 <script>
 import $ from 'jquery'
 import Learn from '@/views/Learn.vue'
+import SavedWords from '@/lib/saved-words'
 import SavedHSKWords from '@/lib/saved-hsk-words'
 import SavedCEDICTWords from '@/lib/saved-cedict-words'
 import HSK from '@/lib/hsk'
@@ -138,7 +139,11 @@ export default {
   },
   data() {
     return {
-      CEDICT: CEDICT,
+      CEDICT,
+      HSK,
+      SavedWords,
+      SavedCEDICTWords,
+      SavedHSKWords,
       savedWordsKey: 0 // used to force re-render this component
     }
   },

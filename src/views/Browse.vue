@@ -12,6 +12,7 @@
             class="book"
             v-for="(book, bookIndex) in books"
             :data-book="bookIndex"
+            v-bind:key="bookIndex"
           >
             <div
               class="book-title collapsed"
@@ -25,6 +26,7 @@
                 class="lesson"
                 v-for="(lesson, lessonIndex) in book"
                 :data-lesson="lessonIndex"
+                v-bind:key="lessonIndex"
               >
                 <div class="lesson-title collapsed" v-on:click="lessonClick">
                   Lesson {{ lessonIndex }}
@@ -33,6 +35,7 @@
                     class="tile"
                     :data-bg-hsk="bookIndex"
                     v-for="i in countWordsInLesson(lesson)"
+                    v-bind:key="i"
                   ></span>
                 </div>
                 <ul class="dialogs collapsed">
@@ -40,6 +43,7 @@
                     class="dialog"
                     v-for="(dialog, dialogIndex) in lesson"
                     :data-dialog="dialogIndex"
+                    v-bind:key="dialogIndex"
                   >
                     <div
                       class="dialog-title collapsed"
@@ -50,13 +54,15 @@
                       <span
                         class="tile"
                         :data-bg-hsk="bookIndex"
-                        v-for="i in dialog"
+                        v-for="(i, dialogIndex) in dialog"
+                        v-bind:key="dialogIndex"
                       ></span>
                     </div>
                     <ul class="browse-words collapsed">
                       <li
                         class="browse-words-item character-example"
                         v-for="word in dialog"
+                        v-bind:key="word.id"
                       >
                         <button
                           class="saved-words-item-star"
@@ -119,9 +125,13 @@ export default {
   data() {
     return {
       books: HSK.compileBooks(),
+      SavedWords: SavedWords,
       browseKey: 0, // used to force re-render this component
       savedWordsKey: 0
     }
+  },
+  mounted() {
+    // mounted
   },
   methods: {
     saveAllClick: function(e) {
