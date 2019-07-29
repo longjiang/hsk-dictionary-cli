@@ -82,7 +82,6 @@ export default {
     }, 500)
   },
   saveWordClick: function(e) {
-    console.log(SavedWords, 'SavedWords')
     var $target = $(e.target)
     if (e.target.tagName.toLowerCase() === 'i') {
       $target = $target.parent()

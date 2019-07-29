@@ -1,5 +1,6 @@
 <template>
-  <div class="main" v-cloak v-if="entry" :key="entryKey">
+  <div class="main" v-cloak :key="entryKey">
+    
     <!-- ANCHOR img/anchors/entry.png  -->
     <div class="container">
       <div class="row text-center">
@@ -1085,10 +1086,48 @@ export default {
       this.uploadPhotoAndUpdate(url, $button)
     }
   },
+  mounted() {
+    const method = this.$route.params.method
+    const args = this.$route.params.args.split(',')
+    if (method == 'hsk') {
+      if (args.length > 0) {
+        const id = args[0]
+        let entry = HSK.get(id)
+        if (!entry) {
+          location.hash = '/'
+          return
+        }
+        const cedictCandidates = CEDICT.lookupSimplified(
+          entry.word,
+          entry.pinyin
+        )
+        if (cedictCandidates.length === 1) {
+          entry = Object.assign(entry, cedictCandidates[0])
+        }
+        this.show(entry)
+      }
+    } else if (method === 'cedict') {
+      if (args.length > 0) {
+        const traditional = args[0]
+        const pinyin = args[1]
+        let entry = CEDICT.get(traditional, pinyin)
+        if (entry) {
+          entry.word = entry.simplified
+          entry.book = 'outside'
+          this.show(entry)
+        } else {
+          location.hash = '/'
+          return
+        }
+      }
+    }
+  },
   updated() {
     const app = this
-    app.recalculateExampleColumns(this.entry.word)
-    app.attachSpeakEventHandler()
+    if (this.entry) {
+      app.recalculateExampleColumns(this.entry.word)
+      app.attachSpeakEventHandler()
+    }
   }
 }
 </script>
