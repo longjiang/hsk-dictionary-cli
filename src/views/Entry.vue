@@ -1,14 +1,13 @@
 <template>
-  <div class="main" v-cloak :key="entryKey">
-    
+  <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
     <!-- ANCHOR img/anchors/entry.png  -->
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <div class="entry-heEntad-wrapper">
+          <div class="entry-head-wrapper">
             <button
               class="save-word-button"
-              :key="savedWordsKey"
+              :key="'entry-saved-words-' + savedWordsKey"
               :data-method="entry.method"
               :data-args="JSON.stringify(entry.args)"
             >
@@ -51,7 +50,9 @@
                     v-bind:data-speak="'一' + entry.measureWords[0].simplified"
                   ></i>
                 </div>
-                <div class="word measure-word">一{{ entry.measureWords[0].simplified }}</div>
+                <div class="word measure-word">
+                  一{{ entry.measureWords[0].simplified }}
+                </div>
               </div>
               <div class="entry-word" style="display:inline-block">
                 <div class="pinyin">
@@ -69,8 +70,14 @@
             <div class="definitions" v-if="entry.english && !entry.definitions">
               <p class="english" v-if="entry.english">{{ entry.english }}</p>
             </div>
-            <ul class="definitions collapsed" v-if="entry.definitions" data-collapse-target>
-              <li v-for="definition in entry.definitions" class="english">{{ definition.text }}</li>
+            <ul
+              class="definitions collapsed"
+              v-if="entry.definitions"
+              data-collapse-target
+            >
+              <li v-for="definition in entry.definitions" class="english">
+                {{ definition.text }}
+              </li>
             </ul>
             <button
               v-if="entry.definitions && entry.definitions.length > 4"
@@ -94,7 +101,11 @@
     <!-- .container -->
 
     <!-- ANCHOR img/anchors/oofc.png -->
-    <div class="container-fluid mb2" v-cloak v-if="entry.oofc && entry.oofc !== ''">
+    <div
+      class="container-fluid mb2"
+      v-cloak
+      v-if="entry.oofc && entry.oofc !== ''"
+    >
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
@@ -104,7 +115,8 @@
               href="https://courses.chinesezerotohero.com/"
               :data-hsk="entry.book"
               class="video-course"
-            >HSK {{ entry.book }} Video Course</a>
+              >HSK {{ entry.book }} Video Course</a
+            >
             as an optional vocabulary word.
           </div>
         </div>
@@ -130,19 +142,28 @@
               href="https://courses.chinesezerotohero.com/"
               :data-hsk="entry.book"
               class="video-course"
-            >HSK {{ entry.book }} Video Course</a>.
+              >HSK {{ entry.book }} Video Course</a
+            >.
           </div>
         </div>
       </div>
     </div>
 
     <!-- ANCHOR img/anchors/example-bar.png -->
-    <div class="container-fluid example-bar" v-cloak v-if="entry.example && entry.example !== ''">
+    <div
+      class="container-fluid example-bar"
+      v-cloak
+      v-if="entry.example && entry.example !== ''"
+    >
       <div class="container">
         <div class="row">
           <div class="col-md-6">
             <div class="image-wrapper">
-              <img v-bind:src="image" class="example-image" v-if="hasImage && !admin" />
+              <img
+                v-bind:src="image"
+                class="example-image"
+                v-if="hasImage && !admin"
+              />
               <img
                 v-bind:src="image + '?v=' + Date.now()"
                 class="example-image"
@@ -150,21 +171,32 @@
               />
             </div>
           </div>
-          <div class="col-md-6 example-wrapper text-md-left text-sm-center sm-mt2">
+          <div
+            class="col-md-6 example-wrapper text-md-left text-sm-center sm-mt2"
+          >
             <div
               class="label"
               v-bind:data-bg-hsk="entry.book"
               v-if="entry.oofc == ''"
-            >HSK {{ entry.book }}</div>
+            >
+              HSK {{ entry.book }}
+            </div>
             <div class="example-sentence mt-4">
               <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
-              <p class="example-sentence-word" v-html="highlight(entry.example)"></p>
-              <p class="example-sentence-english">{{ entry.exampleTranslation }}</p>
+              <p
+                class="example-sentence-word"
+                v-html="highlight(entry.example)"
+              ></p>
+              <p class="example-sentence-english">
+                {{ entry.exampleTranslation }}
+              </p>
               <button
                 class="show-more mt1"
                 v-on:click="Helper.showPinyinClick"
                 data-target-selector=".example-sentence-word"
-              >Show Pinyin</button>
+              >
+                Show Pinyin
+              </button>
             </div>
           </div>
         </div>
@@ -205,10 +237,11 @@
                 <a
                   :href="
                     'https://www.canva.com/photos/search/' +
-                      hsk.simplifyEnglish(entry.english)
+                      HSK.simplifyEnglish(entry.english)
                   "
                   target="_blank"
-                >Search on Canva</a>
+                  >Search on Canva</a
+                >
               </div>
             </div>
           </div>
@@ -216,7 +249,7 @@
       </div>
     </div>
 
-    <div class="container" :key="webImagesKey" v-cloak>
+    <div class="container" :key="'web-images-' + webImagesKey" v-cloak>
       <div class="row mt-5 mb-5" v-if="entry.images && entry.images.length > 0">
         <div class="col-sm-12">
           <div class="image-wall">
@@ -241,10 +274,10 @@
           <!-- ANCHOR img/anchors/parts.png -->
           <div class="text-center">
             <div class="pinyin mb-2">{{ entry.pinyin.split(' ')[index] }}</div>
-            <decomposition :char="character.character"></decomposition>
+            <Decomposition :char="character.character"></Decomposition>
             <a
               class="stroke stroke-decomposition btn-small mt-2"
-              :href="hsk.hanzi.animatedSvgUrl(character.character)"
+              :href="Hanzi.animatedSvgUrl(character.character)"
               target="_blank"
               title="Show stroke order animation"
             >
@@ -273,14 +306,16 @@
               <span
                 class="part-definition character-example-english"
                 v-if="part.definition"
-              >{{ part.definition }}</span>
+                >{{ part.definition }}</span
+              >
               <span
                 class="part-pinyin character-example-english"
                 v-if="part.character == '？'"
-              >Other elements</span>
+                >Other elements</span
+              >
               <a
                 class="stroke btn-small"
-                :href="hsk.hanzi.animatedSvgUrl(part.character)"
+                :href="Hanzi.animatedSvgUrl(part.character)"
                 target="_blank"
                 title="Show stroke order animation"
               >
@@ -299,7 +334,10 @@
                       )
                     "
                   ></a>
-                  <span class="part-pinyin character-example-pinyin" v-if="part.pinyin">
+                  <span
+                    class="part-pinyin character-example-pinyin"
+                    v-if="part.pinyin"
+                  >
                     {{ row.firstHSKWord.pinyin }}
                     <i
                       class="speak glyphicon glyphicon-volume-up"
@@ -309,11 +347,14 @@
                   <span
                     class="part-definition character-example-english"
                     v-if="part.definition"
-                  >{{ row.firstHSKWord.english }}</span>
+                    >{{ row.firstHSKWord.english }}</span
+                  >
                 </li>
               </ul>
               <button v-on:click="togglePartExamples(part)" class="btn-small">
-                <span v-if="!part.showExamples">List characters with {{ part.character }}</span>
+                <span v-if="!part.showExamples"
+                  >List characters with {{ part.character }}</span
+                >
                 <span v-else>Collapse</span>
               </button>
             </div>
@@ -348,24 +389,34 @@
             v-on:click="Helper.showMoreClick"
             title="Show all examples"
           >
-            <span class="label-expand">Show {{ character.examples.length - 4 }} more</span>
+            <span class="label-expand"
+              >Show {{ character.examples.length - 4 }} more</span
+            >
             <span class="label-collapse">Collapse</span>
           </button>
         </div>
       </div>
     </div>
 
-    <div class="container" :key="grammarKey">
-      <div class="row mt-5 mb-5" v-if="entry.grammarPoints && entry.grammarPoints.length > 0">
+    <div class="container" :key="'grammar-' + grammarKey">
+      <div
+        class="row mt-5 mb-5"
+        v-if="entry.grammarPoints && entry.grammarPoints.length > 0"
+      >
         <div class="col-sm-12 text-center">
           <div class="label song-label mb-2">Grammar notes</div>
           <button
             class="show-more mt-4"
             v-on:click="Helper.showPinyinClick"
             data-target-selector="#grammar .grammar-structure, #grammar .grammar-example"
-          >Show Pinyin</button>
+          >
+            Show Pinyin
+          </button>
           <div class="grammar-notes" id="grammar">
-            <div v-for="grammar in entry.grammarPoints" class="grammar-notes-item">
+            <div
+              v-for="grammar in entry.grammarPoints"
+              class="grammar-notes-item"
+            >
               <div class="character-example-header-word grammar-structure">
                 <b
                   v-html="
@@ -377,16 +428,18 @@
                   "
                 ></b>
               </div>
-              <div class="example-sentence-english grammar-english">{{ grammar.english }}</div>
+              <div class="example-sentence-english grammar-english">
+                {{ grammar.english }}
+              </div>
               <div
                 class="example-sentence-word grammar-example"
                 v-html="
                   Helper.highlight(grammar.example, entry.word, grammar.book)
                 "
               ></div>
-              <div
-                class="character-example-english grammar-example-english"
-              >{{ grammar.exampleTranslation }}</div>
+              <div class="character-example-english grammar-example-english">
+                {{ grammar.exampleTranslation }}
+              </div>
               <a
                 v-if="grammar.url !== ''"
                 :href="grammar.url"
@@ -405,21 +458,24 @@
       </div>
     </div>
 
-    <div class="container" :key="relatedKey">
+    <div class="container" :key="'related-' + relatedKey">
       <div class="row mt-5" v-if="entry.related && entry.related.length > 0">
         <div class="col-sm-12">
-          <div class="label song-label mb-2">Words related to “{{ entry.word }}”</div>
+          <div class="label song-label mb-2">
+            Words related to “{{ entry.word }}”
+          </div>
           <ul class="related collapsed" id="related" data-collapse-target>
-            <li v-for="word in entry.related" class="related-item character-example">
+            <li
+              v-for="word in entry.related"
+              class="related-item character-example"
+            >
               <a
                 class="character-example-word"
                 v-if="word.hskCandidates && word.hskCandidates.length > 0"
                 :href="`#view/hsk/${word.hskCandidates[0].id}`"
               >
                 <span :data-hsk="word.hskCandidates[0].book">
-                  {{
-                  word.word
-                  }}
+                  {{ word.word }}
                 </span>
               </a>
               <a
@@ -451,7 +507,9 @@
                 class="character-example-english inline-list"
                 v-if="word.cedictCandidates && word.cedictCandidates.length > 0"
               >
-                <li v-for="definition in word.cedictCandidates[0].definitions">{{ definition.text }}</li>
+                <li v-for="definition in word.cedictCandidates[0].definitions">
+                  {{ definition.text }}
+                </li>
               </ul>
             </li>
           </ul>
@@ -462,16 +520,18 @@
             title="Show all related words"
             :data-bg-hsk="entry.book"
           >
-            <span class="label-expand">Show {{ entry.related.length - 12 }} more</span>
+            <span class="label-expand"
+              >Show {{ entry.related.length - 12 }} more</span
+            >
             <span class="label-collapse">Collapse</span>
           </button>
         </div>
       </div>
     </div>
 
-    <div class="container collocations" :key="collocationsKey">
+    <div class="container collocations" :key="'collocations-' + collocationsKey">
       <div class="row mt-5" v-if="entry.sketch && entry.sketch.Gramrels">
-        <collocations
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'SentObject_of' && collocation.Words.length > 0
@@ -481,8 +541,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="collocation.name === 'Modifier' && collocation.Words.length > 0"
           :title="`Adverb + ${entry.word}`"
@@ -490,8 +550,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'A_Modifier' && collocation.Words.length > 0
@@ -501,8 +561,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'Object_of' && collocation.Words.length > 0
@@ -512,8 +572,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="collocation.name === 'Measure' && collocation.Words.length > 0"
           :title="`Measure Word + ${entry.word}`"
@@ -521,8 +581,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'N_Modifier' && collocation.Words.length > 0
@@ -532,8 +592,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'Possessor' && collocation.Words.length > 0
@@ -543,8 +603,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'Possession' && collocation.Words.length > 0
@@ -554,8 +614,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="collocation.name === 'Modifies' && collocation.Words.length > 0"
           :title="`${entry.word} (的) + Noun`"
@@ -563,8 +623,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="collocation.name === 'Object' && collocation.Words.length > 0"
           :title="`${entry.word} + Noun`"
@@ -572,8 +632,8 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
-        <collocations
+        ></Collocations>
+        <Collocations
           v-for="collocation in entry.sketch.Gramrels"
           v-if="
             collocation.name === 'SentObject' && collocation.Words.length > 0
@@ -583,21 +643,32 @@
           :level="entry.book"
           :type="collocation.name"
           :collocation="collocation"
-        ></collocations>
+        ></Collocations>
       </div>
     </div>
 
-    <div class="container concordance" :key="concordanceKey">
+    <div class="container concordance" :key="'concordance-' + concordanceKey">
       <div class="row mb-5" v-if="entry.examples && entry.examples.length > 0">
         <div class="col-sm-12">
-          <div class="label song-label mb-2">Sentences with “{{ entry.word }}”</div>
+          <div class="label song-label mb-2">
+            Sentences with “{{ entry.word }}”
+          </div>
           <button
             class="show-more mt-1"
             v-on:click="Helper.showPinyinClick"
             data-target-selector="#examples"
-          >Show Pinyin</button>
-          <ul class="character-examples collapsed" id="examples" data-collapse-target>
-            <li class="character-example" v-for="example in entry.examples.slice(0, 100)">
+          >
+            Show Pinyin
+          </button>
+          <ul
+            class="character-examples collapsed"
+            id="examples"
+            data-collapse-target
+          >
+            <li
+              class="character-example"
+              v-for="example in entry.examples.slice(0, 100)"
+            >
               <span
                 class="character-example-word"
                 v-html="Helper.highlight(example, entry.word, entry.book)"
@@ -611,30 +682,42 @@
             title="Show all examples"
             :data-bg-hsk="entry.book"
           >
-            <span class="label-expand">Show {{ Math.min(entry.examples.length, 100) - 4 }} more</span>
+            <span class="label-expand"
+              >Show {{ Math.min(entry.examples.length, 100) - 4 }} more</span
+            >
             <span class="label-collapse">Collapse</span>
           </button>
         </div>
       </div>
     </div>
 
-    <div class="container mistakes" :key="mistakesKey">
+    <div class="container mistakes" :key="'mistakes' + mistakesKey">
       <div class="row mb-5" v-if="entry.mistakes && entry.mistakes.length > 0">
         <div class="col-sm-12">
-          <div
-            class="label song-label mb-2 mistakes-label"
-          >Common mistakes containing “{{ entry.word }}”</div>
+          <div class="label song-label mb-2 mistakes-label">
+            Common mistakes containing “{{ entry.word }}”
+          </div>
           <button
             class="show-more mt-1"
             v-on:click="Helper.showPinyinClick"
             data-target-selector="#mistakes .character-example-word, #mistakes .mistake-l1"
-          >Show Pinyin</button>
-          <ul class="character-examples collapsed" id="mistakes" data-collapse-target>
-            <li class="character-example mistake-item" v-for="mistake in entry.mistakes">
+          >
+            Show Pinyin
+          </button>
+          <ul
+            class="character-examples collapsed"
+            id="mistakes"
+            data-collapse-target
+          >
+            <li
+              class="character-example mistake-item"
+              v-for="mistake in entry.mistakes"
+            >
               <span
                 class="character-example-word concordance-context collapsed"
                 data-collapse-target
-              >{{ mistake.leftContext }}</span>
+                >{{ mistake.leftContext }}</span
+              >
               <span class="character-example-word mistake-sentence">
                 {{ mistake.left }}
                 <span class="mistake-word">{{ entry.word }}</span>
@@ -643,8 +726,12 @@
               <span
                 class="character-example-word concordance-context collapsed"
                 data-collapse-target
-              >{{ mistake.rightContext }}</span>
-              <button class="show-more collapsed" v-on:click="Helper.showMoreClick">
+                >{{ mistake.rightContext }}</span
+              >
+              <button
+                class="show-more collapsed"
+                v-on:click="Helper.showMoreClick"
+              >
                 <span class="label-expand">Context</span>
                 <span class="label-collapse">Collapse</span>
               </button>
@@ -660,13 +747,16 @@
                 </span>
               </span>
               <br />
-              <span class="mistake-description" v-if="mistake.errorLevel && mistake.errorType">
+              <span
+                class="mistake-description"
+                v-if="mistake.errorLevel && mistake.errorType"
+              >
                 Mistake with
                 <b>
                   {{ mistake.errorLevel }}
-                  <span
-                    v-if="mistake.errorType !== 'anomaly'"
-                  >({{ mistake.errorType }})</span>
+                  <span v-if="mistake.errorType !== 'anomaly'"
+                    >({{ mistake.errorType }})</span
+                  >
                 </b>
               </span>
               <br />
@@ -683,7 +773,9 @@
             title="Show all mistakes"
             :data-bg-hsk="entry.book"
           >
-            <span class="label-expand">Show {{ entry.mistakes.length - 4 }} more</span>
+            <span class="label-expand"
+              >Show {{ entry.mistakes.length - 4 }} more</span
+            >
             <span class="label-collapse">Collapse</span>
           </button>
         </div>
@@ -691,7 +783,11 @@
     </div>
 
     <!-- ANCHOR img/anchors/learn-this.png -->
-    <div class="container-fluid learn-this-bar" v-cloak v-if="entry.book !== 'outside'">
+    <div
+      class="container-fluid learn-this-bar"
+      v-cloak
+      v-if="entry.book !== 'outside'"
+    >
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
@@ -702,7 +798,10 @@
                 }-course`
               "
             >
-              <img :src="`img/courses/hsk${entry.book}.jpg`" class="course-cover" />
+              <img
+                :src="`img/courses/hsk${entry.book}.jpg`"
+                class="course-cover"
+              />
             </a>
             <br />
             Learn how to use “{{ entry.word }}” in
@@ -714,27 +813,32 @@
             <a
               href="https://courses.chinesezerotohero.com/"
               class="video-course"
-            >HSK {{ entry.book }} Video Course</a>
+              >HSK {{ entry.book }} Video Course</a
+            >
           </div>
         </div>
       </div>
     </div>
 
     <!-- ANCHOR img/anchors/learn-this.png -->
-    <div class="container-fluid learn-this-bar" v-cloak v-if="entry.book === 'outside'">
+    <div
+      class="container-fluid learn-this-bar"
+      v-cloak
+      v-if="entry.book === 'outside'"
+    >
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
             <a href="https://chinesezerotohero.teachable.com/p/path-to-fluency">
               <img src="img/courses/fluency.jpg" class="course-cover" />
             </a>
-            <br />Learn how to progress
-            <em>beyond the HSK</em> toward fluency
+            <br />Learn how to progress <em>beyond the HSK</em> toward fluency
             with our
             <a
               href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
               class="video-course"
-            >Path to Fluency Video Course</a>
+              >Path to Fluency Video Course</a
+            >
           </div>
         </div>
       </div>
@@ -755,7 +859,11 @@
         </div>
       </div>
     </div>
-    <div class="container-flud lyrics-bar" v-cloak v-if="lrcs && lrcs.length > 0">
+    <div
+      class="container-flud lyrics-bar"
+      v-cloak
+      v-if="lrcs && lrcs.length > 0"
+    >
       <div class="songs">
         <div
           class="row song"
@@ -769,13 +877,18 @@
                   class="show-more mb-3"
                   v-on:click="Helper.showPinyinClick"
                   :data-target-selector="'#lyrics-' + entry.id + '-' + lrcIndex"
-                >Show Pinyin</button>
+                >
+                  Show Pinyin
+                </button>
                 <div
                   class="lyrics collapsed"
                   :id="'lyrics-' + entry.id + '-' + lrcIndex"
                   data-collapse-target
                 >
-                  <div class="lyrics-title" v-html="lrc.artist + '《' + lrc.title + '》'"></div>
+                  <div
+                    class="lyrics-title"
+                    v-html="lrc.artist + '《' + lrc.title + '》'"
+                  ></div>
                   <hr />
                   <div
                     class="lyrics-line"
@@ -799,7 +912,10 @@
                 </button>
               </div>
               <div class="col-md-6 text-center">
-                <div class="youtube-versions" :id="'lrc-' + lrcIndex + '-youtube'">
+                <div
+                  class="youtube-versions"
+                  :id="'lrc-' + lrcIndex + '-youtube'"
+                >
                   <div class="youtube" v-for="youtube in lrc.youtube">
                     <div
                       v-bind:style="{
@@ -820,7 +936,9 @@
                         )
                       "
                     >
-                      <div :id="'lrc-' + lrcIndex + '-youtube-' + youtube"></div>
+                      <div
+                        :id="'lrc-' + lrcIndex + '-youtube-' + youtube"
+                      ></div>
                     </div>
                   </div>
                   <div class="mt-4">
@@ -829,7 +947,9 @@
                     <button
                       v-on:click="YouTube.cycleYouTube(lrc, lrcIndex)"
                       class="youtube-version-button btn-small"
-                    >Show Next</button>
+                    >
+                      Show Next
+                    </button>
                   </div>
                 </div>
               </div>
@@ -845,14 +965,17 @@
 <script>
 import Collocations from '@/components/Collocations.vue'
 import Decomposition from '@/components/Decomposition.vue'
+import SavedWords from '@/lib/saved-words'
 import SavedHSKWords from '@/lib/saved-hsk-words'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
 import SketchEngine from '@/lib/sketch-engine'
 import LRC from '@/lib/lrc'
+import Helper from '@/lib/helper'
 import WordPhotos from '@/lib/word-photos'
 import Grammar from '@/lib/grammar'
+import YouTube from '@/lib/youtube'
 import $ from 'jquery'
 
 export default {
@@ -871,6 +994,12 @@ export default {
       lrcs: [], // matched song lyrics, pulled from another server
       unsplashSrcs: [],
       unsplashSearchTerm: '',
+      SavedWords,
+      Helper,
+      HSK,
+      LRC,
+      Hanzi,
+      YouTube,
       entryKey: 0, // used to force re-render this component
       collocationsKey: 0,
       concordanceKey: 0,
@@ -961,14 +1090,13 @@ export default {
       $div.addClass('col-md-' + span)
     },
     show(entry) {
-      const app = this
-      app.entryKey += 1
-      app.entry = entry
-      app.characters = Hanzi.getCharactersInWord(entry.word)
-      app.characters.forEach(function(character) {
+      this.entryKey += 1
+      this.entry = entry
+      this.characters = Hanzi.getCharactersInWord(entry.word)
+      this.characters.forEach(function(character) {
         character.examples = HSK.lookupFuzzy(character.character)
       })
-      LRC.getLrcs(entry.word, function(lrcs) {
+      LRC.getLrcs(entry.word, lrcs => {
         lrcs.forEach(function(lrc) {
           lrc.matchedLines = []
           lrc.content.forEach(function(line, index) {
@@ -978,44 +1106,45 @@ export default {
           })
           lrc.currentYoutubeIndex = 1 // "Showing 1 of 23 videos..."
         })
-        app.lrcs = lrcs.sort(function(a, b) {
+        this.lrcs = lrcs.sort(function(a, b) {
           return (
             Object.keys(b.matchedLines).length -
             Object.keys(a.matchedLines).length
           )
         })
       })
-      SketchEngine.thesaurus(entry.word, function(response) {
+      SketchEngine.thesaurus(entry.word, response => {
         entry.related = []
         for (let Word of response.Words) {
           Word.hskCandidates = HSK.lookup(Word.word)
           Word.cedictCandidates = CEDICT.lookupSimplified(Word.word)
           entry.related.push(Word)
         }
-        app.relatedKey += 1
+        this.relatedKey += 1
       })
-      SketchEngine.wsketch(entry.word, function(response) {
+      SketchEngine.wsketch(entry.word, response => {
         entry.sketch = response
-        app.collocationsKey += 1
+        this.collocationsKey += 1
       })
-      SketchEngine.concordance(entry.word, function(response) {
+      SketchEngine.concordance(entry.word, response => {
         entry.examples = response.slice(0, 25)
-        app.concordanceKey += 1
+        this.concordanceKey += 1
       })
-      SketchEngine.mistakes(entry.word, function(response) {
+      SketchEngine.mistakes(entry.word, response => {
         entry.mistakes = response
-        app.mistakesKey += 1
+        this.mistakesKey += 1
       })
-      WordPhotos.getWebImages(entry.word, function(srcs) {
+      WordPhotos.getWebImages(entry.word, srcs => {
         entry.images = srcs
-        app.webImagesKey += 1
+        this.webImagesKey += 1
       })
       entry.grammarPoints = Grammar.lookupFuzzy(entry.word)
-      app.grammarKey += 1
-      app.getImage(entry)
-      app.suggestions = []
+      this.grammarKey += 1
+      this.getImage(entry)
+      this.suggestions = []
       $('#lookup').val(entry.word)
       $('.youtube iframe').remove() // Show new videos;
+      this.entry = entry
     },
     getImage() {
       var app = this

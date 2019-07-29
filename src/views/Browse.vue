@@ -12,7 +12,7 @@
             class="book"
             v-for="(book, bookIndex) in books"
             :data-book="bookIndex"
-            v-bind:key="bookIndex"
+            v-bind:key="'book-' + bookIndex"
           >
             <div
               class="book-title collapsed"
@@ -26,7 +26,7 @@
                 class="lesson"
                 v-for="(lesson, lessonIndex) in book"
                 :data-lesson="lessonIndex"
-                v-bind:key="lessonIndex"
+                v-bind:key="'lesson-' + lessonIndex"
               >
                 <div class="lesson-title collapsed" v-on:click="lessonClick">
                   Lesson {{ lessonIndex }}
@@ -35,7 +35,7 @@
                     class="tile"
                     :data-bg-hsk="bookIndex"
                     v-for="i in countWordsInLesson(lesson)"
-                    v-bind:key="i"
+                    v-bind:key="'lesson-tile-' + i"
                   ></span>
                 </div>
                 <ul class="dialogs collapsed">
@@ -43,7 +43,7 @@
                     class="dialog"
                     v-for="(dialog, dialogIndex) in lesson"
                     :data-dialog="dialogIndex"
-                    v-bind:key="dialogIndex"
+                    v-bind:key="'dialog-' + dialogIndex"
                   >
                     <div
                       class="dialog-title collapsed"
@@ -55,14 +55,14 @@
                         class="tile"
                         :data-bg-hsk="bookIndex"
                         v-for="(i, dialogIndex) in dialog"
-                        v-bind:key="dialogIndex"
+                        v-bind:key="'dialog-tile-' + dialogIndex"
                       ></span>
                     </div>
                     <ul class="browse-words collapsed">
                       <li
                         class="browse-words-item character-example"
                         v-for="word in dialog"
-                        v-bind:key="word.id"
+                        v-bind:key="'word-' + word.id"
                       >
                         <button
                           class="saved-words-item-star"

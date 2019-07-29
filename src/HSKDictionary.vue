@@ -150,6 +150,7 @@ export default {
       SavedHSKWords: SavedHSKWords,
       SavedCEDICTWords: SavedCEDICTWords,
       savedWordsKey: 0,
+      Helper,
       view:
         'browse' /* Default view is "browse words by course", can also set to "entry" (when viewing a word), or "saved-words" */
     }

@@ -66,7 +66,8 @@ export default {
   props: ['char'],
   data() {
     return {
-      id: 'decomposition-' + Helper.uniqueId()
+      id: 'decomposition-' + Helper.uniqueId(),
+      CEDICT
     }
   },
   mounted() {

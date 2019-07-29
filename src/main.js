@@ -9,6 +9,7 @@ import HSK from '@/lib/hsk'
 import Helper from '@/lib/helper'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/css/hsk-dictionary.css'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
@@ -22,10 +23,12 @@ let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
 })
 
 HSK.load(function() {
+  window.HSK = HSK
   loader.loaded('hsk')
 })
 
 CEDICT.load(function() {
+  window.CEDICT = CEDICT
   loader.loaded('cedict')
 })
 

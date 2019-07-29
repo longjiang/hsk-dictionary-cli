@@ -6,7 +6,8 @@ export default {
   loaderMessages: [],
   lastId: 0,
   uniqueId() {
-    return (this.lastId += 1)
+    this.lastId += 1
+    return this.lastId
   },
   isChinese(text) {
     return text.match(
