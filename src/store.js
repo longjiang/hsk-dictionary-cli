@@ -6,16 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    savedWords: SavedWords
+    savedWords: SavedWords.listShallow()
   },
   mutations: {
     ADD_SAVED_WORD(state, { method, args }) {
-      console.log('adding', method, args)
-      state.savedWords.add(method, args)
+      SavedWords.add(method, args)
+      state.savedWords = SavedWords.listShallow()
     },
     REMOVE_SAVED_WORD(state, { method, args }) {
-      console.log('removing', method, args)
-      state.savedWords.remove(method, args)
+      SavedWords.remove(method, args)
+      state.savedWords = SavedWords.listShallow()
     }
   },
   actions: {
@@ -28,10 +28,21 @@ export default new Vuex.Store({
   },
   getters: {
     hasSavedWord: state => ({ method, args }) => {
-      return state.savedWords.includes(method, args)
+      let yes = state.savedWords.find(item => {
+        for (let [index, arg] of item.args.entries()) {
+          if (arg !== args[index]) return false
+        }
+        return item.method === method
+      })
+      return yes
     },
     savedWordCount: state => () => {
-      return state.savedWords.count()
+      return state.savedWords.length
+    },
+    savedWords: state => () => {
+      return state.savedWords.map(({ method, args }) =>
+        SavedWords.augment(method, args)
+      )
     }
   }
 })

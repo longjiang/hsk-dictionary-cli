@@ -1,5 +1,5 @@
 <template>
-  <div class="main container mt-4 mb-4" :key="savedWordsKey" v-cloak>
+  <div class="main container mt-4 mb-4" v-cloak>
     <div class="row">
       <div class="col-sm-12">
         <h4>My Words</h4>
@@ -13,14 +13,14 @@
             class="upload-list btn btn-primary"
             v-on:click="showImportClick"
           >
-            <i class="glyphicon glyphicon-cloud-upload"></i> Import
-          </button>
+            <i class="glyphicon glyphicon-cloud-upload"></i> Import</button
+          >&nbsp;
           <button
             class="upload-list btn btn-primary"
             v-on:click="showExportClick"
           >
-            <i class="glyphicon glyphicon-cloud-download"></i> Export CSV
-          </button>
+            <i class="glyphicon glyphicon-cloud-download"></i> Export CSV</button
+          >&nbsp;
           <button class="remove-all btn btn-danger" v-on:click="removeAllClick">
             <i class="glyphicon glyphicon-trash"></i>
             Clear
@@ -66,33 +66,15 @@
         <ul class="saved-words">
           <li
             class="saved-words-item character-example"
-            v-for="word in HSK.getByIds(SavedHSKWords.getIdsSorted())"
+            v-for="word in savedWords()"
           >
-            <Star method="hsk" :args="[word.id]"></Star>
+            <Star :method="word.method" :args="word.args"></Star>
             <a :href="'#/view/hsk/' + word.id">
               <span class="character-example-word" :data-hsk="word.book">{{
-                word.word
-              }}</span>
-              <span class="character-example-pinyin">{{ word.pinyin }}</span>
-              <span class="character-example-english">{{ word.english }}</span>
-            </a>
-          </li>
-          <li
-            class="saved-words-item character-example"
-            v-for="word in CEDICT.getByList(SavedCEDICTWords.list())"
-          >
-            <Star
-              method="cedict"
-              :args="[word.traditional, word.pinyin]"
-            ></Star>
-            <a :href="`#/view/cedict/${word.traditional},${word.pinyin}`">
-              <span class="character-example-word" data-hsk="outside">{{
                 word.simplified
-              }}</span>
-              <span class="character-example-pinyin">{{ word.pinyin }}</span>
-              <span class="character-example-english">{{
-                word.definitions[0].text
-              }}</span>
+              }}</span>&nbsp;
+              <span class="character-example-pinyin">{{ word.pinyin }}</span>&nbsp;
+              <span class="character-example-english">{{ word.definitions[0].text }}</span>
             </a>
           </li>
         </ul>
@@ -129,6 +111,9 @@ export default {
     }
   },
   methods: {
+    savedWords() {
+      return this.$store.getters.savedWords()
+    },
     csv() {
       let SavedWords = this
       return (

@@ -81,6 +81,11 @@ export default {
       searchKey: 0
     }
   },
+  watch: {
+    $route () {
+      this.suggestions = []
+    }
+  },
   methods: {
     // ANCHOR img/anchors/saved-words-button.png
     lookupKeyupEnter() {

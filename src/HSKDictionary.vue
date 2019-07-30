@@ -163,7 +163,7 @@ export default {
     savedWordsCount() {
       let count = this.$store.getters.savedWordCount()
       // eslint-disable-next-line vue/no-parsing-error
-      return count ? count : '多'
+      return count < 100 ? count : '多'
     }
   },
   mounted() {

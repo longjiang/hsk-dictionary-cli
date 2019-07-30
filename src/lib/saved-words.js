@@ -16,27 +16,43 @@ export default {
   count() {
     return SavedHSKWords.count() + SavedCEDICTWords.count()
   },
-  list() {
-    const hskWords = SavedHSKWords.getIds().map(function(id) {
-      let hskWord = HSK.get(id)
-      hskWord.method = 'hsk'
-      const cedictWords = CEDICT.lookupSimplified(hskWord.word)
-      if (cedictWords && cedictWords.length > 0) {
-        hskWord = Object.assign(hskWord, cedictWords[0])
-      } else {
-        hskWord.simplified = hskWord.word
+  augment(method, args) {
+    if (method === 'hsk') {
+      let hskWord = HSK.get(args[0])
+      if (hskWord) {
+        hskWord.method = method
+        hskWord.args = args
+        const cedictWords = CEDICT.lookupSimplified(hskWord.word)
+        if (cedictWords && cedictWords.length > 0) {
+          hskWord = Object.assign(hskWord, cedictWords[0])
+        } else {
+          hskWord.simplified = hskWord.word
+          hskWord.definitions = [
+            {
+              type: 'definition',
+              definition: hskWord.english
+            }
+          ]
+        }
+        return hskWord
       }
-      return hskWord
-    })
-    const cedictWords = SavedCEDICTWords.list().map(function(item) {
+    } else if (method === 'cedict') {
       const cedictWord = Object.assign(
         { method: 'cedict' },
-        CEDICT.get(item[0], item[1])
+        CEDICT.get(...args)
       )
-      cedictWord.book = 'outside'
-      return cedictWord
+      if (cedictWord) {
+        cedictWord.method = method
+        cedictWord.args = args
+        cedictWord.book = 'outside'
+        return cedictWord
+      }
+    }
+  },
+  list() {
+    return this.listShallow().map(function({ method, args }) {
+      return this.augment(method, args)
     })
-    return hskWords.concat(cedictWords)
   },
   listShallow() {
     return SavedHSKWords.getIds()
