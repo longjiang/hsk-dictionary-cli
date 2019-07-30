@@ -22,7 +22,7 @@ export default {
       if (hskWord) {
         hskWord.method = method
         hskWord.args = args
-        const cedictWords = CEDICT.lookupSimplified(hskWord.word)
+        const cedictWords = CEDICT.lookupSimplified(hskWord.word, hskWord.pinyin)
         if (cedictWords && cedictWords.length > 0) {
           hskWord = Object.assign(hskWord, cedictWords[0])
         } else {
