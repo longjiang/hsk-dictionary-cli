@@ -103,6 +103,7 @@ import Learn from '@/views/Learn.vue'
 import HSK from '@/lib/hsk'
 import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
+import AnnotatorService from '@/vendor/annotator-js/js/annotator-service'
 
 export default {
   template: '#saved-words-template',
@@ -180,9 +181,8 @@ export default {
         .val()
         .split('\n')
       // eslint-disable-next-line no-undef
-      const annotatorService = AnnotatorService(CEDICT)
       for (let line of lines) {
-        annotatorService.annotate(line, function(annotated) {
+        AnnotatorService.annotate(line, annotated => {
           for (let candidates of annotated) {
             for (let candidate of candidates) {
               if (candidate.pinyin) {

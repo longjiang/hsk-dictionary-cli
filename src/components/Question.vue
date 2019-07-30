@@ -1,8 +1,8 @@
 <template>
-  <div class="question" :id="`${id}`">
+  <div class="question" :id="id">
     <div class="question-fill-in-the-blank" v-if="type === 'fill-in-the-blank'">
       <div class="question-slide-aspect">
-        <div class="question-slide" :id="`question-${id}-slide-1`">
+        <div class="question-slide" :id="`${id}-slide-1`">
           <div class="question-prompt mb-4">
             How do you write this character?
           </div>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="question-slide-aspect">
-        <div class="question-slide answer" :id="`question-${id}-slide-2`">
+        <div class="question-slide answer" :id="`${id}-slide-2`">
           <div class="text-center big-word-pinyin" :data-hsk="word.book">
             {{ word.pinyin }}
           </div>
@@ -35,7 +35,7 @@
       v-if="word.example && type === 'make-a-sentence'"
     >
       <div class="question-slide-aspect">
-        <div class="question-slide" :id="`question-${id}-slide-1`">
+        <div class="question-slide" :id="`${id}-slide-1`">
           <div class="question-prompt mb-4">
             How do you use this word in a sentence?
           </div>
@@ -43,7 +43,7 @@
             <button
               class="show-more mb-1"
               v-on:click="Helper.showPinyinClick"
-              :data-target-selector="`#question-${id}-slide-1 .big-word`"
+              :data-target-selector="`#${id}-slide-1 .big-word`"
             >
               Show Pinyin
             </button>
@@ -58,21 +58,19 @@
         </div>
       </div>
       <div class="question-slide-aspect">
-        <div class="question-slide answer" :id="`question-${id}-slide-2`">
+        <div class="question-slide answer" :id="`${id}-slide-2`">
           <div>
             <button
               class="show-more mb-4"
               v-on:click="Helper.showPinyinClick"
-              :data-target-selector="
-                `#question-${id}-slide-2 .example-sentence`
-              "
+              :data-target-selector="`#${id}-slide-2 .example-sentence`"
             >
               Show Pinyin
             </button>
           </div>
           <div
             class="text-center example-sentence-word example-sentence"
-            v-html="Helper.highlight(word.example, word.word, word.book)"
+            v-html="Helper.highlight(word.example, word.simplified, word.book)"
           >
             {{ word.example }}
           </div>
@@ -99,7 +97,6 @@
               class="decomposition-after"
               v-if="rc.after !== ''"
               v-html="Helper.highlight(rc.after, rc.after, word.book)"
-              v-on:click="decompositionClick"
             ></span>
           </div>
         </div>
@@ -112,7 +109,9 @@
           <div :data-hsk="word.book" class="text-center big-word-pinyin">
             {{ word.pinyin }}
           </div>
-          <div class="big-word" :data-hsk="word.book">{{ word.word }}</div>
+          <div class="big-word" :data-hsk="word.book">
+            {{ word.simplified }}
+          </div>
         </div>
       </div>
     </div>
@@ -131,7 +130,7 @@
             <button
               class="show-more mb-1"
               v-on:click="Helper.showPinyinClick"
-              :data-target-selector="`#question-${id}-slide-1 .big-word`"
+              :data-target-selector="`#${id}-slide-1 .big-word`"
             >
               Show Pinyin
             </button>
@@ -154,16 +153,18 @@
 
 <script>
 import Decomposition from './Decomposition.vue'
+import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
-  template: '#question-template',
   props: ['id', 'word', 'type'],
   components: {
     decomposition: Decomposition
   },
   data() {
-    return {}
+    return {
+      Helper
+    }
   },
   mounted() {
     $(`#${this.id} .decomposition`).each(function() {

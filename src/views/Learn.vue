@@ -1,9 +1,9 @@
 <template>
   <div class="main mt-4 mb-4 container" v-cloak>
     <div class="row">
-      <div class="col-sm-12" :key="learnKey">
+      <div class="col-sm-12">
         <div id="questions-wrapper">
-          <div v-if="!shown" class="questions-prompt">
+          <div v-if="!started" class="questions-prompt">
             <h4 class="page-title">Learn Words</h4>
             <p>Get familiar with words by engaging with them.</p>
             <button
@@ -14,7 +14,7 @@
               Start Learning
             </button>
           </div>
-          <div v-if="shown" id="questions">
+          <div v-if="started" id="questions">
             <div class="questions-prompt">
               <div class="prompt">
                 <b>Keep scrolling down</b> for questions and answers
@@ -24,8 +24,8 @@
             <Question
               :type="randomQuestionType()"
               v-for="(word, index) in words"
-              :word="word"
               :id="`question-${Helper.uniqueId()}`"
+              :word="word"
             ></Question>
             <div class="questions-prompt">
               <div class="prompt">
@@ -64,9 +64,7 @@ export default {
   data() {
     return {
       Helper,
-      learnKey: 0, // used to force re-render this component
       started: false,
-      shown: false,
       words: [],
       questionTypes: [
         'fill-in-the-blank',
@@ -86,21 +84,16 @@ export default {
       const words = this.$store.state.savedWords.map(([traditional, pinyin]) =>
         Normalizer.normalize(CEDICT.get(traditional, pinyin))
       )
-      this.started = true
-      this.learnKey += 1
+      this.words = []
       if (words.length > 0) {
-        this.words = []
-        this.loadWordSketches(words, words => {
-          this.words = words
-          this.shown = true
-          this.learnKey += 1
-          $([document.documentElement, document.body]).animate(
-            {
-              scrollTop: $('#questions-wrapper').offset().top
-            },
-            1000
-          )
-        })
+        this.started = true
+        this.words = words
+        $([document.documentElement, document.body]).animate(
+          {
+            scrollTop: $('#questions-wrapper').offset().top
+          },
+          1000
+        )
       }
     },
     loadWordSketches(words, callback) {
