@@ -3,6 +3,7 @@ import CEDICT from './cedict'
 import SavedHSKWords from './saved-hsk-words'
 import SavedCEDICTWords from './saved-cedict-words'
 import SavedWords from './saved-words'
+import Word from './word'
 import $ from 'jquery'
 
 export default {
@@ -15,39 +16,6 @@ export default {
   },
   count() {
     return SavedHSKWords.count() + SavedCEDICTWords.count()
-  },
-  augment(method, args) {
-    if (method === 'hsk') {
-      let hskWord = HSK.get(args[0])
-      if (hskWord) {
-        hskWord.method = method
-        hskWord.args = args
-        const cedictWords = CEDICT.lookupSimplified(hskWord.word, hskWord.pinyin)
-        if (cedictWords && cedictWords.length > 0) {
-          hskWord = Object.assign(hskWord, cedictWords[0])
-        } else {
-          hskWord.simplified = hskWord.word
-          hskWord.definitions = [
-            {
-              type: 'definition',
-              definition: hskWord.english
-            }
-          ]
-        }
-        return hskWord
-      }
-    } else if (method === 'cedict') {
-      const cedictWord = Object.assign(
-        { method: 'cedict' },
-        CEDICT.get(...args)
-      )
-      if (cedictWord) {
-        cedictWord.method = method
-        cedictWord.args = args
-        cedictWord.book = 'outside'
-        return cedictWord
-      }
-    }
   },
   list() {
     return this.listShallow().map(function({ method, args }) {

@@ -158,7 +158,6 @@ export default {
       this.entryKey += 1
       this.entry = entry
       WordPhotos.getWebImages(entry.simplified, srcs => {
-        console.log(srcs)
         this.entry.images = srcs
         this.webImagesKey += 1
       })
@@ -173,50 +172,59 @@ export default {
           utterance.lang = 'zh-CN'
           speechSynthesis.speak(utterance)
         })
-    }
-  },
-  mounted() {
-    if (this.$route.params.method && this.$route.params.args) {
-      const method = this.$route.params.method
-      const args = this.$route.params.args.split(',')
-      if (method == 'hsk') {
-        if (args.length > 0) {
-          const id = args[0]
-          let entry = HSK.get(id)
-          if (!entry) {
-            location.hash = '/'
-            return
-          }
-          entry.simplified = entry.word
-          entry.definitions = [entry.english]
-          entry.method = method
-          entry.args = args
-          const cedictCandidates = CEDICT.lookupSimplified(
-            entry.simplified,
-            entry.pinyin
-          )
-          if (cedictCandidates.length === 1) {
-            entry = Object.assign(entry, cedictCandidates[0])
-          }
-          this.show(entry)
-        }
-      } else if (method === 'cedict') {
-        if (args.length > 0) {
-          const traditional = args[0]
-          const pinyin = args[1]
-          let entry = CEDICT.get(traditional, pinyin)
-          if (entry) {
-            entry.book = 'outside'
+    },
+    route() {
+      console.log('routing')
+      if (this.$route.params.method && this.$route.params.args) {
+        const method = this.$route.params.method
+        const args = this.$route.params.args.split(',')
+        if (method == 'hsk') {
+          if (args.length > 0) {
+            const id = args[0]
+            let entry = HSK.get(id)
+            if (!entry) {
+              location.hash = '/'
+              return
+            }
+            entry.simplified = entry.word
+            entry.definitions = [entry.english]
             entry.method = method
             entry.args = args
+            const cedictCandidates = CEDICT.lookupSimplified(
+              entry.simplified,
+              entry.pinyin
+            )
+            if (cedictCandidates.length === 1) {
+              entry = Object.assign(entry, cedictCandidates[0])
+            }
             this.show(entry)
-          } else {
-            location.hash = '/'
-            return
+          }
+        } else if (method === 'cedict') {
+          if (args.length > 0) {
+            const traditional = args[0]
+            const pinyin = args[1]
+            let entry = CEDICT.get(traditional, pinyin)
+            if (entry) {
+              entry.book = 'outside'
+              entry.method = method
+              entry.args = args
+              this.show(entry)
+            } else {
+              location.hash = '/'
+              return
+            }
           }
         }
       }
     }
+  },
+  watch: {
+    $route() {
+      this.route()
+    }
+  },
+  mounted() {
+    this.route()
   },
   updated() {
     const app = this

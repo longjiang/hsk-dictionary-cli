@@ -86,7 +86,10 @@
 import SavedWords from '@/lib/saved-words'
 import SavedHSKWords from '@/lib/saved-hsk-words'
 import HSK from '@/lib/hsk'
+import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
+import List from '@/lib/list'
+import Word from '@/lib/word'
 
 export default {
   props: ['entry'],
@@ -99,50 +102,45 @@ export default {
   },
   computed: {
     hasPrevious: function() {
-      var thisId = parseInt(this.entry.id)
-      if (SavedHSKWords.count() < 2) {
-        return HSK.hasPrevious(thisId)
-      } else {
-        let i = SavedHSKWords.getIdsSorted().indexOf(thisId.toString())
-        return i > 0
-      }
+      return this.list().hasPrevious()
     },
     hasNext: function() {
-      var thisId = parseInt(this.entry.id)
-      if (SavedHSKWords.count() < 2) {
-        return HSK.hasNext(thisId)
-      } else {
-        let i = SavedHSKWords.getIdsSorted().indexOf(thisId.toString())
-        return i + 1 < SavedHSKWords.count()
-      }
+      return this.list().hasNext()
     }
   },
   methods: {
-    previousClick() {
-      var thisId = parseInt(this.entry.id)
-      var previousId
-      if (SavedHSKWords.count() < 2) {
-        previousId = Math.max(HSK.first(), thisId - 1)
-      } else {
-        const savedIds = SavedHSKWords.getIdsSorted()
-        let i = savedIds.indexOf(thisId.toString())
-        var previousIndex = Math.max(0, i - 1)
-        previousId = savedIds[previousIndex]
+    f(entry) {
+      return function(item) {
+        return (
+          item.simplified === entry.simplified &&
+          item.pinyin.replace(/\s/g, '').toLowerCase() ===
+            entry.pinyin.replace(/\s/g, '').toLowerCase()
+        )
       }
-      location.hash = 'view/hsk/' + previousId
+    },
+    list() {
+      const savedWords = this.$store.getters.savedWords()
+      if (savedWords.length > 0) {
+        const list = new List(savedWords)
+        list.setCurrent(this.f(this.entry))
+        return list
+      }
+    },
+    previousClick() {
+      let list = this.list()
+      if (list.hasPrevious()) {
+        const args = Word.getArgs(this.entry.method, list.previous())
+        const previousWord = new Word(this.entry.method, args)
+        location.hash = `/view/${this.entry.method}/${previousWord.args.join(',')}`
+      }
     },
     nextClick() {
-      let thisId = parseInt(this.entry.id)
-      let nextId
-      if (SavedHSKWords.count() < 2) {
-        nextId = Math.min(HSK.last(), thisId + 1)
-      } else {
-        const savedIds = SavedHSKWords.getIdsSorted()
-        let i = savedIds.indexOf(thisId.toString())
-        let nextIndex = Math.min(SavedHSKWords.count() - 1, i + 1)
-        nextId = savedIds[nextIndex]
+      let list = this.list()
+      if (list.hasNext()) {
+        const args = Word.getArgs(this.entry.method, list.next())
+        const nextWord = new Word(this.entry.method, args)
+        location.hash = `/view/${this.entry.method}/${nextWord.args.join(',')}`
       }
-      location.hash = 'view/hsk/' + nextId
     }
   }
 }

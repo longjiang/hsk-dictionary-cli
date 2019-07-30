@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import SavedWords from '@/lib/saved-words'
+import Word from '@/lib/word'
 
 Vue.use(Vuex)
 
@@ -40,9 +41,7 @@ export default new Vuex.Store({
       return state.savedWords.length
     },
     savedWords: state => () => {
-      return state.savedWords.map(({ method, args }) =>
-        SavedWords.augment(method, args)
-      )
+      return state.savedWords.map(({ method, args }) => new Word(method, args))
     }
   }
 })

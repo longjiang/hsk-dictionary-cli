@@ -87,7 +87,11 @@ export default {
   lookup: function(word, pinyin = false) {
     return this._standardCourseData.filter(function(row) {
       if (row.word == word && !row.oofc) {
-        if (!pinyin || row.pinyin == pinyin) {
+        if (
+          !pinyin ||
+          row.pinyin.replace(/\s/g, '').toLowerCase() ===
+            pinyin.replace(/\s/g, '').toLowerCase()
+        ) {
           return true
         }
       }
