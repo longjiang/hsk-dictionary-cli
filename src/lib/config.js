@@ -5,5 +5,6 @@ export default {
   sketchEngineProxy: server + 'sketch-engine-proxy.php',
   proxy: server + 'proxy.php',
   listPhotos: server + 'list-photos.php',
-  savePhoto: server + 'save-photo.php'
+  savePhoto: server + 'save-photo.php',
+  imageUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/img/words/'
 }

@@ -1063,7 +1063,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
 }
 
 .question-slide-aspect {
-  padding-bottom: calc(100vh - 25rem);
+  padding-bottom: calc(100vh);
   position: relative;
   margin-bottom: 1rem;
 }
@@ -1326,4 +1326,12 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
 
 .show-answer .part.hide:after {
   content: "";
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 40vh;
+  transform: rotate(-2deg);
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+  border: 0.5rem solid white;
 }

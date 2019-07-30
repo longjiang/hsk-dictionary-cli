@@ -11,11 +11,11 @@ export default {
       callback
     )
   },
-  getPhoto(entry, success, fail) {
-    var imagePath = 'img/words/' + entry.id + '-' + entry.word + '.jpg'
-    $.ajax(imagePath)
+  getPhoto(simplified, id, success, fail) {
+    var url = Config.imageUrl + id + '-' + simplified + '.jpg'
+    $.ajax(url)
       .done(function() {
-        success(imagePath)
+        success(url)
       })
       .fail(function() {
         fail()

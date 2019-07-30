@@ -32,7 +32,7 @@
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
             <Question
-              :type="randomQuestionType()"
+              :type="`make-a-sentence`"
               v-for="(word, index) in words"
               :id="`question-${Helper.uniqueId()}`"
               :word="word"
