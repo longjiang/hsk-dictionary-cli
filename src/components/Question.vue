@@ -14,8 +14,8 @@
             :data-hsk="word.book"
             v-html="fillInTheBlankHTML(word.simplified)"
           ></div>
-          <div class="text-center big-word-definition mt-4">
-            {{ word.english || word.definitions[0].text }}
+          <div class="text-center character-example-english mt-4">
+            {{ word.definitions[0].text }}
           </div>
         </div>
       </div>

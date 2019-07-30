@@ -49,7 +49,7 @@ export default {
         definitions: [
           {
             type: 'definition',
-            definition: hskWord.english
+            text: hskWord.english
           }
         ]
       })

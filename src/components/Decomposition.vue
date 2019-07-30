@@ -122,9 +122,13 @@ export default {
               childCharacter.character
             }</a></div>`)
           }
-          node.selector = `${node.parent.selector} > .description-${
-            node.parent.character
-          } > .part-${node.parent.character}-${node.index + 1}`
+          if (node.parent) {
+            node.selector = `${node.parent.selector} > .description-${
+              node.parent.character
+            } > .part-${node.parent.character}-${node.index + 1}`
+          } else {
+            node.selector = `${selector}`
+          }
           $(node.selector).append($template)
         }
       })
