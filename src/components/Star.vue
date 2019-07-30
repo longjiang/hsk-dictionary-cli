@@ -44,18 +44,16 @@ export default {
       })
     },
     saveWordClick() {
-      this.$store
-        .dispatch('addSavedWord', { method: this.method, args: this.args })
-        .then(() => {
-          this.$forceUpdate()
-        })
+      this.$store.dispatch('addSavedWord', {
+        method: this.method,
+        args: this.args
+      })
     },
     removeWordClick() {
-      this.$store
-        .dispatch('removeSavedWord', { method: this.method, args: this.args })
-        .then(() => {
-          this.$forceUpdate()
-        })
+      this.$store.dispatch('removeSavedWord', {
+        method: this.method,
+        args: this.args
+      })
     }
   }
 }

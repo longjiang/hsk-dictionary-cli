@@ -102,10 +102,20 @@ export default {
   },
   computed: {
     hasPrevious: function() {
-      return this.list().hasPrevious()
+      const list = this.list()
+      if (list) {
+        return list.hasPrevious()
+      } else {
+        return false
+      }
     },
     hasNext: function() {
-      return this.list().hasNext()
+      const list = this.list()
+      if (list) {
+        return list.hasNext()
+      } else {
+        return false
+      }
     }
   },
   methods: {
@@ -131,7 +141,9 @@ export default {
       if (list.hasPrevious()) {
         const args = Word.getArgs(this.entry.method, list.previous())
         const previousWord = new Word(this.entry.method, args)
-        location.hash = `/view/${this.entry.method}/${previousWord.args.join(',')}`
+        location.hash = `/view/${this.entry.method}/${previousWord.args.join(
+          ','
+        )}`
       }
     },
     nextClick() {

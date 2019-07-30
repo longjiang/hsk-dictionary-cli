@@ -17,6 +17,10 @@ export default new Vuex.Store({
     REMOVE_SAVED_WORD(state, { method, args }) {
       SavedWords.remove(method, args)
       state.savedWords = SavedWords.listShallow()
+    },
+    REMOVE_ALL_SAVED_WORDS(state) {
+      SavedWords.removeAll()
+      state.savedWords = []
     }
   },
   actions: {
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     },
     removeSavedWord({ commit }, { method, args }) {
       commit('REMOVE_SAVED_WORD', { method, args })
+    },
+    removeAllSavedWords({ commit }) {
+      commit('REMOVE_ALL_SAVED_WORDS')
     }
   },
   getters: {

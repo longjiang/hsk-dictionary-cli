@@ -47,6 +47,10 @@ export default {
       SavedCEDICTWords.remove(...args)
     }
   },
+  removeAll() {
+    SavedHSKWords.removeAll()
+    SavedCEDICTWords.removeAll()
+  },
   blinkedSavedWordsButton() {
     $('.tab-saved-words').removeClass('blink')
     setTimeout(() => {

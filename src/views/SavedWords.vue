@@ -72,9 +72,13 @@
             <a :href="'#/view/hsk/' + word.id">
               <span class="character-example-word" :data-hsk="word.book">{{
                 word.simplified
-              }}</span>&nbsp;
-              <span class="character-example-pinyin">{{ word.pinyin }}</span>&nbsp;
-              <span class="character-example-english">{{ word.definitions[0].text }}</span>
+              }}</span
+              >&nbsp;
+              <span class="character-example-pinyin">{{ word.pinyin }}</span
+              >&nbsp;
+              <span class="character-example-english">{{
+                word.definitions[0].text
+              }}</span>
             </a>
           </li>
         </ul>
@@ -163,8 +167,7 @@ export default {
         'Are you sure you want to remove all your saved words?'
       )
       if (confirmed) {
-        SavedHSKWords.removeAll()
-        SavedCEDICTWords.removeAll()
+        this.$store.dispatch('removeAllSavedWords')
       }
       SavedWords.updateSavedWordsDisplay()
       this.savedWordsKey += 1 // force re-render this component
