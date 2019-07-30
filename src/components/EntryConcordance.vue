@@ -56,7 +56,7 @@ export default {
       concordanceKey: 0
     }
   },
-  updated() {
+  mounted() {
     SketchEngine.concordance(this.entry.simplified, response => {
       this.entry.examples = response.slice(0, 25)
       this.concordanceKey += 1

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mistakes" :key="'mistakes' + mistakesKey">
+  <div class="container mistakes" :key="'mistakes-' + mistakesKey">
     <div class="row mb-5" v-if="entry.mistakes && entry.mistakes.length > 0">
       <div class="col-sm-12">
         <div class="label song-label mb-2 mistakes-label">
@@ -93,16 +93,19 @@
 
 <script>
 import SketchEngine from '@/lib/sketch-engine'
+import Helper from '@/lib/helper'
 
 export default {
   props: ['entry'],
   data() {
     return {
+      Helper,
       mistakesKey: 0
     }
   },
   mounted() {
     SketchEngine.mistakes(this.entry.simplified, response => {
+      console.log(response, 'entrymistake vue response')
       this.entry.mistakes = response
       this.mistakesKey += 1
     })

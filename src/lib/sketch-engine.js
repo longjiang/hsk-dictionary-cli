@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import Helper from './helper'
 import Config from './config'
+import SketchEngine from './sketch-engine'
 
 export default {
   corpname: 'preloaded/zhtenten17_simplified_stf2',
@@ -139,7 +140,6 @@ export default {
     )
   },
   mistakes(term, callback) {
-    let SketchEngine = this
     $.post(
       `${
         Config.sketchEngineProxy
@@ -176,7 +176,6 @@ export default {
         })
       },
       function(response) {
-        let SketchEngine = this
         try {
           const data = JSON.parse(response).data
           let results = []
@@ -223,6 +222,7 @@ export default {
                 l1: refs['=u.l1']
               })
             } catch (err) {
+              console.log(err)
               // catch errors
             }
           }

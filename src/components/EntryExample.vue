@@ -119,7 +119,7 @@ export default {
     getImage() {
       WordPhotos.getPhoto(
         this.entry,
-        (imagePath) => {
+        imagePath => {
           this.image = imagePath
           this.hasImage = true
         },
