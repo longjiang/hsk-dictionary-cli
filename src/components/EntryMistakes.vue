@@ -105,7 +105,6 @@ export default {
   },
   mounted() {
     SketchEngine.mistakes(this.entry.simplified, response => {
-      console.log(response, 'entrymistake vue response')
       this.entry.mistakes = response
       this.mistakesKey += 1
     })

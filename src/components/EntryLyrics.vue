@@ -56,7 +56,7 @@
                       'matched-context': LRC.inContext(lineIndex, 2, lrc)
                     }"
                     v-on:click="YouTube.seekYouTube(lrc, line.starttime)"
-                    v-html="highlight(line.line)"
+                    v-html="Helper.highlight(line.line, entry.simplified, entry.book)"
                   ></div>
                 </div>
                 <button
@@ -121,15 +121,38 @@
 
 <script>
 import $ from 'jquery'
+import LRC from '@/lib/lrc'
+import Helper from '@/lib/helper'
+import YouTube from '@/lib/youtube'
 
 export default {
   props: ['entry'],
   data() {
     return {
+      Helper,
+      LRC,
+      YouTube,
       lrcs: [] // matched song lyrics, pulled from another server
     }
   },
   mounted() {
+    LRC.getLrcs(this.entry.simplified, lrcs => {
+      for (let lrc of lrcs) {
+        lrc.matchedLines = []
+        for (let [index, line] of lrc.content.entries()) {
+          if (line.line.includes(this.entry.simplified)) {
+            lrc.matchedLines.push(index)
+          }
+        }
+        lrc.currentYoutubeIndex = 1 // "Showing 1 of 23 videos..."
+      }
+      this.lrcs = lrcs.sort(function(a, b) {
+        return (
+          Object.keys(b.matchedLines).length -
+          Object.keys(a.matchedLines).length
+        )
+      })
+    })
     $('.youtube iframe').remove() // Show new videos;
   }
 }

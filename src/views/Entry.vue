@@ -162,23 +162,6 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
-      LRC.getLrcs(entry.simplified, lrcs => {
-        lrcs.forEach(function(lrc) {
-          lrc.matchedLines = []
-          lrc.content.forEach(function(line, index) {
-            if (line.line.includes(entry.simplified)) {
-              lrc.matchedLines.push(index)
-            }
-          })
-          lrc.currentYoutubeIndex = 1 // "Showing 1 of 23 videos..."
-        })
-        this.lrcs = lrcs.sort(function(a, b) {
-          return (
-            Object.keys(b.matchedLines).length -
-            Object.keys(a.matchedLines).length
-          )
-        })
-      })
       WordPhotos.getWebImages(entry.simplified, srcs => {
         entry.images = srcs
         this.webImagesKey += 1
