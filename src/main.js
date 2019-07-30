@@ -3,7 +3,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/css/hsk-dictionary.css'
 import '@/vendor/css-spinners/spinner/heartbeat.css'
 import '@/vendor/annotator-js/css/annotator.css'
-import '@/vendor/annotator-js/css/tipped.css'
 import Vue from 'vue'
 import HSKDictionary from './HSKDictionary.vue'
 import router from './router'
@@ -23,7 +22,7 @@ Vue.component('Star', Star)
 
 let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')
-  new Vue({
+  window.hskDictionaryApp = new Vue({
     router,
     store,
     render: h => h(HSKDictionary)

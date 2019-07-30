@@ -100,6 +100,7 @@
 import $ from 'jquery'
 import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
+import Annotator from '@/vendor/annotator-js/js/annotator'
 
 const Reader = {
   get() {

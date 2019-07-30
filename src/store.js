@@ -12,7 +12,10 @@ export default new Vuex.Store({
     ADD_SAVED_WORD(state, { traditional, pinyin }) {
       if (
         !state.savedWords.find(
-          item => item.traditional === traditional && item.pinyin === pinyin
+          item =>
+            item.traditional === traditional &&
+            item.pinyin.replace(/\s/g, '').toLowerCase() ===
+              pinyin.replace(/\s/g, '').toLowerCase()
         )
       ) {
         state.savedWords.push([traditional, pinyin])
@@ -39,14 +42,17 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addSavedWord({ commit }, { traditional, pinyin }) {
+    addSavedWord({ commit, dispatch }, { traditional, pinyin }) {
       commit('ADD_SAVED_WORD', { traditional, pinyin })
+      dispatch('updateSavedWordsDisplay')
     },
-    removeSavedWord({ commit }, { traditional, pinyin }) {
+    removeSavedWord({ commit, dispatch }, { traditional, pinyin }) {
       commit('REMOVE_SAVED_WORD', { traditional, pinyin })
+      dispatch('updateSavedWordsDisplay')
     },
-    removeAllSavedWords({ commit }) {
+    removeAllSavedWords({ commit, dispatch }) {
       commit('REMOVE_ALL_SAVED_WORDS')
+      dispatch('updateSavedWordsDisplay')
     },
     blinkedSavedWordsButton() {
       $('.tab-saved-words').removeClass('blink')
@@ -54,17 +60,24 @@ export default new Vuex.Store({
         $('.tab-saved-words').addClass('blink')
       }, 500)
     },
-    updateSavedWordsDisplay() {
-      $('.word-block[data-method][data-args]').each(function() {
-        let method = $(this).attr('data-method')
-        let args = JSON.parse(unescape($(this).attr('data-args')))
-        if (this.$store.getters.hasSavedWord.includes(method, args)) {
-          $(this).addClass('saved')
-        } else {
-          $(this).removeClass('saved')
+    updateSavedWordsDisplay({ dispatch, getters }) {
+      $('.word-block[data-candidates]').each(function() {
+        let candidates = JSON.parse(unescape($(this).attr('data-candidates')))
+        for (let candidate of candidates) {
+          console.log(candidate)
+          if (
+            getters.hasSavedWord({
+              traditional: candidate.traditional,
+              pinyin: candidate.pinyin
+            })
+          ) {
+            $(this).addClass('saved')
+          } else {
+            $(this).removeClass('saved')
+          }
         }
       })
-      this.blinkedSavedWordsButton()
+      dispatch('blinkedSavedWordsButton')
     }
   },
   getters: {

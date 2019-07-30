@@ -77,7 +77,10 @@ export default {
           $(this).attr('data-method', candidate.method)
           $(this).attr('data-args', escape(JSON.stringify(candidate.args)))
           if (
-            this.$store.getters.hasSavedWord(candidate.method, candidate.args)
+            window.hskDictionaryApp.$store.getters.hasSavedWord(
+              candidate.method,
+              candidate.args
+            )
           ) {
             $(this).addClass('saved')
           }
@@ -86,12 +89,12 @@ export default {
         }
         $(this).click(function() {
           if ($(this).hasClass('saved')) {
-            this.$store.dispatch('removeSavedWord', {
+            window.hskDictionaryApp.$store.dispatch('removeSavedWord', {
               traditional: candidate.traditional,
               pinyin: candidate.pinyin
             })
           } else {
-            this.$store.dispatch('addSavedWord', {
+            window.hskDictionaryApp.$store.dispatch('addSavedWord', {
               traditional: candidate.traditional,
               pinyin: candidate.pinyin
             })
