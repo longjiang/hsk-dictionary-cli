@@ -35,6 +35,17 @@ export default {
     })
     return hskWords.concat(cedictWords)
   },
+  listShallow() {
+    return SavedHSKWords.getIds()
+      .map(id => {
+        return { method: 'hsk', args: [id] }
+      })
+      .concat(
+        SavedCEDICTWords.list().map(function(args) {
+          return { method: 'cedict', args: args }
+        })
+      )
+  },
   add(method, args) {
     if (method === 'hsk') {
       SavedHSKWords.add(args[0])
@@ -67,7 +78,7 @@ export default {
       if (window.hskDictionaryApp.$refs.savedWords) {
         window.hskDictionaryApp.$refs.savedWords.savedWordsKey += 1
       }
-    } catch(err) {
+    } catch (err) {
       console.log('Error in SavedWords.updateSavedWordsDisplay()')
       console.log(err)
     }

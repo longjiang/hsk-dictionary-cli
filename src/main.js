@@ -14,6 +14,7 @@ import Grammar from '@/lib/grammar'
 import HSK from '@/lib/hsk'
 import Helper from '@/lib/helper'
 import Star from '@/components/Star'
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
@@ -24,6 +25,7 @@ let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')
   new Vue({
     router,
+    store,
     render: h => h(HSKDictionary)
   }).$mount('#hsk-dictionary')
 })

@@ -1,8 +1,8 @@
 <template>
-  <div class="toggle-saved-word" :key="'savedWord' + id">
+  <div class="toggle-saved-word">
     <button
       class="saved-words-item-star remove-word"
-      v-if="saved"
+      v-if="saved()"
       v-on:click="removeWordClick"
       title="Remove word"
     >
@@ -10,7 +10,7 @@
     </button>
     <button
       class="saved-words-item-star add-word"
-      v-if="!saved"
+      v-if="!saved()"
       v-on:click="saveWordClick"
       title="Add word"
     >
@@ -29,7 +29,6 @@ export default {
   props: ['method', 'args'],
   data() {
     return {
-      saved: false,
       id: Helper.uniqueId(),
       SavedWords,
       SavedHSKWords,
@@ -37,26 +36,26 @@ export default {
       Helper
     }
   },
-  mounted() {
-    if (this.method && this.args) {
-      this.saved = SavedWords.includes(this.method, this.args)
-    }
-  },
   methods: {
-    saveWordClick: () => {
-      console.log('saving?')
-      console.log(this)
-      SavedWords.add(this.method, this.args)
+    saved() {
+      return this.$store.getters.hasSavedWord({
+        method: this.method,
+        args: this.args
+      })
     },
-    removeWordClick: () => {
-      console.log('removing?')
-      console.log(this.method)
-      SavedWords.remove(this.method, this.args)
+    saveWordClick() {
+      this.$store
+        .dispatch('addSavedWord', { method: this.method, args: this.args })
+        .then(() => {
+          this.$forceUpdate()
+        })
     },
-    update() {
-      this.saved = SavedWords.includes(this.method, this.args)
-      this.id = Helper.uniqueId()
-      SavedWords.updateSavedWordsDisplay()
+    removeWordClick() {
+      this.$store
+        .dispatch('removeSavedWord', { method: this.method, args: this.args })
+        .then(() => {
+          this.$forceUpdate()
+        })
     }
   }
 }
