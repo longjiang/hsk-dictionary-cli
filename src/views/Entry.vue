@@ -53,7 +53,9 @@
 
     <EntryExample :entry="entry"></EntryExample>
 
-    <div class="container" :key="'web-images-' + webImagesKey" v-cloak>
+    <EntryCharacters :entry="entry"></EntryCharacters>
+
+    <div class="container" :key="webImagesKey" v-cloak>
       <div class="row mt-5 mb-5" v-if="entry.images && entry.images.length > 0">
         <div class="col-sm-12">
           <div class="image-wall">
@@ -69,8 +71,6 @@
         </div>
       </div>
     </div>
-
-    <EntryCharacters :entry="entry"></EntryCharacters>
 
     <EntryGrammar :entry="entry"></EntryGrammar>
 
@@ -158,7 +158,8 @@ export default {
       this.entryKey += 1
       this.entry = entry
       WordPhotos.getWebImages(entry.simplified, srcs => {
-        entry.images = srcs
+        console.log(srcs)
+        this.entry.images = srcs
         this.webImagesKey += 1
       })
       $('#lookup').val(entry.simplified)

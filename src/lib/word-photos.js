@@ -1,15 +1,13 @@
 import $ from 'jquery'
 import Helper from './helper'
+import Config from './config'
 
 export default {
   savePhoto(word, url, callback) {
     $.getJSON(
-      'save-photo.php?id=' +
-        word.id +
-        '&word=' +
-        word.word +
-        '&url=' +
-        encodeURIComponent(url),
+      `${Config.savePhoto}?id=${word.id}&word=${
+        word.word
+      }&url=${encodeURIComponent(url)}`,
       callback
     )
   },
@@ -26,7 +24,9 @@ export default {
   // strWord = "视频"
   getWebImages(strWord, callback) {
     $.getJSON(
-      `proxy.php?http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
+      `${
+        Config.proxy
+      }?http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
       function(response) {
         let srcs = []
         response.data.list.forEach(function(item) {
