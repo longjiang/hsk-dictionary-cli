@@ -62,6 +62,7 @@ import Question from '@/components/Question.vue'
 import SavedWords from '@/lib/saved-words'
 import SketchEngine from '@/lib/sketch-engine'
 import Loader from '@/lib/loader'
+import Helper from '@/lib/helper'
 
 export default {
   template: '#learn-template',
@@ -70,6 +71,7 @@ export default {
   },
   data() {
     return {
+      Helper,
       learnKey: 0, // used to force re-render this component
       savedWordsKey: 0,
       started: false,

@@ -1,6 +1,6 @@
 <template>
   <!-- ANCHOR img/anchors/entry.png  -->
-  <div class="container">
+  <div class="container" v-if="entry">
     <div class="row text-center">
       <div class="col-md-12">
         <div class="entry-head-wrapper">
