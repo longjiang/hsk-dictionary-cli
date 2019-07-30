@@ -2,15 +2,6 @@
   <div class="main mt-4 mb-4 container" v-cloak>
     <div class="row">
       <div class="col-sm-12" :key="learnKey">
-        <p
-          v-if="started && words.length === 0"
-          class="alert alert-warning no-saved-words"
-        >
-          You don't have any words saved yet. First, save some words by clicking
-          on the
-          <i class="glyphicon glyphicon-star-empty"></i> next to it. Then come
-          back and click the button again.
-        </p>
         <div id="questions-wrapper">
           <div v-if="!shown" class="questions-prompt">
             <h4 class="page-title">Learn Words</h4>
@@ -30,12 +21,12 @@
               </div>
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
-            <question
+            <Question
               :type="randomQuestionType()"
               v-for="(word, index) in words"
               :word="word"
               :id="`question-${Helper.uniqueId()}`"
-            ></question>
+            ></Question>
             <div class="questions-prompt">
               <div class="prompt">
                 <img src="img/trophy.svg" class="trophy" />
@@ -62,6 +53,8 @@ import Question from '@/components/Question.vue'
 import SketchEngine from '@/lib/sketch-engine'
 import Loader from '@/lib/loader'
 import Helper from '@/lib/helper'
+import CEDICT from '@/lib/cedict'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   template: '#learn-template',
@@ -90,7 +83,9 @@ export default {
       ]
     },
     showSet() {
-      const words = this.$store.state.savedWords
+      const words = this.$store.state.savedWords.map(([traditional, pinyin]) =>
+        Normalizer.normalize(CEDICT.get(traditional, pinyin))
+      )
       this.started = true
       this.learnKey += 1
       if (words.length > 0) {

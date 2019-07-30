@@ -64,7 +64,6 @@ export default new Vuex.Store({
       $('.word-block[data-candidates]').each(function() {
         let candidates = JSON.parse(unescape($(this).attr('data-candidates')))
         for (let candidate of candidates) {
-          console.log(candidate)
           if (
             getters.hasSavedWord({
               traditional: candidate.traditional,

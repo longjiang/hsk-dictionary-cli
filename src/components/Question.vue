@@ -3,38 +3,58 @@
     <div class="question-fill-in-the-blank" v-if="type === 'fill-in-the-blank'">
       <div class="question-slide-aspect">
         <div class="question-slide" :id="`question-${id}-slide-1`">
-          <div class="question-prompt mb-4">How do you write this character?</div>
-          <div class="text-center big-word-pinyin" :data-hsk="word.book">{{ word.pinyin }}</div>
+          <div class="question-prompt mb-4">
+            How do you write this character?
+          </div>
+          <div class="text-center big-word-pinyin" :data-hsk="word.book">
+            {{ word.pinyin }}
+          </div>
           <div
             class="text-center big-word"
             :data-hsk="word.book"
             v-html="fillInTheBlankHTML(word.simplified)"
           ></div>
-          <div
-            class="text-center big-word-definition mt-4"
-          >{{ word.english || word.definitions[0].text }}</div>
+          <div class="text-center big-word-definition mt-4">
+            {{ word.english || word.definitions[0].text }}
+          </div>
         </div>
       </div>
       <div class="question-slide-aspect">
         <div class="question-slide answer" :id="`question-${id}-slide-2`">
-          <div class="text-center big-word-pinyin" :data-hsk="word.book">{{ word.pinyin }}</div>
-          <div class="text-center big-word" :data-hsk="word.book">{{ word.simplified }}</div>
+          <div class="text-center big-word-pinyin" :data-hsk="word.book">
+            {{ word.pinyin }}
+          </div>
+          <div class="text-center big-word" :data-hsk="word.book">
+            {{ word.simplified }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="question-make-sentence" v-if="word.example && type === 'make-a-sentence'">
+    <div
+      class="question-make-sentence"
+      v-if="word.example && type === 'make-a-sentence'"
+    >
       <div class="question-slide-aspect">
         <div class="question-slide" :id="`question-${id}-slide-1`">
-          <div class="question-prompt mb-4">How do you use this word in a sentence?</div>
+          <div class="question-prompt mb-4">
+            How do you use this word in a sentence?
+          </div>
           <div>
             <button
               class="show-more mb-1"
               v-on:click="Helper.showPinyinClick"
               :data-target-selector="`#question-${id}-slide-1 .big-word`"
-            >Show Pinyin</button>
+            >
+              Show Pinyin
+            </button>
           </div>
-          <div class="text-center big-word" :data-hsk="word.book">{{ word.simplified }}</div>
-          <div class="text-center mt-4 question-blank-sentence" contenteditable="true"></div>
+          <div class="text-center big-word" :data-hsk="word.book">
+            {{ word.simplified }}
+          </div>
+          <div
+            class="text-center mt-4 question-blank-sentence"
+            contenteditable="true"
+          ></div>
         </div>
       </div>
       <div class="question-slide-aspect">
@@ -43,20 +63,31 @@
             <button
               class="show-more mb-4"
               v-on:click="Helper.showPinyinClick"
-              :data-target-selector="`#question-${id}-slide-2 .example-sentence`"
-            >Show Pinyin</button>
+              :data-target-selector="
+                `#question-${id}-slide-2 .example-sentence`
+              "
+            >
+              Show Pinyin
+            </button>
           </div>
           <div
             class="text-center example-sentence-word example-sentence"
             v-html="Helper.highlight(word.example, word.word, word.book)"
-          >{{ word.example }}</div>
+          >
+            {{ word.example }}
+          </div>
         </div>
       </div>
     </div>
     <div class="question-decomposition" v-if="type === 'decomposition'">
-      <div class="question-slide-aspect" v-for="rc in [randomChar(word.simplified)]">
+      <div
+        class="question-slide-aspect"
+        v-for="rc in [randomChar(word.simplified)]"
+      >
         <div class="question-slide" :id="`question-${id}-slide-1`">
-          <div :data-hsk="word.book" class="text-center big-word-pinyin mb-4">{{ word.pinyin }}</div>
+          <div :data-hsk="word.book" class="text-center big-word-pinyin mb-4">
+            {{ word.pinyin }}
+          </div>
           <div class="decomposition-word">
             <span
               v-if="rc.before !== ''"
@@ -73,16 +104,25 @@
           </div>
         </div>
       </div>
-      <div class="question-slide-aspect" v-for="rc in [randomChar(word.simplified)]">
+      <div
+        class="question-slide-aspect"
+        v-for="rc in [randomChar(word.simplified)]"
+      >
         <div class="question-slide" :id="`question-${id}-slide-2`">
-          <div :data-hsk="word.book" class="text-center big-word-pinyin">{{ word.pinyin }}</div>
+          <div :data-hsk="word.book" class="text-center big-word-pinyin">
+            {{ word.pinyin }}
+          </div>
           <div class="big-word" :data-hsk="word.book">{{ word.word }}</div>
         </div>
       </div>
     </div>
     <div
       class="question-collocation"
-      v-if="type === 'collocation' && word.sketch &&gramrel(word.sketch.Gramrels, 'SentObject_of')"
+      v-if="
+        type === 'collocation' &&
+          word.sketch &&
+          gramrel(word.sketch.Gramrels, 'SentObject_of')
+      "
     >
       <div class="question-slide-aspect">
         <div class="question-slide" :id="`question-${id}-slide-1`">
@@ -92,11 +132,19 @@
               class="show-more mb-1"
               v-on:click="Helper.showPinyinClick"
               :data-target-selector="`#question-${id}-slide-1 .big-word`"
-            >Show Pinyin</button>
+            >
+              Show Pinyin
+            </button>
           </div>
           <div
             class="text-center big-word"
-            v-html="Helper.highlight(gramrel(word.sketch.Gramrels, 'SentObject_of').Words[0].cm, word.simplified, word.book)"
+            v-html="
+              Helper.highlight(
+                gramrel(word.sketch.Gramrels, 'SentObject_of').Words[0].cm,
+                word.simplified,
+                word.book
+              )
+            "
           ></div>
         </div>
       </div>

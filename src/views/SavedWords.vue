@@ -63,6 +63,13 @@
     <!-- .row -->
     <div class="row">
       <div class="col-sm-12">
+        <p
+          v-if="savedWords.length === 0"
+          class="alert alert-warning no-saved-words"
+        >
+          You don't have any words saved yet. Save words by clicking on the
+          <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
+        </p>
         <ul class="saved-words">
           <li
             class="saved-words-item character-example"
@@ -85,7 +92,7 @@
       </div>
     </div>
     <!-- .row -->
-    <learn ref="learn"></learn>
+    <learn ref="learn" v-if="savedWords.length > 0"></learn>
   </div>
   <!-- .container -->
 </template>
