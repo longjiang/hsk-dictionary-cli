@@ -6,5 +6,6 @@ export default {
   proxy: server + 'proxy.php',
   listPhotos: server + 'list-photos.php',
   savePhoto: server + 'save-photo.php',
-  imageUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/img/words/'
+  imageUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/img/words/',
+  animatedSvgUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/data/svgs/'
 }

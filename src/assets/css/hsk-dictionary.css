@@ -1335,3 +1335,13 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
   border: 0.5rem solid white;
 }
+
+.animated-svg {
+  width: 10rem;
+  height: 10rem;
+}
+
+.animated-svg-wrapper {
+  display: flex;
+  flex-direction: column;
+}

@@ -31,12 +31,24 @@
               </div>
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
-            <Question
-              :type="`make-a-sentence`"
-              v-for="(word, index) in words"
-              :id="`question-${Helper.uniqueId()}`"
-              :word="word"
-            ></Question>
+            <div v-for="(word, index) in words">
+              <!-- <DecompositionQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></DecompositionQuestion> -->
+              <FillInTheBlankQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></FillInTheBlankQuestion>
+              <!-- <CollocationQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></CollocationQuestion>
+              <MakeSentenceQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></MakeSentenceQuestion> -->
+            </div>
             <div class="questions-prompt" v-if="!loading">
               <div class="prompt">
                 <img src="img/trophy.svg" class="trophy" />
@@ -59,17 +71,23 @@
 
 <script>
 import $ from 'jquery'
-import Question from '@/components/Question.vue'
 import SketchEngine from '@/lib/sketch-engine'
 import Loader from '@/lib/loader'
 import Helper from '@/lib/helper'
 import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
+import CollocationQuestion from '@/components/questions/CollocationQuestion.vue'
+import DecompositionQuestion from '@/components/questions/DecompositionQuestion.vue'
+import FillInTheBlankQuestion from '@/components/questions/FillInTheBlankQuestion.vue'
+import MakeSentenceQuestion from '@/components/questions/MakeSentenceQuestion.vue'
 
 export default {
   template: '#learn-template',
   components: {
-    Question
+    CollocationQuestion,
+    DecompositionQuestion,
+    FillInTheBlankQuestion,
+    MakeSentenceQuestion
   },
   data() {
     return {

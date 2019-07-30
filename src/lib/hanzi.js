@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Character from './character.js'
+import Config from './config.js'
 
 /**
  * The library associated with the character information in data/dictionary.txt provided by Make Me a Hanzi (https://github.com/skishore/makemeahanzi) project.
@@ -548,7 +549,7 @@ export default {
 
   animatedSvgUrl: function(char) {
     var charCode = char.charCodeAt(0)
-    return 'data/svgs/' + charCode + '.svg'
+    return Config.animatedSvgUrl + charCode + '.svg'
   },
 
   animatedSvgLink: function(char) {
