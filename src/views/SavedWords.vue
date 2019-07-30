@@ -68,18 +68,7 @@
             class="saved-words-item character-example"
             v-for="word in HSK.getByIds(SavedHSKWords.getIdsSorted())"
           >
-            <button
-              class="saved-words-item-remove"
-              v-on:click="SavedWords.removeWordClick"
-              data-method="hsk"
-              :data-args="JSON.stringify([word.id])"
-              title="Remove word"
-            >
-              <i
-                class="glyphicon glyphicon-minus-sign"
-                v-if="SavedHSKWords.getIds().includes(word.id)"
-              ></i>
-            </button>
+            <Star method="hsk" :args="[word.id]"></Star>
             <a :href="'#/view/hsk/' + word.id">
               <span class="character-example-word" :data-hsk="word.book">{{
                 word.word
@@ -92,18 +81,10 @@
             class="saved-words-item character-example"
             v-for="word in CEDICT.getByList(SavedCEDICTWords.list())"
           >
-            <button
-              class="saved-words-item-remove"
-              v-on:click="SavedWords.removeWordClick"
-              data-method="cedict"
-              :data-args="JSON.stringify([word.traditional, word.pinyin])"
-              title="Remove word"
-            >
-              <i
-                class="glyphicon glyphicon-minus-sign"
-                v-if="SavedCEDICTWords.includes(word.traditional, word.pinyin)"
-              ></i>
-            </button>
+            <Star
+              method="cedict"
+              :args="[word.traditional, word.pinyin]"
+            ></Star>
             <a :href="`#/view/cedict/${word.traditional},${word.pinyin}`">
               <span class="character-example-word" data-hsk="outside">{{
                 word.simplified
@@ -200,7 +181,7 @@ export default {
         SavedHSKWords.removeAll()
         SavedCEDICTWords.removeAll()
       }
-      this.updateSavedWordsDisplay()
+      SavedWords.updateSavedWordsDisplay()
       this.savedWordsKey += 1 // force re-render this component
     },
     importClick() {
@@ -229,7 +210,7 @@ export default {
         })
       }
       $('.import-wrapper').addClass('hidden')
-      this.updateSavedWordsDisplay()
+      SavedWords.updateSavedWordsDisplay()
       this.savedWordsKey += 1 // force re-render this component
     }
   }

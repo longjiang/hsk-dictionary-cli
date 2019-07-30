@@ -64,25 +64,7 @@
                         v-for="word in dialog"
                         v-bind:key="'word-' + word.id"
                       >
-                        <button
-                          class="saved-words-item-star"
-                          data-method="hsk"
-                          :key="savedWordsKey"
-                          :data-args="JSON.stringify([word.id])"
-                        >
-                          <i
-                            class="glyphicon glyphicon-star-empty add-word"
-                            v-on:click="SavedWords.saveWordClick"
-                            v-if="!SavedWords.includes('hsk', [word.id])"
-                            title="Save word"
-                          ></i>
-                          <i
-                            class="glyphicon glyphicon-star remove-word"
-                            v-on:click="SavedWords.removeWordClick"
-                            v-if="SavedWords.includes('hsk', [word.id])"
-                            title="Remove word"
-                          ></i>
-                        </button>
+                        <Star method="hsk" :args="[word.id]"></Star>
                         <a :href="'#/view/hsk/' + word.id">
                           <span
                             class="character-example-word"

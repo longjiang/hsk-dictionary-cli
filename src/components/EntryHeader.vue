@@ -4,26 +4,7 @@
     <div class="row text-center">
       <div class="col-md-12">
         <div class="entry-head-wrapper">
-          <button
-            class="save-word-button"
-            v-if="SavedWords"
-            :key="'entry-saved-words-' + savedWordsKey"
-            :data-method="entry.method"
-            :data-args="JSON.stringify(entry.args)"
-          >
-            <i
-              class="glyphicon glyphicon-star-empty"
-              v-on:click="SavedWords.saveWordClick"
-              v-if="!SavedWords.includes(entry.method, entry.args)"
-              title="Save word"
-            ></i>
-            <i
-              class="glyphicon glyphicon-star"
-              v-on:click="SavedWords.removeWordClick"
-              v-if="SavedWords.includes(entry.method, entry.args)"
-              title="Remove word"
-            ></i>
-          </button>
+          <Star :method="entry.method" :args="entry.args"></Star>
           <button
             class="paginate-button previous"
             v-on:click="previousClick"

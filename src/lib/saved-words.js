@@ -49,9 +49,15 @@ export default {
       SavedCEDICTWords.remove(...args)
     }
   },
+  blinkedSavedWordsButton() {
+    $('.tab-saved-words').removeClass('blink')
+    setTimeout(() => {
+      $('.tab-saved-words').addClass('blink')
+    }, 500)
+  },
   updateSavedWordsDisplay() {
     try {
-      this.$root.savedWordsKey += 1
+      window.hskDictionaryApp.savedWordsKey += 1
       if (window.hskDictionaryApp.$refs.entry) {
         window.hskDictionaryApp.$refs.entry.savedWordsKey += 1
       }
@@ -61,8 +67,9 @@ export default {
       if (window.hskDictionaryApp.$refs.savedWords) {
         window.hskDictionaryApp.$refs.savedWords.savedWordsKey += 1
       }
-    } catch {
+    } catch(err) {
       console.log('Error in SavedWords.updateSavedWordsDisplay()')
+      console.log(err)
     }
     $('.word-block[data-method][data-args]').each(function() {
       let method = $(this).attr('data-method')
@@ -74,33 +81,5 @@ export default {
       }
     })
     this.blinkedSavedWordsButton()
-  },
-  blinkedSavedWordsButton() {
-    $('.tab-saved-words').removeClass('blink')
-    setTimeout(() => {
-      $('.tab-saved-words').addClass('blink')
-    }, 500)
-  },
-  saveWordClick: function(e) {
-    var $target = $(e.target)
-    if (e.target.tagName.toLowerCase() === 'i') {
-      $target = $target.parent()
-    }
-    SavedWords.add(
-      $target.attr('data-method'),
-      JSON.parse($target.attr('data-args'))
-    )
-    SavedWords.updateSavedWordsDisplay()
-  },
-  removeWordClick: function(e) {
-    var $target = $(e.target)
-    if (e.target.tagName.toLowerCase() === 'i') {
-      $target = $target.parent()
-    }
-    SavedWords.remove(
-      $target.attr('data-method'),
-      JSON.parse($target.attr('data-args'))
-    )
-    SavedWords.updateSavedWordsDisplay()
   }
 }

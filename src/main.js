@@ -13,9 +13,12 @@ import CEDICT from '@/lib/cedict'
 import Grammar from '@/lib/grammar'
 import HSK from '@/lib/hsk'
 import Helper from '@/lib/helper'
+import Star from '@/components/Star'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+
+Vue.component('Star', Star)
 
 let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')

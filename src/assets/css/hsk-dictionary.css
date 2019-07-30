@@ -760,6 +760,10 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   position: relative;
 }
 
+.toggle-saved-word {
+  display: inline-block;
+}
+
 .save-word-button {
   padding: 0;
   background: none;
