@@ -91,6 +91,7 @@ export default {
     lookupButtonClick() {
       const url = $('.suggestion:first-child').attr('href')
       if (url) {
+        this.suggestions = []
         window.location = url
         $('.suggestion:first-child')
           .get(0)
@@ -110,7 +111,7 @@ export default {
           hskWordStrArray.push(hskSuggestion.word)
           suggestions.push({
             type: 'hsk',
-            href: '#view/hsk/' + hskSuggestion.id,
+            href: '#/view/hsk/' + hskSuggestion.id,
             row: hskSuggestion
           })
         })
@@ -122,7 +123,7 @@ export default {
         cedictFiltered.forEach(function(cedictSuggestion) {
           suggestions.push({
             type: 'cedict',
-            href: `#view/cedict/${cedictSuggestion.traditional},${
+            href: `#/view/cedict/${cedictSuggestion.traditional},${
               cedictSuggestion.pinyin
             }`,
             row: cedictSuggestion

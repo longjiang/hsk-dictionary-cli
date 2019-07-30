@@ -83,7 +83,7 @@
                             title="Remove word"
                           ></i>
                         </button>
-                        <a :href="'#view/hsk/' + word.id">
+                        <a :href="'#/view/hsk/' + word.id">
                           <span
                             class="character-example-word"
                             :data-hsk="word.book"

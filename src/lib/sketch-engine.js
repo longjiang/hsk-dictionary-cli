@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Helper from './helper'
+import Config from './config'
 
 export default {
   corpname: 'preloaded/zhtenten17_simplified_stf2',
@@ -42,7 +43,9 @@ export default {
   },
   wsketch(term, callback) {
     $.getJSON(
-      `sketch-engine-proxy.php?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=${
+      `${
+        Config.sketchEngineProxy
+      }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=${
         this.corpname
       }&lemma=${term}`,
       function(response) {
@@ -62,7 +65,9 @@ export default {
   },
   concordance(term, callback) {
     $.post(
-      `sketch-engine-proxy.php?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=${
+      `${
+        Config.sketchEngineProxy
+      }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=${
         this.corpname
       }`,
       {
@@ -110,7 +115,9 @@ export default {
   },
   thesaurus(term, callback) {
     $.post(
-      `sketch-engine-proxy.php?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=${
+      `${
+        Config.sketchEngineProxy
+      }?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=${
         this.corpname
       }`,
       {
@@ -134,7 +141,9 @@ export default {
   mistakes(term, callback) {
     let SketchEngine = this
     $.post(
-      `sketch-engine-proxy.php?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/guangwai`,
+      `${
+        Config.sketchEngineProxy
+      }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/guangwai`,
       {
         json: JSON.stringify({
           lpos: '',

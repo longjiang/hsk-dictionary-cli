@@ -29,7 +29,7 @@
       class="show-more collapsed"
       v-on:click="Helper.showMoreClick"
       title="Show all examples"
-      :data-bg-hsk="entry.book"
+      :data-bg-hsk="level"
     >
       <span class="label-expand">
         Show
@@ -41,10 +41,14 @@
 </template>
 
 <script>
+import Helper from '@/lib/helper'
+
 export default {
   props: ['word', 'level', 'type', 'title', 'collocation'],
   data() {
-    return {}
+    return {
+      Helper
+    }
   }
 }
 </script>

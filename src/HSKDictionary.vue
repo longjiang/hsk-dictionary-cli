@@ -33,7 +33,6 @@
                 Browse
               </router-link>
               <router-link
-                v-if="$refs.entry"
                 class="tab"
                 :to="{ name: 'entry' }"
                 title="View a word"

@@ -1,5 +1,6 @@
 import countries from './countries.js'
 import $ from 'jquery'
+import Annotator from '@/vendor/annotator-js/js/annotator'
 import SavedWords from './saved-words.js'
 
 export default {

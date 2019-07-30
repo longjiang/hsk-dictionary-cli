@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import AnnotatorService from '@/vendor/annotator-js/js/annotator-service.js'
+
 const decompositionTemplate = {
   '⿰': `<div class="description description-⿰">
     <div class="part part-⿰-1"></div>
@@ -99,13 +101,14 @@ export default {
             )[0]
             let href = ''
             if (childCharacterCEDICT) {
-              href = `href="#view/cedict/${childCharacterCEDICT.traditional},${childCharacterCEDICT.pinyin}"`
+              href = `href="#/view/cedict/${childCharacterCEDICT.traditional},${
+                childCharacterCEDICT.pinyin
+              }"`
             }
             let radicalNamePinyin = false
             if (node.info) {
               // eslint-disable-next-line no-undef
-              radicalNamePinyin = AnnotatorService()
-                .annotate(node.info.name)
+              radicalNamePinyin = AnnotatorService.annotate(node.info.name)
                 .map(function(candidates) {
                   return candidates[0].pinyin
                 })

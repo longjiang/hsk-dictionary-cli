@@ -1,3 +1,9 @@
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/css/hsk-dictionary.css'
+import '@/vendor/css-spinners/spinner/heartbeat.css'
+import '@/vendor/annotator-js/css/annotator.css'
+import '@/vendor/annotator-js/css/tipped.css'
 import Vue from 'vue'
 import HSKDictionary from './HSKDictionary.vue'
 import router from './router'
@@ -7,9 +13,6 @@ import CEDICT from '@/lib/cedict'
 import Grammar from '@/lib/grammar'
 import HSK from '@/lib/hsk'
 import Helper from '@/lib/helper'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import './assets/css/hsk-dictionary.css'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

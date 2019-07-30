@@ -80,7 +80,7 @@
                 v-if="SavedHSKWords.getIds().includes(word.id)"
               ></i>
             </button>
-            <a :href="'#view/hsk/' + word.id">
+            <a :href="'#/view/hsk/' + word.id">
               <span class="character-example-word" :data-hsk="word.book">{{
                 word.word
               }}</span>
@@ -104,7 +104,7 @@
                 v-if="SavedCEDICTWords.includes(word.traditional, word.pinyin)"
               ></i>
             </button>
-            <a :href="`#view/cedict/${word.traditional},${word.pinyin}`">
+            <a :href="`#/view/cedict/${word.traditional},${word.pinyin}`">
               <span class="character-example-word" data-hsk="outside">{{
                 word.simplified
               }}</span>
