@@ -13,6 +13,9 @@ export default {
       return SavedCEDICTWords.includes(...args)
     }
   },
+  count() {
+    return SavedHSKWords.count() + SavedCEDICTWords.count()
+  },
   list() {
     const hskWords = SavedHSKWords.getIds().map(function(id) {
       let hskWord = HSK.get(id)

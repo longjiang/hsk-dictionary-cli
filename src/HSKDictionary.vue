@@ -60,12 +60,7 @@
               >
                 <i class="glyphicon glyphicon-star"></i> Saved
                 <span class="tab-saved-words-count" v-cloak>
-                  {{
-                    // eslint-disable-next-line vue/no-parsing-error
-                    SavedHSKWords.count() + SavedCEDICTWords.count() < 100
-                      ? SavedHSKWords.count() + SavedCEDICTWords.count()
-                      : '多'
-                  }}
+                  {{ savedWordsCount() }}
                 </span>
               </router-link>
             </div>
@@ -164,6 +159,11 @@ export default {
       $(e.target)
         .next('ul')
         .toggleClass('collapsed')
+    },
+    savedWordsCount() {
+      let count = this.$store.getters.savedWordCount()
+      // eslint-disable-next-line vue/no-parsing-error
+      return count ? count : '多'
     }
   },
   mounted() {

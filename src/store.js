@@ -29,6 +29,9 @@ export default new Vuex.Store({
   getters: {
     hasSavedWord: state => ({ method, args }) => {
       return state.savedWords.includes(method, args)
+    },
+    savedWordCount: state => () => {
+      return state.savedWords.count()
     }
   }
 })

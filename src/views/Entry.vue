@@ -100,16 +100,12 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import SavedWords from '@/lib/saved-words'
-import SavedHSKWords from '@/lib/saved-hsk-words'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
-import SketchEngine from '@/lib/sketch-engine'
 import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
 import WordPhotos from '@/lib/word-photos'
-import Grammar from '@/lib/grammar'
-import YouTube from '@/lib/youtube'
 import $ from 'jquery'
 
 export default {
@@ -137,7 +133,6 @@ export default {
       HSK,
       LRC,
       Hanzi,
-      YouTube,
       entryKey: 0, // used to force re-render this component
       webImagesKey: 0
     }
@@ -177,7 +172,7 @@ export default {
           utterance.lang = 'zh-CN'
           speechSynthesis.speak(utterance)
         })
-    },
+    }
   },
   mounted() {
     if (this.$route.params.method && this.$route.params.args) {
@@ -193,6 +188,8 @@ export default {
           }
           entry.simplified = entry.word
           entry.definitions = [entry.english]
+          entry.method = method
+          entry.args = args
           const cedictCandidates = CEDICT.lookupSimplified(
             entry.simplified,
             entry.pinyin
@@ -208,8 +205,9 @@ export default {
           const pinyin = args[1]
           let entry = CEDICT.get(traditional, pinyin)
           if (entry) {
-            entry.simplified = entry.simplified
             entry.book = 'outside'
+            entry.method = method
+            entry.args = args
             this.show(entry)
           } else {
             location.hash = '/'
