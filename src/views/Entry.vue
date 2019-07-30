@@ -99,7 +99,6 @@ import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
-import SavedWords from '@/lib/saved-words'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
@@ -128,7 +127,6 @@ export default {
       character: {},
       unsplashSrcs: [],
       unsplashSearchTerm: '',
-      SavedWords,
       Helper,
       HSK,
       LRC,
@@ -174,7 +172,6 @@ export default {
         })
     },
     route() {
-      console.log('routing')
       if (this.$route.params.method && this.$route.params.args) {
         const method = this.$route.params.method
         const args = this.$route.params.args.split(',')

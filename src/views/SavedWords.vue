@@ -66,10 +66,10 @@
         <ul class="saved-words">
           <li
             class="saved-words-item character-example"
-            v-for="word in savedWords()"
+            v-for="word in savedWordsAugmented()"
           >
-            <Star :method="word.method" :args="word.args"></Star>
-            <a :href="'#/view/hsk/' + word.id">
+            <Star :word="word"></Star>
+            <a :href="`#/view/cedict/${word.traditional},${word.pinyin}`">
               <span class="character-example-word" :data-hsk="word.book">{{
                 word.simplified
               }}</span
@@ -78,8 +78,8 @@
               >&nbsp;
               <span class="character-example-english">{{
                 word.definitions[0].text
-              }}</span>
-            </a>
+              }}</span></a
+            >
           </li>
         </ul>
       </div>
@@ -93,11 +93,9 @@
 <script>
 import $ from 'jquery'
 import Learn from '@/views/Learn.vue'
-import SavedWords from '@/lib/saved-words'
-import SavedHSKWords from '@/lib/saved-hsk-words'
-import SavedCEDICTWords from '@/lib/saved-cedict-words'
 import HSK from '@/lib/hsk'
 import CEDICT from '@/lib/cedict'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   template: '#saved-words-template',
@@ -108,21 +106,21 @@ export default {
     return {
       CEDICT,
       HSK,
-      SavedWords,
-      SavedCEDICTWords,
-      SavedHSKWords,
-      savedWordsKey: 0 // used to force re-render this component
+      Normalizer,
+      savedWords: this.$store.state.savedWords
     }
   },
   methods: {
-    savedWords() {
-      return this.$store.getters.savedWords()
+    savedWordsAugmented() {
+      return this.$store.state.savedWords.map(function([traditional, pinyin]) {
+        return Normalizer.normalize(CEDICT.get(traditional, pinyin))
+      })
     },
     csv() {
-      let SavedWords = this
+      let SavedWordsVue = this
       return (
         'Simplified\tTraditional\tPinyin\tDefinitions\tMeasure Words\n' +
-        SavedWords.list()
+        SavedWordsVue.savedWords
           .map(function(word) {
             const definitions = word.definitions.map(function(definition) {
               return definition.text
@@ -169,8 +167,6 @@ export default {
       if (confirmed) {
         this.$store.dispatch('removeAllSavedWords')
       }
-      SavedWords.updateSavedWordsDisplay()
-      this.savedWordsKey += 1 // force re-render this component
     },
     importClick() {
       const lines = $('#import-textarea')
@@ -183,23 +179,16 @@ export default {
           for (let candidates of annotated) {
             for (let candidate of candidates) {
               if (candidate.pinyin) {
-                const hskCandidates = HSK.lookup(
-                  candidate.simplified,
-                  candidate.pinyin.replace(/ /g, '')
-                )
-                if (hskCandidates.length > 0) {
-                  SavedHSKWords.add(hskCandidates[0].id)
-                } else {
-                  SavedCEDICTWords.add(candidate.traditional, candidate.pinyin)
-                }
+                this.$store.dispatch('addSavedWord', {
+                  traditional: candidate.traditional,
+                  pinyin: candidate.pinyin
+                })
               }
             }
           }
         })
       }
       $('.import-wrapper').addClass('hidden')
-      SavedWords.updateSavedWordsDisplay()
-      this.savedWordsKey += 1 // force re-render this component
     }
   }
 }

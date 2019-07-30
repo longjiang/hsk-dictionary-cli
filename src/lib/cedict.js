@@ -18,6 +18,7 @@ export default {
   },
   augment(row) {
     let CEDICT = this
+    let augmented = Object.assign({}, row)
     if (row && row.definitions) {
       row.definitions.forEach((definition, index) => {
         if (typeof definition === 'string') {
@@ -55,16 +56,16 @@ export default {
               }
             }
             if (measureWords.length > 0) {
-              row.measureWords = measureWords
+              augmented.measureWords = measureWords
             }
-            row.definitions.splice(index, 1) // Remove CL:  definition
+            augmented.definitions.splice(index, 1) // Remove CL:  definition
           } else {
-            row.definitions[index] = definitionObj
+            augmented.definitions[index] = definitionObj
           }
         }
       })
     }
-    return row
+    return augmented
   },
   loadData(cedictText, callback) {
     for (let line of cedictText.split('\n')) {
@@ -85,6 +86,7 @@ export default {
               ' ' +
               matches[4]
           }
+          Object.freeze(row)
           if (row) this._data.push(row)
         }
       }
@@ -151,11 +153,14 @@ export default {
     }
   },
   get(traditional, pinyin) {
-    return this.augment(
-      this._data.find(function(row) {
-        return row.traditional === traditional && row.pinyin === pinyin
-      })
-    )
+    const row = this._data.find(function(row) {
+      return (
+        row.traditional === traditional &&
+        row.pinyin.replace(/\s/g, '').toLowerCase() ===
+          pinyin.replace(/\s/g, '').toLowerCase()
+      )
+    })
+    return this.augment(row)
   },
   getByList(array) {
     let words = []

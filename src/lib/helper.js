@@ -1,7 +1,9 @@
 import countries from './countries.js'
 import $ from 'jquery'
 import Annotator from '@/vendor/annotator-js/js/annotator'
-import SavedWords from './saved-words.js'
+import AnnotatorTooltip from '@/vendor/annotator-js/js/annotator-tooltip'
+import Helper from '@/lib/helper'
+import HSK from '@/lib/hsk'
 
 export default {
   loaderMessages: [],
@@ -74,19 +76,30 @@ export default {
           $(this).attr('data-hover-hsk', candidate.book)
           $(this).attr('data-method', candidate.method)
           $(this).attr('data-args', escape(JSON.stringify(candidate.args)))
-          if (SavedWords.includes(candidate.method, candidate.args)) {
+          if (
+            this.$store.getters.hasSavedWord(candidate.method, candidate.args)
+          ) {
             $(this).addClass('saved')
           }
-        } catch (err) {}
+        } catch (err) {
+          // catch errors
+        }
         $(this).click(function() {
           if ($(this).hasClass('saved')) {
-            SavedWords.remove(candidate.method, candidate.args)
+            this.$store.dispatch('removeSavedWord', {
+              traditional: candidate.traditional,
+              pinyin: candidate.pinyin
+            })
           } else {
-            SavedWords.add(candidate.method, candidate.args)
+            this.$store.dispatch('addSavedWord', {
+              traditional: candidate.traditional,
+              pinyin: candidate.pinyin
+            })
           }
-          SavedWords.updateSavedWordsDisplay()
         })
-      } catch (err) {}
+      } catch (err) {
+        // catch errors
+      }
     })
     AnnotatorTooltip.addTooltips(selector, function(candidates, block) {
       let html = ''

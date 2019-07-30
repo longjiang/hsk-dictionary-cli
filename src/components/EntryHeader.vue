@@ -4,7 +4,7 @@
     <div class="row text-center">
       <div class="col-md-12">
         <div class="entry-head-wrapper">
-          <Star :method="entry.method" :args="entry.args"></Star>
+          <Star :word="entry"></Star>
           <button
             class="paginate-button previous"
             v-on:click="previousClick"
@@ -83,21 +83,15 @@
 </template>
 
 <script>
-import SavedWords from '@/lib/saved-words'
-import SavedHSKWords from '@/lib/saved-hsk-words'
-import HSK from '@/lib/hsk'
-import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
 import List from '@/lib/list'
-import Word from '@/lib/word'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   props: ['entry'],
   data() {
     return {
-      SavedWords,
-      Helper,
-      savedWordsKey: 0
+      Helper
     }
   },
   computed: {
@@ -119,27 +113,27 @@ export default {
     }
   },
   methods: {
-    f(entry) {
+    findCurrentFunction(entry) {
       return function(item) {
         return (
-          item.simplified === entry.simplified &&
-          item.pinyin.replace(/\s/g, '').toLowerCase() ===
+          item[0] === entry.traditional &&
+          item[1].replace(/\s/g, '').toLowerCase() ===
             entry.pinyin.replace(/\s/g, '').toLowerCase()
         )
       }
     },
     list() {
-      const savedWords = this.$store.getters.savedWords()
+      const savedWords = this.$store.state.savedWords
       if (savedWords.length > 0) {
         const list = new List(savedWords)
-        list.setCurrent(this.f(this.entry))
+        list.setCurrent(this.findCurrentFunction(this.entry))
         return list
       }
     },
     previousClick() {
       let list = this.list()
       if (list.hasPrevious()) {
-        const args = Word.getArgs(this.entry.method, list.previous())
+        const args = Normalizer.getArgs(this.entry.method, list.previous())
         const previousWord = new Word(this.entry.method, args)
         location.hash = `/view/${this.entry.method}/${previousWord.args.join(
           ','
@@ -149,7 +143,7 @@ export default {
     nextClick() {
       let list = this.list()
       if (list.hasNext()) {
-        const args = Word.getArgs(this.entry.method, list.next())
+        const args = Normalizer.getArgs(this.entry.method, list.next())
         const nextWord = new Word(this.entry.method, args)
         location.hash = `/view/${this.entry.method}/${nextWord.args.join(',')}`
       }

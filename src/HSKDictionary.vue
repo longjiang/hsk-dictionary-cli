@@ -55,7 +55,6 @@
               </router-link>
               <router-link
                 class="tab tab-saved-words"
-                :key="savedWordsKey"
                 :to="{ name: 'saved-words' }"
               >
                 <i class="glyphicon glyphicon-star"></i> Saved
@@ -76,7 +75,7 @@
         </div>
       </div>
     </div>
-    
+
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -128,8 +127,6 @@
 import $ from 'jquery'
 import Helper from '@/lib/helper'
 import HSK from '@/lib/hsk'
-import SavedHSKWords from '@/lib/saved-hsk-words'
-import SavedCEDICTWords from '@/lib/saved-cedict-words'
 import Search from '@/components/Search.vue'
 
 // eslint-disable-next-line no-unused-vars
@@ -143,9 +140,6 @@ export default {
       wordList: HSK.listWhere(function(word) {
         word.oofc === ''
       }),
-      SavedHSKWords: SavedHSKWords,
-      SavedCEDICTWords: SavedCEDICTWords,
-      savedWordsKey: 0,
       Helper,
       view:
         'browse' /* Default view is "browse words by course", can also set to "entry" (when viewing a word), or "saved-words" */

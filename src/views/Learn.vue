@@ -59,7 +59,6 @@
 <script>
 import $ from 'jquery'
 import Question from '@/components/Question.vue'
-import SavedWords from '@/lib/saved-words'
 import SketchEngine from '@/lib/sketch-engine'
 import Loader from '@/lib/loader'
 import Helper from '@/lib/helper'
@@ -73,7 +72,6 @@ export default {
     return {
       Helper,
       learnKey: 0, // used to force re-render this component
-      savedWordsKey: 0,
       started: false,
       shown: false,
       words: [],
@@ -92,7 +90,7 @@ export default {
       ]
     },
     showSet() {
-      const words = SavedWords.list()
+      const words = this.$store.state.savedWords
       this.started = true
       this.learnKey += 1
       if (words.length > 0) {

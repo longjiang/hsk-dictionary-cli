@@ -64,7 +64,7 @@
                         v-for="word in dialog"
                         v-bind:key="'word-' + word.id"
                       >
-                        <Star method="hsk" :args="[word.id]"></Star>
+                        <Star :word="word"></Star>
                         <a :href="'#/view/hsk/' + word.id">
                           <span
                             class="character-example-word"
@@ -100,14 +100,12 @@
 
 <script>
 import $ from 'jquery'
-import SavedWords from '@/lib/saved-words'
 import HSK from '@/lib/hsk'
 
 export default {
   data() {
     return {
       books: HSK.compileBooks(),
-      SavedWords: SavedWords,
       browseKey: 0, // used to force re-render this component
       savedWordsKey: 0
     }
@@ -121,7 +119,6 @@ export default {
         .parents('.browse-words')
         .find('.add-word')
         .click()
-      SavedWords.updateSavedWordsDisplay()
     },
     countWordsInLesson(lesson) {
       var count = 0

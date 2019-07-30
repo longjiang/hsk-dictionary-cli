@@ -20,39 +20,36 @@
 </template>
 
 <script>
-import SavedWords from '@/lib/saved-words'
-import SavedHSKWords from '@/lib/saved-words'
-import SavedCEDICTWords from '@/lib/saved-cedict-words'
 import Helper from '@/lib/helper'
+import Normalizer from '@/lib/normalizer'
 
 export default {
-  props: ['method', 'args'],
+  props: ['word'],
   data() {
     return {
       id: Helper.uniqueId(),
-      SavedWords,
-      SavedHSKWords,
-      SavedCEDICTWords,
       Helper
     }
   },
   methods: {
     saved() {
       return this.$store.getters.hasSavedWord({
-        method: this.method,
-        args: this.args
+        traditional: this.word.traditional,
+        pinyin: this.word.pinyin
       })
     },
     saveWordClick() {
+      this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('addSavedWord', {
-        method: this.method,
-        args: this.args
+        traditional: this.word.traditional,
+        pinyin: this.word.pinyin
       })
     },
     removeWordClick() {
+      this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('removeSavedWord', {
-        method: this.method,
-        args: this.args
+        traditional: this.word.traditional,
+        pinyin: this.word.pinyin
       })
     }
   }
