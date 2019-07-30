@@ -76,8 +76,10 @@
         </div>
       </div>
     </div>
-
-    <router-view />
+    
+    <keep-alive>
+      <router-view />
+    </keep-alive>
 
     <!-- ANCHOR img/anchors/footer.png -->
     <footer class="container-fluid" v-cloak>

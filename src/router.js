@@ -7,11 +7,15 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/browse'
+    },
+    {
+      path: '/browse',
       name: 'browse',
       component: () => import('./views/Browse.vue')
     },
     {
-      path: '/view/:method/:args',
+      path: '/view/:method?/:args?',
       name: 'entry',
       component: () => import('./views/Entry.vue'),
       props: true

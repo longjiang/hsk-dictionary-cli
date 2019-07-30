@@ -198,6 +198,7 @@ export default {
               entry = Object.assign(entry, cedictCandidates[0])
             }
             this.show(entry)
+            return
           }
         } else if (method === 'cedict') {
           if (args.length > 0) {
@@ -209,22 +210,25 @@ export default {
               entry.method = method
               entry.args = args
               this.show(entry)
-            } else {
-              location.hash = '/'
               return
             }
           }
         }
       }
+      location.hash = '/view/hsk/1'
     }
   },
   watch: {
     $route() {
-      this.route()
+      if (this.$route.name === 'entry') {
+        this.route()
+      }
     }
   },
   mounted() {
-    this.route()
+    if (this.$route.name === 'entry') {
+      this.route()
+    }
   },
   updated() {
     const app = this

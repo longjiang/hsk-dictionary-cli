@@ -750,7 +750,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   background: #f8b51e;
 }
 
-.tab.router-link-exact-active, .tab:hover {
+.tab.router-link-active, .tab:hover {
   color: #fd4f1c;
   background: white;
   text-decoration: none;
@@ -792,11 +792,11 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   color: white;
 }
 
-.tab-saved-words.router-link-exact-active, .tab-saved-words:hover {
+.tab-saved-words.router-link-active, .tab-saved-words:hover {
   color: #f8b61e;
 }
 
-.tab-saved-words.router-link-exact-active, .tab-saved-words-count, .tab-saved-words:hover .tab-saved-words-count {
+.tab-saved-words.router-link-active, .tab-saved-words-count, .tab-saved-words:hover .tab-saved-words-count {
   background: #f8b61e;
   color: white;
 }
