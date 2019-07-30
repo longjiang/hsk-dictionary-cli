@@ -15,7 +15,17 @@
             </button>
           </div>
           <div v-if="started" id="questions">
-            <div class="questions-prompt">
+            <div class="container text-center mt-4" v-if="loading">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="inner-circles-loader mb-4"></div>
+                  <div class="mb-4">
+                    Generating questions...
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="questions-prompt" v-if="!loading">
               <div class="prompt">
                 <b>Keep scrolling down</b> for questions and answers
               </div>
@@ -27,7 +37,7 @@
               :id="`question-${Helper.uniqueId()}`"
               :word="word"
             ></Question>
-            <div class="questions-prompt">
+            <div class="questions-prompt" v-if="!loading">
               <div class="prompt">
                 <img src="img/trophy.svg" class="trophy" />
                 <p class="mt-4 mb-4">The End!</p>
@@ -87,7 +97,12 @@ export default {
       this.words = []
       if (words.length > 0) {
         this.started = true
-        this.words = words
+        this.loading = true
+        this.loadWordSketches(words, words => {
+          this.loading = false
+          this.words = words
+          console.log(this.words)
+        })
         $([document.documentElement, document.body]).animate(
           {
             scrollTop: $('#questions-wrapper').offset().top

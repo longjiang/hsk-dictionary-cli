@@ -67,14 +67,6 @@
         </div>
       </div>
     </div>
-    <div class="container text-center mt-4" v-if="false">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="heartbeat-loader mb-4"></div>
-          <div class="loading-messages">Loading dictionary data...</div>
-        </div>
-      </div>
-    </div>
 
     <keep-alive>
       <router-view />
