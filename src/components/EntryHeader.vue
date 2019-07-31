@@ -133,19 +133,19 @@ export default {
     previousClick() {
       let list = this.list()
       if (list.hasPrevious()) {
-        const args = Normalizer.getArgs(this.entry.method, list.previous())
-        const previousWord = new Word(this.entry.method, args)
-        location.hash = `/view/${this.entry.method}/${previousWord.args.join(
-          ','
-        )}`
+        const previousWord = Normalizer.get(...list.previous())
+        location.hash = `/view/cedict/${previousWord.traditional},${
+          previousWord.pinyin
+        }`
       }
     },
     nextClick() {
       let list = this.list()
       if (list.hasNext()) {
-        const args = Normalizer.getArgs(this.entry.method, list.next())
-        const nextWord = new Word(this.entry.method, args)
-        location.hash = `/view/${this.entry.method}/${nextWord.args.join(',')}`
+        const nextWord = Normalizer.get(...list.next())
+        location.hash = `/view/cedict/${nextWord.traditional},${
+          nextWord.pinyin
+        }`
       }
     }
   }

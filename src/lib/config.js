@@ -1,4 +1,4 @@
-const server = 'http://hsk-server.local:8888/'
+const server = 'https://www.chinesezerotohero.com/hsk-dictionary/'
 
 export default {
   server: server,

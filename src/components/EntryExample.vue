@@ -10,12 +10,21 @@
         <div class="col-md-6">
           <div class="image-wrapper">
             <img
-              v-bind:src="image"
+              v-bind:src="
+                Config.imageUrl + entry.id + '-' + entry.simplified + '.jpg'
+              "
               class="example-image"
               v-if="hasImage && !admin"
             />
             <img
-              v-bind:src="image + '?v=' + Date.now()"
+              v-bind:src="
+                Config.imageUrl +
+                  entry.id +
+                  '-' +
+                  entry.simplified +
+                  '.jpg?v=' +
+                  Date.now()
+              "
               class="example-image"
               v-if="hasImage && admin"
             />
@@ -103,6 +112,7 @@
 <script>
 import Helper from '@/lib/helper'
 import WordPhotos from '@/lib/word-photos'
+import Config from '@/lib/config'
 import $ from 'jquery'
 
 export default {
@@ -110,24 +120,13 @@ export default {
   data() {
     return {
       Helper,
+      Config,
       hasImage: true,
       image: undefined,
       admin: false
     }
   },
   methods: {
-    getImage() {
-      WordPhotos.getPhoto(
-        this.entry,
-        imagePath => {
-          this.image = imagePath
-          this.hasImage = true
-        },
-        function() {
-          this.hasImage = false
-        }
-      )
-    },
     searchImageKeyupEnter(e) {
       const app = this
       WordPhotos.getSrcsFromUnsplash($(e.target).val(), function(srcs) {
@@ -154,9 +153,6 @@ export default {
       var url = $button.attr('src')
       this.uploadPhotoAndUpdate(url, $button)
     }
-  },
-  mounted() {
-    this.getImage()
   }
 }
 </script>
