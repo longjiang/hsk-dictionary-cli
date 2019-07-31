@@ -70,25 +70,7 @@
           You don't have any words saved yet. Save words by clicking on the
           <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
         </p>
-        <ul class="saved-words">
-          <li
-            class="saved-words-item character-example"
-            v-for="word in savedWordsAugmented()"
-          >
-            <Star :word="word"></Star>
-            <a :href="`#/view/cedict/${word.traditional},${word.pinyin}`">
-              <span class="character-example-word" :data-hsk="word.book">{{
-                word.simplified
-              }}</span
-              >&nbsp;
-              <span class="character-example-pinyin">{{ word.pinyin }}</span
-              >&nbsp;
-              <span class="character-example-english">{{
-                word.definitions[0].text
-              }}</span></a
-            >
-          </li>
-        </ul>
+        <WordList :words="savedWordsAugmented()"></WordList>
       </div>
     </div>
     <!-- .row -->
@@ -100,6 +82,7 @@
 <script>
 import $ from 'jquery'
 import Learn from '@/views/Learn.vue'
+import WordList from '@/components/WordList.vue'
 import HSK from '@/lib/hsk'
 import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
@@ -108,7 +91,8 @@ import AnnotatorService from '@/vendor/annotator-js/js/annotator-service'
 export default {
   template: '#saved-words-template',
   components: {
-    Learn
+    Learn,
+    WordList
   },
   data() {
     return {
