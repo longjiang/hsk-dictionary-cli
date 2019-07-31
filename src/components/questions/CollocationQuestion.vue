@@ -28,6 +28,9 @@
             v-for="gramrel in [Helper.randomArrayItem(word.sketch.Gramrels)]"
           >
             <div>
+              <div class="question-prompt mb-4">
+                Try the word in a phrase:
+              </div>
               <button
                 class="show-more mb-3"
                 v-on:click="Helper.showPinyinClick"

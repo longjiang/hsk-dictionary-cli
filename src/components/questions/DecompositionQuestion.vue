@@ -26,19 +26,6 @@
         </div>
       </div>
     </div>
-    <div
-      class="question-slide-aspect"
-      v-for="rc in [randomChar(word.simplified)]"
-    >
-      <div class="question-slide" :id="`question-${id}-slide-2`">
-        <div :data-hsk="word.book" class="text-center big-word-pinyin">
-          {{ word.pinyin }}
-        </div>
-        <div class="big-word" :data-hsk="word.book">
-          {{ word.simplified }}
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

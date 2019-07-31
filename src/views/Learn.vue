@@ -22,22 +22,30 @@
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
             <div v-for="(word, index) in words" :key="wordsKey">
-              <!-- <DecompositionQuestion
+              <DecompositionQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
               ></DecompositionQuestion>
               <FillInTheBlankQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
-              ></FillInTheBlankQuestion> -->
+              ></FillInTheBlankQuestion>
               <CollocationQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
               ></CollocationQuestion>
-              <!-- <MakeSentenceQuestion
+              <MakeSentenceQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
-              ></MakeSentenceQuestion> -->
+              ></MakeSentenceQuestion>
+              <DecompositionQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></DecompositionQuestion>
+              <CollocationQuestion
+                :word="word"
+                :id="`question-${Helper.uniqueId()}`"
+              ></CollocationQuestion>
             </div>
             <div class="questions-prompt">
               <div class="prompt">

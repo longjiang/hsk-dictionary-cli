@@ -156,8 +156,8 @@ export default {
     const row = this._data.find(function(row) {
       return (
         row.traditional === traditional &&
-        row.pinyin.replace(/\s/g, '').toLowerCase() ===
-          pinyin.replace(/\s/g, '').toLowerCase()
+        row.pinyin.replace(/[\s']/g, '').toLowerCase() ===
+          pinyin.replace(/[\s']/g, '').toLowerCase()
       )
     })
     return this.augment(row)
@@ -176,8 +176,8 @@ export default {
         let pinyinMatch = true
         if (pinyin.length > 0) {
           pinyinMatch =
-            row.pinyin.replace(/\s/g, '').toLowerCase() ===
-            pinyin.replace(/\s/g, '').toLowerCase()
+            row.pinyin.replace(/[\s']/g, '').toLowerCase() ===
+            pinyin.replace(/[\s']/g, '').toLowerCase()
         }
         return pinyinMatch && row.simplified === simplified
       })
@@ -195,8 +195,8 @@ export default {
         let pinyinMatch = true
         if (pinyin.length > 0) {
           pinyinMatch =
-            row.pinyin.replace(/\s/g, '').toLowerCase() ===
-            pinyin.replace(/\s/g, '').toLowerCase()
+            row.pinyin.replace(/[\s']/g, '').toLowerCase() ===
+            pinyin.replace(/[\s']/g, '').toLowerCase()
         }
         return pinyinMatch && row.traditional === traditional
       })

@@ -166,7 +166,6 @@ export default {
     length = length || array.length
     array = array.slice(start, length)
     let index = Math.floor(Math.random() * array.length)
-    console.log(index, 'random')
     return array[index]
   },
   loaderMessage(message) {

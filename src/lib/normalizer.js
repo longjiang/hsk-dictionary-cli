@@ -10,9 +10,6 @@ export default {
     }
     return word
   },
-  fromHSKWord(hskWord) {
-    hskWord
-  },
   getArgs(method, data) {
     if (method === 'hsk') {
       return [data.id]

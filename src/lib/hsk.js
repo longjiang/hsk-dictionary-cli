@@ -89,8 +89,8 @@ export default {
       if (row.word == word && !row.oofc) {
         if (
           !pinyin ||
-          row.pinyin.replace(/\s/g, '').toLowerCase() ===
-            pinyin.replace(/\s/g, '').toLowerCase()
+          row.pinyin.replace(/[\s']/g, '').toLowerCase() ===
+            pinyin.replace(/[\s']/g, '').toLowerCase()
         ) {
           return true
         }
