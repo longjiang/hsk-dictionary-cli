@@ -42,6 +42,22 @@ export default {
     anom: 'anomaly',
     omit: 'omission of word(s)'
   },
+  collocationDescription(word) {
+    return {
+      Subject_of: `${word} + Verb`,
+      SentObject_of: `Adjective/Verb + ${word}`,
+      Modifier: `Adverb + ${word}`,
+      A_Modifier: `Adjective + 的 + ${word}`,
+      Object_of: `Verb + ${word}`,
+      Measure: `Measure Word + ${word}`,
+      N_Modifier: `Noun + ${word}`,
+      Possessor: `Noun + 的 + ${word}`,
+      Possession: `${word} + 的 + Noun`,
+      Modifies: `${word} + (的) + Noun`,
+      Object: `${word} + Noun`,
+      SentObject: `${word} + Complement`
+    }
+  },
   wsketch(term, callback) {
     $.getJSON(
       `${

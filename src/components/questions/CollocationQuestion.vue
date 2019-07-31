@@ -6,9 +6,7 @@
           <div class="row">
             <div class="col-sm-12" v-if="loading">
               <div class="inner-circles-loader mb-4"></div>
-              <div>
-                Loading collocation information...
-              </div>
+              <div>Loading collocation information...</div>
             </div>
           </div>
         </div>
@@ -17,35 +15,47 @@
         <div class="container text-center mt-4" v-if="error">
           <div class="row">
             <div class="col-sm-12">
-              <div><i class="glyphicon glyphicon-fire mb-4"></i></div>
               <div>
-                No collocation data is available for this word.
+                <i class="glyphicon glyphicon-fire mb-4"></i>
               </div>
+              <div>No collocation data is available for this word.</div>
             </div>
           </div>
         </div>
         <div v-if="word.sketch && word.sketch.Gramrels">
-          <div class="question-prompt mb-4">
-            What do you think this means?
-          </div>
-          <div>
-            <button
-              class="show-more mb-1"
-              v-on:click="Helper.showPinyinClick"
-              :data-target-selector="`#${id}-slide-1 .big-word`"
-            >
-              Show Pinyin
-            </button>
-            <div
-              class="text-center big-word"
-              v-html="
-                Helper.highlight(
-                  word.sketch.Gramrels[0].Words[0].cm,
-                  word.simplified,
-                  word.book
-                )
-              "
-            ></div>
+          <div
+            class="question-prompt mb-4"
+            v-for="gramrel in [Helper.randomArrayItem(word.sketch.Gramrels)]"
+          >
+            <div>
+              <button
+                class="show-more mb-3"
+                v-on:click="Helper.showPinyinClick"
+                :data-target-selector="`#${id}-slide-1 .big-word`"
+              >
+                Show Pinyin
+              </button>
+              <div
+                class="text-center big-word"
+                v-html="
+                  Helper.highlight(
+                    Helper.randomArrayItem(gramrel.Words, 0, 5).cm,
+                    word.simplified,
+                    word.book
+                  )
+                "
+              ></div>
+              <div
+                v-bind:key="gramrel.name"
+                class="example-sentence-word mt-2"
+                v-for="name in [
+                  SketchEngine.collocationDescription(word.simplified)[
+                    gramrel.name
+                  ]
+                ]"
+                v-html="Helper.highlight(name, word.simplified, word.book)"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -65,6 +75,7 @@ export default {
     return {
       Helper,
       Config,
+      SketchEngine,
       loading: true,
       error: false
     }

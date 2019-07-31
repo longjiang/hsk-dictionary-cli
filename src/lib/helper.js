@@ -162,6 +162,13 @@ export default {
       }
     }
   },
+  randomArrayItem(array, start = 0, length = false) {
+    length = length || array.length
+    array = array.slice(start, length)
+    let index = Math.floor(Math.random() * array.length)
+    console.log(index, 'random')
+    return array[index]
+  },
   loaderMessage(message) {
     this.loaderMessages.push(message)
     console.log('loaderMessage()', message)

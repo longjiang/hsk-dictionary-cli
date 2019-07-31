@@ -21,7 +21,7 @@
               </div>
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
-            <div v-for="(word, index) in words">
+            <div v-for="(word, index) in words" :key="wordsKey">
               <!-- <DecompositionQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
@@ -82,6 +82,7 @@ export default {
       Helper,
       started: false,
       words: [],
+      wordsKey: 0,
       questionTypes: [
         'fill-in-the-blank',
         'make-a-sentence',
@@ -100,7 +101,7 @@ export default {
       const words = this.$store.state.savedWords.map(([traditional, pinyin]) =>
         Normalizer.normalize(CEDICT.get(traditional, pinyin))
       )
-      this.words = []
+      this.wordsKey += 1
       this.words = words
       if (words.length > 0) {
         this.started = true
