@@ -1,11 +1,11 @@
-const server = 'https://www.chinesezerotohero.com/hsk-dictionary/'
-
 export default {
-  server: server,
-  sketchEngineProxy: server + 'sketch-engine-proxy.php',
-  proxy: server + 'proxy.php',
-  listPhotos: server + 'list-photos.php',
-  savePhoto: server + 'save-photo.php',
+  server: 'https://www.chinesezerotohero.com/hsk-dictionary/',
+  sketchEngineProxy:
+    'https://www.chinesezerotohero.com/hsk-dictionary/sketch-engine-proxy.php',
+  proxy: 'https://www.chinesezerotohero.com/hsk-dictionary/proxy.php',
+  listPhotos:
+    'https://www.chinesezerotohero.com/hsk-dictionary/list-photos.php',
+  savePhoto: 'https://www.chinesezerotohero.com/hsk-dictionary/save-photo.php',
   imageUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/img/words/',
   animatedSvgUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/data/svgs/'
 }

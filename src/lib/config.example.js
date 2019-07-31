@@ -1,7 +1,11 @@
 export default {
-  server: 'http://hsk-server.local:8888/',
-  sketchEngineProxy: this.server + 'sketch-engine-proxy.php',
-  proxy: this.server + 'proxy.php',
-  listPhotos: this.server + 'list-photos.php',
-  savePhoto: this.server + 'save-photo.php'
+  server: 'https://www.chinesezerotohero.com/hsk-dictionary/',
+  sketchEngineProxy:
+    'https://www.chinesezerotohero.com/hsk-dictionary/sketch-engine-proxy.php',
+  proxy: 'https://www.chinesezerotohero.com/hsk-dictionary/proxy.php',
+  listPhotos:
+    'https://www.chinesezerotohero.com/hsk-dictionary/list-photos.php',
+  savePhoto: 'https://www.chinesezerotohero.com/hsk-dictionary/save-photo.php',
+  imageUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/img/words/',
+  animatedSvgUrl: 'https://www.chinesezerotohero.com/hsk-dictionary/data/svgs/'
 }
