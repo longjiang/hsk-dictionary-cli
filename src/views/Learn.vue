@@ -10,90 +10,30 @@
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
         <WordList :words="words"></WordList>
-        <div id="questions-wrapper">
-          <div v-if="!started" class="questions-prompt">
-            <p>Get familiar with these words by engaging with them.</p>
-            <button
-              v-on:click="startClick()"
-              class="btn"
-              :data-bg-hsk="args[0]"
-              id="another-set-btn"
-            >
-              Start Learning
-            </button>
-          </div>
-          <div v-if="started" id="questions" :key="wordsKey">
-            <div class="questions-prompt">
-              <div class="prompt">
-                <b>Keep scrolling down</b> for questions and answers
-              </div>
-              <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
-            </div>
-            <div v-for="(word, index) in words">
-              <DecompositionQuestion
-                :word="word"
-                :id="`word-${index}-decomposition-1`"
-              ></DecompositionQuestion>
-              <FillInTheBlankQuestion
-                :word="word"
-                :id="`word-${index}-fill-in-the-blank`"
-              ></FillInTheBlankQuestion>
-              <CollocationQuestion
-                :word="word"
-                :id="`word-${index}-collocation`"
-              ></CollocationQuestion>
-              <MakeSentenceQuestion
-                :word="word"
-                :id="`word-${index}-make-sentence`"
-              ></MakeSentenceQuestion>
-            </div>
-            <div class="questions-prompt">
-              <div class="prompt">
-                <img src="img/trophy.svg" class="trophy" />
-                <p class="mt-4 mb-4">The End!</p>
-              </div>
-              <button
-                v-on:click="tryAnotherClick()"
-                class="btn"
-                :data-bg-hsk="args[0]"
-                id="another-set-btn"
-              >
-                Try Another Set
-              </button>
-            </div>
-          </div>
-        </div>
+        <Questions :words="words" :book="args[0]"></Questions>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
 import Helper from '@/lib/helper'
 import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
 import WordList from '@/components/WordList.vue'
-import CollocationQuestion from '@/components/questions/CollocationQuestion.vue'
-import DecompositionQuestion from '@/components/questions/DecompositionQuestion.vue'
-import FillInTheBlankQuestion from '@/components/questions/FillInTheBlankQuestion.vue'
-import MakeSentenceQuestion from '@/components/questions/MakeSentenceQuestion.vue'
+import Questions from '@/components/Questions.vue'
 import HSK from '@/lib/hsk'
 
 export default {
   components: {
     WordList,
-    CollocationQuestion,
-    DecompositionQuestion,
-    FillInTheBlankQuestion,
-    MakeSentenceQuestion
+    Questions
   },
   data() {
     return {
       Helper,
       started: false,
       words: [],
-      wordsKey: 0,
       method: '',
       args: [],
       questionTypes: [
@@ -105,32 +45,6 @@ export default {
     }
   },
   methods: {
-    randomQuestionType() {
-      return this.questionTypes[
-        Math.floor(Math.random() * this.questionTypes.length)
-      ]
-    },
-    startClick() {
-      this.started = true
-    },
-    regenQuestions() {
-      let words = this.words
-      this.words = []
-      this.wordsKey += 1
-      this.words = words
-      this.wordsKey += 1
-    },
-    tryAnotherClick() {
-      this.regenQuestions()
-      if (this.words.length > 0) {
-        $([document.documentElement, document.body]).animate(
-          {
-            scrollTop: $('#questions-wrapper').offset().top
-          },
-          1000
-        )
-      }
-    },
     beforeMount() {
       this.route()
     },
