@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div id="questions-wrapper">
           <div v-if="!started" class="questions-prompt">
-            <h4 class="page-title">Learn Words</h4>
+            <h4 class="page-title">Learn The Words You Saved</h4>
             <p>Get familiar with words by engaging with them.</p>
             <button
               v-on:click="showSet()"
@@ -15,17 +15,7 @@
             </button>
           </div>
           <div v-if="started" id="questions">
-            <div class="container text-center mt-4" v-if="loading">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="inner-circles-loader mb-4"></div>
-                  <div class="mb-4">
-                    Generating questions...
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="questions-prompt" v-if="!loading">
+            <div class="questions-prompt">
               <div class="prompt">
                 <b>Keep scrolling down</b> for questions and answers
               </div>
@@ -35,21 +25,21 @@
               <!-- <DecompositionQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
-              ></DecompositionQuestion> -->
+              ></DecompositionQuestion>
               <FillInTheBlankQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
-              ></FillInTheBlankQuestion>
-              <!-- <CollocationQuestion
+              ></FillInTheBlankQuestion> -->
+              <CollocationQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
               ></CollocationQuestion>
-              <MakeSentenceQuestion
+              <!-- <MakeSentenceQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"
               ></MakeSentenceQuestion> -->
             </div>
-            <div class="questions-prompt" v-if="!loading">
+            <div class="questions-prompt">
               <div class="prompt">
                 <img src="img/trophy.svg" class="trophy" />
                 <p class="mt-4 mb-4">The End!</p>
@@ -71,8 +61,6 @@
 
 <script>
 import $ from 'jquery'
-import SketchEngine from '@/lib/sketch-engine'
-import Loader from '@/lib/loader'
 import Helper from '@/lib/helper'
 import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
@@ -113,14 +101,9 @@ export default {
         Normalizer.normalize(CEDICT.get(traditional, pinyin))
       )
       this.words = []
+      this.words = words
       if (words.length > 0) {
         this.started = true
-        this.loading = true
-        this.loadWordSketches(words, words => {
-          this.loading = false
-          this.words = words
-          console.log(this.words)
-        })
         $([document.documentElement, document.body]).animate(
           {
             scrollTop: $('#questions-wrapper').offset().top
@@ -128,22 +111,6 @@ export default {
           1000
         )
       }
-    },
-    loadWordSketches(words, callback) {
-      let goals = []
-      for (let word of words) {
-        if (!word.sketch) {
-          const goal = goals.length
-          goals.push(goal)
-          SketchEngine.wsketch(word.simplified, function(response) {
-            loader.loaded(goal)
-            word.sketch = response
-          })
-        }
-      }
-      const loader = new Loader(goals, () => {
-        callback(words)
-      })
     }
   }
 }
