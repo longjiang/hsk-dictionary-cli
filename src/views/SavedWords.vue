@@ -130,6 +130,7 @@ export default {
         'Simplified\tTraditional\tPinyin\tDefinitions\tMeasure Words\n' +
         SavedWordsVue.savedWords
           .map(function(word) {
+            word = Normalizer.get(...word)
             const definitions = word.definitions.map(function(definition) {
               return definition.text
             })
@@ -151,8 +152,9 @@ export default {
       )
     },
     csvSimple() {
-      return this.list()
+      return this.$store.state.savedWords
         .map(function(word) {
+          word = Normalizer.get(...word)
           const definitions = word.definitions.map(function(definition) {
             return definition.text
           })
