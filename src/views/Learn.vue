@@ -6,15 +6,15 @@
           Learn the words you saved
         </h4>
         <h4 class="page-title mb-4" v-if="method === 'hsk'">
-          Learn the words in HSK {{ args[0] }} Lesson {{ args[1] }} Part
-          {{ args[2] }}
+          <b :data-hsk="args[0]">HSK {{ args[0] }}</b>
+          <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
         <div id="questions-wrapper">
           <div v-if="!started" class="questions-prompt">
             <p>Get familiar with words by engaging with them.</p>
             <button
               v-on:click="startClick()"
-              class="btn btn-success"
+              class="btn"
               :data-bg-hsk="args[0]"
               id="another-set-btn"
             >
@@ -51,11 +51,7 @@
                 <img src="img/trophy.svg" class="trophy" />
                 <p class="mt-4 mb-4">The End!</p>
               </div>
-              <button
-                v-on:click="showSet()"
-                class="btn btn-success"
-                id="another-set-btn"
-              >
+              <button v-on:click="showSet()" class="btn" id="another-set-btn">
                 Try Another Set
               </button>
             </div>
