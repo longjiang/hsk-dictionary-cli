@@ -18,7 +18,9 @@ export default {
         success(url)
       })
       .fail(function() {
-        fail()
+        if (fail) {
+          fail()
+        }
       })
   },
   // strWord = "视频"

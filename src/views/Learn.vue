@@ -14,14 +14,14 @@
               Start Learning
             </button>
           </div>
-          <div v-if="started" id="questions">
+          <div v-if="started" id="questions" :key="wordsKey">
             <div class="questions-prompt">
               <div class="prompt">
                 <b>Keep scrolling down</b> for questions and answers
               </div>
               <i class="glyphicon glyphicon-arrow-down scroll-down-arrow"></i>
             </div>
-            <div v-for="(word, index) in words" :key="wordsKey">
+            <div v-for="(word, index) in words">
               <DecompositionQuestion
                 :word="word"
                 :id="`question-${Helper.uniqueId()}`"

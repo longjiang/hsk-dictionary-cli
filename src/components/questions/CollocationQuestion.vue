@@ -23,10 +23,7 @@
           </div>
         </div>
         <div v-if="word.sketch && word.sketch.Gramrels">
-          <div
-            class="question-prompt mb-4"
-            v-for="gramrel in [Helper.randomArrayItem(word.sketch.Gramrels)]"
-          >
+          <div class="question-prompt mb-4">
             <div>
               <div class="question-prompt mb-4">
                 Try the word in a phrase:
@@ -38,25 +35,16 @@
               >
                 Show Pinyin
               </button>
+              <Speak :text="phrase" class="ml-2"></Speak>
               <div
                 class="text-center big-word"
-                v-html="
-                  Helper.highlight(
-                    Helper.randomArrayItem(gramrel.Words, 0, 5).cm,
-                    word.simplified,
-                    word.book
-                  )
-                "
+                v-html="Helper.highlight(phrase, word.simplified, word.book)"
               ></div>
               <div
-                v-bind:key="gramrel.name"
                 class="example-sentence-word mt-2"
-                v-for="name in [
-                  SketchEngine.collocationDescription(word.simplified)[
-                    gramrel.name
-                  ]
-                ]"
-                v-html="Helper.highlight(name, word.simplified, word.book)"
+                v-html="
+                  Helper.highlight(gramrelName, word.simplified, word.book)
+                "
               ></div>
             </div>
           </div>
@@ -79,6 +67,9 @@ export default {
       Helper,
       Config,
       SketchEngine,
+      gramrel: undefined,
+      phrase: undefined,
+      gramrelName: undefined,
       loading: true,
       error: false
     }
@@ -91,18 +82,22 @@ export default {
         this.word.sketch.Gramrels = this.word.sketch.Gramrels.sort(
           (a, b) => b.count - a.count
         )
+        for (let gramrel of this.word.sketch.Gramrels) {
+          gramrel.Words.sort((a, b) => a.cm.length - b.cm.length)
+        }
+        this.choosePhrase()
       } else {
         this.error = true
       }
     })
   },
   methods: {
-    gramrel(Gramrels, name) {
-      if (Gramrels) {
-        return Gramrels.find(function(Gramrel) {
-          return Gramrel.name === name
-        })
-      }
+    choosePhrase() {
+      this.gramrel = Helper.randomArrayItem(this.word.sketch.Gramrels)
+      this.phrase = Helper.randomArrayItem(this.gramrel.Words, 0, 5).cm
+      this.gramrelName = SketchEngine.collocationDescription(
+        this.word.simplified
+      )[this.gramrel.name]
     }
   }
 }

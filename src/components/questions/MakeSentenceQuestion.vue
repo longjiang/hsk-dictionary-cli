@@ -13,6 +13,7 @@
           >
             Show Pinyin
           </button>
+          <Speak :text="word.simplified" class="ml-2"></Speak>
         </div>
         <div class="text-center big-word" :data-hsk="word.book">
           {{ word.simplified }}
@@ -42,6 +43,7 @@
           >
             Show Pinyin
           </button>
+          <Speak :text="word.example" class="ml-2"></Speak>
         </div>
         <div
           class="text-center example-sentence-word mb-4"

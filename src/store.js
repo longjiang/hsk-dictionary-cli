@@ -14,8 +14,8 @@ export default new Vuex.Store({
         !state.savedWords.find(
           item =>
             item.traditional === traditional &&
-            item.pinyin.replace(/\s/g, '').toLowerCase() ===
-              pinyin.replace(/\s/g, '').toLowerCase()
+            item.pinyin.replace(/[\s']/g, '').toLowerCase() ===
+              pinyin.replace(/[\s']/g, '').toLowerCase()
         )
       ) {
         state.savedWords.push([traditional, pinyin])

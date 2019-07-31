@@ -14,6 +14,7 @@ import Grammar from '@/lib/grammar'
 import HSK from '@/lib/hsk'
 import Helper from '@/lib/helper'
 import Star from '@/components/Star'
+import Speak from '@/components/Speak'
 import store from './store'
 import $ from 'jquery'
 
@@ -21,6 +22,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
 Vue.component('Star', Star)
+Vue.component('Speak', Speak)
 
 let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')

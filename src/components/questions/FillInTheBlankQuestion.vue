@@ -8,6 +8,7 @@
           </div>
           <div class="text-center big-word-pinyin" :data-hsk="word.book">
             {{ word.pinyin }}
+            <Speak :text="word.simplified"></Speak>
           </div>
           <div
             class="text-center big-word"
@@ -24,6 +25,7 @@
         <div class="question-slide answer" :id="`${id}-slide-2`">
           <div class="text-center big-word-pinyin" :data-hsk="word.book">
             {{ word.pinyin }}
+            <Speak :text="word.simplified"></Speak>
           </div>
           <div class="decomposition-word">
             <span

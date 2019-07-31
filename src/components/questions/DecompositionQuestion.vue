@@ -7,6 +7,7 @@
       <div class="question-slide" :id="`question-${id}-slide-1`">
         <div :data-hsk="word.book" class="text-center big-word-pinyin mb-4">
           {{ word.pinyin }}
+          <Speak :text="word.simplified" class="ml-2"></Speak>
         </div>
         <div class="decomposition-word">
           <span
