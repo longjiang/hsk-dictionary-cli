@@ -24,28 +24,20 @@
             <div v-for="(word, index) in words">
               <DecompositionQuestion
                 :word="word"
-                :id="`question-${Helper.uniqueId()}`"
+                :id="`word-${index}-decomposition-1`"
               ></DecompositionQuestion>
               <FillInTheBlankQuestion
                 :word="word"
-                :id="`question-${Helper.uniqueId()}`"
+                :id="`word-${index}-fill-in-the-blank`"
               ></FillInTheBlankQuestion>
               <CollocationQuestion
                 :word="word"
-                :id="`question-${Helper.uniqueId()}`"
+                :id="`word-${index}-collocation`"
               ></CollocationQuestion>
               <MakeSentenceQuestion
                 :word="word"
-                :id="`question-${Helper.uniqueId()}`"
+                :id="`word-${index}-make-sentence`"
               ></MakeSentenceQuestion>
-              <DecompositionQuestion
-                :word="word"
-                :id="`question-${Helper.uniqueId()}`"
-              ></DecompositionQuestion>
-              <CollocationQuestion
-                :word="word"
-                :id="`question-${Helper.uniqueId()}`"
-              ></CollocationQuestion>
             </div>
             <div class="questions-prompt">
               <div class="prompt">
@@ -76,6 +68,7 @@ import CollocationQuestion from '@/components/questions/CollocationQuestion.vue'
 import DecompositionQuestion from '@/components/questions/DecompositionQuestion.vue'
 import FillInTheBlankQuestion from '@/components/questions/FillInTheBlankQuestion.vue'
 import MakeSentenceQuestion from '@/components/questions/MakeSentenceQuestion.vue'
+import HSK from '@/lib/hsk'
 
 export default {
   template: '#learn-template',
@@ -105,12 +98,9 @@ export default {
         Math.floor(Math.random() * this.questionTypes.length)
       ]
     },
-    showSet() {
-      const words = this.$store.state.savedWords.map(([traditional, pinyin]) =>
-        Normalizer.normalize(CEDICT.get(traditional, pinyin))
-      )
-      this.wordsKey += 1
+    learnWords(words) {
       this.words = words
+      this.wordsKey += 1
       if (words.length > 0) {
         this.started = true
         $([document.documentElement, document.body]).animate(
@@ -120,6 +110,27 @@ export default {
           1000
         )
       }
+    },
+    route() {
+      if (this.$route.params.method && this.$route.params.args) {
+        const method = this.$route.params.method
+        const args = this.$route.params.args.split(',')
+        if (method == 'saved') {
+          const words = this.$store.state.savedWords.map(
+            ([traditional, pinyin]) =>
+              Normalizer.normalize(CEDICT.get(traditional, pinyin))
+          )
+          this.learnWords(words)
+        } else if (method == 'hsk') {
+          const lesson = args[0]
+          const dialog = args[1]
+          const words = HSK.getByLessonDialog(args[0], args[1]).map(word =>
+            Normalizer.normalize(word)
+          )
+          this.learnWords(words)
+        }
+      }
+      location.hash = '/learn/saved'
     }
   }
 }

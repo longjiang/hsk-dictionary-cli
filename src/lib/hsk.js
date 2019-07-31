@@ -80,6 +80,12 @@ export default {
     return words
   },
 
+  getByLessonDialog(lesson, dialog) {
+    return this._standardCourseData.filter(
+      row => row.lesson === lesson && row.dialog === dialog
+    )
+  },
+
   count: function() {
     return this._standardCourseData.length
   },

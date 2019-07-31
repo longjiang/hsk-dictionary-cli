@@ -7,6 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'home',
       redirect: '/browse'
     },
     {
@@ -26,7 +27,7 @@ export default new Router({
       component: () => import('./views/Reader.vue')
     },
     {
-      path: '/learn',
+      path: '/learn/:method?/:args?',
       name: 'learn',
       component: () => import('./views/Learn.vue')
     },

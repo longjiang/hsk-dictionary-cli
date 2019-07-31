@@ -80,7 +80,7 @@ export default {
       error: false
     }
   },
-  mounted() {
+  beforeMount() {
     SketchEngine.wsketch(this.word.simplified, response => {
       this.loading = false
       if (response.Gramrels && response.Gramrels.length > 0) {
