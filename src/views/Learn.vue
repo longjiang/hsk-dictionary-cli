@@ -2,13 +2,20 @@
   <div class="main mt-4 mb-4 container" v-cloak>
     <div class="row">
       <div class="col-sm-12">
+        <h4 class="page-title mb-4" v-if="method === 'saved'">
+          Learn the words you saved
+        </h4>
+        <h4 class="page-title mb-4" v-if="method === 'hsk'">
+          Learn the words in HSK {{ args[0] }} Lesson {{ args[1] }} Part
+          {{ args[2] }}
+        </h4>
         <div id="questions-wrapper">
           <div v-if="!started" class="questions-prompt">
-            <h4 class="page-title">Learn The Words You Saved</h4>
             <p>Get familiar with words by engaging with them.</p>
             <button
-              v-on:click="showSet()"
+              v-on:click="startClick()"
               class="btn btn-success"
+              :data-bg-hsk="args[0]"
               id="another-set-btn"
             >
               Start Learning
@@ -71,7 +78,6 @@ import MakeSentenceQuestion from '@/components/questions/MakeSentenceQuestion.vu
 import HSK from '@/lib/hsk'
 
 export default {
-  template: '#learn-template',
   components: {
     CollocationQuestion,
     DecompositionQuestion,
@@ -84,6 +90,8 @@ export default {
       started: false,
       words: [],
       wordsKey: 0,
+      method: '',
+      args: [],
       questionTypes: [
         'fill-in-the-blank',
         'make-a-sentence',
@@ -98,6 +106,9 @@ export default {
         Math.floor(Math.random() * this.questionTypes.length)
       ]
     },
+    startClick() {
+      this.started = true
+    },
     learnWords(words) {
       this.words = words
       this.wordsKey += 1
@@ -111,26 +122,41 @@ export default {
         )
       }
     },
+    beforeMount() {
+      this.route()
+    },
     route() {
       if (this.$route.params.method && this.$route.params.args) {
-        const method = this.$route.params.method
-        const args = this.$route.params.args.split(',')
-        if (method == 'saved') {
-          const words = this.$store.state.savedWords.map(
+        this.method = this.$route.params.method
+        this.args = this.$route.params.args.split(',')
+        if (this.method == 'saved') {
+          this.words = this.$store.state.savedWords.map(
             ([traditional, pinyin]) =>
               Normalizer.normalize(CEDICT.get(traditional, pinyin))
           )
-          this.learnWords(words)
-        } else if (method == 'hsk') {
-          const lesson = args[0]
-          const dialog = args[1]
-          const words = HSK.getByLessonDialog(args[0], args[1]).map(word =>
-            Normalizer.normalize(word)
-          )
-          this.learnWords(words)
+          return
+        } else if (this.method == 'hsk') {
+          this.words = HSK.getByBookLessonDialog(
+            this.args[0],
+            this.args[1],
+            this.args[2]
+          ).map(word => Normalizer.normalize(word))
+          return
         }
       }
       location.hash = '/learn/saved'
+    }
+  },
+  watch: {
+    $route() {
+      if (this.$route.name === 'learn') {
+        this.route()
+      }
+    }
+  },
+  mounted() {
+    if (this.$route.name === 'learn') {
+      this.route()
     }
   }
 }

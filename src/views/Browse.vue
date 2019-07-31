@@ -86,6 +86,16 @@
                         <i class="glyphicon glyphicon-star-empty"></i> Save All
                         in This Dialog
                       </button>
+                      <a
+                        class="btn btn-small ml-2 learn-all-button"
+                        :data-bg-hsk="bookIndex"
+                        :href="
+                          `#/learn/hsk/${bookIndex},${lessonIndex},${dialogIndex}`
+                        "
+                      >
+                        <i class="glyphicon glyphicon-blackboard"></i> Learn
+                        These Words
+                      </a>
                     </ul>
                   </li>
                 </ul>

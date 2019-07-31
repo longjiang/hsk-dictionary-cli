@@ -80,9 +80,12 @@ export default {
     return words
   },
 
-  getByLessonDialog(lesson, dialog) {
+  getByBookLessonDialog(book, lesson, dialog) {
     return this._standardCourseData.filter(
-      row => row.lesson === lesson && row.dialog === dialog
+      row =>
+        parseInt(row.book) === parseInt(book) &&
+        parseInt(row.lesson) === parseInt(lesson) &&
+        row.dialog.toString() === dialog.toString()
     )
   },
 
