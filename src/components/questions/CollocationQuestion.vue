@@ -26,15 +26,13 @@
           <div class="question-prompt mb-4">
             <div>
               <div class="question-prompt mb-4">
-                Try the word in a phrase:
+                An example phrase:
               </div>
-              <button
-                class="show-more mb-3"
-                v-on:click="Helper.showPinyinClick"
-                :data-target-selector="`#${id}-slide-1 .big-word`"
-              >
-                Show Pinyin
-              </button>
+              <PinyinButton
+                class="mb-3"
+                keep="true"
+                :selector="`#${id}-slide-1 .big-word`"
+              />
               <Speak :text="phrase" class="ml-2"></Speak>
               <div
                 class="text-center big-word"

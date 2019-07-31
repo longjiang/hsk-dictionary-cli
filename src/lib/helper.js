@@ -41,7 +41,9 @@ export default {
     $(e.target).text('Loading...')
     // eslint-disable-next-line no-undef
     new Annotator(CEDICT).annotateBySelector(`${selector}`, function() {
-      $(e.target).remove()
+      if (!$(e.target).attr('data-keep')) {
+        $(e.target).remove()
+      }
       Helper.augmentAnnotatedBlocks(selector)
     })
   },
