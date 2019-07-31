@@ -46,6 +46,14 @@
                   Helper.highlight(gramrelName, word.simplified, word.book)
                 "
               ></div>
+              <button
+                class="show-more mt-3"
+                v-on:click="choosePhrase()"
+                :data-bg-hsk="word.book"
+                :data-target-selector="`#Gramrels-${type}`"
+              >
+                Another Example
+              </button>
             </div>
           </div>
         </div>
