@@ -22,6 +22,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/compare/:method/:args',
+      name: 'browse',
+      component: () => import('./views/Compare.vue')
+    },
+    {
       path: '/reader',
       name: 'reader',
       component: () => import('./views/Reader.vue')

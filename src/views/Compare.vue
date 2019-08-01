@@ -2,55 +2,6 @@
   <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
     <EntryHeader :entry="entry"></EntryHeader>
 
-    <!-- ANCHOR img/anchors/oofc.png -->
-    <div
-      class="container-fluid mb2"
-      v-cloak
-      v-if="entry.oofc && entry.oofc !== ''"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            This word is not required in HSK {{ entry.book }} but is covered in
-            our
-            <a
-              href="https://courses.chinesezerotohero.com/"
-              :data-hsk="entry.book"
-              class="video-course"
-              >HSK {{ entry.book }} Video Course</a
-            >
-            as an optional vocabulary word.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANCHOR img/anchors/pn.png -->
-    <div class="container-fluid mb2" v-cloak v-if="entry.pn && entry.pn !== ''">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            This is a
-            <b>
-              <em>proper noun</em>
-            </b>
-            that appeared in
-            <b>
-              Lesson {{ entry.lesson }}
-              <span v-if="entry.book < 5">, Text {{ entry.dialog }}</span>
-            </b>
-            of our
-            <a
-              href="https://courses.chinesezerotohero.com/"
-              :data-hsk="entry.book"
-              class="video-course"
-              >HSK {{ entry.book }} Video Course</a
-            >.
-          </div>
-        </div>
-      </div>
-    </div>
-
     <EntryExample :entry="entry"></EntryExample>
 
     <EntryCharacters :entry="entry"></EntryCharacters>
@@ -91,6 +42,7 @@ import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
 import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
+import WordPhotos from '@/lib/word-photos'
 import $ from 'jquery'
 
 export default {
@@ -118,7 +70,8 @@ export default {
       HSK,
       LRC,
       Hanzi,
-      entryKey: 0 // used to force re-render this component
+      entryKey: 0, // used to force re-render this component
+      webImagesKey: 0
     }
   },
   computed: {
@@ -141,6 +94,10 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
+      WordPhotos.getWebImages(entry.simplified, srcs => {
+        this.entry.images = srcs
+        this.webImagesKey += 1
+      })
       $('#lookup').val(entry.simplified)
     },
     attachSpeakEventHandler: function() {
