@@ -48,16 +48,7 @@
               </div>
             </div>
           </div>
-          <ul
-            class="definitions collapsed"
-            v-if="!minimal && entry.definitions"
-            data-collapse-target
-          >
-            <li v-for="definition in entry.definitions" class="english">
-              {{ definition.text }}
-            </li>
-          </ul>
-          <ShowMoreButton :length="entry.definitions.length" :min="3" />
+          <DefinitionsList :definitions="entry.definitions"></DefinitionsList>
         </div>
       </div>
       <!-- .col -->
@@ -71,6 +62,7 @@
 import Helper from '@/lib/helper'
 import List from '@/lib/list'
 import Normalizer from '@/lib/normalizer'
+import DefinitionsList from '@/components/DefinitionsList.vue'
 
 export default {
   props: {
@@ -81,6 +73,9 @@ export default {
       type: String,
       default: ''
     }
+  },
+  components: {
+    DefinitionsList
   },
   data() {
     return {

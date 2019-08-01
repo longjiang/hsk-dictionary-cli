@@ -127,17 +127,11 @@
             <em class="character-example-english">{{ example.english }}</em>
           </li>
         </ul>
-        <button
-          v-if="character.examples && character.examples.length > 4"
-          class="show-more collapsed"
-          v-on:click="Helper.showMoreClick"
-          title="Show all examples"
-        >
-          <span class="label-expand"
-            >Show {{ character.examples.length - 4 }} more</span
-          >
-          <span class="label-collapse">Collapse</span>
-        </button>
+        <ShowMoreButton
+          v-if="character.examples"
+          :length="character.examples.length"
+          :min="4"
+        />
       </div>
     </div>
   </div>

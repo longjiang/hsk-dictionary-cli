@@ -36,18 +36,11 @@
             </ul>
           </li>
         </ul>
-        <button
-          v-if="entry.related.length > 12"
-          class="show-more collapsed"
-          v-on:click="Helper.showMoreClick"
-          title="Show all related words"
+        <ShowMoreButton
           :data-bg-hsk="entry.book"
-        >
-          <span class="label-expand"
-            >Show {{ entry.related.length - 12 }} more</span
-          >
-          <span class="label-collapse">Collapse</span>
-        </button>
+          :length="entry.related.length"
+          :min="12"
+        />
       </div>
     </div>
   </div>

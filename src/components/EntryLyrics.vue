@@ -58,14 +58,7 @@
                     "
                   ></div>
                 </div>
-                <button
-                  class="show-more collapsed mt1"
-                  v-on:click="Helper.showMoreClick"
-                  :data-bg-hsk="entry.book"
-                >
-                  <span class="label-expand">Show Entire Song</span>
-                  <span class="label-collapse">Collapse</span>
-                </button>
+                <ShowMoreButton />
               </div>
               <div class="col-md-6 text-center">
                 <div

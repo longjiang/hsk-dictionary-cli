@@ -30,7 +30,6 @@ export default {
     }
   },
   mounted() {
-    console.log('grabbing images', this.entry.simplified)
     WordPhotos.getWebImages(this.entry.simplified, srcs => {
       this.entry.images = srcs
       this.webImagesKey += 1

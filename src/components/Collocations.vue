@@ -18,19 +18,11 @@
         ></span>
       </li>
     </ul>
-    <button
-      v-if="collocation.Words.length > 4"
-      class="show-more collapsed"
-      v-on:click="Helper.showMoreClick"
-      title="Show all examples"
+    <ShowMoreButton
       :data-bg-hsk="level"
-    >
-      <span class="label-expand">
-        Show
-        {{ collocation.Words.length - 4 }} more
-      </span>
-      <span class="label-collapse">Collapse</span>
-    </button>
+      :length="collocation.Words.length"
+      :min="4"
+    />
   </div>
 </template>
 

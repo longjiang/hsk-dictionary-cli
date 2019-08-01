@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="length > min"
+    v-if="!length || length > min"
     class="show-more collapsed mb-4"
     v-on:click="showMoreClick"
   >
@@ -14,7 +14,14 @@
 <script>
 import $ from 'jquery'
 export default {
-  props: ['length', 'min'],
+  props: {
+    length: {
+      default: false
+    },
+    min: {
+      default: false
+    }
+  },
   methods: {
     showMoreClick(e) {
       var $button = $(e.currentTarget)

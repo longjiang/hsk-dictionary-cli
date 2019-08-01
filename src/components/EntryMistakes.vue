@@ -33,13 +33,7 @@
               data-collapse-target
               >{{ mistake.rightContext }}</span
             >
-            <button
-              class="show-more collapsed"
-              v-on:click="Helper.showMoreClick"
-            >
-              <span class="label-expand">Context</span>
-              <span class="label-collapse">Collapse</span>
-            </button>
+            <ShowMoreButton>Context</ShowMoreButton>
             <br />
             <span class="mistake-description" v-if="mistake.country">
               Student from
@@ -71,18 +65,11 @@
             </span>
           </li>
         </ul>
-        <button
-          v-if="entry.mistakes.length > 4"
-          class="show-more collapsed"
-          v-on:click="Helper.showMoreClick"
-          title="Show all mistakes"
+        <ShowMoreButton
+          :length="entry.mistakes.length"
+          min="4"
           :data-bg-hsk="entry.book"
-        >
-          <span class="label-expand"
-            >Show {{ entry.mistakes.length - 4 }} more</span
-          >
-          <span class="label-collapse">Collapse</span>
-        </button>
+        ></ShowMoreButton>
       </div>
     </div>
   </div>

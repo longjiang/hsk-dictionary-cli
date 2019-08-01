@@ -21,18 +21,11 @@
             ></span>
           </li>
         </ul>
-        <button
-          v-if="entry.examples.length > 4"
-          class="show-more collapsed"
-          v-on:click="Helper.showMoreClick"
-          title="Show all examples"
+        <ShowMoreButton
+          :length="entry.examples.length"
+          :min="4"
           :data-bg-hsk="entry.book"
-        >
-          <span class="label-expand"
-            >Show {{ Math.min(entry.examples.length, 100) - 4 }} more</span
-          >
-          <span class="label-collapse">Collapse</span>
-        </button>
+        />
       </div>
     </div>
   </div>

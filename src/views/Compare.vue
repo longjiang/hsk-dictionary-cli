@@ -9,6 +9,14 @@
           <EntryHeader :entry="b" minimal="true"></EntryHeader>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <DefinitionsList :definitions="entry.definitions"></DefinitionsList>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12"></div>
+      </div>
     </div>
 
     <!-- <EntryExample :entry="entry"></EntryExample> -->
@@ -59,6 +67,7 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
+import DefinitionsList from '@/components/DefinitionsList.vue'
 import Normalizer from '@/lib/normalizer'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
