@@ -7,12 +7,28 @@
           <p>This tool helps you read Chinese text.</p>
           <hr />
           <div class="mt-2 mb-2" v-if="annotated">
-            <input type="checkbox" v-model="hidePinyinExceptSaved" checked />
-            Hide Pinyin
-            <input type="checkbox" class="ml-2" v-model="useTraditional" />
-            Traditonal
-            <input type="checkbox" class="ml-2" v-model="showDefinition" />
-            Definition
+            <input
+              type="checkbox"
+              id="hide-pinyin"
+              class="mr-1"
+              v-model="hidePinyinExceptSaved"
+              checked
+            />
+            <label for="hide-pinyin">Hide Pinyin</label>
+            <input
+              type="checkbox"
+              id="use-traditional"
+              class="ml-3 mr-1"
+              v-model="useTraditional"
+            />
+            <label for="use-traditional">Traditional</label>
+            <input
+              type="checkbox"
+              id="show-definition"
+              class="ml-3 mr-1"
+              v-model="showDefinition"
+            />
+            <label for="show-definition">Definition</label>
           </div>
           <div
             id="reader-annotated"
