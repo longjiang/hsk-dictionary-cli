@@ -9,7 +9,7 @@
             class="paginate-button previous"
             v-on:click="previousClick"
             title="Previous word"
-            v-if="hasPrevious"
+            v-if="!minimal && hasPrevious"
           >
             <img src="img/angle-left.svg" alt />
           </button>
@@ -17,7 +17,7 @@
             class="paginate-button next"
             v-on:click="nextClick"
             title="Next word"
-            v-if="hasNext"
+            v-if="!minimal && hasNext"
           >
             <img src="img/angle-right.svg" alt />
           </button>
@@ -48,31 +48,16 @@
               </div>
             </div>
           </div>
-          <div class="definitions" v-if="entry.english && !entry.definitions">
-            <p class="english" v-if="entry.english">{{ entry.english }}</p>
-          </div>
           <ul
             class="definitions collapsed"
-            v-if="entry.definitions"
+            v-if="!minimal && entry.definitions"
             data-collapse-target
           >
             <li v-for="definition in entry.definitions" class="english">
               {{ definition.text }}
             </li>
           </ul>
-          <button
-            v-if="entry.definitions && entry.definitions.length > 4"
-            class="show-more collapsed mb-4"
-            v-on:click="Helper.showMoreClick"
-            title="Show all definitions"
-          >
-            <span class="label-expand">
-              Show
-              {{ entry.definitions.length - 3 }}
-              more senses
-            </span>
-            <span class="label-collapse">Collapse</span>
-          </button>
+          <ShowMoreButton :length="entry.definitions.length" :min="3" />
         </div>
       </div>
       <!-- .col -->
@@ -88,7 +73,15 @@ import List from '@/lib/list'
 import Normalizer from '@/lib/normalizer'
 
 export default {
-  props: ['entry'],
+  props: {
+    entry: {
+      type: Object
+    },
+    minimal: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       Helper

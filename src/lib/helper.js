@@ -115,11 +115,6 @@ export default {
       return html
     })
   },
-  showMoreClick(e) {
-    var $button = $(e.currentTarget)
-    $button.siblings('[data-collapse-target]').toggleClass('collapsed')
-    $button.toggleClass('collapsed')
-  },
   unique(names) {
     var uniqueNames = []
     $.each(names, function(i, el) {

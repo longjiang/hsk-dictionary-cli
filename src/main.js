@@ -17,6 +17,7 @@ import Helper from '@/lib/helper'
 import Star from '@/components/Star'
 import Speak from '@/components/Speak'
 import PinyinButton from '@/components/PinyinButton'
+import ShowMoreButton from '@/components/ShowMoreButton'
 import store from './store'
 import $ from 'jquery'
 
@@ -26,6 +27,7 @@ Vue.use(BootstrapVue)
 Vue.component('Star', Star)
 Vue.component('Speak', Speak)
 Vue.component('PinyinButton', PinyinButton)
+Vue.component('ShowMoreButton', ShowMoreButton)
 
 let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')

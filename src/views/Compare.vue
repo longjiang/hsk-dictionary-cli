@@ -3,15 +3,13 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          {{ a.simplified }}
+          <EntryHeader :entry="a" minimal="true"></EntryHeader>
         </div>
         <div class="col-sm-6">
-          {{ b.simplified }}
+          <EntryHeader :entry="b" minimal="true"></EntryHeader>
         </div>
       </div>
     </div>
-    <!--
-    <EntryHeader :entry="entry"></EntryHeader> -->
 
     <!-- <EntryExample :entry="entry"></EntryExample> -->
 
@@ -25,6 +23,14 @@
           <EntryWebImages :entry="b" limit="7"></EntryWebImages>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <EntryConcordance :entry="a"></EntryConcordance>
+        </div>
+        <div class="col-sm-6">
+          <EntryConcordance :entry="b"></EntryConcordance>
+        </div>
+      </div>
     </div>
 
     <!-- <EntryGrammar :entry="entry"></EntryGrammar> -->
@@ -32,8 +38,6 @@
     <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
     <!-- <EntryCollocations :entry="entry"></EntryCollocations> -->
-
-    <!-- <EntryConcordance :entry="entry"></EntryConcordance> -->
 
     <!-- <EntryMistakes :entry="entry"></EntryMistakes> -->
 
