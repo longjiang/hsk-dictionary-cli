@@ -19,9 +19,6 @@
 </template>
 <script>
 export default {
-  props: ['words'],
-  mounted() {
-    console.log(this.words)
-  }
+  props: ['words']
 }
 </script>

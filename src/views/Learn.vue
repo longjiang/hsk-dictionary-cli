@@ -52,16 +52,16 @@ export default {
       this.route()
     },
     route() {
-      if (this.$route.params.method && this.$route.params.args) {
+      if (this.$route.params.method) {
         this.method = this.$route.params.method
-        this.args = this.$route.params.args.split(',')
         if (this.method == 'saved') {
           this.words = this.$store.state.savedWords.map(
             ([traditional, pinyin]) =>
               Normalizer.normalize(CEDICT.get(traditional, pinyin))
           )
           return
-        } else if (this.method == 'hsk') {
+        } else if (this.method == 'hsk' && this.$route.params.args) {
+          this.args = this.$route.params.args.split(',')
           this.words = HSK.getByBookLessonDialog(
             this.args[0],
             this.args[1],
@@ -75,7 +75,9 @@ export default {
   },
   watch: {
     $route() {
-      this.route()
+      if (this.$route.name === 'learn-custom') {
+        this.route()
+      }
     }
   },
   mounted() {

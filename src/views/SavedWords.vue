@@ -76,8 +76,8 @@
     <!-- .row -->
     <Questions
       ref="learn"
-      :words="words"
-      :book="outside"
+      :words="savedWords"
+      book="outside"
       v-if="savedWords.length > 0"
     ></Questions>
   </div>
