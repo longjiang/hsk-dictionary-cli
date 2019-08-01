@@ -30,8 +30,7 @@ export default {
   methods: {
     annotate(selector) {
       if ($(selector).find('.word-block').length === 0) {
-        $(selector).addClass('add-pinyin') // Soo it will have the pinyin looks
-        console.log(this)
+        $(selector).addClass('add-pinyin show-pinyin show-simplified') // Soo it will have the pinyin looks
         this.$el.innerText = 'Adding...'
         // eslint-disable-next-line no-undef
         new Annotator(CEDICT).annotateBySelector(`${selector}`, () => {

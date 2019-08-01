@@ -35,18 +35,6 @@ export default {
       )
     }
   },
-  showPinyinClick(e) {
-    const selector = $(e.target).attr('data-target-selector')
-    $(selector).addClass('add-pinyin show-pinyin show-simplified') // Soo it will have the pinyin looks
-    $(e.target).text('Loading...')
-    // eslint-disable-next-line no-undef
-    new Annotator(CEDICT).annotateBySelector(`${selector}`, function() {
-      if (!$(e.target).attr('data-keep')) {
-        $(e.target).remove()
-      }
-      Helper.augmentAnnotatedBlocks(selector)
-    })
-  },
   f(candidate) {
     if (candidate.id) {
       location.hash = `#view/hsk/${candidate.id}`

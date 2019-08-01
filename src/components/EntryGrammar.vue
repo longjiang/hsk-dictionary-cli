@@ -6,13 +6,11 @@
     >
       <div class="col-sm-12 text-center">
         <div class="label song-label mb-2">Grammar notes</div>
-        <button
-          class="show-more mt-4"
-          v-on:click="Helper.showPinyinClick"
-          data-target-selector="#grammar .grammar-structure, #grammar .grammar-example"
-        >
-          Show Pinyin
-        </button>
+        <PinyinButton
+          class="mt-4"
+          keep="true"
+          :selector="`#grammar .grammar-structure, #grammar .grammar-example`"
+        />
         <div class="grammar-notes" id="grammar">
           <div
             v-for="grammar in entry.grammarPoints"

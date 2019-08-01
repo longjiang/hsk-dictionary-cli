@@ -49,13 +49,11 @@
             <p class="example-sentence-english">
               {{ entry.exampleTranslation }}
             </p>
-            <button
-              class="show-more mt1"
-              v-on:click="Helper.showPinyinClick"
-              data-target-selector=".example-sentence-word"
-            >
-              Show Pinyin
-            </button>
+            <PinyinButton
+              class="mt-2"
+              keep="true"
+              :selector="`.example-sentence-word`"
+            />
           </div>
         </div>
       </div>

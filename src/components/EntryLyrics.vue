@@ -30,13 +30,11 @@
           <div class="container">
             <div class="row">
               <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
-                <button
-                  class="show-more mb-3"
-                  v-on:click="Helper.showPinyinClick"
-                  :data-target-selector="'#lyrics-' + entry.id + '-' + lrcIndex"
-                >
-                  Show Pinyin
-                </button>
+                <PinyinButton
+                  class="mb-3"
+                  keep="true"
+                  :selector="`#lyrics-' + entry.id + '-' + lrcIndex`"
+                />
                 <div
                   class="lyrics collapsed"
                   :id="'lyrics-' + entry.id + '-' + lrcIndex"
@@ -56,7 +54,9 @@
                       'matched-context': LRC.inContext(lineIndex, 2, lrc)
                     }"
                     v-on:click="YouTube.seekYouTube(lrc, line.starttime)"
-                    v-html="Helper.highlight(line.line, entry.simplified, entry.book)"
+                    v-html="
+                      Helper.highlight(line.line, entry.simplified, entry.book)
+                    "
                   ></div>
                 </div>
                 <button

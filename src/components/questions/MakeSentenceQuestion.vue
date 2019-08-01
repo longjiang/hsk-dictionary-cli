@@ -6,13 +6,11 @@
           How do you use this word in a sentence?
         </div>
         <div>
-          <button
-            class="show-more mb-1"
-            v-on:click="Helper.showPinyinClick"
-            :data-target-selector="`#${id}-slide-1 .big-word`"
-          >
-            Show Pinyin
-          </button>
+          <PinyinButton
+            class="mb-1"
+            keep="true"
+            :selector="`#${id}-slide-1 .big-word`"
+          />
           <Speak :text="word.simplified" class="ml-2"></Speak>
         </div>
         <div class="text-center big-word" :data-hsk="word.book">
@@ -36,13 +34,11 @@
           />
         </div>
         <div>
-          <button
-            class="show-more mb-4"
-            v-on:click="Helper.showPinyinClick"
-            :data-target-selector="`#${id}-slide-2 .example-sentence-word`"
-          >
-            Show Pinyin
-          </button>
+          <PinyinButton
+            class="mb-4"
+            keep="true"
+            :selector="`#${id}-slide-2 .example-sentence-word`"
+          />
           <Speak :text="word.example" class="ml-2"></Speak>
         </div>
         <div

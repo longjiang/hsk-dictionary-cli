@@ -5,13 +5,11 @@
         <div class="label song-label mb-2 mistakes-label">
           Common mistakes containing “{{ entry.simplified }}”
         </div>
-        <button
-          class="show-more mt-1"
-          v-on:click="Helper.showPinyinClick"
-          data-target-selector="#mistakes .character-example-word, #mistakes .mistake-l1"
-        >
-          Show Pinyin
-        </button>
+        <PinyinButton
+          class="mt-1"
+          keep="true"
+          :selector="`#mistakes .character-example-word, #mistakes .mistake-l1`"
+        />
         <ul
           class="character-examples collapsed"
           id="mistakes"

@@ -1,13 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-4 mb-5" v-if="collocation">
     <div class="label song-label mb-2">{{ title }}</div>
-    <button
-      class="show-more mt-1"
-      v-on:click="Helper.showPinyinClick"
-      :data-target-selector="`#Gramrels-${type}`"
-    >
-      Show Pinyin
-    </button>
+    <PinyinButton class="mb-3" keep="true" :selector="`#Gramrels-${type}`" />
     <ul
       class="character-examples collapsed"
       :id="`Gramrels-${type}`"

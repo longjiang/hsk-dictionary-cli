@@ -5,13 +5,7 @@
         <div class="label song-label mb-2">
           Sentences with “{{ entry.simplified }}”
         </div>
-        <button
-          class="show-more mt-1"
-          v-on:click="Helper.showPinyinClick"
-          data-target-selector="#examples"
-        >
-          Show Pinyin
-        </button>
+        <PinyinButton class="mt-1" keep="true" :selector="`#examples`" />
         <ul
           class="character-examples collapsed"
           id="examples"
