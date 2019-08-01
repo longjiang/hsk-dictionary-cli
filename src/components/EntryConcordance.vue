@@ -5,7 +5,7 @@
         <div class="label song-label mb-2">
           Sentences with “{{ entry.simplified }}”
         </div>
-        <PinyinButton class="mt-1" keep="true" :selector="`#examples`" />
+        <PinyinButton class="mt-3" :selector="`#examples`" />
         <ul
           class="character-examples collapsed"
           id="examples"

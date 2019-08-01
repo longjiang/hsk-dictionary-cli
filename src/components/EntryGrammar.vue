@@ -6,16 +6,17 @@
     >
       <div class="col-sm-12 text-center">
         <div class="label song-label mb-2">Grammar notes</div>
-        <PinyinButton
-          class="mt-4"
-          keep="true"
-          :selector="`#grammar .grammar-structure, #grammar .grammar-example`"
-        />
         <div class="grammar-notes" id="grammar">
           <div
             v-for="grammar in entry.grammarPoints"
             class="grammar-notes-item"
           >
+            <PinyinButton
+              class="mb-4"
+              :selector="
+                `#grammar .grammar-structure, #grammar .grammar-example`
+              "
+            />
             <div class="character-example-header-word grammar-structure">
               <b
                 v-html="

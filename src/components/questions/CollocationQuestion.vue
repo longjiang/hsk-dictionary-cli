@@ -30,7 +30,7 @@
               </div>
               <PinyinButton
                 class="mb-3"
-                keep="true"
+                sticky="true"
                 :selector="`#${id}-slide-1 .big-word`"
               />
               <Speak :text="phrase" class="ml-2"></Speak>

@@ -49,11 +49,7 @@
             <p class="example-sentence-english">
               {{ entry.exampleTranslation }}
             </p>
-            <PinyinButton
-              class="mt-2"
-              keep="true"
-              :selector="`.example-sentence-word`"
-            />
+            <PinyinButton class="mt-2" :selector="`.example-sentence-word`" />
           </div>
         </div>
       </div>

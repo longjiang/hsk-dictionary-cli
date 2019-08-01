@@ -7,7 +7,6 @@
         </div>
         <PinyinButton
           class="mt-1"
-          keep="true"
           :selector="`#mistakes .character-example-word, #mistakes .mistake-l1`"
         />
         <ul

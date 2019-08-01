@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-4 mb-5" v-if="collocation">
     <div class="label song-label mb-2">{{ title }}</div>
-    <PinyinButton class="mb-3" keep="true" :selector="`#Gramrels-${type}`" />
+    <PinyinButton class="mb-3" :selector="`#Gramrels-${type}`" />
     <ul
       class="character-examples collapsed"
       :id="`Gramrels-${type}`"

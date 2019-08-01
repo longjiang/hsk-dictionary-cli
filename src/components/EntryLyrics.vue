@@ -32,7 +32,6 @@
               <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
                 <PinyinButton
                   class="mb-3"
-                  keep="true"
                   :selector="`#lyrics-' + entry.id + '-' + lrcIndex`"
                 />
                 <div
