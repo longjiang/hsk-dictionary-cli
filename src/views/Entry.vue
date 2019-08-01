@@ -99,6 +99,7 @@ import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
+import Normalizer from '@/lib/normalizer'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
@@ -175,41 +176,18 @@ export default {
       if (this.$route.params.method && this.$route.params.args) {
         const method = this.$route.params.method
         const args = this.$route.params.args.split(',')
-        if (method == 'hsk') {
-          if (args.length > 0) {
-            const id = args[0]
-            let entry = HSK.get(id)
-            if (!entry) {
-              location.hash = '/'
-              return
-            }
-            entry.simplified = entry.word
-            entry.definitions = [entry.english]
-            entry.method = method
-            entry.args = args
-            const cedictCandidates = CEDICT.lookupSimplified(
-              entry.simplified,
-              entry.pinyin
-            )
-            if (cedictCandidates.length === 1) {
-              entry = Object.assign(entry, cedictCandidates[0])
-            }
-            this.show(entry)
-            return
-          }
+        let entry = undefined
+        if (method === 'hsk') {
+          entry = HSK.get(args[0])
         } else if (method === 'cedict') {
-          if (args.length > 0) {
-            const traditional = args[0]
-            const pinyin = args[1]
-            let entry = CEDICT.get(traditional, pinyin)
-            if (entry) {
-              entry.book = 'outside'
-              entry.method = method
-              entry.args = args
-              this.show(entry)
-              return
-            }
-          }
+          entry = CEDICT.get(args[0], args[1])
+        }
+        entry = Normalizer.normalize(entry)
+        if (entry.simplified) {
+          if (method === 'hsk')
+            location.hash = `/view/cedict/${entry.traditional},${entry.pinyin}`
+          else this.show(entry)
+          return
         }
       }
       location.hash = '/view/hsk/1'
