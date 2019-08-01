@@ -96,9 +96,9 @@ export default {
         <div class="tooltip-entry">
           <a class="tooltip-entry-character" href="#view/cedict/${
             candidate.traditional
-          },${candidate.pinyin}')}"><span data-hsk="${candidate.book}">${
-          candidate.simplified
-        }</span>${traditionalHtml}</a>
+          },${candidate.pinyin},${candidate.index}')}"><span data-hsk="${
+          candidate.book
+        }">${candidate.simplified}</span>${traditionalHtml}</a>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
           <button onclick="AnnotatorTooltip.speak('${
             candidate.simplified

@@ -2,8 +2,8 @@ import HSK from './hsk'
 import CEDICT from './cedict'
 
 export default {
-  get(traditional, pinyin) {
-    let cedictWord = CEDICT.get(traditional, pinyin)
+  get(traditional, pinyin, index = 0) {
+    let cedictWord = CEDICT.get(traditional, pinyin, index)
     if (cedictWord) {
       return this.normalize(cedictWord)
     }

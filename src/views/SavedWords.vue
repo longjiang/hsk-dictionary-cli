@@ -111,8 +111,13 @@ export default {
   },
   methods: {
     savedWordsAugmented() {
-      return this.$store.state.savedWords.map(function([traditional, pinyin]) {
-        return Normalizer.normalize(CEDICT.get(traditional, pinyin))
+      return this.$store.state.savedWords.map(function([
+        traditional,
+        pinyin,
+        index
+      ]) {
+        index = index || 0
+        return Normalizer.normalize(CEDICT.get(traditional, pinyin, index))
       })
     },
     csv() {

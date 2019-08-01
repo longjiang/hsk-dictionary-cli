@@ -68,15 +68,20 @@ export default {
     return augmented
   },
   loadData(cedictText, callback) {
+    let same = {
+      traditional: undefined,
+      pinyin: undefined
+    }
     for (let line of cedictText.split('\n')) {
       if (!line.startsWith('#')) {
         const matches = line.match(/^([^\s]+) ([^\s]+) \[(.+)\] \/(.*)\//)
         if (matches) {
-          const row = {
+          let row = {
             simplified: matches[2],
             traditional: matches[1],
             pinyin: this.parsePinyin(matches[3]),
             definitions: matches[4].split('/'),
+            index: 0, // for homonyms
             search:
               matches[1] +
               ' ' +
@@ -85,6 +90,17 @@ export default {
               matches[3].toLowerCase().replace(/[\s\d]/gi, '') +
               ' ' +
               matches[4]
+          }
+          if (
+            row.traditional === same.traditional &&
+            row.pinyin === same.pinyin
+          ) {
+            row.index++
+          } else {
+            same = {
+              traditional: row.traditional,
+              pinyin: row.pinyin
+            }
           }
           Object.freeze(row)
           if (row) this._data.push(row)
@@ -166,11 +182,15 @@ export default {
   random() {
     return Helper.randomArrayItem(this._data)
   },
-  get(traditional, pinyin) {
-    const row = this._data.find(function(row) {
-      return row.traditional === traditional && row.pinyin === pinyin
+  get(traditional, pinyin, index) {
+    const candidate = this._data.find(function(row) {
+      return (
+        row.traditional === traditional &&
+        row.pinyin === pinyin &&
+        row.index === parseInt(index)
+      )
     })
-    return this.augment(row)
+    return this.augment(candidate)
   },
   getByList(array) {
     let words = []

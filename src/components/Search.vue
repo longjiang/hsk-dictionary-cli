@@ -34,10 +34,10 @@
         v-for="suggestion in suggestions"
       >
         <span v-if="suggestion.type === 'cedict'">
-          <span class="character-example-word">{{
+          <span class="character-example-word mr-1">{{
             suggestion.row.simplified
           }}</span>
-          <span class="character-example-pinyin">{{
+          <span class="character-example-pinyin mr-1">{{
             suggestion.row.pinyin
           }}</span>
           <span

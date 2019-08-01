@@ -139,9 +139,14 @@ export default {
             this.random()
             return
           }
-          entry = CEDICT.get(args[0], args[1].replace(/_/g, ' '))
+          const traditional = args[0]
+          const pinyin = args[1].replace(/_/g, ' ')
+          const index = args[2] || 0
+          entry = CEDICT.get(traditional, pinyin, index)
+          console.log(entry)
         }
         entry = Normalizer.normalize(entry)
+        console.log(entry, 'normalized')
         if (entry.hasCEDICT) {
           if (method === 'hsk' || args[1].includes(' '))
             // normalize url
