@@ -99,9 +99,9 @@ export default {
             : ''
         html += `
         <div class="tooltip-entry">
-          <a class="tooltip-entry-character" href="#view/cedict/${
+          <a class="tooltip-entry-character" href="#/view/cedict/${
             candidate.traditional
-          },${candidate.pinyin},${candidate.index}')}"><span data-hsk="${
+          },${candidate.pinyin},${candidate.index}"><span data-hsk="${
           candidate.book
         }">${candidate.simplified}</span>${traditionalHtml}</a>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>

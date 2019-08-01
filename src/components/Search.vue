@@ -115,7 +115,7 @@ export default {
             type: 'cedict',
             href: `#/view/cedict/${cedictSuggestion.traditional},${
               cedictSuggestion.pinyin
-            }`,
+            },${cedictSuggestion.index}`,
             row: cedictSuggestion
           })
         })
