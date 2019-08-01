@@ -33,7 +33,7 @@ export default new Router({
     },
     {
       path: '/learn/:method?/:args?',
-      name: 'learn',
+      name: 'learn-custom',
       component: () => import('./views/Learn.vue')
     },
     {

@@ -74,14 +74,19 @@
       </div>
     </div>
     <!-- .row -->
-    <learn ref="learn" v-if="savedWords.length > 0"></learn>
+    <Questions
+      ref="learn"
+      :words="words"
+      :book="outside"
+      v-if="savedWords.length > 0"
+    ></Questions>
   </div>
   <!-- .container -->
 </template>
 
 <script>
 import $ from 'jquery'
-import Learn from '@/views/Learn.vue'
+import Questions from '@/components/Questions.vue'
 import WordList from '@/components/WordList.vue'
 import HSK from '@/lib/hsk'
 import CEDICT from '@/lib/cedict'
@@ -91,7 +96,7 @@ import AnnotatorService from '@/vendor/annotator-js/js/annotator-service'
 export default {
   template: '#saved-words-template',
   components: {
-    Learn,
+    Questions,
     WordList
   },
   data() {

@@ -59,7 +59,6 @@ import CollocationQuestion from '@/components/questions/CollocationQuestion.vue'
 import DecompositionQuestion from '@/components/questions/DecompositionQuestion.vue'
 import FillInTheBlankQuestion from '@/components/questions/FillInTheBlankQuestion.vue'
 import MakeSentenceQuestion from '@/components/questions/MakeSentenceQuestion.vue'
-import WordList from '@/components/WordList.vue'
 export default {
   props: {
     words: Array,
@@ -72,7 +71,6 @@ export default {
     CollocationQuestion,
     DecompositionQuestion,
     FillInTheBlankQuestion,
-    WordList,
     MakeSentenceQuestion
   },
   data() {
