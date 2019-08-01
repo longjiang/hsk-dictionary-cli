@@ -11,6 +11,15 @@
             class="related-item character-example"
           >
             <a
+              class="btn btn-small mr-2"
+              :href="
+                `#/compare/cedict/${entry.traditional},${entry.pinyin},${
+                  word.traditional
+                },${word.pinyin}`
+              "
+              >Compare</a
+            >
+            <a
               class="character-example-word"
               :href="`#view/cedict/${word.traditional},${word.pinyin}`"
             >

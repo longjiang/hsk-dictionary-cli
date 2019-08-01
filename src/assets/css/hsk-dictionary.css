@@ -939,6 +939,12 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   column-count: 2;
 }
 
+@media(max-width: 768px) {
+  .related {
+    column-count: 1;
+  }
+}
+
 .related.collapsed li:nth-child(n+13) {
   display: none;
 }
