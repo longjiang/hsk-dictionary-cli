@@ -108,16 +108,27 @@ export default {
       })
     )
   },
+  isTraditional(text) {
+    let matchedSimplified = 0
+    let matchedTraditional = 0
+    for (let row of this._data) {
+      if (text.includes(row.simplified)) matchedSimplified++
+      if (text.includes(row.traditional)) matchedTraditional++
+    }
+    return matchedTraditional > matchedSimplified
+  },
   /* Returns the longest word in the dictionary that is inside `text` */
-  longest(text) {
+  longest(text, traditional = false) {
+    // Only return the *first* seen word and those the same as it
     let first = false
+    const tradOrSimp = traditional ? 'traditional' : 'simplified'
     let matches = this._data
       .filter(function(row) {
         if (first) {
-          return row.simplified === first
+          return row[tradOrSimp] === first
         } else {
-          if (text.includes(row.simplified)) {
-            first = row.simplified
+          if (text.includes(row[tradOrSimp])) {
+            first = row[tradOrSimp]
             return true
           }
         }
@@ -130,7 +141,7 @@ export default {
       })
     return {
       matches: matches,
-      text: matches && matches.length > 0 ? matches[0].simplified : ''
+      text: matches && matches.length > 0 ? matches[0][tradOrSimp] : ''
     }
   },
   parsePinyin(pinyin) {
