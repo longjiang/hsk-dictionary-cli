@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
+  <div class="main" v-cloak :key="'entry-' + entryKey" v-if="a && b">
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
@@ -11,28 +11,35 @@
       </div>
     </div>
     <!--
-    <EntryHeader :entry="entry"></EntryHeader>
+    <EntryHeader :entry="entry"></EntryHeader> -->
 
-    <EntryExample :entry="entry"></EntryExample>
+    <!-- <EntryExample :entry="entry"></EntryExample> -->
 
-    <EntryCharacters :entry="entry"></EntryCharacters>
+    <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <EntryWebImages :entry="a" limit="7"></EntryWebImages>
+        </div>
+        <div class="col-sm-6">
+          <EntryWebImages :entry="b" limit="7"></EntryWebImages>
+        </div>
+      </div>
+    </div>
 
-    <EntryWebImages :entry="entry"></EntryWebImages>
+    <!-- <EntryGrammar :entry="entry"></EntryGrammar> -->
 
-    <EntryGrammar :entry="entry"></EntryGrammar>
+    <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
-    <EntryRelated :entry="entry"></EntryRelated>
+    <!-- <EntryCollocations :entry="entry"></EntryCollocations> -->
 
-    <EntryCollocations :entry="entry"></EntryCollocations>
+    <!-- <EntryConcordance :entry="entry"></EntryConcordance> -->
 
-    <EntryConcordance :entry="entry"></EntryConcordance>
+    <!-- <EntryMistakes :entry="entry"></EntryMistakes> -->
 
-    <EntryMistakes :entry="entry"></EntryMistakes>
+    <!-- <EntryCourseAd :entry="entry"></EntryCourseAd> -->
 
-    <EntryCourseAd :entry="entry"></EntryCourseAd>
-
-    <EntryLyrics :entry="entry"></EntryLyrics>
-    -->
+    <!-- <EntryLyrics :entry="entry"></EntryLyrics> -->
   </div>
 </template>
 
@@ -85,11 +92,15 @@ export default {
       this.b = b
     },
     route() {
-      // route
-    },
-    random() {
-      const random = CEDICT.random()
-      location.hash = `/view/cedict/${random.traditional},${random.pinyin}`
+      let method = this.$route.params.method
+      let args = this.$route.params.args
+      if (method && args) {
+        args = args.split(',')
+        let a = CEDICT.get(args[0], args[1])
+        let b = CEDICT.get(args[2], args[3])
+        this.a = Normalizer.normalize(a)
+        this.b = Normalizer.normalize(b)
+      }
     }
   },
   watch: {

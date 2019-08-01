@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       path: '/compare/:method/:args',
-      name: 'browse',
+      name: 'compare',
       component: () => import('./views/Compare.vue')
     },
     {

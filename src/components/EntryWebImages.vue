@@ -7,7 +7,7 @@
             :src="image.img"
             alt
             v-if="!image.img.includes('nipic')"
-            v-for="(image, index) in entry.images.slice(0, 20)"
+            v-for="(image, index) in entry.images.slice(0, limit)"
             class="image-wall-image"
             v-bind:key="'image-' + index"
           />
@@ -20,8 +20,17 @@
 <script>
 import WordPhotos from '@/lib/word-photos'
 export default {
-  props: ['entry'],
+  props: {
+    entry: {
+      type: Object
+    },
+    limit: {
+      type: String,
+      default: '20'
+    }
+  },
   mounted() {
+    console.log('grabbing images', this.entry.simplified)
     WordPhotos.getWebImages(this.entry.simplified, srcs => {
       this.entry.images = srcs
       this.webImagesKey += 1
