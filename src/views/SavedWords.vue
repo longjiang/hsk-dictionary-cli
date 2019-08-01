@@ -70,16 +70,18 @@
           You don't have any words saved yet. Save words by clicking on the
           <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
         </p>
-        <WordList :words="savedWordsAugmented()"></WordList>
+        <div v-for="words in [savedWordsAugmented()]">
+          <WordList :words="words"></WordList>
+          <Questions
+            ref="learn"
+            :words="words"
+            book="outside"
+            v-if="savedWords.length > 0"
+          ></Questions>
+        </div>
       </div>
     </div>
     <!-- .row -->
-    <Questions
-      ref="learn"
-      :words="savedWords"
-      book="outside"
-      v-if="savedWords.length > 0"
-    ></Questions>
   </div>
   <!-- .container -->
 </template>
