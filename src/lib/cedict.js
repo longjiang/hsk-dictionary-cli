@@ -220,25 +220,28 @@ export default {
       /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
     )
   },
-  lookupFuzzy(text) {
+  lookupFuzzy(text, limit = false) {
+    let results = []
     if (this.isChinese(text)) {
-      return this._data
-        .filter(
-          row => row.simplified.includes(text) || row.traditional.includes(text)
-        )
-        .sort((a, b) => a.simplified.length - b.simplified.length)
-        .map(row => {
-          return this.augment(row)
-        })
+      results = this._data.filter(
+        row => row.simplified.includes(text) || row.traditional.includes(text)
+      )
     } else {
       text = text.toLowerCase().replace(' ', '')
-      return this._data
-        .filter(row => {
-          return row.search.includes(text)
-        })
-        .map(row => {
-          return this.augment(row)
-        })
+      results = this._data.filter(row => {
+        return row.search.includes(text)
+      })
+    }
+    if (results) {
+      results = results.sort(
+        (a, b) => a.simplified.length - b.simplified.length
+      )
+      if (limit) {
+        results = results.slice(0, limit)
+      }
+      return results.map(row => {
+        return this.augment(row)
+      })
     }
   }
 }

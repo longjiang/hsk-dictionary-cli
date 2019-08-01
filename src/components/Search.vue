@@ -94,7 +94,6 @@ export default {
       }
     },
     cancel() {
-      console.log('clearing')
       setTimeout(function() {
         this.suggestions = []
       }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
@@ -103,7 +102,7 @@ export default {
       this.suggestions = []
       var text = e.target.value
       if (text !== '') {
-        const cedictSuggestions = CEDICT.lookupFuzzy(text).slice(0, 5)
+        const cedictSuggestions = CEDICT.lookupFuzzy(text, 5)
         var suggestions = []
         var hskWordStrArray = []
         const cedictFiltered = cedictSuggestions.filter(function(
