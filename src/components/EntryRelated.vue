@@ -12,37 +12,13 @@
           >
             <a
               class="character-example-word"
-              v-if="word.hskCandidates && word.hskCandidates.length > 0"
-              :href="`#view/hsk/${word.hskCandidates[0].id}`"
-            >
-              <span :data-hsk="word.hskCandidates[0].book">
-                {{ word.word }}
-              </span>
-            </a>
-            <a
-              class="character-example-word"
-              v-if="
-                word.hskCandidates.length < 1 &&
-                  word.cedictCandidates &&
-                  word.cedictCandidates.length > 0
-              "
-              :href="
-                `#view/cedict/${word.cedictCandidates[0].traditional},${
-                  word.cedictCandidates[0].pinyin
-                }`
-              "
+              :href="`#view/cedict/${word.traditional},${word.pinyin}`"
             >
               <span data-hsk="outside">{{ word.word }}</span>
             </a>
-            <span
-              class="character-example-pinyin"
-              v-if="word.cedictCandidates && word.cedictCandidates.length > 0"
-            >
-              {{ word.cedictCandidates[0].pinyin }}
-              <i
-                :data-speak="word.word"
-                class="speak glyphicon glyphicon-volume-up"
-              ></i>
+            <span class="character-example-pinyin">
+              {{ word.pinyin }}
+              <Speak :text="word.word" />
             </span>
             <ul
               class="character-example-english inline-list"
@@ -71,10 +47,10 @@
   </div>
 </template>
 <script>
-import HSK from '@/lib/hsk'
 import CEDICT from '@/lib/cedict'
 import SketchEngine from '@/lib/sketch-engine'
 import Helper from '@/lib/helper'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   props: ['entry'],
@@ -88,9 +64,8 @@ export default {
     SketchEngine.thesaurus(this.entry.simplified, response => {
       this.entry.related = []
       for (let Word of response.Words) {
-        Word.hskCandidates = HSK.lookup(Word.word)
-        Word.cedictCandidates = CEDICT.lookupSimplified(Word.word)
-        this.entry.related.push(Word)
+        const word = Normalizer.normalize(CEDICT.lookupSimplified(Word.word)[0])
+        this.entry.related.push(word)
       }
       this.relatedKey += 1
     })

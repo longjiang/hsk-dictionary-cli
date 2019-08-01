@@ -121,37 +121,11 @@ export default {
       entryKey: 0 // used to force re-render this component
     }
   },
-  computed: {
-    hash: function() {
-      if (this.entry && this.entry.method) {
-        let args
-        if (this.entry.method === 'hsk') {
-          args = [this.entry.id]
-        } else if (this.entry.method === 'cedict') {
-          args = [this.entry.traditional]
-        }
-        return `view/${this.entry.method}/${args.join(',')}`
-      } else {
-        // uninitialized
-        return `view/hsk/1`
-      }
-    }
-  },
   methods: {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
       $('#lookup').val(entry.simplified)
-    },
-    attachSpeakEventHandler: function() {
-      $('.speak')
-        .off()
-        .click(function() {
-          var text = $(this).attr('data-speak')
-          var utterance = new SpeechSynthesisUtterance(text)
-          utterance.lang = 'zh-CN'
-          speechSynthesis.speak(utterance)
-        })
     },
     route() {
       if (this.$route.params.method && this.$route.params.args) {
@@ -168,12 +142,17 @@ export default {
           entry = CEDICT.get(args[0], args[1].replace(/_/g, ' '))
         }
         entry = Normalizer.normalize(entry)
-        if (entry.simplified) {
+        if (entry.hasCEDICT) {
           if (method === 'hsk' || args[1].includes(' '))
+            // normalize url
             location.hash = `/view/cedict/${
               entry.traditional
             },${entry.pinyin.replace(/ /g, '_')}`
           else this.show(entry)
+          return
+        } else {
+          // in the RARE care like "踢足球" the word is in HSK but not in CEDICT
+          this.show(entry)
           return
         }
       }
@@ -194,12 +173,6 @@ export default {
   mounted() {
     if (this.$route.name === 'entry') {
       this.route()
-    }
-  },
-  updated() {
-    const app = this
-    if (this.entry) {
-      app.attachSpeakEventHandler()
     }
   }
 }

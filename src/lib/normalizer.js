@@ -28,6 +28,16 @@ export default {
     if (cedictWords.length > 0) {
       const cedictWord = cedictWords[0]
       Object.assign(hskWord, cedictWord)
+      hskWord.hasCEDICT = true
+    } else {
+      hskWord.simplified = hskWord.word
+      hskWord.definitions = [
+        {
+          type: 'definition',
+          text: hskWord.english
+        }
+      ]
+      hskWord.hasCEDICT = false
     }
     return hskWord
   },
@@ -54,10 +64,12 @@ export default {
             type: 'definition',
             text: hskWord.english
           }
-        ]
+        ],
+        hasHSK: true
       })
     } else {
       cedictWord.book = 'outside'
+      cedictWord.hasHSK = false
     }
     return cedictWord
   }

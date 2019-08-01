@@ -1,5 +1,16 @@
 <template>
   <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          {{ a.simplified }}
+        </div>
+        <div class="col-sm-6">
+          {{ b.simplified }}
+        </div>
+      </div>
+    </div>
+    <!--
     <EntryHeader :entry="entry"></EntryHeader>
 
     <EntryExample :entry="entry"></EntryExample>
@@ -21,6 +32,7 @@
     <EntryCourseAd :entry="entry"></EntryCourseAd>
 
     <EntryLyrics :entry="entry"></EntryLyrics>
+    -->
   </div>
 </template>
 
@@ -61,80 +73,19 @@ export default {
   },
   data() {
     return {
-      entry: undefined,
-      characters: [],
-      character: {},
-      unsplashSrcs: [],
-      unsplashSearchTerm: '',
-      Helper,
-      HSK,
-      LRC,
-      Hanzi,
-      entryKey: 0, // used to force re-render this component
-      webImagesKey: 0
-    }
-  },
-  computed: {
-    hash: function() {
-      if (this.entry && this.entry.method) {
-        let args
-        if (this.entry.method === 'hsk') {
-          args = [this.entry.id]
-        } else if (this.entry.method === 'cedict') {
-          args = [this.entry.traditional]
-        }
-        return `view/${this.entry.method}/${args.join(',')}`
-      } else {
-        // uninitialized
-        return `view/hsk/1`
-      }
+      a: undefined,
+      b: undefined,
+      entryKey: 0 // used to force re-render this component
     }
   },
   methods: {
-    show(entry) {
+    show(a, b) {
       this.entryKey += 1
-      this.entry = entry
-      WordPhotos.getWebImages(entry.simplified, srcs => {
-        this.entry.images = srcs
-        this.webImagesKey += 1
-      })
-      $('#lookup').val(entry.simplified)
-    },
-    attachSpeakEventHandler: function() {
-      $('.speak')
-        .off()
-        .click(function() {
-          var text = $(this).attr('data-speak')
-          var utterance = new SpeechSynthesisUtterance(text)
-          utterance.lang = 'zh-CN'
-          speechSynthesis.speak(utterance)
-        })
+      this.a = a
+      this.b = b
     },
     route() {
-      if (this.$route.params.method && this.$route.params.args) {
-        const method = this.$route.params.method
-        const args = this.$route.params.args.split(',')
-        let entry = undefined
-        if (method === 'hsk') {
-          entry = HSK.get(args[0])
-        } else if (method === 'cedict') {
-          if (!args[1]) {
-            this.random()
-            return
-          }
-          entry = CEDICT.get(args[0], args[1].replace(/_/g, ' '))
-        }
-        entry = Normalizer.normalize(entry)
-        if (entry.simplified) {
-          if (method === 'hsk' || args[1].includes(' '))
-            location.hash = `/view/cedict/${
-              entry.traditional
-            },${entry.pinyin.replace(/ /g, '_')}`
-          else this.show(entry)
-          return
-        }
-      }
-      this.random()
+      // route
     },
     random() {
       const random = CEDICT.random()
@@ -143,20 +94,14 @@ export default {
   },
   watch: {
     $route() {
-      if (this.$route.name === 'entry') {
+      if (this.$route.name === 'compare') {
         this.route()
       }
     }
   },
   mounted() {
-    if (this.$route.name === 'entry') {
+    if (this.$route.name === 'compare') {
       this.route()
-    }
-  },
-  updated() {
-    const app = this
-    if (this.entry) {
-      app.attachSpeakEventHandler()
     }
   }
 }

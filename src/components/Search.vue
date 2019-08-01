@@ -33,19 +33,6 @@
         class="suggestion"
         v-for="suggestion in suggestions"
       >
-        <span v-if="suggestion.type === 'hsk'">
-          <span
-            class="character-example-word"
-            v-bind:data-hsk="suggestion.row.book"
-            >{{ suggestion.row.word }}</span
-          >
-          <span class="character-example-pinyin">{{
-            suggestion.row.pinyin
-          }}</span>
-          <span class="character-example-english">{{
-            suggestion.row.english
-          }}</span>
-        </span>
         <span v-if="suggestion.type === 'cedict'">
           <span class="character-example-word">{{
             suggestion.row.simplified
@@ -64,9 +51,8 @@
         </span>
         <span v-if="suggestion.type === 'notFound'">
           <span class="suggestion-not-found">
-            <b>&ldquo;{{ suggestion.text }}&rdquo;</b> is not in the HSK. Try
-            looking it up in
-            <b>Wiktionary.</b>
+            <b>&ldquo;{{ suggestion.text }}&rdquo;</b> is not in CEDICT. Try
+            looking it up in <b>Wiktionary.</b>
           </span>
         </span>
       </a>
@@ -76,8 +62,8 @@
 
 <script>
 import $ from 'jquery'
-import HSK from '@/lib/hsk.js'
 import CEDICT from '@/lib/cedict.js'
+import { setTimeout } from 'timers'
 
 export default {
   data() {
@@ -108,24 +94,17 @@ export default {
       }
     },
     cancel() {
-      this.suggestions = []
+      setTimeout(function() {
+        this.suggestions = []
+      }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
     },
     lookupKeyup(e) {
       this.suggestions = []
       var text = e.target.value
       if (text !== '') {
-        const hskSuggestions = HSK.lookupFuzzy(text).slice(0, 5)
         const cedictSuggestions = CEDICT.lookupFuzzy(text).slice(0, 5)
         var suggestions = []
         var hskWordStrArray = []
-        hskSuggestions.forEach(function(hskSuggestion) {
-          hskWordStrArray.push(hskSuggestion.word)
-          suggestions.push({
-            type: 'hsk',
-            href: '#/view/hsk/' + hskSuggestion.id,
-            row: hskSuggestion
-          })
-        })
         const cedictFiltered = cedictSuggestions.filter(function(
           cedictSuggestion
         ) {
