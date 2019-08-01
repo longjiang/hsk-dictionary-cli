@@ -1355,6 +1355,10 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   align-items: center;
 }
 
-.hide-pinyin .word-block:not(.saved) .word-block-pinyin {
-  display: none;
+.hide-pinyin-except-saved .word-block:not(.saved) .word-block-pinyin {
+  visibility: hidden;
+}
+
+.word-block:not(.saved):hover .word-block-pinyin {
+  visibility: inherit;
 }

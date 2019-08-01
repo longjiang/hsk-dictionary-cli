@@ -6,13 +6,23 @@
           <h4>Reader</h4>
           <p>This tool helps you read Chinese text.</p>
           <hr />
-          <div class="mt-2 mb-2">
-            <input type="checkbox" v-model="hidePinyin" /> Hide pinyin
+          <div class="mt-2 mb-2" v-if="annotated">
+            <input type="checkbox" v-model="hidePinyinExceptSaved" checked />
+            Hide Pinyin
+            <input type="checkbox" class="ml-2" v-model="useTraditional" />
+            Traditonal
+            <input type="checkbox" class="ml-2" v-model="showDefinition" />
+            Definition
           </div>
           <div
             id="reader-annotated"
-            v-html="annotated"
-            v-bind:class="{ 'hide-pinyin': hidePinyin }"
+            v-bind:class="{
+              'show-pinyin': true,
+              'hide-pinyin-except-saved': hidePinyinExceptSaved,
+              'show-simplified': !useTraditional,
+              'show-traditional': useTraditional,
+              'show-definition': showDefinition
+            }"
           ></div>
           <div class="mt-4">
             <textarea
@@ -122,8 +132,10 @@ export default {
   template: '#reader-template',
   data() {
     return {
-      annotated: '',
-      hidePinyin: false,
+      annotated: false,
+      hidePinyinExceptSaved: false,
+      useTraditional: false,
+      showDefinition: false,
       readerKey: 0, // used to force re-render this component
       savedWordsKey: 0
     }
@@ -139,12 +151,10 @@ export default {
         $('#reader-textarea').val()
         $('#reader-annotated').html(Reader.get().replace(/\n/g, '<br>'))
         // eslint-disable-next-line no-undef
-        new Annotator(CEDICT).annotateBySelector(
-          '#reader-annotated',
-          function() {
-            Helper.augmentAnnotatedBlocks('#reader-annotated')
-          }
-        )
+        new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
+          Helper.augmentAnnotatedBlocks('#reader-annotated')
+          this.annotated = true
+        })
       }
     }
   },

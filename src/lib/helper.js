@@ -3,7 +3,7 @@ import $ from 'jquery'
 import Annotator from '@/vendor/annotator-js/js/annotator'
 import AnnotatorTooltip from '@/vendor/annotator-js/js/annotator-tooltip'
 import Helper from '@/lib/helper'
-import HSK from '@/lib/hsk'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   loaderMessages: [],
@@ -37,7 +37,7 @@ export default {
   },
   showPinyinClick(e) {
     const selector = $(e.target).attr('data-target-selector')
-    $(selector).addClass('add-pinyin') // Soo it will have the pinyin looks
+    $(selector).addClass('add-pinyin show-pinyin show-simplified') // Soo it will have the pinyin looks
     $(e.target).text('Loading...')
     // eslint-disable-next-line no-undef
     new Annotator(CEDICT).annotateBySelector(`${selector}`, function() {
@@ -54,62 +54,52 @@ export default {
       location.hash = `#view/cedict/${candidate.traditional}`
     }
   },
-  addHSKToCandidate(candidate) {
-    const hskWords = HSK.lookup(candidate.simplified)
-    if (hskWords.length > 0) {
-      candidate.method = 'hsk'
-      candidate.args = [hskWords[0].id]
-      candidate.book = hskWords[0].book
-    } else {
-      candidate.method = 'cedict'
-      candidate.args = [candidate.traditional, candidate.pinyin]
-      candidate.book = 'outside'
-    }
-    return candidate
+  saved(candidate) {
+    return window.hskDictionaryApp.$store.getters.hasSavedWord({
+      traditional: candidate.traditional,
+      pinyin: candidate.pinyin
+    })
+  },
+  addSaved(candidate) {
+    window.hskDictionaryApp.$store.dispatch('addSavedWord', {
+      traditional: candidate.traditional,
+      pinyin: candidate.pinyin
+    })
+  },
+  removeSaved(candidate) {
+    window.hskDictionaryApp.$store.dispatch('removeSavedWord', {
+      traditional: candidate.traditional,
+      pinyin: candidate.pinyin
+    })
   },
   augmentAnnotatedBlocks(selector) {
     $(selector + ' .word-block[data-candidates]').each(function() {
-      try {
-        const candidate = JSON.parse(
-          unescape($(this).attr('data-candidates'))
-        )[0]
-        try {
-          Helper.addHSKToCandidate(candidate)
-          $(this).attr('data-hover-hsk', candidate.book)
-          $(this).attr('data-method', candidate.method)
-          $(this).attr('data-args', escape(JSON.stringify(candidate.args)))
-          if (
-            window.hskDictionaryApp.$store.getters.hasSavedWord(
-              candidate.method,
-              candidate.args
-            )
-          ) {
-            $(this).addClass('saved')
-          }
-        } catch (err) {
-          // catch errors
+      const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
+      if (candidates) {
+        let book = 'outside'
+        for (let candidate of candidates) {
+          const saved = Helper.saved(candidate)
+          candidate = Normalizer.normalize(candidate)
+          if (candidate.book !== 'outside') book = candidate.book
+          if (saved) $(this).addClass('saved')
         }
-        $(this).click(function() {
-          if ($(this).hasClass('saved')) {
-            window.hskDictionaryApp.$store.dispatch('removeSavedWord', {
-              traditional: candidate.traditional,
-              pinyin: candidate.pinyin
-            })
-          } else {
-            window.hskDictionaryApp.$store.dispatch('addSavedWord', {
-              traditional: candidate.traditional,
-              pinyin: candidate.pinyin
-            })
-          }
-        })
-      } catch (err) {
-        // catch errors
+        $(this).attr('data-hover-hsk', book)
+        $(this).attr('data-candidates', JSON.stringify(candidates))
       }
+      $(this).click(function() {
+        const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
+        if (candidates && candidates.length > 0) {
+          if ($(this).hasClass('saved')) {
+            Helper.removeSaved(candidates[0])
+          } else {
+            Helper.addSaved(candidates[0])
+          }
+        }
+      })
     })
-    AnnotatorTooltip.addTooltips(selector, function(candidates, block) {
+    AnnotatorTooltip.addTooltips(selector, function(candidates) {
       let html = ''
       for (let candidate of candidates) {
-        candidate = Helper.addHSKToCandidate(candidate)
         var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
         for (let definition of candidate.definitions) {
           $definitionsList.append(
@@ -122,9 +112,9 @@ export default {
             : ''
         html += `
         <div class="tooltip-entry">
-          <a class="tooltip-entry-character" href="#view/${
-            candidate.method
-          }/${candidate.args.join(',')}"><span data-hsk="${candidate.book}">${
+          <a class="tooltip-entry-character" href="#view/cedict/${
+            candidate.traditional
+          },${candidate.pinyin}')}"><span data-hsk="${candidate.book}">${
           candidate.simplified
         }</span>${traditionalHtml}</a>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
@@ -148,14 +138,6 @@ export default {
       if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el)
     })
     return uniqueNames
-  },
-  map(collection, callback) {
-    var i
-    var mapped = []
-    for (i = 0; i < collection.length; i++) {
-      mapped.push(callback(collection[i]))
-    }
-    return mapped
   },
   country(code) {
     for (let country of countries) {
