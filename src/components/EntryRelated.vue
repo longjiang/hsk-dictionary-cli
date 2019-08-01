@@ -62,14 +62,16 @@ export default {
   mounted() {
     SketchEngine.thesaurus(this.entry.simplified, response => {
       this.entry.related = []
-      for (let Word of response.Words) {
-        let word = CEDICT.lookupSimplified(Word.word)[0]
-        if (word) {
-          word = Normalizer.normalize(word)
-          this.entry.related.push(word)
+      if (response) {
+        for (let Word of response.Words) {
+          let word = CEDICT.lookupSimplified(Word.word)[0]
+          if (word) {
+            word = Normalizer.normalize(word)
+            this.entry.related.push(word)
+          }
         }
+        this.relatedKey += 1
       }
-      this.relatedKey += 1
     })
   }
 }

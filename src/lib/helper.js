@@ -56,28 +56,33 @@ export default {
   },
   augmentAnnotatedBlocks(selector) {
     $(selector + ' .word-block[data-candidates]').each(function() {
-      const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
-      if (candidates) {
-        let book = 'outside'
-        for (let candidate of candidates) {
-          const saved = Helper.saved(candidate)
-          candidate = Normalizer.normalize(candidate)
-          if (candidate.book !== 'outside') book = candidate.book
-          if (saved) $(this).addClass('saved')
-        }
-        $(this).attr('data-hover-hsk', book)
-        $(this).attr('data-candidates', JSON.stringify(candidates))
-      }
-      $(this).click(function() {
-        const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
-        if (candidates && candidates.length > 0) {
-          if ($(this).hasClass('saved')) {
-            Helper.removeSaved(candidates[0])
-          } else {
-            Helper.addSaved(candidates[0])
+      let data = $(this).attr('data-candidates')
+      if (data) {
+        const candidates = JSON.parse(unescape(data))
+        if (candidates) {
+          let book = 'outside'
+          for (let candidate of candidates) {
+            const saved = Helper.saved(candidate)
+            candidate = Normalizer.normalize(candidate)
+            if (candidate.book !== 'outside') book = candidate.book
+            if (saved) $(this).addClass('saved')
           }
+          $(this).attr('data-hover-hsk', book)
+          $(this).attr('data-candidates', JSON.stringify(candidates))
         }
-      })
+        $(this).click(function() {
+          const candidates = JSON.parse(
+            unescape($(this).attr('data-candidates'))
+          )
+          if (candidates && candidates.length > 0) {
+            if ($(this).hasClass('saved')) {
+              Helper.removeSaved(candidates[0])
+            } else {
+              Helper.addSaved(candidates[0])
+            }
+          }
+        })
+      }
     })
     AnnotatorTooltip.addTooltips(selector, function(candidates) {
       let html = ''
