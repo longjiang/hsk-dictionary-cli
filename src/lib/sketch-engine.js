@@ -146,12 +146,13 @@ export default {
         minsim: 0.3
       },
       function(response) {
+        let data = {}
         try {
-          const data = JSON.parse(response).data
-          callback(data)
+          data = JSON.parse(response).data
         } catch (err) {
-          throw 'Thesaurus did not return any data.'
+          throw 'Error in thesaurus'
         }
+        callback(data)
       }
     )
   },

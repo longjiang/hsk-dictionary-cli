@@ -14,17 +14,14 @@
               class="character-example-word"
               :href="`#view/cedict/${word.traditional},${word.pinyin}`"
             >
-              <span data-hsk="outside">{{ word.word }}</span>
+              <span :data-hsk="word.book">{{ word.simplified }}</span>
             </a>
             <span class="character-example-pinyin">
               {{ word.pinyin }}
-              <Speak :text="word.word" />
+              <Speak :text="word.simplified" />
             </span>
-            <ul
-              class="character-example-english inline-list"
-              v-if="word.cedictCandidates && word.cedictCandidates.length > 0"
-            >
-              <li v-for="definition in word.cedictCandidates[0].definitions">
+            <ul class="character-example-english inline-list">
+              <li v-for="definition in word.definitions">
                 {{ definition.text }}
               </li>
             </ul>
@@ -64,8 +61,11 @@ export default {
     SketchEngine.thesaurus(this.entry.simplified, response => {
       this.entry.related = []
       for (let Word of response.Words) {
-        const word = Normalizer.normalize(CEDICT.lookupSimplified(Word.word)[0])
-        this.entry.related.push(word)
+        let word = CEDICT.lookupSimplified(Word.word)[0]
+        if (word) {
+          word = Normalizer.normalize(word)
+          this.entry.related.push(word)
+        }
       }
       this.relatedKey += 1
     })
