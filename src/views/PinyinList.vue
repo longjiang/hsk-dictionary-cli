@@ -8,6 +8,15 @@
             Paste your list into the text box and get a table of all pinyin
             variations for each word.
           </p>
+          <div v-if="csv">
+            <h5 class="mt-4 mb-4">Your CSV</h5>
+            <textarea
+              class="mt1 mb1 form-control"
+              style="overflow:visible"
+              :rows="words.length"
+              >{{ csv }}</textarea
+            >
+          </div>
           <textarea
             v-model="text"
             class="mt1 mb1 form-control"
@@ -18,12 +27,6 @@
           <button class="btn btn-success btn-block" v-on:click="getPinyinClick">
             Get Pinyin
           </button>
-          <div v-if="csv">
-            <h5 class="mt-4 mb-4">Your CSV</h5>
-            <textarea class="mt1 mb1 form-control" cols="30" rows="10">{{
-              csv
-            }}</textarea>
-          </div>
         </div>
       </div>
     </div>
