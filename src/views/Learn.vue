@@ -9,8 +9,9 @@
           <b :data-hsk="args[0]">HSK {{ args[0] }}</b>
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
-        <!-- <WordList :words="words"></WordList> -->
-        <!-- <Questions :words="words" :book="args[0]"></Questions> -->
+        <Questions :words="words" :book="args[0]"></Questions>
+        <h5 class="mt-4 mb-4">Words to learn:</h5>
+        <WordList :words="words" style="column-count: 2"></WordList>
       </div>
     </div>
   </div>
