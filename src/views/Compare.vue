@@ -10,12 +10,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
-          <DefinitionsList :definitions="entry.definitions"></DefinitionsList>
-        </div>
+        <div class="col-sm-12"></div>
       </div>
       <div class="row">
-        <div class="col-sm-12"></div>
+        <div class="col-sm-6">
+          <DefinitionsList :definitions="a.definitions"></DefinitionsList>
+        </div>
+        <div class="col-sm-6">
+          <DefinitionsList :definitions="b.definitions"></DefinitionsList>
+        </div>
       </div>
     </div>
 
@@ -89,7 +92,8 @@ export default {
     EntryLyrics,
     EntryMistakes,
     EntryRelated,
-    EntryWebImages
+    EntryWebImages,
+    DefinitionsList
   },
   data() {
     return {
@@ -99,11 +103,6 @@ export default {
     }
   },
   methods: {
-    show(a, b) {
-      this.entryKey += 1
-      this.a = a
-      this.b = b
-    },
     route() {
       let method = this.$route.params.method
       let args = this.$route.params.args
@@ -124,6 +123,7 @@ export default {
     }
   },
   mounted() {
+    window.Normalizer = Normalizer
     if (this.$route.name === 'compare') {
       this.route()
     }

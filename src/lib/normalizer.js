@@ -59,12 +59,6 @@ export default {
         exampleTranslation: hskWord.exampleTranslation,
         oofc: hskWord.oofc,
         pn: hskWord.pn,
-        definitions: [
-          {
-            type: 'definition',
-            text: hskWord.english
-          }
-        ],
         hasHSK: true
       })
     } else {

@@ -48,7 +48,10 @@
               </div>
             </div>
           </div>
-          <DefinitionsList :definitions="entry.definitions"></DefinitionsList>
+          <DefinitionsList
+            v-if="!minimal"
+            :definitions="entry.definitions"
+          ></DefinitionsList>
         </div>
       </div>
       <!-- .col -->

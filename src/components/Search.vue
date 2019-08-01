@@ -94,6 +94,7 @@ export default {
       }
     },
     cancel() {
+      console.log('clearing')
       setTimeout(function() {
         this.suggestions = []
       }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
