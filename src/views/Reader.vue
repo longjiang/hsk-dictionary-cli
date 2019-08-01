@@ -6,7 +6,14 @@
           <h4>Reader</h4>
           <p>This tool helps you read Chinese text.</p>
           <hr />
-          <div id="reader-annotated" v-html="annotated"></div>
+          <div class="mt-2 mb-2">
+            <input type="checkbox" v-model="hidePinyin" /> Hide pinyin
+          </div>
+          <div
+            id="reader-annotated"
+            v-html="annotated"
+            v-bind:class="{ 'hide-pinyin': hidePinyin }"
+          ></div>
           <div class="mt-4">
             <textarea
               id="reader-textarea"
@@ -116,6 +123,7 @@ export default {
   data() {
     return {
       annotated: '',
+      hidePinyin: false,
       readerKey: 0, // used to force re-render this component
       savedWordsKey: 0
     }

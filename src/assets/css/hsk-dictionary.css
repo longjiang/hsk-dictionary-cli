@@ -1354,3 +1354,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   justify-content: center;
   align-items: center;
 }
+
+.hide-pinyin .word-block:not(.saved) .word-block-pinyin {
+  display: none;
+}
