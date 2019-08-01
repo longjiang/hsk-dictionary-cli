@@ -24,6 +24,9 @@
         </button>
       </div>
     </div>
+    <a class="btn btn-secondary ml-2" href="#/view/cedict/random"
+      ><i class="glyphicon glyphicon-random"></i> Random</a
+    >
     <div class="suggestions" v-cloak v-if="suggestions.length > 0">
       <a
         :href="suggestion.href"

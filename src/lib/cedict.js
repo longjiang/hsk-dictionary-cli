@@ -163,6 +163,9 @@ export default {
       pinyin: cedict.parsePinyin(m[2])
     }
   },
+  random() {
+    return Helper.randomArrayItem(this._data)
+  },
   get(traditional, pinyin) {
     const row = this._data.find(function(row) {
       return row.traditional === traditional && row.pinyin === pinyin

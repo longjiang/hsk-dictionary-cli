@@ -180,17 +180,27 @@ export default {
         if (method === 'hsk') {
           entry = HSK.get(args[0])
         } else if (method === 'cedict') {
-          entry = CEDICT.get(args[0], args[1])
+          if (!args[1]) {
+            this.random()
+            return
+          }
+          entry = CEDICT.get(args[0], args[1].replace(/_/g, ' '))
         }
         entry = Normalizer.normalize(entry)
         if (entry.simplified) {
-          if (method === 'hsk')
-            location.hash = `/view/cedict/${entry.traditional},${entry.pinyin}`
+          if (method === 'hsk' || args[1].includes(' '))
+            location.hash = `/view/cedict/${
+              entry.traditional
+            },${entry.pinyin.replace(/ /g, '_')}`
           else this.show(entry)
           return
         }
       }
-      location.hash = '/view/hsk/1'
+      this.random()
+    },
+    random() {
+      const random = CEDICT.random()
+      location.hash = `/view/cedict/${random.traditional},${random.pinyin}`
     }
   },
   watch: {
