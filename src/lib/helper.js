@@ -12,12 +12,6 @@ export default {
     this.lastId += 1
     return this.lastId
   },
-  isChinese(text) {
-    return text.match(
-      // eslint-disable-next-line no-irregular-whitespace
-      /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
-    )
-  },
   scrape(url, callback) {
     $.ajax('proxy.php?' + url).done(function(response) {
       // We use 'ownerDocument' so we don't load the images and scripts!
