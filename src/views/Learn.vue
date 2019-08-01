@@ -9,8 +9,8 @@
           <b :data-hsk="args[0]">HSK {{ args[0] }}</b>
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
-        <WordList :words="words"></WordList>
-        <Questions :words="words" :book="args[0]"></Questions>
+        <!-- <WordList :words="words"></WordList> -->
+        <!-- <Questions :words="words" :book="args[0]"></Questions> -->
       </div>
     </div>
   </div>

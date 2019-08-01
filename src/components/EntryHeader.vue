@@ -115,11 +115,7 @@ export default {
   methods: {
     findCurrentFunction(entry) {
       return function(item) {
-        return (
-          item[0] === entry.traditional &&
-          item[1].replace(/[\s']/g, '').toLowerCase() ===
-            entry.pinyin.replace(/[\s']/g, '').toLowerCase()
-        )
+        return item[0] === entry.traditional && item[1] === entry
       }
     },
     list() {

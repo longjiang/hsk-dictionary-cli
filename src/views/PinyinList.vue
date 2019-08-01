@@ -1,0 +1,70 @@
+<template>
+  <div>
+    <div class="container main mt-4 mb-4">
+      <div class="row">
+        <div class="col-sm-12">
+          <h4>Get pinyin for a list of words</h4>
+          <p>
+            Paste your list into the text box and get a table of all pinyin
+            variations for each word.
+          </p>
+          <textarea
+            v-model="text"
+            class="mt1 mb1 form-control"
+            cols="30"
+            rows="10"
+            placeholder="Paste your list or Chinese words here to generate a pinyin table"
+          ></textarea>
+          <button class="btn btn-success btn-block" v-on:click="getPinyinClick">
+            Get Pinyin
+          </button>
+          <div v-if="csv">
+            <h5 class="mt-4 mb-4">Your CSV</h5>
+            <textarea class="mt1 mb1 form-control" cols="30" rows="10">{{
+              csv
+            }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import CEDICT from '@/lib/cedict'
+export default {
+  data() {
+    return {
+      text: localStorage.getItem('pinyinList'),
+      words: [],
+      csv: ''
+    }
+  },
+  beforeMount() {},
+  methods: {
+    getPinyinClick() {
+      localStorage.setItem('pinyinList', this.text)
+      this.words = this.lookup(this.text)
+      this.csv = this.getCsv(this.words)
+    },
+    getCsv(words) {
+      return words
+        .map(candidates => {
+          return candidates.map(candidate => candidate.pinyin).join('\t')
+        })
+        .join('\n')
+    },
+    lookup(text) {
+      let words = text.split('\n').map(line => {
+        let seen = []
+        return CEDICT.lookupSimplified(line).filter(candidate => {
+          const keep = !seen.includes(candidate.pinyin)
+          seen.push(candidate.pinyin)
+          return keep
+        })
+      })
+      return words
+    }
+  }
+}
+</script>

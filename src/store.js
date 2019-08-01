@@ -12,10 +12,7 @@ export default new Vuex.Store({
     ADD_SAVED_WORD(state, { traditional, pinyin }) {
       if (
         !state.savedWords.find(
-          item =>
-            item.traditional === traditional &&
-            item.pinyin.replace(/[\s']/g, '').toLowerCase() ===
-              pinyin.replace(/[\s']/g, '').toLowerCase()
+          item => item.traditional === traditional && item.pinyin === pinyin
         )
       ) {
         state.savedWords.push([traditional, pinyin])
@@ -27,11 +24,7 @@ export default new Vuex.Store({
     },
     REMOVE_SAVED_WORD(state, { traditional, pinyin }) {
       const keepers = state.savedWords.filter(function(savedCEDICTWord) {
-        return (
-          savedCEDICTWord[0] != traditional ||
-          savedCEDICTWord[1].replace(/\s/g, '').toLowerCase() !=
-            pinyin.replace(/\s/g, '').toLowerCase()
-        )
+        return savedCEDICTWord[0] != traditional || savedCEDICTWord[1] != pinyin
       })
       state.savedWords = keepers
       localStorage.setItem('savedCEDICTWords', JSON.stringify(keepers))
@@ -82,11 +75,7 @@ export default new Vuex.Store({
   getters: {
     hasSavedWord: state => ({ traditional, pinyin }) => {
       let yes = state.savedWords.find(item => {
-        return (
-          item[0] === traditional &&
-          item[1].replace(/\s/g, '').toLowerCase() ===
-            pinyin.replace(/\s/g, '').toLowerCase()
-        )
+        return item[0] === traditional && item[1] === pinyin
       })
       return yes
     },

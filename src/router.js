@@ -40,6 +40,11 @@ export default new Router({
       path: '/saved-words',
       name: 'saved-words',
       component: () => import('./views/SavedWords.vue')
+    },
+    {
+      path: '/pinyin-list',
+      name: 'pinyin',
+      component: () => import('./views/PinyinList.vue')
     }
   ]
 })

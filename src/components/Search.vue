@@ -4,6 +4,8 @@
       <input
         v-on:keyup.enter="lookupKeyupEnter"
         v-on:keyup="lookupKeyup"
+        v-on:keyup.esc="cancel"
+        v-on:blur="cancel"
         v-on:compositionend="lookupKeyup"
         v-on:focus="lookupKeyup"
         type="text"
@@ -82,7 +84,7 @@ export default {
     }
   },
   watch: {
-    $route () {
+    $route() {
       this.suggestions = []
     }
   },
@@ -102,9 +104,11 @@ export default {
           .click()
       }
     },
+    cancel() {
+      this.suggestions = []
+    },
     lookupKeyup(e) {
-      let app = this
-      app.suggestions = []
+      this.suggestions = []
       var text = e.target.value
       if (text !== '') {
         const hskSuggestions = HSK.lookupFuzzy(text).slice(0, 5)
@@ -140,7 +144,7 @@ export default {
             href: 'https://en.wiktionary.org/w/index.php?search=' + text
           })
         }
-        app.suggestions = suggestions
+        this.suggestions = suggestions
       }
     }
   }
