@@ -33,12 +33,7 @@
               class="decomposition-before"
               v-html="Helper.highlight(split.before, split.before, word.book)"
             ></span>
-            <div class="animated-svg-wrapper">
-              <img v-if="split" :src="animatedSVG()" class="animated-svg" />
-              <button class="replay-btn show-more mt-2" @click="playSVG">
-                <i class="glyphicon glyphicon-play"></i> Play Again
-              </button>
-            </div>
+            <StrokeOrder v-if="split" :char="split.char" />
             <span
               v-if="split && split.after"
               class="decomposition-after"
@@ -54,7 +49,6 @@
 <script>
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
-import Hanzi from '@/lib/hanzi'
 import $ from 'jquery'
 
 export default {
@@ -71,11 +65,6 @@ export default {
     this.split = this.randomChar(this.word.simplified)
   },
   methods: {
-    playSVG(e) {
-      let $svg = $(e.target).siblings('.animated-svg')
-      let $svgClone = $svg.clone()
-      $svg.after($svgClone).remove()
-    },
     fillInTheBlankHTML() {
       return `${
         this.split.before
@@ -90,9 +79,6 @@ export default {
         char: word[index],
         after: word.slice(index + 1)
       }
-    },
-    animatedSVG() {
-      return Hanzi.animatedSvgUrl(this.split.char)
     },
     replaceAtIndex(string, index, replacement) {
       return string.substr(0, index) + replacement + string.substr(index + 1)
