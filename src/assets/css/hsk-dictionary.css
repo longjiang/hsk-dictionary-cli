@@ -66,6 +66,17 @@ body {
   height: 2.3rem;
 }
 
+.btn-random {
+  position: absolute;
+  right: 3rem;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  height: 1.7rem !important;
+  top: 0.3rem;
+  background: #cacaca;
+  border: none;
+}
+
 .example-bar {
   background-color: #dedede;
   overflow: hidden;

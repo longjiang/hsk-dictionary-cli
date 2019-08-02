@@ -11,8 +11,11 @@
         type="text"
         class="form-control"
         id="lookup"
-        placeholder="Search for a Chinese word here..."
+        placeholder="Look up words here..."
       />
+      <a class="btn btn-secondary btn-random ml-2" href="#/view/cedict/random">
+        <i class="glyphicon glyphicon-random"></i> Random
+      </a>
       <div class="input-group-append">
         <button
           class="btn btn-primary lookup-button"
@@ -24,9 +27,7 @@
         </button>
       </div>
     </div>
-    <a class="btn btn-secondary ml-2" href="#/view/cedict/random"
-      ><i class="glyphicon glyphicon-random"></i> Random</a
-    >
+    <button class="btn btn-primary ml-2">Compare</button>
     <div class="suggestions" v-cloak v-if="suggestions.length > 0">
       <a
         :href="suggestion.href"
@@ -34,12 +35,12 @@
         v-for="suggestion in suggestions"
       >
         <span v-if="suggestion.type === 'cedict'">
-          <span class="character-example-word mr-1">{{
-            suggestion.row.simplified
-          }}</span>
-          <span class="character-example-pinyin mr-1">{{
-            suggestion.row.pinyin
-          }}</span>
+          <span class="character-example-word mr-1">
+            {{ suggestion.row.simplified }}
+          </span>
+          <span class="character-example-pinyin mr-1">
+            {{ suggestion.row.pinyin }}
+          </span>
           <span
             class="character-example-english"
             v-if="
@@ -52,7 +53,8 @@
         <span v-if="suggestion.type === 'notFound'">
           <span class="suggestion-not-found">
             <b>&ldquo;{{ suggestion.text }}&rdquo;</b> is not in CEDICT. Try
-            looking it up in <b>Wiktionary.</b>
+            looking it up in
+            <b>Wiktionary.</b>
           </span>
         </span>
       </a>

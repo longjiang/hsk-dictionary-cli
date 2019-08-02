@@ -44,7 +44,17 @@
                 ></i>
               </div>
               <div class="word">
-                <span v-bind:data-hsk="entry.book">{{ entry.simplified }}</span>
+                <a
+                  :href="
+                    `#/view/cedict/${entry.traditional},${entry.pinyin},${
+                      entry.index
+                    }`
+                  "
+                >
+                  <span v-bind:data-hsk="entry.book">{{
+                    entry.simplified
+                  }}</span>
+                </a>
               </div>
             </div>
           </div>
