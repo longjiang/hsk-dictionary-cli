@@ -82,7 +82,7 @@
     </div>
 
     <keep-alive>
-      <router-view />
+      <router-view ref="routerView" />
     </keep-alive>
 
     <!-- ANCHOR img/anchors/footer.png -->

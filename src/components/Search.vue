@@ -105,13 +105,12 @@ export default {
     }
   },
   watch: {
-    entry() {
-      $(this.$el)
-        .find('.lookup')
-        .val(this.entry ? this.entry.simplified : '')
-    },
     $route() {
       this.suggestions = []
+      if (this.$parent.$refs.routerView.entry) {
+        this.entry = this.$parent.$refs.routerView.entry
+        this.text = this.$parent.$refs.routerView.entry.simplified
+      }
     }
   },
   methods: {
