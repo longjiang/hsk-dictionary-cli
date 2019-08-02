@@ -31,9 +31,11 @@ export default {
       }?http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
       function(response) {
         let srcs = []
-        response.data.list.forEach(function(item) {
-          srcs.push(item)
-        })
+        if (response && response.data && response.data.list) {
+          for (item of response.data.list) {
+            srcs.push(item)
+          }
+        }
         callback(srcs)
       }
     )

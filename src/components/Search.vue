@@ -9,9 +9,7 @@
         v-on:compositionend="lookupKeyup"
         v-on:focus="lookupKeyup"
         type="text"
-        class="form-control"
-        id="lookup"
-        :value="entry ? entry.simplified : ''"
+        class="form-control lookup"
         :placeholder="placeholder"
       />
       <a
@@ -102,6 +100,11 @@ export default {
     }
   },
   watch: {
+    entry() {
+      $(this.$el)
+        .find('.lookup')
+        .val(this.entry ? this.entry.simplified : '')
+    },
     $route() {
       this.suggestions = []
     }
