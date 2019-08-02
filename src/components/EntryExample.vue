@@ -41,6 +41,8 @@
           </div>
           <div class="example-sentence mt-4">
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
+
+            <PinyinButton class="mb-3" />
             <p
               class="example-sentence-word"
               v-html="
@@ -50,10 +52,6 @@
             <p class="example-sentence-english">
               {{ entry.exampleTranslation }}
             </p>
-            <PinyinButton
-              class="mt-2"
-              :selector="`#${this.id} .example-sentence-word`"
-            />
           </div>
         </div>
       </div>

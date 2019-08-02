@@ -54,37 +54,51 @@ export default {
       pinyin: candidate.pinyin
     })
   },
-  augmentAnnotatedBlocks(selector) {
-    $(selector + ' .word-block[data-candidates]').each(function() {
-      let data = $(this).attr('data-candidates')
-      if (data) {
-        const candidates = JSON.parse(unescape(data))
-        if (candidates) {
-          let book = 'outside'
-          for (let candidate of candidates) {
-            const saved = Helper.saved(candidate)
-            candidate = Normalizer.normalize(candidate)
-            if (candidate.book !== 'outside') book = candidate.book
-            if (saved) $(this).addClass('saved')
-          }
-          $(this).attr('data-hover-hsk', book)
-          $(this).attr('data-candidates', JSON.stringify(candidates))
-        }
-        $(this).click(function() {
-          const candidates = JSON.parse(
-            unescape($(this).attr('data-candidates'))
-          )
-          if (candidates && candidates.length > 0) {
-            if ($(this).hasClass('saved')) {
-              Helper.removeSaved(candidates[0])
-            } else {
-              Helper.addSaved(candidates[0])
+  augmentAnnotatedBlocks(selectorOrNode) {
+    let nodes = []
+    if (typeof selectorOrNode === 'object') {
+      nodes = [selectorOrNode]
+    } else {
+      nodes = $(selectorOrNode).get()
+    }
+    for (let node of nodes) {
+      const wordBlocks = $(node)
+        .find('.word-block[data-candidates]')
+        .get()
+      for (let block of wordBlocks) {
+        let data = $(block).attr('data-candidates')
+        if (data) {
+          const candidates = JSON.parse(unescape(data))
+          if (candidates) {
+            let book = 'outside'
+            for (let candidate of candidates) {
+              const saved = Helper.saved(candidate)
+              candidate = Normalizer.normalize(candidate)
+              if (candidate.book !== 'outside') book = candidate.book
+              if (saved) $(block).addClass('saved')
             }
+            $(block).attr('data-hover-hsk', book)
+            $(block).attr('data-candidates', JSON.stringify(candidates))
           }
-        })
+          $(block).click(function() {
+            const candidates = JSON.parse(
+              unescape($(block).attr('data-candidates'))
+            )
+            if (candidates && candidates.length > 0) {
+              if ($(block).hasClass('saved')) {
+                Helper.removeSaved(candidates[0])
+              } else {
+                Helper.addSaved(candidates[0])
+              }
+            }
+          })
+        }
       }
-    })
-    AnnotatorTooltip.addTooltips(selector, function(candidates) {
+      this.addToolTips(node)
+    }
+  },
+  addToolTips(selectorOrNode) {
+    AnnotatorTooltip.addTooltips(selectorOrNode, function(candidates) {
       let html = ''
       for (let candidate of candidates) {
         var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)

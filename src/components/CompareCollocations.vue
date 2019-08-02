@@ -16,6 +16,7 @@
           :level="a.book"
           :title="colDesc.a[name]"
           :type="name"
+          :id="`collocation-a-${name}`"
           :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
         ></Collocations>
       </div>
@@ -26,6 +27,7 @@
           :level="b.book"
           :title="colDesc.b[name]"
           :type="name"
+          :id="`collocation-a-${name}`"
           :collocation="getGramrelsByName(b.sketch.Gramrels, name)"
         ></Collocations>
       </div>

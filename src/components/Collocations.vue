@@ -1,16 +1,12 @@
 <template>
-  <div v-if="collocation">
+  <div v-if="collocation" :id="id || `collocation-${name}`">
     <div class="label song-label mb-2">{{ title }}</div>
-    <PinyinButton class="mt-3 mb-3" :selector="`#Gramrels-${type}`" />
-    <ul
-      class="character-examples collapsed"
-      :id="`Gramrels-${type}`"
-      data-collapse-target
-    >
+    <PinyinButton class="mt-3 mb-3" />
+    <ul class="character-examples collapsed gramrel" data-collapse-target>
       <li
         v-for="Word in collocation.Words"
         v-if="Word.cm"
-        class="character-example"
+        class="character-example gramrel-item"
       >
         <span
           v-html="Helper.highlight(Word.cm.replace(/ /gi, ''), word, level)"
@@ -30,7 +26,26 @@
 import Helper from '@/lib/helper'
 
 export default {
-  props: ['word', 'level', 'type', 'title', 'collocation'],
+  props: {
+    word: {
+      type: String
+    },
+    level: {
+      type: String
+    },
+    type: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    collocation: {
+      type: Object
+    },
+    id: {
+      default: undefined
+    }
+  },
   data() {
     return {
       Helper

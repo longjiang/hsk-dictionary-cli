@@ -151,11 +151,6 @@ export default {
         const entry =
           this.$root.$children[0].$refs.search.entry ||
           this.$root.$children[0].$refs.routerView.entry
-        console.log(
-          this.$root,
-          this.$root.$children[0],
-          this.$root.$children[0].$refs.search
-        )
         return `#/compare/cedict/${entry.traditional},${entry.pinyin},${
           entry.index
         },${compareEntry.traditional},${compareEntry.pinyin},${
