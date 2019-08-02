@@ -125,7 +125,7 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
-      $('#lookup').val(entry.simplified)
+      window.hskDictionaryApp.$refs.search.entry = entry
     },
     route() {
       if (this.$route.params.method && this.$route.params.args) {

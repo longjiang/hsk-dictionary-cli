@@ -11,6 +11,7 @@
         type="text"
         class="form-control"
         id="lookup"
+        :value="entry ? entry.simplified : ''"
         :placeholder="placeholder"
       />
       <a
@@ -138,7 +139,7 @@ export default {
         ) {
           return !hskWordStrArray.includes(cedictSuggestion.simplified)
         })
-        cedictFiltered.forEach(function(cedictSuggestion) {
+        cedictFiltered.forEach(cedictSuggestion => {
           suggestions.push({
             type: 'cedict',
             href: this.hrefFunc(cedictSuggestion),

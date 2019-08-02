@@ -148,7 +148,7 @@ export default {
       }),
       Helper,
       compare: false,
-      compareHrefFunc(compareEntry) {
+      compareHrefFunc: compareEntry => {
         const searchEntry = this.$refs.search.entry
         return `#/compare/cedict/${searchEntry.traditional},${
           searchEntry.pinyin
