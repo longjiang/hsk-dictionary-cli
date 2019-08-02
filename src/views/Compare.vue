@@ -77,29 +77,19 @@
       </div>
     </div>
 
-    <!--
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-sm-6">
-            <EntryGrammar :entry="a"></EntryGrammar>
-          </div>
-          <div class="col-sm-6">
-            <EntryGrammar :entry="b"></EntryGrammar>
-          </div>
+    <div class="container-fuid">
+      <div class="row">
+        <div class="col-sm-12">
+          <EntryCourseAd :entry="b.book > a.book ? b : a"></EntryCourseAd>
         </div>
       </div>
-    -->
-
-    <!-- <EntryCourseAd :entry="entry"></EntryCourseAd> -->
-
-    <!-- <EntryLyrics :entry="entry"></EntryLyrics> -->
+    </div>
   </div>
 </template>
 
 <script>
 import EntryCharacters from '@/components/EntryCharacters.vue'
 import EntryConcordance from '@/components/EntryConcordance.vue'
-import EntryCollocations from '@/components/EntryCollocations.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
 import EntryGrammar from '@/components/EntryGrammar.vue'
