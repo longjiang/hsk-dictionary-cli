@@ -18,10 +18,10 @@
 
       <div class="row mt-4">
         <div class="col-sm-6">
-          <EntryWebImages :entry="a" limit="7"></EntryWebImages>
+          <EntryWebImages :entry="a" limit="10"></EntryWebImages>
         </div>
         <div class="col-sm-6">
-          <EntryWebImages :entry="b" limit="7"></EntryWebImages>
+          <EntryWebImages :entry="b" limit="10"></EntryWebImages>
         </div>
       </div>
     </div>
@@ -130,7 +130,6 @@ export default {
       let method = this.$route.params.method
       let args = this.$route.params.args
       if (method && args) {
-        console.log('updating compare view')
         args = args.split(',')
         let a = CEDICT.get(args[0], args[1], args[2])
         let b = CEDICT.get(args[3], args[4], args[5])

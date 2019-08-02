@@ -55,7 +55,8 @@ export default {
         'gtimg.com',
         'pic.ibaotu.com',
         'sc.jb51.net',
-        'so.qhmsg.com'
+        'so.qhmsg.com',
+        'soso.com'
       ]
     }
   },
