@@ -56,7 +56,15 @@ export default {
         'pic.ibaotu.com',
         'sc.jb51.net',
         'so.qhmsg.com',
-        'soso.com'
+        'soso.com',
+        'comicyu.com',
+        'duitang.com',
+        'chachaba.com',
+        'qzone.cc',
+        'tianjimedia.com',
+        'bitauto.com',
+        'dzwww.com',
+        'pstatp.com'
       ]
     }
   },

@@ -88,7 +88,6 @@
 </template>
 
 <script>
-import EntryCharacters from '@/components/EntryCharacters.vue'
 import EntryConcordance from '@/components/EntryConcordance.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
