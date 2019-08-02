@@ -6,12 +6,13 @@
   >
     <div class="row">
       <div
-        class="col-sm-12 col-md-6 col-lg-4 mb-4"
+        class="col-sm-12 col-md-6 col-lg-4"
         v-for="(description, name) in colDesc"
         v-bind:key="'collocation-' + name"
       >
         <Collocations
           v-if="entry.sketch && entry.sketch.Gramrels"
+          class="mb-4"
           :word="entry.simplified"
           :level="entry.book"
           :title="colDesc[name]"

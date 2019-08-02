@@ -26,7 +26,10 @@
       </div>
     </div>
 
-    <div class="container-fluid mt-5 example-bar pt-4 pb-4">
+    <div
+      class="container-fluid mt-5 example-bar pt-4 pb-4"
+      v-if="a.example && b.example"
+    >
       <div class="container">
         <div class="row" v-if="a.example && b.example">
           <div class="col-sm-6">
