@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-cloak :key="'entry-' + entryKey" v-if="a && b">
+  <div class="main" v-cloak v-if="a && b">
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
@@ -11,7 +11,9 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12"><CompareDefs :a="a" :b="b"></CompareDefs></div>
+        <div class="col-sm-12">
+          <CompareDefs :a="a" :b="b" :key="compareDefKey"></CompareDefs>
+        </div>
       </div>
 
       <div class="row mt-4">
@@ -24,7 +26,7 @@
       </div>
     </div>
 
-    <div class="container-fluid mt-5 example-bar pt-5">
+    <div class="container-fluid mt-5 example-bar pt-4 pb-4">
       <div class="container">
         <div class="row" v-if="a.example && b.example">
           <div class="col-sm-6">
@@ -120,7 +122,7 @@ export default {
     return {
       a: undefined,
       b: undefined,
-      entryKey: 0 // used to force re-render this component
+      compareDefKey: 0
     }
   },
   methods: {
@@ -133,6 +135,7 @@ export default {
         let b = CEDICT.get(args[3], args[4], args[5])
         this.a = Normalizer.normalize(a)
         this.b = Normalizer.normalize(b)
+        this.compareDefKey++
       }
     }
   },

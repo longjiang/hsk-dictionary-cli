@@ -148,14 +148,19 @@ export default {
       Helper,
       compare: false,
       compareHrefFunc: compareEntry => {
-        if (this.$refs.search) {
-          const searchEntry = this.$refs.search.entry
-          return `#/compare/cedict/${searchEntry.traditional},${
-            searchEntry.pinyin
-          },${searchEntry.index},${compareEntry.traditional},${
-            compareEntry.pinyin
-          },${compareEntry.index}`
-        }
+        const entry =
+          this.$root.$children[0].$refs.search.entry ||
+          this.$root.$children[0].$refs.routerView.entry
+        console.log(
+          this.$root,
+          this.$root.$children[0],
+          this.$root.$children[0].$refs.search
+        )
+        return `#/compare/cedict/${entry.traditional},${entry.pinyin},${
+          entry.index
+        },${compareEntry.traditional},${compareEntry.pinyin},${
+          compareEntry.index
+        }`
       }
     }
   },

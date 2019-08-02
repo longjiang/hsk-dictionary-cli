@@ -101,6 +101,7 @@ export default {
     return {
       suggestions: [],
       entry: undefined, // Currently selected entry
+      text: undefined,
       suggestionsKey: 0
     }
   },
