@@ -2,11 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center definitions">
+        <Merge direction="top" class="h-half" />
         <DefinitionsList :definitions="defCommon"></DefinitionsList>
-        <i
-          class="glyphicon glyphicon-random"
-          style="transform: rotate(90deg)"
-        ></i>
+        <Merge direction="bottom" class="h-half" />
       </div>
     </div>
     <div class="row mt-4">
@@ -48,9 +46,9 @@ export default {
       for (let adef of a.definitions) {
         for (let bdef of b.definitions) {
           if (bdef.text.includes(adef.text)) {
-            this.defCommon.push(adef)
-          } else if (adef.text.includes(bdef.text)) {
             this.defCommon.push(bdef)
+          } else if (adef.text.includes(bdef.text)) {
+            this.defCommon.push(adef)
           }
         }
       }
