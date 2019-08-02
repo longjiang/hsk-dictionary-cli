@@ -1,119 +1,25 @@
 <template>
-  <div class="container collocations" :key="'collocations-' + collocationsKey">
-    <div class="row mt-5" v-if="entry.sketch && entry.sketch.Gramrels">
-      <!-- class="col-md-6 col-lg-4 mb-5" -->
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="
-          collocation.name === 'SentObject_of' && collocation.Words.length > 0
-        "
-        :title="`Adjective/Verb + ${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Modifier' && collocation.Words.length > 0"
-        :title="`Adverb + ${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'A_Modifier' && collocation.Words.length > 0"
-        :title="`Adjective + 的${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Object_of' && collocation.Words.length > 0"
-        :title="`Verb + ${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Measure' && collocation.Words.length > 0"
-        :title="`Measure Word + ${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'N_Modifier' && collocation.Words.length > 0"
-        :title="`Noun + ${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Possessor' && collocation.Words.length > 0"
-        :title="`Noun + 的${entry.simplified}`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Possession' && collocation.Words.length > 0"
-        :title="`${entry.simplified}的 + Noun`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Modifies' && collocation.Words.length > 0"
-        :title="`${entry.simplified} (的) + Noun`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'Object' && collocation.Words.length > 0"
-        :title="`${entry.simplified} + Noun`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
-      <Collocations
-        v-for="(collocation, index) in entry.sketch.Gramrels"
-        v-if="collocation.name === 'SentObject' && collocation.Words.length > 0"
-        :title="`${entry.simplified} + Complement`"
-        :word="entry.simplified"
-        :level="entry.book"
-        :type="collocation.name"
-        :collocation="collocation"
-        v-bind:key="'collocation-' + index"
-      ></Collocations>
+  <div
+    class="container"
+    :key="'collocations-' + collocationsKey"
+    v-if="colDesc"
+  >
+    <div class="row">
+      <div
+        class="col-sm-12 col-md-6 col-lg-4 mb-4"
+        v-for="(description, name) in colDesc"
+        v-bind:key="'collocation-' + name"
+      >
+        <Collocations
+          v-if="entry.sketch && entry.sketch.Gramrels"
+          :word="entry.simplified"
+          :level="entry.book"
+          :title="colDesc[name]"
+          :type="name"
+          :id="`collocation-${name}`"
+          :collocation="getGramrelsByName(entry.sketch.Gramrels, name)"
+        ></Collocations>
+      </div>
     </div>
   </div>
 </template>
@@ -127,8 +33,14 @@ export default {
   components: {
     Collocations
   },
+  methods: {
+    getGramrelsByName(gramrels, name) {
+      return gramrels.find(gram => gram.name === name)
+    }
+  },
   data() {
     return {
+      colDesc: undefined,
       collocationsKey: 0
     }
   },
@@ -137,6 +49,7 @@ export default {
       this.entry.sketch = response
       this.collocationsKey += 1
     })
+    this.colDesc = SketchEngine.collocationDescription(this.entry.simplified)
   }
 }
 </script>

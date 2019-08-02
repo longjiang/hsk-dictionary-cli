@@ -54,6 +54,7 @@
       </div>
     </div>
     <DefinitionsList
+      class="mt-4"
       v-if="!minimal"
       :definitions="entry.definitions"
     ></DefinitionsList>

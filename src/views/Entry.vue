@@ -1,6 +1,12 @@
 <template>
   <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
-    <EntryHeader :entry="entry"></EntryHeader>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <EntryHeader class="mb-5" :entry="entry"></EntryHeader>
+        </div>
+      </div>
+    </div>
 
     <!-- ANCHOR img/anchors/oofc.png -->
     <div
