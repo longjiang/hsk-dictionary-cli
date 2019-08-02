@@ -10,40 +10,38 @@ body {
   min-height: calc(100vh - 30rem);
 }
 
-.logo {
-  max-width: 15rem;
-  margin: 0 auto;
-  margin-right: 1rem;
-  padding-right: 1rem;
-  border-right: 1px solid rgba(255, 255, 255, 0.5);
-}
 
 .title {
   margin: 0;
-  text-align: left;
-  font-size: 2rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
 .title-text {
   margin-top: 0.5rem;
   color: white;
+  float: left;
 }
 
-@media (max-width: 768px) {
-  .logo {
-    border-right: none;
-    display: block;
-    padding-right: 0;
-    margin: 0 auto 1rem auto;
-  }
-  .title-text {
-    padding-top: 0.5rem;
-    display: block;
-    width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    text-align: center;
-  }
+.title a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.title-separator {
+  margin: 0 auto;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  display: block;
+  height: 2.5rem;
+  width: 0;
+  float: left;
+}
+
+.logo {
+  max-width: 15rem;
+  float: left;
 }
 
 .top-bar {
