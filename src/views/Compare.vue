@@ -21,11 +21,9 @@
 
       <div class="row mt-4">
         <div class="col-sm-6 text-center">
-          <h5 class="english mt-4 mb-0"></h5>
           <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
         </div>
         <div class="col-sm-6 text-center">
-          <h5 class="english mt-4 mb-0"></h5>
           <DefinitionsList :definitions="defDistinct.b"></DefinitionsList>
         </div>
       </div>
@@ -53,6 +51,10 @@
       </div>
     </div>
 
+    <!-- <EntryRelated :entry="entry"></EntryRelated> -->
+
+    <CompareCollocations class="mt-5" :a="a" :b="b"></CompareCollocations>
+
     <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
     <div class="container mt-5">
       <div class="row">
@@ -65,13 +67,29 @@
       </div>
     </div>
 
-    <!-- <EntryGrammar :entry="entry"></EntryGrammar> -->
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-6">
+          <EntryMistakes :entry="a"></EntryMistakes>
+        </div>
+        <div class="col-sm-6">
+          <EntryMistakes :entry="b"></EntryMistakes>
+        </div>
+      </div>
+    </div>
 
-    <!-- <EntryRelated :entry="entry"></EntryRelated> -->
-
-    <CompareCollocations :a="a" :b="b"></CompareCollocations>
-
-    <!-- <EntryMistakes :entry="entry"></EntryMistakes> -->
+    <!--
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-sm-6">
+            <EntryGrammar :entry="a"></EntryGrammar>
+          </div>
+          <div class="col-sm-6">
+            <EntryGrammar :entry="b"></EntryGrammar>
+          </div>
+        </div>
+      </div>
+    -->
 
     <!-- <EntryCourseAd :entry="entry"></EntryCourseAd> -->
 

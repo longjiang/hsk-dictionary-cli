@@ -1,6 +1,6 @@
 <template>
   <div class="container concordance" :key="'concordance-' + concordanceKey">
-    <div class="row mb-5" v-if="entry.examples && entry.examples.length > 0">
+    <div class="row" v-if="entry.examples && entry.examples.length > 0">
       <div class="col-sm-12">
         <div class="label song-label mb-2">
           Sentences with “{{ entry.simplified }}”
