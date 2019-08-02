@@ -18,6 +18,7 @@
           ></i>
         </div>
       </div>
+
       <div class="row">
         <div class="col-sm-6 text-center">
           <h5 class="english mt-4 mb-0"></h5>
@@ -30,7 +31,18 @@
       </div>
     </div>
 
-    <!-- <EntryExample :entry="entry"></EntryExample> -->
+    <div class="container-fluid example-bar pt-5">
+      <div class="container">
+        <div class="row" v-if="a.example && b.example">
+          <div class="col-sm-6">
+            <EntryExample :entry="a" id="compare-example-a"></EntryExample>
+          </div>
+          <div class="col-sm-6">
+            <EntryExample :entry="b" id="compare-example-b"></EntryExample>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
     <div class="container">

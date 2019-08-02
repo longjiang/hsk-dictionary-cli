@@ -2,12 +2,13 @@
   <!-- ANCHOR img/anchors/example-bar.png -->
   <div
     class="container-fluid example-bar"
+    :id="id"
     v-cloak
     v-if="entry.example && entry.example !== ''"
   >
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <div class="image-wrapper">
             <img
               v-bind:src="
@@ -30,9 +31,7 @@
             />
           </div>
         </div>
-        <div
-          class="col-md-6 example-wrapper text-md-left text-sm-center sm-mt2"
-        >
+        <div class="col-lg-6 example-wrapper text-lg-left text-center mt-4">
           <div
             class="label"
             v-bind:data-bg-hsk="entry.book"
@@ -44,12 +43,17 @@
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
             <p
               class="example-sentence-word"
-              v-html="Helper.highlight(entry.example)"
+              v-html="
+                Helper.highlight(entry.example, entry.simplified, entry.book)
+              "
             ></p>
             <p class="example-sentence-english">
               {{ entry.exampleTranslation }}
             </p>
-            <PinyinButton class="mt-2" :selector="`.example-sentence-word`" />
+            <PinyinButton
+              class="mt-2"
+              :selector="`#${this.id} .example-sentence-word`"
+            />
           </div>
         </div>
       </div>
@@ -110,7 +114,14 @@ import Config from '@/lib/config'
 import $ from 'jquery'
 
 export default {
-  props: ['entry'],
+  props: {
+    entry: {
+      type: Object
+    },
+    id: {
+      default: 'entry-example'
+    }
+  },
   data() {
     return {
       Helper,
@@ -133,7 +144,7 @@ export default {
       this.uploadPhotoAndUpdate(url, $input)
     },
     uploadPhotoAndUpdate(url, $button) {
-      WordPhotos.savePhoto(app.entry, url, function(response) {
+      WordPhotos.savePhoto(this.entry, url, function(response) {
         $button.after('<span class="success">Uploaded</span>')
         this.hasImage = true
         this.image = response.url + '?' + Date.now()
