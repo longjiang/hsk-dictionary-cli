@@ -32,7 +32,7 @@ export default {
       function(response) {
         let srcs = []
         if (response && response.data && response.data.list) {
-          for (item of response.data.list) {
+          for (let item of response.data.list) {
             srcs.push(item)
           }
         }

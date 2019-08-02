@@ -30,10 +30,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
-                <PinyinButton
-                  class="mb-3"
-                  :selector="`#lyrics-' + entry.id + '-' + lrcIndex`"
-                />
+                <PinyinButton class="mb-3" />
                 <div
                   class="lyrics collapsed"
                   :id="'lyrics-' + entry.id + '-' + lrcIndex"
