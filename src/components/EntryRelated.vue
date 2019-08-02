@@ -14,8 +14,8 @@
               class="btn btn-small mr-2"
               :href="
                 `#/compare/cedict/${entry.traditional},${entry.pinyin},${
-                  word.traditional
-                },${word.pinyin}`
+                  entry.index
+                },${word.traditional},${word.pinyin},${word.index}`
               "
               >Compare</a
             >

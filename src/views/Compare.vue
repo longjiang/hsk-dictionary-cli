@@ -10,14 +10,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12"></div>
+        <div class="col-sm-12 text-center definitions">
+          <DefinitionsList :definitions="defCommon"></DefinitionsList>
+          <i
+            class="glyphicon glyphicon-random"
+            style="transform: rotate(90deg)"
+          ></i>
+        </div>
       </div>
       <div class="row">
-        <div class="col-sm-6">
-          <DefinitionsList :definitions="a.definitions"></DefinitionsList>
+        <div class="col-sm-6 text-center">
+          <h5 class="english mt-4 mb-0"></h5>
+          <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
         </div>
-        <div class="col-sm-6">
-          <DefinitionsList :definitions="b.definitions"></DefinitionsList>
+        <div class="col-sm-6 text-center">
+          <h5 class="english mt-4 mb-0"></h5>
+          <DefinitionsList :definitions="defDistinct.b"></DefinitionsList>
         </div>
       </div>
     </div>
@@ -99,10 +107,38 @@ export default {
     return {
       a: undefined,
       b: undefined,
+      defCommon: [],
+      defDistinct: {
+        a: [],
+        b: []
+      },
       entryKey: 0 // used to force re-render this component
     }
   },
   methods: {
+    defListIncludes(defList, def) {
+      return defList.find(d => def.text.includes(d.text))
+    },
+    common(a, b) {
+      for (let adef of a.definitions) {
+        for (let bdef of b.definitions) {
+          if (bdef.text.includes(adef.text)) {
+            this.defCommon.push(adef)
+          } else if (adef.text.includes(bdef.text)) {
+            this.defCommon.push(bdef)
+          }
+        }
+      }
+      for (let adef of a.definitions) {
+        if (!this.defListIncludes(this.defCommon, adef))
+          this.defDistinct.a.push(adef)
+      }
+      for (let adef of b.definitions) {
+        if (!this.defListIncludes(this.defCommon, adef))
+          this.defDistinct.b.push(adef)
+      }
+      // not in this.defCommon
+    },
     route() {
       let method = this.$route.params.method
       let args = this.$route.params.args
@@ -112,6 +148,7 @@ export default {
         let b = CEDICT.get(args[3], args[4], args[5])
         this.a = Normalizer.normalize(a)
         this.b = Normalizer.normalize(b)
+        this.common(a, b)
       }
     }
   },
