@@ -87,6 +87,10 @@
         </div>
       </div>
     </div>
+
+    <EntryLyrics :entry="a" limit="1"></EntryLyrics>
+
+    <EntryLyrics :entry="b" limit="1"></EntryLyrics>
   </div>
 </template>
 
@@ -98,6 +102,7 @@ import EntryGrammar from '@/components/EntryGrammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
+import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
 import Normalizer from '@/lib/normalizer'
@@ -111,6 +116,7 @@ export default {
     EntryGrammar,
     EntryHeader,
     EntryMistakes,
+    EntryLyrics,
     CompareCollocations,
     EntryWebImages,
     CompareDefs

@@ -22,11 +22,7 @@
       v-if="lrcs && lrcs.length > 0"
     >
       <div class="songs">
-        <div
-          class="row song"
-          v-for="(lrc, lrcIndex) in lrcs"
-          v-if="lrc.youtube && lrc.youtube.length > 0"
-        >
+        <div class="row song" v-for="(lrc, lrcIndex) in lrcs.slice(0, limit)">
           <div class="container">
             <div class="row">
               <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
@@ -115,7 +111,14 @@ import Helper from '@/lib/helper'
 import YouTube from '@/lib/youtube'
 
 export default {
-  props: ['entry'],
+  props: {
+    entry: {
+      type: Object
+    },
+    limit: {
+      default: 10
+    }
+  },
   data() {
     return {
       Helper,
@@ -135,12 +138,14 @@ export default {
         }
         lrc.currentYoutubeIndex = 1 // "Showing 1 of 23 videos..."
       }
-      this.lrcs = lrcs.sort(function(a, b) {
-        return (
-          Object.keys(b.matchedLines).length -
-          Object.keys(a.matchedLines).length
-        )
-      })
+      this.lrcs = lrcs
+        .sort(function(a, b) {
+          return (
+            Object.keys(b.matchedLines).length -
+            Object.keys(a.matchedLines).length
+          )
+        })
+        .filter(lrc => lrc.youtube && lrc.youtube.length > 0)
     })
     $('.youtube iframe').remove() // Show new videos;
   }
