@@ -125,6 +125,14 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
+      if (this.$parent.$refs.search) {
+        if (this.$parent.$refs.search.main === 'true') {
+          this.$parent.$refs.search.entry = entry
+          this.$parent.$refs.search.text = entry.simplified
+        }
+      } else {
+        throw 'Search-Entry link broken.'
+      }
     },
     route() {
       if (this.$route.params.method && this.$route.params.args) {

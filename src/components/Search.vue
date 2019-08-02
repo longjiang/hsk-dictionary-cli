@@ -8,6 +8,7 @@
         v-on:blur="cancel"
         v-on:compositionend="lookupKeyup"
         v-on:focus="lookupKeyup"
+        v-model="text"
         type="text"
         class="form-control lookup"
         :placeholder="placeholder"
@@ -90,6 +91,9 @@ export default {
         }
       }
     },
+    main: {
+      default: false
+    },
     placeholder: {
       default: 'Look up words here...'
     },
@@ -108,13 +112,6 @@ export default {
   watch: {
     $route() {
       this.suggestions = []
-      if (
-        this.$parent.$refs.routerView &&
-        this.$parent.$refs.routerView.entry
-      ) {
-        this.entry = this.$parent.$refs.routerView.entry
-        this.text = this.$parent.$refs.routerView.entry.simplified
-      }
     }
   },
   methods: {
