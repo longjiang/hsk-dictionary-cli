@@ -24,3 +24,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.animated-svg-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  margin: 0 auto;
+}
+</style>

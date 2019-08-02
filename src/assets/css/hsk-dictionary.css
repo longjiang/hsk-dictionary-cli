@@ -1353,10 +1353,6 @@ a.suggestion {
   height: 10rem;
 }
 
-.animated-svg-wrapper {
-  display: flex;
-  flex-direction: column;
-}
 
 .decomposition > .part-pinyin {
   border: 2px dashed #ccc;

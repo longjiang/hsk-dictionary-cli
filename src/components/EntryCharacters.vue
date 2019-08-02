@@ -15,15 +15,7 @@
           <div class="pinyin mb-2" v-if="entry.pinyin">
             {{ entry.pinyin.split(' ')[index] }}
           </div>
-          <Decomposition :char="character.character"></Decomposition>
-          <a
-            class="stroke stroke-decomposition btn-small mt-2"
-            :href="Hanzi.animatedSvgUrl(character.character)"
-            target="_blank"
-            title="Show stroke order animation"
-          >
-            <img src="img/stroke.svg" /> Strokes
-          </a>
+          <StrokeOrder :char="character.character" />
           <div class="english mt-3 mb-4">{{ character.definition }}</div>
         </div>
 
@@ -40,6 +32,9 @@
         </div>
 
         <div class="parts">
+          <div class="text-center">
+            <Decomposition :char="character.character"></Decomposition>
+          </div>
           <div class="part character-example" v-for="part in character.parts">
             <span class="part-part" v-if="part">
               <b>{{ part.character }}</b>

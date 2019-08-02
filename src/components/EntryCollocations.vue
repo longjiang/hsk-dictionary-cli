@@ -8,6 +8,7 @@
       <div
         class="col-sm-12 col-md-6 col-lg-4"
         v-for="(description, name) in colDesc"
+        v-if="entry.sketch && getGramrelsByName(entry.sketch.Gramrels, name)"
         v-bind:key="'collocation-' + name"
       >
         <Collocations
