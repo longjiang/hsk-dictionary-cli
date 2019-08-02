@@ -344,6 +344,7 @@ footer a:hover {
   top: 2.9rem;
 }
 
+.suggestion,
 a.suggestion {
   display: block;
   background: white;
@@ -353,7 +354,7 @@ a.suggestion {
   text-decoration: none;
 }
 
-a.suggestion:hover, a.suggestion:first-child:not(:hover) {
+.suggestion:hover, .suggestion:first-child:not(:hover) {
   background: #ececec;
 }
 

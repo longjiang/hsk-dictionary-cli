@@ -44,16 +44,26 @@ export default {
   },
   collocationDescription(word) {
     return {
-      Subject_of: `${word} + Verb`,
-      SentObject_of: `Adjective/Verb + ${word}`,
-      Modifier: `Adverb + ${word}`,
-      A_Modifier: `Adjective + 的 + ${word}`,
-      Object_of: `Verb + ${word}`,
+      // Common for all
+      'and/or': `A (和) B`,
+
+      // Common for nouns
       Measure: `Measure Word + ${word}`,
-      N_Modifier: `Noun + ${word}`,
+      A_Modifier: `Adjective + 的 + ${word}`,
       Possessor: `Noun + 的 + ${word}`,
       Possession: `${word} + 的 + Noun`,
+      N_Modifier: `Noun + ${word}`,
+      Subject_of: `${word} + Verb`,
+      Object_of: `Verb + ${word}`,
+      'Direct-Object_of': `Verb + ${word}`,
+      'Indirect-Object_of': `Verb + ${word}`,
+
+      // Common for Adjectives
+      SentObject_of: `Adjective/Verb + ${word}`,
       Modifies: `${word} + (的) + Noun`,
+
+      // Common for Verbs
+      Modifier: `Adverb + ${word}`,
       Object: `${word} + Noun`,
       SentObject: `${word} + Complement`
     }

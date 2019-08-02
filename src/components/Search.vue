@@ -2,12 +2,9 @@
   <div class="search-wrapper">
     <div class="input-group" v-cloak>
       <input
-        v-on:keyup.enter="lookupKeyupEnter"
-        v-on:keyup="lookupKeyup"
-        v-on:keyup.esc="cancel"
-        v-on:blur="cancel"
-        v-on:compositionend="lookupKeyup"
-        v-on:focus="lookupKeyup"
+        @keyup.enter="lookupKeyupEnter"
+        @focus="active = true"
+        @blur="cancel"
         v-model="text"
         type="text"
         class="form-control lookup"
@@ -35,16 +32,12 @@
       class="suggestions"
       :key="suggestionsKey"
       v-cloak
-      v-if="suggestions.length > 0"
+      v-if="active && text && text.length > 0"
     >
       <a
         class="suggestion"
         v-for="suggestion in suggestions"
-        :href="
-          suggestion === 'not found'
-            ? this.wiktionaryUrl()
-            : hrefFunc(suggestion)
-        "
+        :href="hrefFunc(suggestion)"
       >
         <span>
           <span
@@ -61,14 +54,26 @@
             >{{ suggestion.definitions[0].text }}</span
           >
         </span>
-        <span v-if="suggestion === 'not found'">
-          <span class="suggestion-not-found">
-            <b>&ldquo;{{ this.text }}&rdquo;</b> is not in CEDICT. Try looking
-            it up in
-            <b>Wiktionary.</b>
-          </span>
-        </span>
       </a>
+      <div class="suggestion" v-if="suggestions.length === 0">
+        <span class="suggestion-not-found">
+          <b>&ldquo;{{ this.text }}&rdquo;</b> is not in CEDICT. Try looking it
+          up in
+          <a
+            :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
+            target="blank"
+            >Wiktionary</a
+          >,
+          <a
+            :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
+            target="blank"
+            >Wikipedia</a
+          >, or
+          <a :href="`https://www.google.com/search?q=${text}`" target="blank"
+            >Google.</a
+          >
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -106,12 +111,18 @@ export default {
       suggestions: [],
       entry: undefined, // Currently selected entry
       text: undefined,
+      active: false,
       suggestionsKey: 0
     }
   },
   watch: {
     $route() {
-      this.suggestions = []
+      this.active = false
+    },
+    text() {
+      this.suggestions = CEDICT.lookupFuzzy(this.text, 5).map(item =>
+        Normalizer.normalize(item)
+      )
     }
   },
   methods: {
@@ -135,20 +146,8 @@ export default {
     },
     cancel() {
       setTimeout(() => {
-        if (this.suggestions[0] !== 'not found') {
-          this.entry = this.suggestions[0]
-        }
-        this.suggestions = []
-      }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
-    },
-    lookupKeyup(e) {
-      this.suggestions = []
-      this.text = e.target.value
-      if (this.text !== '') {
-        this.suggestions = CEDICT.lookupFuzzy(this.text, 5).map(item =>
-          Normalizer.normalize(item)
-        )
-      }
+        this.active = false
+      }, 300) // Set time out, otherwise before click event is fired the suggestions are already gone!
     }
   }
 }
