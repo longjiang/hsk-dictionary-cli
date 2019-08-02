@@ -20,8 +20,18 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="search-compare-wrapper">
-              <Search ref="search"></Search>
-              <button class="btn btn-primary ml-2">Compare</button>
+              <Search ref="search" random="true"></Search>
+              <Search
+                v-if="compare"
+                class="ml-2"
+                ref="compare"
+                placeholder="Compare with..."
+                :hrefFunc="compareHrefFunc"
+              ></Search>
+              <button class="btn btn-primary ml-2" @click="compareClick">
+                <span v-if="compare">Close</span
+                ><span v-if="!compare">Compare</span>
+              </button>
             </div>
           </div>
         </div>
@@ -62,9 +72,9 @@
                 :to="{ name: 'saved-words' }"
               >
                 <i class="glyphicon glyphicon-star"></i> Saved
-                <span class="tab-saved-words-count" v-cloak>{{
-                  savedWordsCount()
-                }}</span>
+                <span class="tab-saved-words-count" v-cloak>
+                  {{ savedWordsCount() }}
+                </span>
               </router-link>
             </div>
           </nav>
@@ -137,15 +147,25 @@ export default {
         word.oofc === ''
       }),
       Helper,
-      view:
-        'browse' /* Default view is "browse words by course", can also set to "entry" (when viewing a word), or "saved-words" */
+      compare: false,
+      compareHrefFunc(compareEntry) {
+        const searchEntry = this.$refs.search.entry
+        return `#/compare/cedict/${searchEntry.traditional},${
+          searchEntry.pinyin
+        },${searchEntry.index},${compareEntry.traditional},${
+          compareEntry.pinyin
+        },${compareEntry.index}`
+      }
     }
   },
   methods: {
-    adminClick: function() {
+    adminClick() {
       if (this.$refs.entry) {
         this.$refs.entry.admin = true
       }
+    },
+    compareClick() {
+      this.compare = this.compare ? false : true
     },
     toggleCollapsed(e) {
       $(e.target)

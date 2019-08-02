@@ -11,9 +11,13 @@
         type="text"
         class="form-control"
         id="lookup"
-        placeholder="Look up words here..."
+        :placeholder="placeholder"
       />
-      <a class="btn btn-secondary btn-random ml-2" href="#/view/cedict/random">
+      <a
+        v-if="random"
+        class="btn btn-secondary btn-random ml-2"
+        href="#/view/cedict/random"
+      >
         <i class="glyphicon glyphicon-random"></i> Random
       </a>
       <div class="input-group-append">
@@ -73,9 +77,26 @@ import CEDICT from '@/lib/cedict.js'
 import { setTimeout } from 'timers'
 
 export default {
+  props: {
+    hrefFunc: {
+      type: Function,
+      default: function(entry) {
+        return `#/view/cedict/${entry.traditional},${entry.pinyin},${
+          entry.index
+        }`
+      }
+    },
+    placeholder: {
+      default: 'Look up words here...'
+    },
+    random: {
+      default: false
+    }
+  },
   data() {
     return {
       suggestions: [],
+      entry: undefined, // Currently selected entry
       suggestionsKey: 0
     }
   },
@@ -120,9 +141,7 @@ export default {
         cedictFiltered.forEach(function(cedictSuggestion) {
           suggestions.push({
             type: 'cedict',
-            href: `#/view/cedict/${cedictSuggestion.traditional},${
-              cedictSuggestion.pinyin
-            },${cedictSuggestion.index}`,
+            href: this.hrefFunc(cedictSuggestion),
             row: cedictSuggestion
           })
         })
