@@ -1,5 +1,5 @@
 <template>
-  <div v-if="collocation" :id="id || `collocation-${name}`">
+  <div v-if="collocation" :id="id || `collocation-${type}`">
     <div class="label song-label mb-2">{{ title }}</div>
     <PinyinButton class="mt-3 mb-3" />
     <ul class="character-examples collapsed gramrel" data-collapse-target>

@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-cloak v-if="a && b">
+  <div class="main" v-cloak v-if="a && b" :key="'compare-' + compareKey">
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
@@ -12,7 +12,7 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <CompareDefs :a="a" :b="b" :key="compareDefKey"></CompareDefs>
+          <CompareDefs :a="a" :b="b"></CompareDefs>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default {
     return {
       a: undefined,
       b: undefined,
-      compareDefKey: 0
+      compareKey: 0
     }
   },
   methods: {
@@ -130,12 +130,13 @@ export default {
       let method = this.$route.params.method
       let args = this.$route.params.args
       if (method && args) {
+        console.log('updating compare view')
         args = args.split(',')
         let a = CEDICT.get(args[0], args[1], args[2])
         let b = CEDICT.get(args[3], args[4], args[5])
         this.a = Normalizer.normalize(a)
         this.b = Normalizer.normalize(b)
-        this.compareDefKey++
+        this.compareKey++
       }
     }
   },
