@@ -5,7 +5,7 @@
     v-if="colDesc"
   >
     <div
-      class="row"
+      class="row mb-5"
       v-for="(description, name) in colDesc.a"
       v-bind:key="'collocation-' + name"
     >

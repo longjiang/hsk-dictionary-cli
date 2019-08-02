@@ -21,7 +21,9 @@
             >
             <a
               class="character-example-word"
-              :href="`#view/cedict/${word.traditional},${word.pinyin}`"
+              :href="
+                `#/view/cedict/${word.traditional},${word.pinyin},${word.index}`
+              "
             >
               <span :data-hsk="word.book">{{ word.simplified }}</span>
             </a>

@@ -921,6 +921,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   width: 100%;
 }
 
+
 .image-wall-image {
   flex: auto;
   object-fit: cover;
@@ -928,6 +929,7 @@ a.suggestion:hover, a.suggestion:first-child:not(:hover) {
   margin: 0 0.5rem 0.5rem 0;
   background-color: #f5f5f5;
   display: inline-block;
+  cursor: pointer;
 }
 
 .measure-word {
