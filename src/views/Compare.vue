@@ -9,23 +9,9 @@
           <EntryHeader :entry="b" minimal="true"></EntryHeader>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12 text-center definitions">
-          <DefinitionsList :definitions="defCommon"></DefinitionsList>
-          <i
-            class="glyphicon glyphicon-random"
-            style="transform: rotate(90deg)"
-          ></i>
-        </div>
-      </div>
 
       <div class="row mt-4">
-        <div class="col-sm-6 text-center">
-          <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
-        </div>
-        <div class="col-sm-6 text-center">
-          <DefinitionsList :definitions="defDistinct.b"></DefinitionsList>
-        </div>
+        <div class="col-sm-12"><CompareDefs :a="a" :b="b"></CompareDefs></div>
       </div>
 
       <div class="row mt-4">
@@ -109,16 +95,10 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
-import DefinitionsList from '@/components/DefinitionsList.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
+import CompareDefs from '@/components/CompareDefs.vue'
 import Normalizer from '@/lib/normalizer'
-import HSK from '@/lib/hsk'
-import Hanzi from '@/lib/hanzi'
 import CEDICT from '@/lib/cedict'
-import LRC from '@/lib/lrc'
-import Helper from '@/lib/helper'
-import WordPhotos from '@/lib/word-photos'
-import $ from 'jquery'
 
 export default {
   components: {
@@ -134,44 +114,16 @@ export default {
     EntryRelated,
     CompareCollocations,
     EntryWebImages,
-    DefinitionsList
+    CompareDefs
   },
   data() {
     return {
       a: undefined,
       b: undefined,
-      defCommon: [],
-      defDistinct: {
-        a: [],
-        b: []
-      },
       entryKey: 0 // used to force re-render this component
     }
   },
   methods: {
-    defListIncludes(defList, def) {
-      return defList.find(d => def.text.includes(d.text))
-    },
-    common(a, b) {
-      for (let adef of a.definitions) {
-        for (let bdef of b.definitions) {
-          if (bdef.text.includes(adef.text)) {
-            this.defCommon.push(adef)
-          } else if (adef.text.includes(bdef.text)) {
-            this.defCommon.push(bdef)
-          }
-        }
-      }
-      for (let adef of a.definitions) {
-        if (!this.defListIncludes(this.defCommon, adef))
-          this.defDistinct.a.push(adef)
-      }
-      for (let adef of b.definitions) {
-        if (!this.defListIncludes(this.defCommon, adef))
-          this.defDistinct.b.push(adef)
-      }
-      // not in this.defCommon
-    },
     route() {
       let method = this.$route.params.method
       let args = this.$route.params.args
@@ -181,7 +133,6 @@ export default {
         let b = CEDICT.get(args[3], args[4], args[5])
         this.a = Normalizer.normalize(a)
         this.b = Normalizer.normalize(b)
-        this.common(a, b)
       }
     }
   },
@@ -193,7 +144,6 @@ export default {
     }
   },
   mounted() {
-    window.Normalizer = Normalizer
     if (this.$route.name === 'compare') {
       this.route()
     }
