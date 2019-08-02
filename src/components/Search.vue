@@ -37,31 +37,33 @@
       v-if="suggestions.length > 0"
     >
       <a
-        :href="suggestion.href"
         class="suggestion"
         v-for="suggestion in suggestions"
-        :target="suggestion.type === 'notFound' ? '_blank' : ''"
+        :href="
+          suggestion === 'not found'
+            ? this.wiktionaryUrl()
+            : hrefFunc(suggestion)
+        "
       >
-        <span v-if="suggestion.type === 'cedict'">
-          <span class="character-example-word mr-1">{{
-            suggestion.row.simplified
-          }}</span>
+        <span>
+          <span
+            class="character-example-word mr-1"
+            :data-hsk="suggestion.book"
+            >{{ suggestion.simplified }}</span
+          >
           <span class="character-example-pinyin mr-1">{{
-            suggestion.row.pinyin
+            suggestion.pinyin
           }}</span>
           <span
             class="character-example-english"
-            v-if="
-              suggestion.row.definitions &&
-                suggestion.row.definitions.length > 0
-            "
-            >{{ suggestion.row.definitions[0].text }}</span
+            v-if="suggestion.definitions && suggestion.definitions.length > 0"
+            >{{ suggestion.definitions[0].text }}</span
           >
         </span>
-        <span v-if="suggestion.type === 'notFound'">
+        <span v-if="suggestion === 'not found'">
           <span class="suggestion-not-found">
-            <b>&ldquo;{{ suggestion.text }}&rdquo;</b> is not in CEDICT. Try
-            looking it up in
+            <b>&ldquo;{{ this.text }}&rdquo;</b> is not in CEDICT. Try looking
+            it up in
             <b>Wiktionary.</b>
           </span>
         </span>
@@ -74,15 +76,18 @@
 import $ from 'jquery'
 import CEDICT from '@/lib/cedict.js'
 import { setTimeout } from 'timers'
+import Normalizer from '@/lib/normalizer'
 
 export default {
   props: {
     hrefFunc: {
       type: Function,
       default: function(entry) {
-        return `#/view/cedict/${entry.traditional},${entry.pinyin},${
-          entry.index
-        }`
+        if (entry) {
+          return `#/view/cedict/${entry.traditional},${entry.pinyin},${
+            entry.index
+          }`
+        }
       }
     },
     placeholder: {
@@ -115,6 +120,9 @@ export default {
       const url = $('.suggestion:first-child').attr('href')
       window.location = url
     },
+    wiktionaryUrl() {
+      return 'https://en.wiktionary.org/w/index.php?search=' + this.text
+    },
     lookupButtonClick() {
       const url = $('.suggestion:first-child').attr('href')
       if (url) {
@@ -127,36 +135,19 @@ export default {
     },
     cancel() {
       setTimeout(() => {
+        if (this.suggestions[0] !== 'not found') {
+          this.entry = this.suggestions[0]
+        }
         this.suggestions = []
       }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
     },
     lookupKeyup(e) {
       this.suggestions = []
-      var text = e.target.value
-      if (text !== '') {
-        const cedictSuggestions = CEDICT.lookupFuzzy(text, 5)
-        var suggestions = []
-        var hskWordStrArray = []
-        const cedictFiltered = cedictSuggestions.filter(function(
-          cedictSuggestion
-        ) {
-          return !hskWordStrArray.includes(cedictSuggestion.simplified)
-        })
-        cedictFiltered.forEach(cedictSuggestion => {
-          suggestions.push({
-            type: 'cedict',
-            href: this.hrefFunc(cedictSuggestion),
-            row: cedictSuggestion
-          })
-        })
-        if (suggestions.length === 0) {
-          suggestions.push({
-            type: 'notFound',
-            text: text,
-            href: 'https://en.wiktionary.org/w/index.php?search=' + text
-          })
-        }
-        this.suggestions = suggestions
+      this.text = e.target.value
+      if (this.text !== '') {
+        this.suggestions = CEDICT.lookupFuzzy(this.text, 5).map(item =>
+          Normalizer.normalize(item)
+        )
       }
     }
   }

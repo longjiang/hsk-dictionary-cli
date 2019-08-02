@@ -13,7 +13,7 @@ body {
 
 .title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -41,7 +41,7 @@ body {
 
 .logo {
   max-width: 15rem;
-  float: left;
+  float: right;
 }
 
 .top-bar {

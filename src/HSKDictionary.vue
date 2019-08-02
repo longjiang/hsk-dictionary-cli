@@ -10,7 +10,6 @@
           <div class="col-sm-12">
             <h1 class="title">
               <a class="title-text" href="#">Dictionary</a>
-              <div class="title-separator"></div>
               <a href="https://www.chinesezerotohero.com">
                 <img src="img/logo-mark.png" class="logo" alt />
               </a>
