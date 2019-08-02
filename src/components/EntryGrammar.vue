@@ -48,13 +48,12 @@
               v-if="grammar.url !== ''"
               :href="grammar.url"
               :data-bg-hsk="grammar.book"
-              class="show-more mt-3"
+              class="show-more mt-3 pl-3 pr-3"
               target="_blank"
             >
-              <i class="glyphicon glyphicon-facetime-video"></i>
+              <i class="glyphicon glyphicon-facetime-video mr-2"></i>
               <b>Grammar Lesson</b>
-              (HSK {{ grammar.book }} Lesson {{ grammar.lesson }} Grammar Note
-              {{ grammar.number }} )
+              {{ grammar.book }}.{{ grammar.lesson }}.{{ grammar.number }}
             </a>
           </div>
         </div>

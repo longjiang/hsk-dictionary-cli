@@ -2,7 +2,13 @@
   <div
     class="container"
     :key="'collocations-' + collocationsKey"
-    v-if="colDesc"
+    v-if="
+      colDesc &&
+        a.sketch &&
+        a.sketch.Gramrels.length > 0 &&
+        b.sketch &&
+        b.sketch.Gramrels.length > 0
+    "
   >
     <div
       class="row mb-5"

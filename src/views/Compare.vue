@@ -55,6 +55,17 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <EntryGrammar :entry="a"></EntryGrammar>
+        </div>
+        <div class="col-sm-6">
+          <EntryGrammar :entry="b"></EntryGrammar>
+        </div>
+      </div>
+    </div>
+
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
@@ -93,9 +104,7 @@ import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
 import EntryGrammar from '@/components/EntryGrammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
-import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
-import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
@@ -104,16 +113,12 @@ import CEDICT from '@/lib/cedict'
 
 export default {
   components: {
-    EntryCharacters,
-    EntryCollocations,
     EntryConcordance,
     EntryCourseAd,
     EntryExample,
     EntryGrammar,
     EntryHeader,
-    EntryLyrics,
     EntryMistakes,
-    EntryRelated,
     CompareCollocations,
     EntryWebImages,
     CompareDefs
