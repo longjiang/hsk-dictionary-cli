@@ -9,7 +9,7 @@
         <div class="row mb-4">
           <div class="col-sm-12">
             <h1 class="title">
-              <a class="title-text" href="#">Dictionary</a>
+              <a class="title-text" href="#/">Dictionary</a>
               <a href="https://www.chinesezerotohero.com">
                 <img src="img/logo-mark.png" class="logo" alt />
               </a>
@@ -148,12 +148,14 @@ export default {
       Helper,
       compare: false,
       compareHrefFunc: compareEntry => {
-        const searchEntry = this.$refs.search.entry
-        return `#/compare/cedict/${searchEntry.traditional},${
-          searchEntry.pinyin
-        },${searchEntry.index},${compareEntry.traditional},${
-          compareEntry.pinyin
-        },${compareEntry.index}`
+        if (this.$refs.search) {
+          const searchEntry = this.$refs.search.entry
+          return `#/compare/cedict/${searchEntry.traditional},${
+            searchEntry.pinyin
+          },${searchEntry.index},${compareEntry.traditional},${
+            compareEntry.pinyin
+          },${compareEntry.index}`
+        }
       }
     }
   },
