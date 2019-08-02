@@ -19,7 +19,10 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <Search ref="search"></Search>
+            <div class="search-compare-wrapper">
+              <Search ref="search"></Search>
+              <button class="btn btn-primary ml-2">Compare</button>
+            </div>
           </div>
         </div>
         <div class="row mt-4" v-cloak>
@@ -59,9 +62,9 @@
                 :to="{ name: 'saved-words' }"
               >
                 <i class="glyphicon glyphicon-star"></i> Saved
-                <span class="tab-saved-words-count" v-cloak>
-                  {{ savedWordsCount() }}
-                </span>
+                <span class="tab-saved-words-count" v-cloak>{{
+                  savedWordsCount()
+                }}</span>
               </router-link>
             </div>
           </nav>

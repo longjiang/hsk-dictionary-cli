@@ -1,6 +1,6 @@
 <template>
-  <div class="search-wrapper" :key="searchKey" v-cloak>
-    <div class="input-group">
+  <div class="search-wrapper">
+    <div class="input-group" :key="searchKey" v-cloak>
       <input
         v-on:keyup.enter="lookupKeyupEnter"
         v-on:keyup="lookupKeyup"
@@ -27,7 +27,6 @@
         </button>
       </div>
     </div>
-    <button class="btn btn-primary ml-2">Compare</button>
     <div class="suggestions" v-cloak v-if="suggestions.length > 0">
       <a
         :href="suggestion.href"
@@ -35,12 +34,12 @@
         v-for="suggestion in suggestions"
       >
         <span v-if="suggestion.type === 'cedict'">
-          <span class="character-example-word mr-1">
-            {{ suggestion.row.simplified }}
-          </span>
-          <span class="character-example-pinyin mr-1">
-            {{ suggestion.row.pinyin }}
-          </span>
+          <span class="character-example-word mr-1">{{
+            suggestion.row.simplified
+          }}</span>
+          <span class="character-example-pinyin mr-1">{{
+            suggestion.row.pinyin
+          }}</span>
           <span
             class="character-example-english"
             v-if="

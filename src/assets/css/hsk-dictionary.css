@@ -49,20 +49,15 @@ body {
   color: white;
 }
 
-.search-wrapper {
+.search-compare-wrapper {
   display: flex;
   position: relative;
 }
-
-.search-wrapper[v-cloak] {
-  display: none;
-}
-
-.search-wrapper .input-group {
+.search-compare-wrapper .search-wrapper {
   flex: 1;
 }
 
-.search-wrapper .input-group * {
+.search-compare-wrapper .input-group * {
   height: 2.3rem;
 }
 
