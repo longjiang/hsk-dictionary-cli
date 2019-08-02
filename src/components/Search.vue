@@ -1,6 +1,6 @@
 <template>
   <div class="search-wrapper">
-    <div class="input-group" :key="searchKey" v-cloak>
+    <div class="input-group" v-cloak>
       <input
         v-on:keyup.enter="lookupKeyupEnter"
         v-on:keyup="lookupKeyup"
@@ -27,11 +27,17 @@
         </button>
       </div>
     </div>
-    <div class="suggestions" v-cloak v-if="suggestions.length > 0">
+    <div
+      class="suggestions"
+      :key="suggestionsKey"
+      v-cloak
+      v-if="suggestions.length > 0"
+    >
       <a
         :href="suggestion.href"
         class="suggestion"
         v-for="suggestion in suggestions"
+        :target="suggestion.type === 'notFound' ? '_blank' : ''"
       >
         <span v-if="suggestion.type === 'cedict'">
           <span class="character-example-word mr-1">{{
@@ -70,7 +76,7 @@ export default {
   data() {
     return {
       suggestions: [],
-      searchKey: 0
+      suggestionsKey: 0
     }
   },
   watch: {
@@ -95,7 +101,7 @@ export default {
       }
     },
     cancel() {
-      setTimeout(function() {
+      setTimeout(() => {
         this.suggestions = []
       }, 100) // Set time out, otherwise before click event is fired the suggestions are already gone!
     },
