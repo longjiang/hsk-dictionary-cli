@@ -108,7 +108,10 @@ export default {
   watch: {
     $route() {
       this.suggestions = []
-      if (this.$parent.$refs.routerView.entry) {
+      if (
+        this.$parent.$refs.routerView &&
+        this.$parent.$refs.routerView.entry
+      ) {
         this.entry = this.$parent.$refs.routerView.entry
         this.text = this.$parent.$refs.routerView.entry.simplified
       }

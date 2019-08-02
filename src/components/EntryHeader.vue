@@ -1,74 +1,63 @@
 <template>
   <!-- ANCHOR img/anchors/entry.png  -->
-  <div class="container" v-if="entry">
-    <div class="row text-center">
-      <div class="col-md-12">
-        <div class="entry-head-wrapper">
-          <Star :word="entry"></Star>
-          <button
-            class="paginate-button previous"
-            v-on:click="previousClick"
-            title="Previous word"
-            v-if="!minimal && hasPrevious"
-          >
-            <img src="img/angle-left.svg" alt />
-          </button>
-          <button
-            class="paginate-button next"
-            v-on:click="nextClick"
-            title="Next word"
-            v-if="!minimal && hasNext"
-          >
-            <img src="img/angle-right.svg" alt />
-          </button>
+  <div class="entry-head-wrapper mini text-center" v-if="entry">
+    <Star :word="entry"></Star>
+    <button
+      class="paginate-button previous"
+      v-on:click="previousClick"
+      title="Previous word"
+      v-if="!minimal && hasPrevious"
+    >
+      <img src="img/angle-left.svg" alt />
+    </button>
+    <button
+      class="paginate-button next"
+      v-on:click="nextClick"
+      title="Next word"
+      v-if="!minimal && hasNext"
+    >
+      <img src="img/angle-right.svg" alt />
+    </button>
 
-          <div>
-            <div v-if="entry.measureWords" style="display:inline-block">
-              <div class="pinyin measure-word-pinyin">
-                yī {{ entry.measureWords[0].pinyin }}
-                <i
-                  class="speak glyphicon glyphicon-volume-up"
-                  v-bind:data-speak="'一' + entry.measureWords[0].simplified"
-                ></i>
-              </div>
-              <div class="word measure-word">
-                一{{ entry.measureWords[0].simplified }}
-              </div>
-            </div>
-            <div class="entry-word" style="display:inline-block">
-              <div class="pinyin">
-                {{ entry.pinyin }}
-                <i
-                  class="speak glyphicon glyphicon-volume-up"
-                  v-bind:data-speak="entry.simplified"
-                ></i>
-              </div>
-              <div class="word">
-                <a
-                  :href="
-                    `#/view/cedict/${entry.traditional},${entry.pinyin},${
-                      entry.index
-                    }`
-                  "
-                >
-                  <span v-bind:data-hsk="entry.book">{{
-                    entry.simplified
-                  }}</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <DefinitionsList
-            v-if="!minimal"
-            :definitions="entry.definitions"
-          ></DefinitionsList>
+    <div>
+      <div v-if="entry.measureWords" style="display:inline-block">
+        <div class="pinyin measure-word-pinyin">
+          yī {{ entry.measureWords[0].pinyin }}
+          <i
+            class="speak glyphicon glyphicon-volume-up"
+            v-bind:data-speak="'一' + entry.measureWords[0].simplified"
+          ></i>
+        </div>
+        <div class="word measure-word">
+          一{{ entry.measureWords[0].simplified }}
         </div>
       </div>
-      <!-- .col -->
+      <div class="entry-word" style="display:inline-block">
+        <div class="pinyin">
+          {{ entry.pinyin }}
+          <i
+            class="speak glyphicon glyphicon-volume-up"
+            v-bind:data-speak="entry.simplified"
+          ></i>
+        </div>
+        <div class="word">
+          <a
+            :href="
+              `#/view/cedict/${entry.traditional},${entry.pinyin},${
+                entry.index
+              }`
+            "
+          >
+            <span v-bind:data-hsk="entry.book">{{ entry.simplified }}</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <!-- .row -->
+    <DefinitionsList
+      v-if="!minimal"
+      :definitions="entry.definitions"
+    ></DefinitionsList>
   </div>
-  <!-- .container -->
 </template>
 
 <script>

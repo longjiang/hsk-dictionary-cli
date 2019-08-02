@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12 text-center definitions">
         <Merge direction="top" class="h-half" />
-        <DefinitionsList :definitions="defCommon"></DefinitionsList>
+        <DefinitionsList :definitions="defCommon" nodef="VS"></DefinitionsList>
         <Merge direction="bottom" class="h-half" />
       </div>
     </div>
