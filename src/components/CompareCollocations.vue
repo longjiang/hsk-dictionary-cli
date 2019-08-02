@@ -1,0 +1,71 @@
+<template>
+  <div
+    class="container"
+    :key="'collocations-' + collocationsKey"
+    v-if="colDesc"
+  >
+    <div
+      class="row"
+      v-for="(description, name) in colDesc.a"
+      v-bind:key="'collocation-' + name"
+    >
+      <div class="col-sm-6">
+        <Collocations
+          v-if="a.sketch && a.sketch.Gramrels"
+          :word="a.simplified"
+          :level="a.book"
+          :title="colDesc.a[name]"
+          :type="name"
+          :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
+        ></Collocations>
+      </div>
+      <div class="col-sm-6">
+        <Collocations
+          v-if="b.sketch && b.sketch.Gramrels"
+          :word="b.simplified"
+          :level="b.book"
+          :title="colDesc.b[name]"
+          :type="name"
+          :collocation="getGramrelsByName(b.sketch.Gramrels, name)"
+        ></Collocations>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Collocations from '@/components/Collocations.vue'
+import SketchEngine from '@/lib/sketch-engine'
+
+export default {
+  props: ['a', 'b'],
+  components: {
+    Collocations
+  },
+  data() {
+    return {
+      colDesc: undefined,
+      collocationsKey: 0
+    }
+  },
+  methods: {
+    getGramrelsByName(gramrels, name) {
+      return gramrels.find(gram => gram.name === name)
+    }
+  },
+  mounted() {
+    SketchEngine.wsketch(this.a.simplified, response => {
+      this.a.sketch = response
+      this.collocationsKey += 1
+    })
+    SketchEngine.wsketch(this.b.simplified, response => {
+      this.b.sketch = response
+      this.collocationsKey += 1
+    })
+    this.colDesc = {
+      a: SketchEngine.collocationDescription(this.a.simplified),
+      b: SketchEngine.collocationDescription(this.b.simplified)
+    }
+  }
+}
+</script>

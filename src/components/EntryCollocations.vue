@@ -1,6 +1,7 @@
 <template>
   <div class="container collocations" :key="'collocations-' + collocationsKey">
     <div class="row mt-5" v-if="entry.sketch && entry.sketch.Gramrels">
+      <!-- class="col-md-6 col-lg-4 mb-5" -->
       <Collocations
         v-for="(collocation, index) in entry.sketch.Gramrels"
         v-if="

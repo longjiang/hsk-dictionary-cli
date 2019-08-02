@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-sm-6 text-center">
           <h5 class="english mt-4 mb-0"></h5>
           <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
@@ -29,9 +29,18 @@
           <DefinitionsList :definitions="defDistinct.b"></DefinitionsList>
         </div>
       </div>
+
+      <div class="row mt-4">
+        <div class="col-sm-6">
+          <EntryWebImages :entry="a" limit="7"></EntryWebImages>
+        </div>
+        <div class="col-sm-6">
+          <EntryWebImages :entry="b" limit="7"></EntryWebImages>
+        </div>
+      </div>
     </div>
 
-    <div class="container-fluid example-bar pt-5">
+    <div class="container-fluid mt-5 example-bar pt-5">
       <div class="container">
         <div class="row" v-if="a.example && b.example">
           <div class="col-sm-6">
@@ -45,15 +54,7 @@
     </div>
 
     <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <EntryWebImages :entry="a" limit="7"></EntryWebImages>
-        </div>
-        <div class="col-sm-6">
-          <EntryWebImages :entry="b" limit="7"></EntryWebImages>
-        </div>
-      </div>
+    <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
           <EntryConcordance :entry="a"></EntryConcordance>
@@ -68,7 +69,7 @@
 
     <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
-    <!-- <EntryCollocations :entry="entry"></EntryCollocations> -->
+    <CompareCollocations :a="a" :b="b"></CompareCollocations>
 
     <!-- <EntryMistakes :entry="entry"></EntryMistakes> -->
 
@@ -91,6 +92,7 @@ import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
+import CompareCollocations from '@/components/CompareCollocations.vue'
 import Normalizer from '@/lib/normalizer'
 import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
@@ -112,6 +114,7 @@ export default {
     EntryLyrics,
     EntryMistakes,
     EntryRelated,
+    CompareCollocations,
     EntryWebImages,
     DefinitionsList
   },

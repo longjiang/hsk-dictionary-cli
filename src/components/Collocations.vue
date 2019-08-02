@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-6 col-lg-4 mb-5" v-if="collocation">
+  <div v-if="collocation">
     <div class="label song-label mb-2">{{ title }}</div>
     <PinyinButton class="mt-3 mb-3" :selector="`#Gramrels-${type}`" />
     <ul
