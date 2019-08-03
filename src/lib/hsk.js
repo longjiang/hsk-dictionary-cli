@@ -208,6 +208,10 @@ export default {
     return min
   },
 
+  lookupByCharacter(char) {
+    return this.listWhere(row => row.word.includes(char))
+  },
+
   last: function() {
     const max = Math.max(
       ...this._standardCourseData.map(function(word) {

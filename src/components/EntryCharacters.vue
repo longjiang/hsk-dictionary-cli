@@ -1,7 +1,7 @@
 <template>
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
-  <div class="container mt-4 mb-4" v-if="entry.simplified" v-cloak>
+  <div class="container" v-if="entry.simplified" v-cloak>
     <div class="row character-example-wrapper mt-4">
       <!-- ANCHOR img/anchors/character.png -->
       <div
@@ -16,10 +16,9 @@
             {{ entry.pinyin.split(' ')[index] }}
           </div>
           <StrokeOrder :char="character.character" />
-          <div class="english mt-3 mb-4">{{ character.definition }}</div>
+          <div class="english mt-3 mb-3">{{ character.definition }}</div>
         </div>
-
-        <div class="etymology" v-if="character.etymology">
+        <div class="etymology mb-4" v-if="character.etymology">
           <span v-if="character.etymology.type">
             <b>Origin:</b> A
             <em v-if="character.etymology">{{ character.etymology.type }}</em>
@@ -98,35 +97,13 @@
             </button>
           </div>
         </div>
-        <ul class="character-examples collapsed" data-collapse-target>
-          <li v-for="example in character.examples" class="character-example">
-            <a :href="'#view/hsk/' + example.id">
-              <span
-                class="character-example-word"
-                v-html="
-                  highlightCharacter(
-                    example.word,
-                    character.character,
-                    example.book
-                  )
-                "
-              ></span>
-            </a>
-            <span class="character-example-pinyin">
-              {{ example.pinyin }}
-              <i
-                class="speak glyphicon glyphicon-volume-up"
-                v-bind:data-speak="example.word"
-              ></i>
-            </span>
-            <em class="character-example-english">{{ example.english }}</em>
-          </li>
-        </ul>
-        <ShowMoreButton
-          v-if="character.examples"
-          :length="character.examples.length"
-          :min="4"
-        />
+        <div v-for="examples in [lookupByCharacter(character.character)]">
+          <WordList
+            :words="examples"
+            :highlight="character.character"
+            collapse="4"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -136,6 +113,7 @@
 import Decomposition from '@/components/Decomposition.vue'
 import Hanzi from '@/lib/hanzi'
 import HSK from '@/lib/hsk'
+import Normalizer from '@/lib/normalizer'
 import $ from 'jquery'
 
 export default {
@@ -145,10 +123,17 @@ export default {
   },
   data() {
     return {
-      Hanzi
+      Hanzi,
+      HSK
     }
   },
   methods: {
+    lookupByCharacter(char) {
+      const words = HSK.lookupByCharacter(char).map(row =>
+        Normalizer.normalize(row)
+      )
+      return words
+    },
     recalculateExampleColumns() {
       if (this.entry.simplified) {
         let $div = $('.character-example-wrapper > div')

@@ -1,71 +1,16 @@
 <template>
   <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
-    <div class="container">
+    <div class="container mt-4 mb-4">
       <div class="row">
         <div class="col-sm-12">
-          <EntryHeader class="mb-3" :entry="entry"></EntryHeader>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANCHOR img/anchors/oofc.png -->
-    <div
-      class="container-fluid mb2"
-      v-cloak
-      v-if="entry.oofc && entry.oofc !== ''"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            This word is not required in HSK {{ entry.book }} but is covered in
-            our
-            <a
-              href="https://courses.chinesezerotohero.com/"
-              :data-hsk="entry.book"
-              class="video-course"
-              >HSK {{ entry.book }} Video Course</a
-            >
-            as an optional vocabulary word.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANCHOR img/anchors/pn.png -->
-    <div class="container-fluid mb2" v-cloak v-if="entry.pn && entry.pn !== ''">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            This is a
-            <b>
-              <em>proper noun</em>
-            </b>
-            that appeared in
-            <b>
-              Lesson {{ entry.lesson }}
-              <span v-if="entry.book < 5">, Text {{ entry.dialog }}</span>
-            </b>
-            of our
-            <a
-              href="https://courses.chinesezerotohero.com/"
-              :data-hsk="entry.book"
-              class="video-course"
-              >HSK {{ entry.book }} Video Course</a
-            >.
-          </div>
+          <EntryHeader :entry="entry"></EntryHeader>
         </div>
       </div>
     </div>
 
     <EntryExample :entry="entry"></EntryExample>
 
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-sm-12">
-          <EntryDisambiguation :entry="entry"></EntryDisambiguation>
-        </div>
-      </div>
-    </div>
+    <EntryDisambiguation class="mt-4 mb-4" :entry="entry"></EntryDisambiguation>
 
     <EntryCharacters :entry="entry"></EntryCharacters>
 

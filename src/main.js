@@ -17,6 +17,7 @@ import Helper from '@/lib/helper'
 import Star from '@/components/Star'
 import Speak from '@/components/Speak'
 import PinyinButton from '@/components/PinyinButton'
+import WordList from '@/components/WordList'
 import ShowMoreButton from '@/components/ShowMoreButton'
 import StrokeOrder from '@/components/StrokeOrder.vue'
 import Merge from '@/components/Merge.vue'
@@ -32,6 +33,7 @@ Vue.component('PinyinButton', PinyinButton)
 Vue.component('ShowMoreButton', ShowMoreButton)
 Vue.component('StrokeOrder', StrokeOrder)
 Vue.component('Merge', Merge)
+Vue.component('WordList', WordList)
 
 let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   Helper.loaderMessage('All data loaded.')

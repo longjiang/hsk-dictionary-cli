@@ -1,6 +1,6 @@
 <template>
   <!-- ANCHOR img/anchors/entry.png  -->
-  <div class="entry-head-wrapper mini text-center" v-if="entry">
+  <div class="entry-head-wrapper text-center" v-if="entry">
     <Star :word="entry"></Star>
     <button
       class="paginate-button previous"

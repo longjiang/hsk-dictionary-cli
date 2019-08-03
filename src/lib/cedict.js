@@ -80,6 +80,7 @@ export default {
             simplified: matches[2],
             traditional: matches[1],
             pinyin: this.parsePinyin(matches[3]),
+            pinyinFuzzy: matches[3].replace(/\d/g, ''),
             definitions: matches[4].split('/'),
             index: 0, // for homonyms
             search:
@@ -232,8 +233,9 @@ export default {
     return candidates
   },
   lookupPinyinFuzzy(pinyin) {
+    const pinyinFuzzy = this.removeTones(pinyin)
     return this._data
-      .filter(row => this.removeTones(row.pinyin) === this.removeTones(pinyin))
+      .filter(row => row.pinyinFuzzy === pinyinFuzzy)
       .sort((a, b) => {
         return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
       })

@@ -6,6 +6,12 @@ body {
   display: none;
 }
 
+.lines {
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
 .main {
   min-height: calc(100vh - 30rem);
 }
@@ -83,7 +89,6 @@ body {
 
 .pinyin {
   font-size: 1.5rem;
-  margin-top: 2rem;
 }
 
 .word {
@@ -242,7 +247,7 @@ body {
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .example-bar:not(.mini) .example-image {
     margin-left: calc((100vw - 100%) / 2 * -1);
     width: 100vw;
@@ -812,6 +817,11 @@ a.suggestion {
 .saved-words {
   padding: 0;
   list-style: none;
+  margin: 0;
+}
+
+.saved-words.collapsed li:nth-child(n + 5) {
+  display: none;
 }
 
 .blink {

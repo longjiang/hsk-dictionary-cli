@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-cloak v-if="a && b" :key="'compare-' + compareKey">
     <div class="container">
-      <div class="row">
+      <div class="row mt-4 mb-5">
         <div class="col-sm-6">
           <EntryHeader :entry="a" minimal="true"></EntryHeader>
         </div>

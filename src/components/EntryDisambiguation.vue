@@ -1,7 +1,17 @@
 <template>
-  <div v-if="similarWords.length > 0">
-    <h5>Disambiguation</h5>
-    <WordList :words="similarWords"></WordList>
+  <div class="container lines" v-if="similarWords.length > 0">
+    <div class="row">
+      <div class="col-sm-12">
+        <div>
+          <h5>Disambiguation</h5>
+          <WordList
+            :words="similarWords"
+            :compareWith="entry"
+            :traditional="entry.simplified.length === 1"
+          ></WordList>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,10 +30,19 @@ export default {
   },
   computed: {
     similarWords() {
-      return this.getReverse().concat(this.getHomonyms())
+      if (this.entry.simplified.length > 1) {
+        return this.getReverse().concat(this.getHomonyms())
+      } else {
+        return this.getOtherPronunciations()
+      }
     }
   },
   methods: {
+    getOtherPronunciations() {
+      return CEDICT.lookupSimplified(this.entry.simplified).map(word =>
+        Normalizer.normalize(word)
+      )
+    },
     getReverse() {
       const reverse = this.entry.simplified
         .split('')
