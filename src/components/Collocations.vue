@@ -51,10 +51,10 @@ export default {
   },
   beforeMount() {
     if (this.collocation && this.collocation.Words) {
-      this.collocation.Words = this.collocation.Words
-        // .sort(
-        //   (a, b) => a.cm.length - b.cm.length
-        // )
+      this.collocation.Words = this.collocation.Words.sort(
+        (a, b) => a.cm.length - b.cm.length
+      )
+        .filter(Word => !Word.cm.match(/(。|？)/))
         .slice(0, 12)
     }
   },
