@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <EntryHeader class="mb-5" :entry="entry"></EntryHeader>
+          <EntryHeader class="mb-3" :entry="entry"></EntryHeader>
         </div>
       </div>
     </div>
@@ -59,6 +59,14 @@
 
     <EntryExample :entry="entry"></EntryExample>
 
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-12">
+          <EntryDisambiguation :entry="entry"></EntryDisambiguation>
+        </div>
+      </div>
+    </div>
+
     <EntryCharacters :entry="entry"></EntryCharacters>
 
     <EntryWebImages :entry="entry"></EntryWebImages>
@@ -81,6 +89,7 @@
 
 <script>
 import EntryCharacters from '@/components/EntryCharacters.vue'
+import EntryDisambiguation from '@/components/EntryDisambiguation.vue'
 import EntryConcordance from '@/components/EntryConcordance.vue'
 import EntryCollocations from '@/components/EntryCollocations.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
@@ -102,6 +111,7 @@ import $ from 'jquery'
 export default {
   components: {
     EntryCharacters,
+    EntryDisambiguation,
     EntryCollocations,
     EntryConcordance,
     EntryCourseAd,

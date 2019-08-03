@@ -231,6 +231,29 @@ export default {
       })
     return candidates
   },
+  lookupPinyinFuzzy(pinyin) {
+    return this._data
+      .filter(row => this.removeTones(row.pinyin) === this.removeTones(pinyin))
+      .sort((a, b) => {
+        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
+      })
+      .map(row => {
+        return this.augment(row)
+      })
+  },
+  lookupPinyin(pinyin) {
+    return this._data
+      .filter(row => row.pinyin === pinyin)
+      .sort((a, b) => {
+        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
+      })
+      .map(row => {
+        return this.augment(row)
+      })
+  },
+  removeTones(pinyin) {
+    return pinyin.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  },
   isChinese(text) {
     return text.match(
       // eslint-disable-next-line no-irregular-whitespace
