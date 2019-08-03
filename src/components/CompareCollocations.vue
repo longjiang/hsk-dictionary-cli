@@ -8,6 +8,12 @@
       class="row mb-5"
       v-for="(description, name) in colDesc.a"
       v-bind:key="'collocation-' + name"
+      v-if="
+        (getGramrelsByName(a.sketch.Gramrels, name) &&
+          getGramrelsByName(a.sketch.Gramrels, name).Words.length > 0) ||
+          (getGramrelsByName(b.sketch.Gramrels, name) &&
+            getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
+      "
     >
       <div class="col-sm-6">
         <Collocations
@@ -52,7 +58,9 @@ export default {
   },
   methods: {
     getGramrelsByName(gramrels, name) {
-      return gramrels.find(gram => gram.name === name)
+      let gramrel = gramrels.find(gram => gram.name === name)
+      console.log(gramrel)
+      return gramrel
     }
   },
   mounted() {
