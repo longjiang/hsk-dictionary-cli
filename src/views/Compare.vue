@@ -27,16 +27,24 @@
     </div>
 
     <div
-      class="container-fluid mt-5 example-bar pt-4 pb-4"
+      class="container-fluid mt-5 compare-example-bar pt-4 pb-4"
       v-if="a.example && b.example"
     >
       <div class="container">
         <div class="row" v-if="a.example && b.example">
           <div class="col-sm-6">
-            <EntryExample :entry="a" id="compare-example-a"></EntryExample>
+            <EntryExample
+              class="mini"
+              :entry="a"
+              id="compare-example-a"
+            ></EntryExample>
           </div>
           <div class="col-sm-6">
-            <EntryExample :entry="b" id="compare-example-b"></EntryExample>
+            <EntryExample
+              class="mini"
+              :entry="b"
+              id="compare-example-b"
+            ></EntryExample>
           </div>
         </div>
       </div>
@@ -80,13 +88,7 @@
       </div>
     </div>
 
-    <div class="container-fuid">
-      <div class="row">
-        <div class="col-sm-12">
-          <EntryCourseAd :entry="b.book > a.book ? b : a"></EntryCourseAd>
-        </div>
-      </div>
-    </div>
+    <EntryCourseAd :entry="b.book > a.book ? b : a"></EntryCourseAd>
 
     <EntryLyrics :entry="a" limit="1"></EntryLyrics>
 

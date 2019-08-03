@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!-- ANCHOR img/anchors/learn-this.png -->
+  <!-- ANCHOR img/anchors/learn-this.png -->
+  <div id="hey">
     <div
       class="container-fluid learn-this-bar"
       v-cloak

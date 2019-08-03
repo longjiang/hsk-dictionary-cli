@@ -85,6 +85,21 @@
       <router-view ref="routerView" />
     </keep-alive>
 
+    <div
+      class="container-fluid text-center pt-4 pb-4"
+      style="background-color: #666"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="show-more" id="add-all-pinyin" @click="addAllPinyin">
+              Add Pinyin for All (Slow)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ANCHOR img/anchors/footer.png -->
     <footer class="container-fluid" v-cloak>
       <div class="container">
@@ -156,6 +171,9 @@ export default {
     }
   },
   methods: {
+    addAllPinyin() {
+      $('.pinyin-button').click()
+    },
     adminClick() {
       if (this.$refs.entry) {
         this.$refs.entry.admin = true

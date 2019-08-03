@@ -1,6 +1,10 @@
 <template>
   <div class="pinyin-button-wrapper">
-    <button class="show-more" v-if="!annotated" v-on:click="annotate">
+    <button
+      class="show-more pinyin-button"
+      v-if="!annotated"
+      v-on:click="annotate"
+    >
       <span v-if="state == 'idle'">{{ this.buttonText }}</span>
       <span v-if="state == 'annotating'">Adding...</span>
     </button>
