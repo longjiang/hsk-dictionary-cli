@@ -131,11 +131,10 @@ export default {
   methods: {
     route() {
       let method = this.$route.params.method
-      let args = this.$route.params.args
+      let args = this.$route.params.args.split(',')
       if (method && args) {
-        args = args.split(',')
-        let a = CEDICT.get(args[0], args[1], args[2])
-        let b = CEDICT.get(args[3], args[4], args[5])
+        let a = CEDICT.get([args[0], args[1], args[2]].join(','))
+        let b = CEDICT.get([args[3], args[4], args[5]].join(','))
         this.a = Normalizer.normalize(a)
         this.b = Normalizer.normalize(b)
         this.compareKey++
