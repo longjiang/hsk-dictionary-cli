@@ -101,9 +101,7 @@ export default {
             )[0]
             let href = ''
             if (childCharacterCEDICT) {
-              href = `href="#/view/cedict/${childCharacterCEDICT.traditional},${
-                childCharacterCEDICT.pinyin
-              }"`
+              href = `href="#/view/cedict/${childCharacterCEDICT.identifier}"`
             }
             let radicalNamePinyin = false
             if (node.info) {

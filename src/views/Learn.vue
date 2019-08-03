@@ -55,14 +55,7 @@ export default {
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {
-          this.words = this.$store.state.savedWords.map(
-            ([traditional, pinyin, index]) => {
-              index = index || 0
-              return Normalizer.normalize(
-                CEDICT.get(traditional, pinyin, index)
-              )
-            }
-          )
+          this.words = this.$store.getters.savedWords()
           return
         } else if (this.method == 'hsk' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')

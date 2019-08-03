@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import $ from 'jquery'
+import Normalizer from '@/lib/normalizer'
+import CEDICT from '@/lib/cedict'
 
 Vue.use(Vuex)
 
@@ -9,31 +11,24 @@ export default new Vuex.Store({
     savedWords: JSON.parse(localStorage.getItem('savedCEDICTWords')) || []
   },
   mutations: {
-    ADD_SAVED_WORD(state, { traditional, pinyin, index = 0 }) {
+    ADD_SAVED_WORD(state, identifier) {
       if (
         !state.savedWords.find(
-          item =>
-            item.traditional === traditional &&
-            item.pinyin === pinyin &&
-            item.index === index
+          item => item.join(',').replace(/ /g, '_') === identifier
         )
       ) {
-        state.savedWords.push([traditional, pinyin])
+        state.savedWords.push(identifier.replace(/_/g, ' ').split(','))
         localStorage.setItem(
           'savedCEDICTWords',
           JSON.stringify(state.savedWords)
         )
       }
     },
-    REMOVE_SAVED_WORD(state, { traditional, pinyin, index = 0 }) {
-      const keepers = state.savedWords.filter(function(savedCEDICTWord) {
-        savedCEDICTWord[2] = savedCEDICTWord[2] || 0
-        return (
-          savedCEDICTWord[0] != traditional ||
-          savedCEDICTWord[1] != pinyin ||
-          savedCEDICTWord[2] !== index
-        )
-      })
+    REMOVE_SAVED_WORD(state, identifier) {
+      const keepers = state.savedWords.filter(
+        savedCEDICTWord =>
+          savedCEDICTWord.join(',').replace(/ /g, '_') !== identifier
+      )
       state.savedWords = keepers
       localStorage.setItem('savedCEDICTWords', JSON.stringify(keepers))
     },
@@ -43,12 +38,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addSavedWord({ commit, dispatch }, { traditional, pinyin }) {
-      commit('ADD_SAVED_WORD', { traditional, pinyin })
+    addSavedWord({ commit, dispatch }, identifier) {
+      // identifier = 'traditional,pinyin,index'
+      commit('ADD_SAVED_WORD', identifier)
       dispatch('updateSavedWordsDisplay')
     },
-    removeSavedWord({ commit, dispatch }, { traditional, pinyin }) {
-      commit('REMOVE_SAVED_WORD', { traditional, pinyin })
+    removeSavedWord({ commit, dispatch }, identifier) {
+      commit('REMOVE_SAVED_WORD', identifier)
       dispatch('updateSavedWordsDisplay')
     },
     removeAllSavedWords({ commit, dispatch }) {
@@ -66,12 +62,7 @@ export default new Vuex.Store({
         let candidates = JSON.parse(unescape($(this).attr('data-candidates')))
         $(this).removeClass('saved')
         for (let candidate of candidates) {
-          if (
-            getters.hasSavedWord({
-              traditional: candidate.traditional,
-              pinyin: candidate.pinyin
-            })
-          ) {
+          if (getters.hasSavedWord(candidate.identifier)) {
             $(this).addClass('saved')
           }
         }
@@ -80,14 +71,22 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    hasSavedWord: state => ({ traditional, pinyin }) => {
+    hasSavedWord: state => identifier => {
       let yes = state.savedWords.find(item => {
-        return item[0] === traditional && item[1] === pinyin
+        return item.join(',') === identifier
       })
       return yes
     },
     savedWordCount: state => () => {
       return state.savedWords.length
+    },
+    savedWords: state => () => {
+      return state.savedWords.map(item => {
+        item[2] = item[2] || 0
+        return Normalizer.normalize(
+          CEDICT.get(item.join(',').replace(/ /g, '_'))
+        )
+      })
     }
   }
 })

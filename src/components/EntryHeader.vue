@@ -41,13 +41,7 @@
           ></i>
         </div>
         <div class="word">
-          <a
-            :href="
-              `#/view/cedict/${entry.traditional},${entry.pinyin},${
-                entry.index
-              }`
-            "
-          >
+          <a :href="`#/view/cedict/${entry.identifier}`">
             <span v-bind:data-hsk="entry.book">{{ entry.simplified }}</span>
           </a>
         </div>
@@ -106,7 +100,7 @@ export default {
   methods: {
     findCurrentFunction(entry) {
       return function(item) {
-        return item[0] === entry.traditional && item[1] === entry
+        return item.join(',') === entry.identifier
       }
     },
     list() {
@@ -121,18 +115,14 @@ export default {
       let list = this.list()
       if (list.hasPrevious()) {
         const previousWord = Normalizer.get(...list.previous())
-        location.hash = `/view/cedict/${previousWord.traditional},${
-          previousWord.pinyin
-        }`
+        location.hash = `/view/cedict/${previousWord.identifier}`
       }
     },
     nextClick() {
       let list = this.list()
       if (list.hasNext()) {
         const nextWord = Normalizer.get(...list.next())
-        location.hash = `/view/cedict/${nextWord.traditional},${
-          nextWord.pinyin
-        }`
+        location.hash = `/view/cedict/${nextWord.identifier}`
       }
     }
   }

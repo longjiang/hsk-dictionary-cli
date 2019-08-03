@@ -70,7 +70,7 @@
           You don't have any words saved yet. Save words by clicking on the
           <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
         </p>
-        <div v-for="words in [savedWordsAugmented()]">
+        <div v-for="words in [savedWordsNormalized()]">
           <WordList :words="words"></WordList>
           <Questions
             ref="learn"
@@ -110,15 +110,8 @@ export default {
     }
   },
   methods: {
-    savedWordsAugmented() {
-      return this.$store.state.savedWords.map(function([
-        traditional,
-        pinyin,
-        index
-      ]) {
-        index = index || 0
-        return Normalizer.normalize(CEDICT.get(traditional, pinyin, index))
-      })
+    savedWordsNormalized() {
+      return this.$store.getters.savedWords()
     },
     csv() {
       let SavedWordsVue = this
@@ -184,11 +177,7 @@ export default {
           for (let candidates of annotated) {
             for (let candidate of candidates) {
               if (candidate.pinyin) {
-                this.$store.dispatch('addSavedWord', {
-                  traditional: candidate.traditional,
-                  pinyin: candidate.pinyin,
-                  index: candidate.index
-                })
+                this.$store.dispatch('addSavedWord', candidate.identifier)
               }
             }
           }

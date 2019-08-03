@@ -2,8 +2,8 @@ import HSK from './hsk'
 import CEDICT from './cedict'
 
 export default {
-  get(traditional, pinyin, index = 0) {
-    let cedictWord = CEDICT.get(traditional, pinyin, index)
+  get(identifier) {
+    let cedictWord = CEDICT.get(identifier)
     if (cedictWord) {
       return this.normalize(cedictWord)
     }
@@ -15,13 +15,6 @@ export default {
       return this.assignCEDICT(word)
     }
     return word
-  },
-  getArgs(method, data) {
-    if (method === 'hsk') {
-      return [data.id]
-    } else if (method === 'cedict') {
-      return [data.traditional, data.pinyin]
-    }
   },
   assignCEDICT(hskWord) {
     const cedictWords = CEDICT.lookupSimplified(hskWord.word, hskWord.pinyin)

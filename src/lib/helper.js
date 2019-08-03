@@ -29,30 +29,22 @@ export default {
       )
     }
   },
-  f(candidate) {
-    if (candidate.id) {
-      location.hash = `#view/hsk/${candidate.id}`
-    } else {
-      location.hash = `#view/cedict/${candidate.traditional}`
-    }
-  },
   saved(candidate) {
-    return window.hskDictionaryApp.$store.getters.hasSavedWord({
-      traditional: candidate.traditional,
-      pinyin: candidate.pinyin
-    })
+    return window.hskDictionaryApp.$store.getters.hasSavedWord(
+      candidate.identifier
+    )
   },
   addSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch('addSavedWord', {
-      traditional: candidate.traditional,
-      pinyin: candidate.pinyin
-    })
+    window.hskDictionaryApp.$store.dispatch(
+      'addSavedWord',
+      candidate.identifier
+    )
   },
   removeSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch('removeSavedWord', {
-      traditional: candidate.traditional,
-      pinyin: candidate.pinyin
-    })
+    window.hskDictionaryApp.$store.dispatch(
+      'removeSavedWord',
+      candidate.identifer
+    )
   },
   augmentAnnotatedBlocks(selectorOrNode) {
     let nodes = []

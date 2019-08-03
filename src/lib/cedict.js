@@ -102,6 +102,9 @@ export default {
               pinyin: row.pinyin
             }
           }
+          row.identifier = `${row.traditional},${row.pinyin},${
+            row.index
+          }`.replace(/ /g, '_')
           Object.freeze(row)
           if (row) this._data.push(row)
         }
@@ -182,14 +185,8 @@ export default {
   random() {
     return Helper.randomArrayItem(this._data)
   },
-  get(traditional, pinyin, index) {
-    const candidate = this._data.find(function(row) {
-      return (
-        row.traditional === traditional &&
-        row.pinyin === pinyin &&
-        row.index === parseInt(index)
-      )
-    })
+  get(identifier) {
+    const candidate = this._data.find(row => row.identifier === identifier)
     return this.augment(candidate)
   },
   getByList(array) {
@@ -247,7 +244,7 @@ export default {
         row => row.simplified.includes(text) || row.traditional.includes(text)
       )
     } else {
-      text = text.toLowerCase().replace(' ', '')
+      text = text.toLowerCase().replace(/ /g, '')
       results = this._data.filter(row => {
         return row.search.includes(text)
       })

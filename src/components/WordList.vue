@@ -3,11 +3,7 @@
     <ul class="saved-words">
       <li class="saved-words-item character-example" v-for="word in words">
         <Star :word="word"></Star>
-        <a
-          :href="
-            `#/view/cedict/${word.traditional},${word.pinyin},${word.index}`
-          "
-        >
+        <a :href="`#/view/cedict/${word.identifier}`">
           <span class="character-example-word" :data-hsk="word.book">{{
             word.simplified
           }}</span

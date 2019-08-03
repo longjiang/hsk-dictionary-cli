@@ -152,18 +152,13 @@ export default {
             this.random()
             return
           }
-          const traditional = args[0]
-          const pinyin = args[1].replace(/_/g, ' ')
-          const index = args[2] || 0
-          entry = CEDICT.get(traditional, pinyin, index)
+          entry = CEDICT.get(args.join(','))
         }
         entry = Normalizer.normalize(entry)
         if (entry.hasCEDICT) {
           if (method === 'hsk' || args[1].includes(' '))
             // normalize url
-            location.hash = `/view/cedict/${
-              entry.traditional
-            },${entry.pinyin.replace(/ /g, '_')}`
+            location.hash = `/view/cedict/${entry.identifier}`
           else this.show(entry)
           return
         } else {
@@ -176,7 +171,7 @@ export default {
     },
     random() {
       const random = CEDICT.random()
-      location.hash = `/view/cedict/${random.traditional},${random.pinyin}`
+      location.hash = `/view/cedict/${random.identifier}`
     }
   },
   watch: {

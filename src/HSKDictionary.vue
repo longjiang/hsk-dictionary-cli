@@ -151,11 +151,7 @@ export default {
         const entry =
           this.$root.$children[0].$refs.search.entry ||
           this.$root.$children[0].$refs.routerView.entry
-        return `#/compare/cedict/${entry.traditional},${entry.pinyin},${
-          entry.index
-        },${compareEntry.traditional},${compareEntry.pinyin},${
-          compareEntry.index
-        }`
+        return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`
       }
     }
   },

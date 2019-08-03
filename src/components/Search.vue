@@ -90,9 +90,7 @@ export default {
       type: Function,
       default: function(entry) {
         if (entry) {
-          return `#/view/cedict/${entry.traditional},${entry.pinyin},${
-            entry.index
-          }`
+          return `#/view/cedict/${entry.identifier}`
         }
       }
     },

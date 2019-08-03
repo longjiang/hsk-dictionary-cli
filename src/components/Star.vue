@@ -33,26 +33,15 @@ export default {
   },
   methods: {
     saved() {
-      return this.$store.getters.hasSavedWord({
-        traditional: this.word.traditional,
-        pinyin: this.word.pinyin
-      })
+      return this.$store.getters.hasSavedWord(this.word.identifier)
     },
     saveWordClick() {
       this.word = Normalizer.normalize(this.word)
-      this.$store.dispatch('addSavedWord', {
-        traditional: this.word.traditional,
-        pinyin: this.word.pinyin,
-        index: this.word.index
-      })
+      this.$store.dispatch('addSavedWord', this.word.identifier)
     },
     removeWordClick() {
       this.word = Normalizer.normalize(this.word)
-      this.$store.dispatch('removeSavedWord', {
-        traditional: this.word.traditional,
-        pinyin: this.word.pinyin,
-        index: this.word.index
-      })
+      this.$store.dispatch('removeSavedWord', this.word.identifier)
     }
   }
 }
