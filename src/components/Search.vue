@@ -146,6 +146,7 @@ export default {
     },
     cancel() {
       setTimeout(() => {
+        if (this.suggestions[0]) this.entry = this.suggestions[0]
         this.active = false
       }, 300) // Set time out, otherwise before click event is fired the suggestions are already gone!
     }

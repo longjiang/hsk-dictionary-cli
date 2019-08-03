@@ -9,10 +9,13 @@ export default new Vuex.Store({
     savedWords: JSON.parse(localStorage.getItem('savedCEDICTWords')) || []
   },
   mutations: {
-    ADD_SAVED_WORD(state, { traditional, pinyin }) {
+    ADD_SAVED_WORD(state, { traditional, pinyin, index = 0 }) {
       if (
         !state.savedWords.find(
-          item => item.traditional === traditional && item.pinyin === pinyin
+          item =>
+            item.traditional === traditional &&
+            item.pinyin === pinyin &&
+            item.index === index
         )
       ) {
         state.savedWords.push([traditional, pinyin])
@@ -22,9 +25,14 @@ export default new Vuex.Store({
         )
       }
     },
-    REMOVE_SAVED_WORD(state, { traditional, pinyin }) {
+    REMOVE_SAVED_WORD(state, { traditional, pinyin, index = 0 }) {
       const keepers = state.savedWords.filter(function(savedCEDICTWord) {
-        return savedCEDICTWord[0] != traditional || savedCEDICTWord[1] != pinyin
+        savedCEDICTWord[2] = savedCEDICTWord[2] || 0
+        return (
+          savedCEDICTWord[0] != traditional ||
+          savedCEDICTWord[1] != pinyin ||
+          savedCEDICTWord[2] !== index
+        )
       })
       state.savedWords = keepers
       localStorage.setItem('savedCEDICTWords', JSON.stringify(keepers))

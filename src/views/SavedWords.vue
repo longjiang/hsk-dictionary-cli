@@ -186,7 +186,8 @@ export default {
               if (candidate.pinyin) {
                 this.$store.dispatch('addSavedWord', {
                   traditional: candidate.traditional,
-                  pinyin: candidate.pinyin
+                  pinyin: candidate.pinyin,
+                  index: candidate.index
                 })
               }
             }

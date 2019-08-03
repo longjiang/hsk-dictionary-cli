@@ -42,14 +42,16 @@ export default {
       this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('addSavedWord', {
         traditional: this.word.traditional,
-        pinyin: this.word.pinyin
+        pinyin: this.word.pinyin,
+        index: this.word.index
       })
     },
     removeWordClick() {
       this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('removeSavedWord', {
         traditional: this.word.traditional,
-        pinyin: this.word.pinyin
+        pinyin: this.word.pinyin,
+        index: this.word.index
       })
     }
   }
