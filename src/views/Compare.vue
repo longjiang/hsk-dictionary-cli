@@ -109,6 +109,7 @@ import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
 import Normalizer from '@/lib/normalizer'
 import CEDICT from '@/lib/cedict'
+import HSK from '@/lib/hsk'
 
 export default {
   components: {
@@ -135,11 +136,20 @@ export default {
       let method = this.$route.params.method
       let args = this.$route.params.args.split(',')
       if (method && args) {
-        let a = CEDICT.get([args[0], args[1], args[2]].join(','))
-        let b = CEDICT.get([args[3], args[4], args[5]].join(','))
-        this.a = Normalizer.normalize(a)
-        this.b = Normalizer.normalize(b)
-        this.compareKey++
+        let a = undefined
+        let b = undefined
+        if (method === 'cedict') {
+          a = CEDICT.get([args[0], args[1], args[2]].join(','))
+          b = CEDICT.get([args[3], args[4], args[5]].join(','))
+        } else if (method === 'hsk') {
+          a = HSK.get(args[0])
+          b = HSK.get(args[1])
+        }
+        if (a && b) {
+          this.a = Normalizer.normalize(a)
+          this.b = Normalizer.normalize(b)
+          this.compareKey++
+        }
       }
     }
   },
