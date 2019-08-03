@@ -51,9 +51,11 @@ export default {
   },
   beforeMount() {
     if (this.collocation && this.collocation.Words) {
-      this.collocation.Words = this.collocation.Words.sort(
-        (a, b) => a.cm.length - b.cm.length
-      ).slice(0, 8)
+      this.collocation.Words = this.collocation.Words
+        // .sort(
+        //   (a, b) => a.cm.length - b.cm.length
+        // )
+        .slice(0, 12)
     }
   },
   data() {
