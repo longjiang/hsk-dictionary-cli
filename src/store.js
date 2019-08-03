@@ -73,7 +73,7 @@ export default new Vuex.Store({
   getters: {
     hasSavedWord: state => identifier => {
       let yes = state.savedWords.find(item => {
-        return item.join(',') === identifier
+        return item.join(',').replace(/ /g, '_') === identifier
       })
       return yes
     },
