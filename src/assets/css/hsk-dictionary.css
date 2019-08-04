@@ -1428,12 +1428,11 @@ a.suggestion {
 }
 
 #reader-annotated {
-  line-height: 2.6;
+  line-height: 3;
 }
 
 .wordblock .word-block-pinyin {
   margin-top: 0;
-  line-height: 1.2em;
 }
 
 .show-pinyin-for-saved .word-block:hover:not(.saved) .word-block-pinyin {
