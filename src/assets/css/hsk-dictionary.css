@@ -1427,10 +1427,30 @@ a.suggestion {
   align-items: center;
 }
 
-.hide-pinyin-except-saved .word-block:not(.saved) .word-block-pinyin {
-  visibility: hidden;
+.show-pinyin-for-saved .word-block {
+  margin-top: 0.5em;
 }
 
-.word-block:not(.saved):hover .word-block-pinyin {
-  visibility: inherit;
+.wordblock .word-block-pinyin {
+  margin-top: 0;
+  line-height: 1em;
+}
+
+.show-pinyin-for-saved .word-block:hover:not(.saved) .word-block-pinyin {
+  display: inherit;
+  position: absolute;
+  top: -1.2em;
+  left: 50%;
+  margin-left: -5em;
+  width: 10em;
+}
+
+.show-pinyin-for-saved .word-block.saved {
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
+.show-pinyin-for-saved .word-block.saved .word-block-pinyin {
+  display: block;
+  line-height: 1.2em;
 }

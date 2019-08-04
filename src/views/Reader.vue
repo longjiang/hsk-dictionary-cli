@@ -14,7 +14,7 @@
               v-model="hidePinyinExceptSaved"
               checked
             />
-            <label for="hide-pinyin">Show Pinyin</label>
+            <label for="hide-pinyin">Hide Pinyin</label>
             <input
               type="checkbox"
               id="use-traditional"
@@ -33,8 +33,8 @@
           <div
             id="reader-annotated"
             v-bind:class="{
-              'show-pinyin': hidePinyinExceptSaved,
-              'hide-pinyin-except-saved': false,
+              'show-pinyin': !hidePinyinExceptSaved,
+              'show-pinyin-for-saved': hidePinyinExceptSaved,
               'show-simplified': !useTraditional,
               'show-traditional': useTraditional,
               'show-definition': showDefinition
@@ -136,6 +136,7 @@ import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
 import Annotator from '@/vendor/annotator-js/js/annotator'
 import Marked from 'marked'
+import Normalizer from '@/lib/normalizer'
 import Config from '@/lib/config'
 
 const Reader = {

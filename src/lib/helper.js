@@ -1,5 +1,6 @@
 import countries from './countries.js'
 import $ from 'jquery'
+import Annotator from '@/vendor/annotator-js/js/annotator'
 import AnnotatorTooltip from '@/vendor/annotator-js/js/annotator-tooltip'
 import Helper from '@/lib/helper'
 import Normalizer from '@/lib/normalizer'
@@ -52,6 +53,7 @@ export default {
     )
   },
   augmentAnnotatedBlocks(selectorOrNode) {
+    const annotator = new Annotator()
     let nodes = []
     if (typeof selectorOrNode === 'object') {
       nodes = [selectorOrNode]
@@ -67,36 +69,37 @@ export default {
         if (data) {
           let candidates = JSON.parse(unescape(data))
           if (candidates) {
-            let book = 'outside'
             for (let candidate of candidates) {
               const saved = Helper.saved(candidate)
               candidate = Normalizer.normalize(candidate)
-              if (candidate.book !== 'outside') book = candidate.book
               if (saved) $(block).addClass('saved')
             }
+            // Sort the candidates by HSK
             candidates = candidates.sort((a, b) => {
               let abook = a.book === 'outside' ? 7 : a.book
               let bbook = b.book === 'outside' ? 7 : b.book
               return abook - bbook
             })
-            $(block).attr('data-hover-hsk', book)
-            $(block).attr('data-candidates', JSON.stringify(candidates))
+            // Set the best candidate
+            block.outerHTML = annotator.wordBlockTemplate(candidates)
           }
-          $(block).click(function() {
-            const candidates = JSON.parse(
-              unescape($(block).attr('data-candidates'))
-            )
-            if (candidates && candidates.length > 0) {
-              if ($(block).hasClass('saved')) {
-                Helper.removeSaved(candidates[0])
-              } else {
-                Helper.addSaved(candidates[0])
-              }
-            }
-          })
         }
       }
-      this.addToolTips(node)
+      $(node)
+        .find('.word-block[data-candidates]')
+        .click(function() {
+          const candidates = JSON.parse(
+            unescape($(this).attr('data-candidates'))
+          )
+          if (candidates && candidates.length > 0) {
+            if ($(this).hasClass('saved')) {
+              Helper.removeSaved(candidates[0])
+            } else {
+              Helper.addSaved(candidates[0])
+            }
+          }
+        })
+      Helper.addToolTips(node)
     }
   },
   addToolTips(selectorOrNode) {
