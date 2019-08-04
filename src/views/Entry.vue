@@ -96,6 +96,7 @@ export default {
       }
     },
     route() {
+      $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.method && this.$route.params.args) {
         const method = this.$route.params.method
         const args = this.$route.params.args.split(',')

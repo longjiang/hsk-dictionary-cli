@@ -110,6 +110,7 @@ import CompareDefs from '@/components/CompareDefs.vue'
 import Normalizer from '@/lib/normalizer'
 import CEDICT from '@/lib/cedict'
 import HSK from '@/lib/hsk'
+import $ from 'jquery'
 
 export default {
   components: {
@@ -133,6 +134,7 @@ export default {
   },
   methods: {
     route() {
+      $('#hsk-dictionary')[0].scrollIntoView()
       let method = this.$route.params.method
       let args = this.$route.params.args.split(',')
       if (method && args) {

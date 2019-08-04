@@ -54,6 +54,7 @@ export default {
       this.route()
     },
     route() {
+      $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {
