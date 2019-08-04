@@ -204,8 +204,10 @@ export default {
           this.show()
         }
       } else {
-        this.text = Reader.get().replace(/\n/g, '<br>')
-        this.show()
+        if (!this.text) {
+          this.text = Reader.get().replace(/\n/g, '<br>')
+          this.show()
+        }
       }
     }
   },

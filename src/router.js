@@ -27,7 +27,7 @@ export default new Router({
       component: () => import('./views/Compare.vue')
     },
     {
-      path: '/reader/:method/:arg',
+      path: '/reader/:method?/:arg?',
       name: 'reader',
       component: () => import('./views/Reader.vue')
     },
