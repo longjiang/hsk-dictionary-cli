@@ -5,37 +5,11 @@
         <div class="label song-label mb-2">
           Words related to “{{ entry.simplified }}”
         </div>
-        <ul class="related collapsed" id="related" data-collapse-target>
-          <li
-            v-for="word in entry.related"
-            class="related-item character-example"
-          >
-            <a
-              class="btn btn-small mr-2"
-              :href="`#/compare/cedict/${entry.identifier},${word.identifier}`"
-              >Compare</a
-            >
-            <a
-              class="character-example-word"
-              :href="`#/view/cedict/${word.identifier}`"
-            >
-              <span :data-hsk="word.book">{{ word.simplified }}</span>
-            </a>
-            <span class="character-example-pinyin">
-              {{ word.pinyin }}
-              <Speak :text="word.simplified" />
-            </span>
-            <ul class="character-example-english inline-list">
-              <li v-for="definition in word.definitions">
-                {{ definition.text }}
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ShowMoreButton
-          :data-bg-hsk="entry.book"
-          :length="entry.related.length"
-          :min="12"
+        <WordList
+          :words="entry.related"
+          class="related"
+          :compareWith="entry"
+          collapse="10"
         />
       </div>
     </div>
@@ -72,3 +46,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.related .saved-words.collapsed li {
+  display: block;
+}
+
+.related .saved-words.collapsed li:nth-child(n + 11) {
+  display: none;
+}
+</style>

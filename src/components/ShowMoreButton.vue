@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="!length || length > min"
+    v-if="length && min < length"
     class="show-more collapsed mb-4"
     v-on:click="showMoreClick"
   >

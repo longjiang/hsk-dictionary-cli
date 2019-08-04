@@ -93,7 +93,7 @@
         <div class="row">
           <div class="col-sm-12">
             <button class="show-more" id="add-all-pinyin" @click="addAllPinyin">
-              Add Pinyin for All (Slow)
+              Add Pinyin to All
             </button>
           </div>
         </div>

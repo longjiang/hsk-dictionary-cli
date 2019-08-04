@@ -8,7 +8,7 @@
       data-collapse-target
     >
       <li class="saved-words-item character-example" v-for="word in words">
-        <Star :word="word"></Star>
+        <Star :word="word" class="mr-1"></Star>
         <a
           v-if="compareWith"
           :href="
@@ -28,7 +28,8 @@
             class="character-example-word"
             v-if="highlight"
             v-html="Helper.highlight(word.simplified, highlight, word.book)"
-          ></span>
+          ></span
+          >&nbsp;
           <span class="character-example-word" v-if="traditional === true"
             >({{ word.traditional }})</span
           >

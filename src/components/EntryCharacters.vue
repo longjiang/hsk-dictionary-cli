@@ -5,7 +5,9 @@
     <div class="row character-example-wrapper mt-4">
       <!-- ANCHOR img/anchors/character.png -->
       <div
-        class="col-md-6"
+        :class="
+          `col-md-${Math.max(4, Math.floor(12 / entry.simplified.length))}`
+        "
         v-for="(character, index) in Hanzi.getCharactersInWord(
           entry.simplified
         )"

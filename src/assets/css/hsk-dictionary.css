@@ -16,7 +16,6 @@ body {
   min-height: calc(100vh - 30rem);
 }
 
-
 .title {
   margin: 0;
   font-size: 1.5rem;
@@ -131,7 +130,7 @@ body {
     margin: 0 auto;
     display: inline-block;
   }
-  .character-example-wrapper>div {
+  .character-example-wrapper > div {
     margin-bottom: 2rem;
   }
   .example-bar {
@@ -158,7 +157,7 @@ body {
   text-decoration: none;
 }
 
-.character-example {
+.character-example:not(:first-child) {
   margin: 0.5rem 0;
 }
 
@@ -192,7 +191,8 @@ body {
   color: #c1c1c1;
 }
 
-.character-example-word a, .parts a {
+.character-example-word a,
+.parts a {
   color: inherit;
   text-decoration: inherit;
 }
@@ -211,15 +211,18 @@ body {
   border-radius: 0.3rem;
 }
 
-.collapsed>.label-collapse, :not(.collapsed)>.label-expand {
+.collapsed > .label-collapse,
+:not(.collapsed) > .label-expand {
   display: none;
 }
 
-.example-sentence, .lyrics {
+.example-sentence,
+.lyrics {
   min-height: 9.5rem;
 }
 
-.example-sentence p, .lyrics p {
+.example-sentence p,
+.lyrics p {
   margin: 0;
 }
 
@@ -302,7 +305,8 @@ body {
   font-style: italic;
 }
 
-.learn-this-bar {}
+.learn-this-bar {
+}
 
 .learn-this {
   border-top: 1px solid #e6e6e6;
@@ -332,7 +336,7 @@ footer a:hover {
   color: white;
 }
 
-.speak {
+i.speak {
   cursor: pointer;
   color: #ccc;
   position: relative;
@@ -363,7 +367,8 @@ a.suggestion {
   text-decoration: none;
 }
 
-.suggestion:hover, .suggestion:first-child:not(:hover) {
+.suggestion:hover,
+.suggestion:first-child:not(:hover) {
   background: #ececec;
 }
 
@@ -381,7 +386,7 @@ a.suggestion {
   padding: 0;
   border: 0;
   position: absolute;
-  top: 4.7rem;
+  top: 3rem;
   margin: 0;
 }
 
@@ -393,7 +398,9 @@ a.suggestion {
   right: -1rem;
 }
 
-.lessons.collapsed, .dialogs.collapsed, .browse-words.collapsed {
+.lessons.collapsed,
+.dialogs.collapsed,
+.browse-words.collapsed {
   display: none;
 }
 
@@ -401,19 +408,24 @@ a.suggestion {
   text-decoration: none;
 }
 
-.book-title, .lesson-title, .dialog-title {
+.book-title,
+.lesson-title,
+.dialog-title {
   cursor: pointer;
 }
 
-.books, .lessons, .dialogs {
+.books,
+.lessons,
+.dialogs {
   list-style: none;
   padding: 0;
 }
 
-.lesson-title br, .dialog-title br {
+.lesson-title br,
+.dialog-title br {
   margin-top: 0.5rem;
   display: block;
-  content: "";
+  content: '';
 }
 
 .book-title {
@@ -438,34 +450,34 @@ a.suggestion {
   background-image: url('../img/square.png');
 }
 
-.book[data-book="1"]>.book-title.collapsed {
+.book[data-book='1'] > .book-title.collapsed {
   width: 25%;
   background-size: 4% 16.67%;
 }
 
-.book[data-book="2"]>.book-title.collapsed {
+.book[data-book='2'] > .book-title.collapsed {
   width: 25%;
   background-size: 4% 16.67%;
 }
 
-.book[data-book="3"]>.book-title.collapsed {
+.book[data-book='3'] > .book-title.collapsed {
   width: 50%;
   background-size: 2% 16.67%;
 }
 
-.book[data-book="4"]>.book-title.collapsed {
+.book[data-book='4'] > .book-title.collapsed {
   width: 100%;
   background-size: 1% 16.67%;
 }
 
-.book[data-book="5"]>.book-title.collapsed {
+.book[data-book='5'] > .book-title.collapsed {
   width: 100%;
   height: 5rem;
   line-height: 4rem;
   background-size: 1% 8.3%;
 }
 
-.book[data-book="6"]>.book-title.collapsed {
+.book[data-book='6'] > .book-title.collapsed {
   width: 100%;
   height: 10rem;
   line-height: 9rem;
@@ -524,7 +536,8 @@ a.suggestion {
   position: relative;
 }
 
-.youtube iframe, .youtube-screen {
+.youtube iframe,
+.youtube-screen {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -547,8 +560,8 @@ a.suggestion {
 }
 
 .youtube-screen::after {
-  content: "";
-  background: url("../img/youtube-red.svg");
+  content: '';
+  background: url('../img/youtube-red.svg');
   width: 100px;
   height: 100px;
 }
@@ -656,65 +669,93 @@ a.suggestion {
   font-size: 0.7em;
 }
 
-.hsk1, [data-hsk="1"], [data-hover-hsk="1"]:hover, [data-hover-hsk="1"].saved {
+.hsk1,
+[data-hsk='1'],
+[data-hover-hsk='1']:hover,
+[data-hover-hsk='1'].saved {
   color: #f8b51e !important;
 }
 
-.hsk2, [data-hsk="2"], [data-hover-hsk="2"]:hover, [data-hover-hsk="2"].saved {
+.hsk2,
+[data-hsk='2'],
+[data-hover-hsk='2']:hover,
+[data-hover-hsk='2'].saved {
   color: #267f94 !important;
 }
 
-.hsk3, [data-hsk="3"], [data-hover-hsk="3"]:hover, [data-hover-hsk="3"].saved {
+.hsk3,
+[data-hsk='3'],
+[data-hover-hsk='3']:hover,
+[data-hover-hsk='3'].saved {
   color: #fd4f1c !important;
 }
 
-.hsk4, [data-hsk="4"], [data-hover-hsk="4"]:hover, [data-hover-hsk="4"].saved {
+.hsk4,
+[data-hsk='4'],
+[data-hover-hsk='4']:hover,
+[data-hover-hsk='4'].saved {
   color: #bb1718 !important;
 }
 
-.hsk5, [data-hsk="5"], [data-hover-hsk="5"]:hover, [data-hover-hsk="5"].saved {
+.hsk5,
+[data-hsk='5'],
+[data-hover-hsk='5']:hover,
+[data-hover-hsk='5'].saved {
   color: #1b3e76 !important;
 }
 
-.hsk6, [data-hsk="6"], [data-hover-hsk="6"]:hover, [data-hover-hsk="6"].saved {
+.hsk6,
+[data-hsk='6'],
+[data-hover-hsk='6']:hover,
+[data-hover-hsk='6'].saved {
   color: #6a3669 !important;
 }
 
-.hskoutside, [data-hsk="outside"], [data-hover-hsk="outside"]:hover, [data-hover-hsk="outside"].saved {
+.hskoutside,
+[data-hsk='outside'],
+[data-hover-hsk='outside']:hover,
+[data-hover-hsk='outside'].saved {
   color: #c395c2 !important;
 }
 
-.bg-hsk1, [data-bg-hsk="1"] {
+.bg-hsk1,
+[data-bg-hsk='1'] {
   background-color: #f8b51e !important;
   color: white !important;
 }
 
-.bg-hsk2, [data-bg-hsk="2"] {
+.bg-hsk2,
+[data-bg-hsk='2'] {
   background-color: #267f94;
   color: white !important;
 }
 
-.bg-hsk3, [data-bg-hsk="3"] {
+.bg-hsk3,
+[data-bg-hsk='3'] {
   background-color: #fd4f1c !important;
   color: white !important;
 }
 
-.bg-hsk4, [data-bg-hsk="4"] {
+.bg-hsk4,
+[data-bg-hsk='4'] {
   background-color: #bb1718 !important;
   color: white !important;
 }
 
-.bg-hsk5, [data-bg-hsk="5"] {
+.bg-hsk5,
+[data-bg-hsk='5'] {
   background-color: #1b3e76 !important;
   color: white !important;
 }
 
-.bg-hsk6, [data-bg-hsk="6"] {
+.bg-hsk6,
+[data-bg-hsk='6'] {
   background-color: #6a3669 !important;
   color: white !important;
 }
 
-.bg-hskoutside, [data-bg-hsk="outside"] {
+.bg-hskoutside,
+[data-bg-hsk='outside'] {
   background-color: #c395c2;
   color: white;
 }
@@ -763,7 +804,8 @@ a.suggestion {
   background: #f8b51e;
 }
 
-.tab.router-link-active, .tab:hover {
+.tab.router-link-active,
+.tab:hover {
   color: #fd4f1c;
   background: white;
   text-decoration: none;
@@ -781,17 +823,22 @@ a.suggestion {
   padding: 0;
   background: none;
   border: none;
-  font-size: 2rem;
-  position: absolute;
-  top: 1.75rem;
-  right: 0;
+  margin: 0;
   color: #ffe597;
+  position: relative;
+  bottom: -0.09em;
 }
 
 .saved-words-item-star {
   background: none;
   border: none;
   color: #f8b61e;
+  padding: 0;
+}
+
+.saved-words-item .saved-words-item-star {
+  position: relative;
+  bottom: 0.15rem;
 }
 
 .saved-words-item-remove {
@@ -805,11 +852,13 @@ a.suggestion {
   color: white;
 }
 
-.tab-saved-words.router-link-active, .tab-saved-words:hover {
+.tab-saved-words.router-link-active,
+.tab-saved-words:hover {
   color: #f8b61e;
 }
 
-.tab-saved-words.router-link-active .tab-saved-words-count, .tab-saved-words:hover .tab-saved-words-count {
+.tab-saved-words.router-link-active .tab-saved-words-count,
+.tab-saved-words:hover .tab-saved-words-count {
   background: #f8b61e;
   color: white;
 }
@@ -858,7 +907,7 @@ a.suggestion {
 }
 
 .tile {
-  height: .5rem;
+  height: 0.5rem;
   width: 1%;
   display: inline-block;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
@@ -896,7 +945,7 @@ a.suggestion {
 }
 
 .lyrics-line:hover::before {
-  content: "PLAY HERE";
+  content: 'PLAY HERE';
   font-size: 0.8rem;
   width: 4rem;
   line-height: 0.8rem;
@@ -924,7 +973,7 @@ a.suggestion {
   list-style: none;
 }
 
-.definitions.collapsed li:nth-child(n+4) {
+.definitions.collapsed li:nth-child(n + 4) {
   display: none;
 }
 
@@ -935,7 +984,6 @@ a.suggestion {
   justify-content: stretch;
   width: 100%;
 }
-
 
 .image-wall-image {
   flex: auto;
@@ -955,16 +1003,16 @@ a.suggestion {
 .related {
   list-style: none;
   padding: 0;
-  column-count: 2;
+  columns: 2;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .related {
     column-count: 1;
   }
 }
 
-.related.collapsed li:nth-child(n+13) {
+.related.collapsed li:nth-child(n + 13) {
   display: none;
 }
 
@@ -999,12 +1047,12 @@ a.suggestion {
   display: inline;
 }
 
-.inline-list>li {
+.inline-list > li {
   display: inline;
 }
 
-.inline-list>li+li::before {
-  content: ", "
+.inline-list > li + li::before {
+  content: ', ';
 }
 
 .mistake-description {
@@ -1017,8 +1065,8 @@ a.suggestion {
 }
 
 .mistake-item:before {
-  content: "\e014";
-  font-family: "Glyphicons Halflings";
+  content: '\e014';
+  font-family: 'Glyphicons Halflings';
   position: absolute;
   left: 0;
   top: 0.2rem;
@@ -1056,7 +1104,7 @@ a.suggestion {
   font-weight: bold;
 }
 
-.container-fluid>.container {
+.container-fluid > .container {
   padding: 0;
 }
 
@@ -1281,15 +1329,17 @@ a.suggestion {
   margin: 0 auto;
 }
 
-.description-⿳ .part-⿱-1, .description-⿳ .part-⿱-2 {
-  display: flex;
-  flex-direction: row-reverse
-}
-
-.description-⿳ .part-⿱-1 .part-character, .description-⿳ .part-⿱-2 .part-character {
+.description-⿳ .part-⿱-1,
+.description-⿳ .part-⿱-2 {
   display: flex;
   flex-direction: row-reverse;
-  margin-right: 0.5rem
+}
+
+.description-⿳ .part-⿱-1 .part-character,
+.description-⿳ .part-⿱-2 .part-character {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 0.5rem;
 }
 
 .trophy {
@@ -1303,7 +1353,7 @@ a.suggestion {
 }
 
 #questions-wrapper {
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
 }
 
@@ -1316,7 +1366,8 @@ a.suggestion {
   text-align: center;
 }
 
-.decomposition-before, .decomposition-after {
+.decomposition-before,
+.decomposition-after {
   font-size: 3rem;
   line-height: 8rem;
   padding: 1rem;
@@ -1336,29 +1387,29 @@ a.suggestion {
   background: inherit;
 }
 
-.part.hide>* {
+.part.hide > * {
   display: none;
 }
 
-.show-answer .part.hide>* {
+.show-answer .part.hide > * {
   display: inherit;
 }
 
 .part.hide::after {
-  content: "What is missing here?";
+  content: 'What is missing here?';
   font-size: 0.8rem;
   color: white;
 }
 
 .show-answer .part.hide:after {
-  content: "";
+  content: '';
 }
 
 .question-image {
   max-width: 100%;
   max-height: 40vh;
   transform: rotate(-2deg);
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
   border: 0.5rem solid white;
 }
 
@@ -1366,7 +1417,6 @@ a.suggestion {
   width: 10rem;
   height: 10rem;
 }
-
 
 .decomposition > .part-pinyin {
   border: 2px dashed #ccc;

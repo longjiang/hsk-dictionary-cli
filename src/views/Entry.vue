@@ -8,17 +8,17 @@
       </div>
     </div>
 
+    <EntryDisambiguation class="mt-3 mb-5" :entry="entry"></EntryDisambiguation>
+
     <EntryExample :entry="entry"></EntryExample>
 
-    <EntryDisambiguation class="mt-4 mb-4" :entry="entry"></EntryDisambiguation>
+    <EntryCharacters class="mb-4" :entry="entry"></EntryCharacters>
 
-    <EntryCharacters :entry="entry"></EntryCharacters>
-
-    <EntryWebImages :entry="entry"></EntryWebImages>
+    <EntryWebImages class="mt-5" :entry="entry"></EntryWebImages>
 
     <EntryGrammar :entry="entry"></EntryGrammar>
 
-    <EntryRelated :entry="entry"></EntryRelated>
+    <EntryRelated class="mb-5" :entry="entry"></EntryRelated>
 
     <EntryCollocations :entry="entry"></EntryCollocations>
 
@@ -121,6 +121,8 @@ export default {
           this.show(entry)
           return
         }
+      } else {
+        if (this.entry) return
       }
       this.random()
     },
