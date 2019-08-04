@@ -59,7 +59,6 @@ export default {
   methods: {
     getGramrelsByName(gramrels, name) {
       let gramrel = gramrels.find(gram => gram.name === name)
-      console.log(gramrel)
       return gramrel
     }
   },
