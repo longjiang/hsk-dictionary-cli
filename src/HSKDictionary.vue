@@ -19,7 +19,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="search-compare-wrapper">
-              <Search ref="search" main="true" random="true"></Search>
+              <Search ref="search" random="true"></Search>
               <Search
                 v-if="compare"
                 class="ml-2"

@@ -146,11 +146,26 @@ export default {
         } else if (method === 'hsk') {
           a = HSK.get(args[0])
           b = HSK.get(args[1])
+        } else if (method === 'simplified') {
+          a = CEDICT.lookupSimplified(args[0])[0]
+          b = CEDICT.lookupSimplified(args[1])[0]
         }
         if (a && b) {
           this.a = Normalizer.normalize(a)
           this.b = Normalizer.normalize(b)
           this.compareKey++
+          if (this.$parent.$refs.search) {
+            this.$parent.$refs.search.entry = a
+            this.$parent.$refs.search.text = a.simplified
+          } else {
+            throw 'Main-Search-Entry link broken.'
+          }
+          if (this.$parent.$refs.compare) {
+            this.$parent.$refs.compare.entry = b
+            this.$parent.$refs.compare.text = b.simplified
+          } else {
+            throw 'Compare-Search-Entry link broken.'
+          }
         }
       }
     }

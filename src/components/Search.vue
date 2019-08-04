@@ -94,9 +94,6 @@ export default {
         }
       }
     },
-    main: {
-      default: false
-    },
     placeholder: {
       default: 'Look up words here...'
     },
