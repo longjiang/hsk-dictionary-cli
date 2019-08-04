@@ -23,18 +23,14 @@
             :data-hsk="word.book"
             v-if="!highlight"
             >{{ word.simplified }}</span
-          >
-          <span
+          ><span
             class="character-example-word"
             v-if="highlight"
             v-html="Helper.highlight(word.simplified, highlight, word.book)"
           ></span
-          >&nbsp;
-          <span class="character-example-word" v-if="traditional === true"
+          ><span class="character-example-word" v-if="traditional === true"
             >({{ word.traditional }})</span
-          >
-          &nbsp;
-          <span class="character-example-pinyin">{{ word.pinyin }}</span
+          ><span class="character-example-pinyin ml-1">{{ word.pinyin }}</span
           >&nbsp;
           <span v-if="word.definitions" class="character-example-english">
             {{ word.definitions[0].text }}
