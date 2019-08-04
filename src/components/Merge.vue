@@ -43,28 +43,42 @@ export default {
   height: 1.5rem;
 }
 .merge .merge-bl {
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-left: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
   border-radius: 0 0 0 1.5rem;
   margin-right: 3rem;
 }
 .merge .merge-br {
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
   border-radius: 0 0 1.5rem 0;
   margin-left: 3rem;
 }
 
 .merge .merge-tr {
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+  border-right: 2px solid #ccc;
   border-radius: 0 1.5rem 0 0;
   margin-left: 3rem;
 }
 .merge .merge-tl {
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+  border-left: 2px solid #ccc;
   border-radius: 1.5rem 0 0 0;
   margin-right: 3rem;
+}
+
+.merge-wrapper.h-half {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.merge-wrapper.v-half {
+  height: 50%;
+  margin: auto 0;
+}
+
+.merge-top {
+  margin-bottom: -2px;
 }
 </style>

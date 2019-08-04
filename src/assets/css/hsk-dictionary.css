@@ -1434,13 +1434,3 @@ a.suggestion {
 .word-block:not(.saved):hover .word-block-pinyin {
   visibility: inherit;
 }
-
-.merge-wrapper.h-half {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.merge-wrapper.v-half {
-  height: 50%;
-  margin: auto 0;
-}

@@ -7,7 +7,7 @@
         <Merge direction="bottom" class="h-half" />
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="col-sm-6 text-center">
         <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
       </div>
