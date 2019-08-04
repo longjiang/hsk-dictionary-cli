@@ -85,6 +85,7 @@
       <router-view ref="routerView" />
     </keep-alive>
 
+    <!--
     <div
       class="container-fluid text-center pt-4 pb-4"
       style="background-color: #666"
@@ -99,6 +100,7 @@
         </div>
       </div>
     </div>
+    -->
 
     <!-- ANCHOR img/anchors/footer.png -->
     <footer class="container-fluid" v-cloak>

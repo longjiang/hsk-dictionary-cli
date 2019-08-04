@@ -1,11 +1,11 @@
 <template>
   <button
-    v-if="length && min < length"
+    v-if="visible()"
     class="show-more collapsed mb-4"
     v-on:click="showMoreClick"
   >
     <span class="label-expand">
-      <slot>Show {{ length - min }} More</slot>
+      <slot>Show {{ count() }} More</slot>
     </span>
     <span class="label-collapse">Collapse</span>
   </button>
@@ -27,6 +27,22 @@ export default {
       var $button = $(e.currentTarget)
       $button.siblings('[data-collapse-target]').toggleClass('collapsed')
       $button.toggleClass('collapsed')
+    },
+    count() {
+      if (length) {
+        return length - min
+      } else {
+        return ''
+      }
+    },
+    visible() {
+      if (!this.length) {
+        return true
+      } else if (this.min < this.length) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
