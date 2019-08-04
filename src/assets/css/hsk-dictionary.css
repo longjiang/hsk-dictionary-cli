@@ -1427,19 +1427,19 @@ a.suggestion {
   align-items: center;
 }
 
-.show-pinyin-for-saved .word-block {
-  margin-top: 1em;
+#reader-annotated {
+  line-height: 2.6;
 }
 
 .wordblock .word-block-pinyin {
   margin-top: 0;
-  line-height: 1em;
+  line-height: 1.2em;
 }
 
 .show-pinyin-for-saved .word-block:hover:not(.saved) .word-block-pinyin {
   display: inherit;
   position: absolute;
-  top: -1.2em;
+  top: -1.25em;
   left: 50%;
   margin-left: -5em;
   width: 10em;
@@ -1452,5 +1452,4 @@ a.suggestion {
 
 .show-pinyin-for-saved .word-block.saved .word-block-pinyin {
   display: block;
-  line-height: 1.2em;
 }
