@@ -35,23 +35,6 @@ export default {
       )
     }
   },
-  saved(candidate) {
-    return window.hskDictionaryApp.$store.getters.hasSavedWord(
-      candidate.identifier
-    )
-  },
-  addSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch(
-      'addSavedWord',
-      candidate.identifier
-    )
-  },
-  removeSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch(
-      'removeSavedWord',
-      candidate.identifer
-    )
-  },
   augmentAnnotatedBlocks(selectorOrNode) {
     const annotator = new Annotator()
     let nodes = []
@@ -101,6 +84,23 @@ export default {
         })
       Helper.addToolTips(node)
     }
+  },
+  saved(candidate) {
+    return window.hskDictionaryApp.$store.getters.hasSavedWord(
+      candidate.identifier
+    )
+  },
+  addSaved(candidate) {
+    window.hskDictionaryApp.$store.dispatch(
+      'addSavedWord',
+      candidate.identifier
+    )
+  },
+  removeSaved(candidate) {
+    window.hskDictionaryApp.$store.dispatch(
+      'removeSavedWord',
+      candidate.identifier
+    )
   },
   addToolTips(selectorOrNode) {
     AnnotatorTooltip.addTooltips(selectorOrNode, function(candidates) {
