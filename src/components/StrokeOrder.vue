@@ -1,6 +1,6 @@
 <template>
   <div class="animated-svg-wrapper">
-    <img :src="animatedSVG()" class="animated-svg" />
+    <img :src="src" class="animated-svg" />
     <button class="replay-btn show-more mt-2" @click="playSVG">
       <i class="glyphicon glyphicon-play"></i> Play Again
     </button>
@@ -12,14 +12,18 @@ import Hanzi from '@/lib/hanzi'
 
 export default {
   props: ['char'],
+  data: function() {
+    return {
+      anim: 0,
+      src: this.animatedSVG()
+    }
+  },
   methods: {
     animatedSVG() {
       return Hanzi.animatedSvgUrl(this.char)
     },
-    playSVG(e) {
-      let $svg = $(e.target).siblings('.animated-svg')
-      let $svgClone = $svg.clone()
-      $svg.after($svgClone).remove()
+    playSVG() {
+      this.src = this.animatedSVG() + '?' + Math.random() * 10000
     }
   }
 }

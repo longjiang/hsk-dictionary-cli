@@ -10,7 +10,7 @@
 
     <EntryDisambiguation class="mt-3 mb-5" :entry="entry"></EntryDisambiguation>
 
-    <EntryExample :entry="entry"></EntryExample>
+    <EntryExample class="mt5" :entry="entry"></EntryExample>
 
     <EntryCharacters class="mb-4" :entry="entry"></EntryCharacters>
 
