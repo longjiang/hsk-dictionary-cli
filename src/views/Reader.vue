@@ -14,7 +14,7 @@
               v-model="hidePinyinExceptSaved"
               checked
             />
-            <label for="hide-pinyin">Hide Pinyin</label>
+            <label for="hide-pinyin">Show Pinyin</label>
             <input
               type="checkbox"
               id="use-traditional"
@@ -33,8 +33,8 @@
           <div
             id="reader-annotated"
             v-bind:class="{
-              'show-pinyin': true,
-              'hide-pinyin-except-saved': hidePinyinExceptSaved,
+              'show-pinyin': hidePinyinExceptSaved,
+              'hide-pinyin-except-saved': false,
               'show-simplified': !useTraditional,
               'show-traditional': useTraditional,
               'show-definition': showDefinition

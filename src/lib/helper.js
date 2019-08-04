@@ -65,7 +65,7 @@ export default {
       for (let block of wordBlocks) {
         let data = $(block).attr('data-candidates')
         if (data) {
-          const candidates = JSON.parse(unescape(data))
+          let candidates = JSON.parse(unescape(data))
           if (candidates) {
             let book = 'outside'
             for (let candidate of candidates) {
@@ -74,6 +74,11 @@ export default {
               if (candidate.book !== 'outside') book = candidate.book
               if (saved) $(block).addClass('saved')
             }
+            candidates = candidates.sort((a, b) => {
+              let abook = a.book === 'outside' ? 7 : a.book
+              let bbook = b.book === 'outside' ? 7 : b.book
+              return abook - bbook
+            })
             $(block).attr('data-hover-hsk', book)
             $(block).attr('data-candidates', JSON.stringify(candidates))
           }
