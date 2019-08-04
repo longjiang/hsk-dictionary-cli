@@ -10,6 +10,80 @@ export default {
     中级: 'intermediate',
     高级: 'advanced'
   },
+  corpra: {
+    zhtenten_lenoch: {
+      Corpus: 'Chinese Web 2011 (zhTenTen11, Stanford tagger)',
+      Words: '1,729,867,455',
+      Language: 'Chinese Simplified',
+      Note: 'Featured'
+    },
+    cgw2_sc: {
+      Corpus: 'Chinese GigaWord 2 Corpus: Mainland, simplified',
+      Words: '205,031,379',
+      Language: 'Chinese Simplified',
+      Note: 'Non-Web'
+    },
+    i_zh: {
+      Corpus: 'Chinese Web (Internet-ZH, NEUCSP tagger)',
+      Words: '198,205,344',
+      Language: 'Chinese Simplified',
+      Note: 'Web'
+    },
+    zhtenten_10M: {
+      Corpus: 'Chinese Web 2011 (zhTenTen11, sample 10M)',
+      Words: '9,012,125',
+      Language: 'Chinese Simplified',
+      Note: 'Web'
+    },
+    zhtenten17_simplified_stf2: {
+      Corpus: 'Chinese Web 2017 (zhTenTen17) Simplified',
+      Words: '13,531,331,169',
+      Language: 'Chinese Simplified',
+      Note: 'Web'
+    },
+    opus2_zh: {
+      Corpus: 'OPUS2 Chinese Simplified',
+      Words: '243,427,123',
+      Language: 'Chinese Traditional',
+      Note: 'Parallel'
+    },
+    cgw2_tc: {
+      Corpus: 'Chinese GigaWord 2 Corpus: Taiwan, traditional',
+      Words: '382,600,557',
+      Language: 'Chinese Traditional',
+      Note: 'Non-Web'
+    },
+    chinese_taiwan_usg: {
+      Corpus: 'Chinese Traditional Web (TaiwanWaC, Universal Sketch Grammar)',
+      Words: '259,156,002',
+      Language: 'Chinese Traditional',
+      Note: 'Web'
+    },
+    chinese_taiwan: {
+      Corpus: 'Chinese Traditional Web (TaiwanWaC)',
+      Words: '259,156,002',
+      Language: 'Chinese Traditional',
+      Note: 'Web'
+    },
+    zhtenten17_traditional_stf2: {
+      Corpus: 'Chinese Web 2017 (zhTenTen17) Traditional',
+      Words: '2,400,405,372',
+      Language: 'Chinese Traditional',
+      Note: 'Web'
+    },
+    opus2_zh_TW: {
+      Corpus: 'OPUS2 Chinese Traditional',
+      Words: '380,245',
+      Language: 'Chinese Simplified',
+      Note: 'Parallel'
+    },
+    guangwai: {
+      Corpus: 'Guangwai - Lancaster Chinese Learner Corpus',
+      Words: '1,289,060',
+      Language: 'Chinese Simplified',
+      Note: 'Learner'
+    }
+  },
   mistakeRefKeys: [
     '=text.id',
     '=err.type',

@@ -47,6 +47,7 @@
               cols="30"
               rows="10"
               placeholder="Paste your list here (in simplified characters)"
+              v-model="text"
             ></textarea>
             <button
               class="btn btn-success btn-block mt-4"
@@ -134,6 +135,8 @@ import $ from 'jquery'
 import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
 import Annotator from '@/vendor/annotator-js/js/annotator'
+import Marked from 'marked'
+import Config from '@/lib/config'
 
 const Reader = {
   get() {
@@ -148,6 +151,7 @@ export default {
   template: '#reader-template',
   data() {
     return {
+      text: '',
       annotated: false,
       hidePinyinExceptSaved: false,
       useTraditional: false,
@@ -158,24 +162,59 @@ export default {
   },
   methods: {
     startClick() {
-      Reader.save($('#reader-textarea').val())
       this.show()
     },
-    show() {
-      let readerText = Reader.get()
-      if (readerText) {
-        $('#reader-textarea').val()
-        $('#reader-annotated').html(Reader.get().replace(/\n/g, '<br>'))
-        // eslint-disable-next-line no-undef
-        new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
-          Helper.augmentAnnotatedBlocks('#reader-annotated')
-          this.annotated = true
-        })
+    show(text) {
+      Reader.save(this.text)
+      $('#reader-annotated').html(this.text)
+      // eslint-disable-next-line no-undef
+      new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
+        Helper.augmentAnnotatedBlocks('#reader-annotated')
+        this.annotated = true
+      })
+    },
+    route() {
+      $('#hsk-dictionary')[0].scrollIntoView()
+      let method = this.$route.params.method
+      let arg = this.$route.params.arg
+      if (method) {
+        if (method === 'md-url') {
+          Helper.proxy(arg, md => {
+            this.text = Marked(md)
+          })
+        }
+        if (method === 'html-url') {
+          Helper.proxy(arg, html => {
+            this.text = html
+          })
+        }
+        if (method === 'md') {
+          this.text = Marked(arg)
+        }
+        if (method === 'html') {
+          this.text = arg
+        }
+        if (method === 'txt') {
+          this.text = arg.replace(/\n/g, '<br>')
+        }
+        this.show()
+      } else {
+        this.text = Reader.get().replace(/\n/g, '<br>')
+        this.show()
+      }
+    }
+  },
+  watch: {
+    $route() {
+      if (this.$route.name === 'reader') {
+        this.route()
       }
     }
   },
   mounted() {
-    $('#reader-textarea').val(Reader.get())
+    if (this.$route.name === 'reader') {
+      this.route()
+    }
   }
 }
 </script>

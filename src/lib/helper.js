@@ -1,9 +1,9 @@
 import countries from './countries.js'
 import $ from 'jquery'
-import Annotator from '@/vendor/annotator-js/js/annotator'
 import AnnotatorTooltip from '@/vendor/annotator-js/js/annotator-tooltip'
 import Helper from '@/lib/helper'
 import Normalizer from '@/lib/normalizer'
+import Config from '@/lib/config'
 
 export default {
   loaderMessages: [],
@@ -12,8 +12,13 @@ export default {
     this.lastId += 1
     return this.lastId
   },
+  proxy(url, callback) {
+    $.ajax(Config.proxy + '?' + url).done(function(response) {
+      callback(JSON.parse(response).data)
+    })
+  },
   scrape(url, callback) {
-    $.ajax('proxy.php?' + url).done(function(response) {
+    $.ajax(Config.proxy + '?' + url).done(function(response) {
       // We use 'ownerDocument' so we don't load the images and scripts!
       // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
       var ownerDocument = document.implementation.createHTMLDocument('virtual')
