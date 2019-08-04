@@ -56,7 +56,7 @@
               <div class="col-md-6 text-center">
                 <div
                   class="youtube-versions"
-                  :id="'lrc-' + lrcIndex + '-youtube'"
+                  :id="`${_uid}-lrc-${lrcIndex}-youtube`"
                 >
                   <div class="youtube" v-for="youtube in lrc.youtube">
                     <div
@@ -73,13 +73,13 @@
                         loadYouTubeiFrame(
                           youtube,
                           lrc.content[lrc.matchedLines[0]].starttime,
-                          'lrc-' + lrcIndex + '-youtube-' + youtube,
+                          `${_uid}-lrc-${lrcIndex}-youtube-${youtube}`,
                           lrc
                         )
                       "
                     >
                       <div
-                        :id="'lrc-' + lrcIndex + '-youtube-' + youtube"
+                        :id="`${_uid}-lrc-${lrcIndex}-youtube-${youtube}`"
                       ></div>
                     </div>
                   </div>
