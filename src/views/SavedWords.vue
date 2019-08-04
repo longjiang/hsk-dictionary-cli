@@ -72,12 +72,9 @@
         </p>
         <div v-for="words in [savedWordsNormalized()]">
           <WordList :words="words"></WordList>
-          <Questions
-            ref="learn"
-            :words="words"
-            book="outside"
-            v-if="savedWords.length > 0"
-          ></Questions>
+          <a class="btn btn-warning mt-4 mb-5" :href="`#/learn/saved`">
+            <i class="glyphicon glyphicon-blackboard"></i> Learn These Words
+          </a>
         </div>
       </div>
     </div>

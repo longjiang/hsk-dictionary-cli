@@ -63,7 +63,6 @@ export default {
   props: {
     words: Array,
     book: {
-      type: String,
       default: 'outside'
     }
   },

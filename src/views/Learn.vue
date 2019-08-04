@@ -10,7 +10,10 @@
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
         <div v-if="words.length > 0">
-          <Questions :words="words" :book="args[0]"></Questions>
+          <Questions
+            :words="words"
+            :book="args[0] ? args[0] : words[0].book"
+          ></Questions>
           <h5 class="mt-4 mb-2">Words to learn:</h5>
           <WordList :words="words" style="column-count: 2"></WordList>
         </div>
@@ -21,7 +24,6 @@
 
 <script>
 import Helper from '@/lib/helper'
-import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
 import WordList from '@/components/WordList.vue'
 import Questions from '@/components/Questions.vue'
@@ -37,7 +39,7 @@ export default {
       Helper,
       started: false,
       words: [],
-      method: '',
+      method: false,
       args: [],
       questionTypes: [
         'fill-in-the-blank',
@@ -66,13 +68,15 @@ export default {
           ).map(word => Normalizer.normalize(word))
           return
         }
+      } else {
+        if (this.method) return
+        location.hash = '/learn/saved'
       }
-      location.hash = '/learn/saved'
     }
   },
   watch: {
     $route() {
-      if (this.$route.name === 'learn-custom') {
+      if (this.$route.name === 'learn') {
         this.route()
       }
     }

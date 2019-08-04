@@ -32,13 +32,8 @@ export default new Router({
       component: () => import('./views/Reader.vue')
     },
     {
-      path: '/learn',
-      name: 'learn',
-      redirect: '/learn/saved'
-    },
-    {
       path: '/learn/:method?/:args?',
-      name: 'learn-custom',
+      name: 'learn',
       component: () => import('./views/Learn.vue')
     },
     {
