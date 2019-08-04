@@ -46,7 +46,7 @@
               class="form-control"
               cols="30"
               rows="10"
-              placeholder="Paste your list here (in simplified characters)"
+              placeholder='Paste some Chinese text here, and click "Start Reading"'
               v-model="text"
             ></textarea>
             <button
@@ -162,15 +162,15 @@ export default {
   },
   methods: {
     startClick() {
+      Reader.save(this.text)
       this.show()
     },
-    show(text) {
-      Reader.save(this.text)
+    show() {
       $('#reader-annotated').html(this.text)
       // eslint-disable-next-line no-undef
       new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
-        Helper.augmentAnnotatedBlocks('#reader-annotated')
         this.annotated = true
+        Helper.augmentAnnotatedBlocks('#reader-annotated')
       })
     },
     route() {
@@ -181,23 +181,27 @@ export default {
         if (method === 'md-url') {
           Helper.proxy(arg, md => {
             this.text = Marked(md)
+            this.show()
           })
         }
         if (method === 'html-url') {
           Helper.proxy(arg, html => {
             this.text = html
+            this.show()
           })
         }
         if (method === 'md') {
           this.text = Marked(arg)
+          this.show()
         }
         if (method === 'html') {
           this.text = arg
+          this.show()
         }
         if (method === 'txt') {
           this.text = arg.replace(/\n/g, '<br>')
+          this.show()
         }
-        this.show()
       } else {
         this.text = Reader.get().replace(/\n/g, '<br>')
         this.show()
