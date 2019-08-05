@@ -23,7 +23,7 @@ export default {
       Object.assign(hskWord, cedictWord)
       hskWord.hasCEDICT = true
     } else {
-      hskWord.simplified = hskWord.word
+      hskWord.simplified = hskWord.simplified
       hskWord.definitions = [
         {
           type: 'definition',
@@ -41,7 +41,7 @@ export default {
       const hskWord = hskWords[0]
       Object.assign(cedictWord, {
         id: hskWord.id,
-        simplified: hskWord.word,
+        simplified: hskWord.simplified,
         pinyin: hskWord.pinyin,
         book: hskWord.book,
         lesson: hskWord.lesson,

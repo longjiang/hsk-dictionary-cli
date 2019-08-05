@@ -6,7 +6,7 @@ export default {
   savePhoto(word, url, callback) {
     $.getJSON(
       `${Config.savePhoto}?id=${word.id}&word=${
-        word.word
+        word.simplified
       }&url=${encodeURIComponent(url)}`,
       callback
     )

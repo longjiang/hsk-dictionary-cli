@@ -8,7 +8,7 @@
       data-collapse-target
     >
       <li class="saved-words-item character-example" v-for="word in words">
-        <Star :word="word" class="mr-1"></Star>
+        <Star v-if="saved" :word="word" class="mr-1"></Star>
         <a
           v-if="compareWith"
           :href="
@@ -68,6 +68,9 @@ export default {
     },
     collapse: {
       default: 0
+    },
+    saved: {
+      default: false
     }
   }
 }

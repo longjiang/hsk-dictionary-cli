@@ -5,11 +5,11 @@ import Papa from 'papaparse'
 
 export default {
   hanzi: undefined, // The Hanzi library, loaded async in the constructor
-  _standardCourseData: [],
+  _data: [],
   _standardCourseCSV: 'data/hsk.csv',
   _standardCourseCSVFields: {
     id: 'Id',
-    word: 'Word',
+    simplified: 'Word',
     pinyin: 'Pinyin',
     english: 'English',
     book: 'Book',
@@ -49,7 +49,13 @@ export default {
           for (var index in hsk._standardCourseCSVFields) {
             result[index] = row[hsk._standardCourseCSVFields[index]]
           }
-          hsk._standardCourseData.push(result)
+          row.definitions = [
+            {
+              text: row.english,
+              type: 'definition'
+            }
+          ]
+          hsk._data.push(result)
         })
         Helper.loaderMessage('HSK library ready.')
         loader.loaded('hsk.csv')
@@ -63,7 +69,7 @@ export default {
    */
 
   get: function(id) {
-    var word = this._standardCourseData.find(function(row) {
+    var word = this._data.find(function(row) {
       return parseInt(row.id) === parseInt(id)
     })
     return word
@@ -81,7 +87,7 @@ export default {
   },
 
   getByBookLessonDialog(book, lesson, dialog) {
-    return this._standardCourseData.filter(
+    return this._data.filter(
       row =>
         parseInt(row.book) === parseInt(book) &&
         parseInt(row.lesson) === parseInt(lesson) &&
@@ -90,12 +96,12 @@ export default {
   },
 
   count: function() {
-    return this._standardCourseData.length
+    return this._data.length
   },
 
   lookup: function(word, pinyin = false) {
-    return this._standardCourseData.filter(function(row) {
-      if (row.word == word && !row.oofc) {
+    return this._data.filter(function(row) {
+      if (row.simplified == word && !row.oofc) {
         if (!pinyin || row.pinyin === pinyin) {
           return true
         }
@@ -112,9 +118,9 @@ export default {
     var results = []
     word = word.toLowerCase()
     var hsk = this
-    this._standardCourseData.forEach(function(row) {
+    this._data.forEach(function(row) {
       if (
-        row.word.includes(word) ||
+        row.simplified.includes(word) ||
         hsk
           .removeToneMarks(row.pinyin)
           .toLowerCase()
@@ -130,8 +136,8 @@ export default {
   },
 
   getFirstHSKWordWithCharacter: function(char) {
-    var words = this._standardCourseData.filter(function(row) {
-      return row.word.includes(char) && row.oofc == '' && row.pn == ''
+    var words = this._data.filter(function(row) {
+      return row.simplified.includes(char) && row.oofc == '' && row.pn == ''
     })
     if (words[0]) {
       return words[0]
@@ -165,11 +171,11 @@ export default {
 
   list: function() {
     var hsk = this
-    return hsk._standardCourseData
+    return hsk._data
   },
 
   listWhere: function(filterFunction) {
-    return this._standardCourseData.filter(filterFunction)
+    return this._data.filter(filterFunction)
   },
 
   listByBook: function(book) {
@@ -201,7 +207,7 @@ export default {
 
   first: function() {
     const min = Math.min(
-      ...this._standardCourseData.map(function(word) {
+      ...this._data.map(function(word) {
         return word.id
       })
     )
@@ -209,12 +215,12 @@ export default {
   },
 
   lookupByCharacter(char) {
-    return this.listWhere(row => row.word.includes(char))
+    return this.listWhere(row => row.simplified.includes(char))
   },
 
   last: function() {
     const max = Math.max(
-      ...this._standardCourseData.map(function(word) {
+      ...this._data.map(function(word) {
         return word.id
       })
     )
@@ -239,7 +245,7 @@ export default {
         return groups
       }, {})
     }
-    var books = this._standardCourseData.groupBy('book')
+    var books = this._data.groupBy('book')
     for (var book in books) {
       books[book] = books[book].groupBy('lesson')
       for (var lesson in books[book]) {

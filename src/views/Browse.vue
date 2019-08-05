@@ -59,33 +59,7 @@
                       ></span>
                     </div>
                     <ul class="browse-words collapsed">
-                      <li
-                        class="browse-words-item character-example"
-                        v-for="word in dialog"
-                        v-bind:key="'word-' + word.id"
-                      >
-                        <Star :word="word"></Star>
-                        <a :href="'#/view/hsk/' + word.id">
-                          <span
-                            class="character-example-word"
-                            :data-hsk="word.book"
-                            >{{ word.word }}</span
-                          >
-                          <span class="character-example-pinyin">
-                            {{ word.pinyin }}
-                          </span>
-                          <span class="character-example-english">
-                            {{ word.english }}
-                          </span>
-                        </a>
-                      </li>
-                      <button
-                        class="btn btn-small ml-2 add-all-button"
-                        v-on:click="saveAllClick"
-                      >
-                        <i class="glyphicon glyphicon-star-empty"></i> Save All
-                        in This Dialog
-                      </button>
+                      <WordList :words="dialog" star="false" class="ml-2" />
                       <a
                         class="btn btn-small ml-2 learn-all-button"
                         :data-bg-hsk="bookIndex"

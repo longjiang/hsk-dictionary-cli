@@ -68,7 +68,7 @@
                   :href="'#view/hsk/' + row.firstHSKWord.id"
                   v-html="
                     highlightCharacter(
-                      row.firstHSKWord.word,
+                      row.firstHSKWord.simplified,
                       row.character,
                       row.firstHSKWord.book
                     )
@@ -81,7 +81,7 @@
                   {{ row.firstHSKWord.pinyin }}
                   <i
                     class="speak glyphicon glyphicon-volume-up"
-                    v-bind:data-speak="row.firstHSKWord.word"
+                    v-bind:data-speak="row.firstHSKWord.simplified"
                   ></i>
                 </span>
                 <span
