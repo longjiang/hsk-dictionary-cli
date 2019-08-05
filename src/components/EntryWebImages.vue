@@ -64,7 +64,8 @@ export default {
         'tianjimedia.com',
         'bitauto.com',
         'dzwww.com',
-        'pstatp.com'
+        'pstatp.com',
+        'huitu.com'
       ]
     }
   },
