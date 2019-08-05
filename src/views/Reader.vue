@@ -172,6 +172,7 @@ export default {
       new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
         this.annotated = true
         Helper.augmentAnnotatedBlocks('#reader-annotated')
+        this.$store.dispatch('updateSavedWordsDisplay')
       })
     },
     route() {
