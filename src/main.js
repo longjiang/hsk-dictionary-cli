@@ -25,6 +25,7 @@ import store from './store'
 import $ from 'jquery'
 
 Vue.config.productionTip = false
+Vue.config.performance = true
 Vue.use(BootstrapVue)
 
 Vue.component('Star', Star)

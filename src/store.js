@@ -82,7 +82,7 @@ export default new Vuex.Store({
     },
     savedWords: state => () => {
       return state.savedWords.map(item => {
-        item[2] = item[2] || 0
+        if (!item[2]) item[2] = 0
         return Normalizer.normalize(
           CEDICT.get(item.join(',').replace(/ /g, '_'))
         )

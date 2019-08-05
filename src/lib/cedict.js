@@ -1,20 +1,26 @@
 import Helper from './helper'
+import $ from 'jquery'
 
 export default {
   _data: [],
   load(callback) {
-    const cedict = this
     Helper.loaderMessage('Loading CC-CEDICT library (3.4MB).')
-    var xhttp = new XMLHttpRequest()
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        Helper.loaderMessage('CC-CEDICT data loaded.')
-        cedict.loadData(this.responseText, callback)
-      }
-    }
-    xhttp.open('GET', 'data/cedict_ts.u8.txt', true) // Use .txt extension so gzip will work with it
-    xhttp.setRequestHeader('Cache-Control', 'max-age=3600')
-    xhttp.send()
+    $.getJSON('data/cedict.json', data => {
+      this._data = data
+      Helper.loaderMessage('CC-CEDICT data loaded.')
+      callback(this)
+    })
+  },
+  subdict(data) {
+    let newDict = Object.assign({}, this)
+    return Object.assign(newDict, { _data: data })
+  },
+  subdictFromText(text) {
+    return this.subdict(
+      this._data.filter(function(row) {
+        return text.includes(row.simplified) || text.includes(row.traditional)
+      })
+    )
   },
   augment(row) {
     let CEDICT = this
@@ -66,67 +72,6 @@ export default {
       })
     }
     return augmented
-  },
-  loadData(cedictText, callback) {
-    let same = {
-      traditional: undefined,
-      pinyin: undefined
-    }
-    for (let line of cedictText.split('\n')) {
-      if (!line.startsWith('#')) {
-        const matches = line.match(/^([^\s]+) ([^\s]+) \[(.+)\] \/(.*)\//)
-        if (matches) {
-          let row = {
-            simplified: matches[2],
-            traditional: matches[1],
-            pinyin: this.parsePinyin(matches[3]),
-            pinyinFuzzy: matches[3].replace(/\d/g, ''),
-            definitions: matches[4].split('/'),
-            index: 0, // for homonyms
-            search:
-              matches[1] +
-              ' ' +
-              matches[2] +
-              ' ' +
-              matches[3].toLowerCase().replace(/[\s\d]/gi, '') +
-              ' ' +
-              matches[4]
-          }
-          if (
-            row.traditional === same.traditional &&
-            row.pinyin === same.pinyin
-          ) {
-            row.index++
-          } else {
-            same = {
-              traditional: row.traditional,
-              pinyin: row.pinyin
-            }
-          }
-          row.identifier = `${row.traditional},${row.pinyin},${
-            row.index
-          }`.replace(/ /g, '_')
-          Object.freeze(row)
-          if (row) this._data.push(row)
-        }
-      }
-    }
-    this._data = this._data.sort(function(a, b) {
-      return b.simplified.length - a.simplified.length
-    })
-    Helper.loaderMessage('CC-CEDICT library ready.')
-    callback(this)
-  },
-  subdict(data) {
-    let newDict = Object.assign({}, this)
-    return Object.assign(newDict, { _data: data })
-  },
-  subdictFromText(text) {
-    return this.subdict(
-      this._data.filter(function(row) {
-        return text.includes(row.simplified) || text.includes(row.traditional)
-      })
-    )
   },
   isTraditional(text) {
     let matchedSimplified = 0
