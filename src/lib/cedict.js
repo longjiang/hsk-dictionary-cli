@@ -46,7 +46,7 @@ export default {
             simplified: matches[2],
             traditional: matches[1],
             pinyin: matches[3],
-            pinyinFuzzy: matches[3].replace(/\d/g, ''),
+            pinyinFuzzy: this.removeTones(matches[3]),
             definitions: matches[4].split('/'),
             index: 0, // for homonyms
             search:

@@ -17,7 +17,11 @@
           class="btn btn-small mr-2"
           >Compare</a
         >
-        <a :href="`#/view/cedict/${word.identifier}`">
+        <a
+          :href="
+            hsk ? `#/view/hsk/${word.id}` : `#/view/cedict/${word.identifier}`
+          "
+        >
           <span
             class="character-example-word"
             :data-hsk="word.book"
@@ -71,6 +75,9 @@ export default {
     },
     star: {
       default: true
+    },
+    hsk: {
+      default: false
     }
   }
 }

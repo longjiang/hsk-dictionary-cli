@@ -99,9 +99,6 @@ export default {
       savedWords: this.$store.getters.savedWords()
     }
   },
-  mounted() {
-    console.log(this.savedWords)
-  },
   methods: {
     csv() {
       let SavedWordsVue = this
