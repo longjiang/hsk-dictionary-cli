@@ -45,6 +45,11 @@ let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
   }).$mount('#hsk-dictionary')
 })
 
+// CEDICT.parsePinyinInCEDICTFIle(function(parsed) {
+//   console.log(parsed)
+//   window.parsed = parsed
+// })
+
 HSK.load(function() {
   window.HSK = HSK
   loader.loaded('hsk')
