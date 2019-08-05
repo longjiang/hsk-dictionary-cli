@@ -70,8 +70,8 @@
           You don't have any words saved yet. Save words by clicking on the
           <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
         </p>
-        <div v-for="words in [savedWordsNormalized()]">
-          <WordList :words="words"></WordList>
+        <div>
+          <WordList :words="savedWords"></WordList>
           <a class="btn btn-warning mt-4 mb-5" :href="`#/learn/saved`">
             <i class="glyphicon glyphicon-blackboard"></i> Learn These Words
           </a>
@@ -85,31 +85,21 @@
 
 <script>
 import $ from 'jquery'
-import Questions from '@/components/Questions.vue'
 import WordList from '@/components/WordList.vue'
-import HSK from '@/lib/hsk'
-import CEDICT from '@/lib/cedict'
 import Normalizer from '@/lib/normalizer'
 import AnnotatorService from '@/vendor/annotator-js/js/annotator-service'
 
 export default {
   template: '#saved-words-template',
   components: {
-    Questions,
     WordList
   },
   data() {
     return {
-      CEDICT,
-      HSK,
-      Normalizer,
-      savedWords: this.$store.state.savedWords
+      savedWords: this.$store.getters.savedWords()
     }
   },
   methods: {
-    savedWordsNormalized() {
-      return this.$store.getters.savedWords()
-    },
     csv() {
       let SavedWordsVue = this
       return (
