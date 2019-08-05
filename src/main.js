@@ -23,43 +23,44 @@ import StrokeOrder from '@/components/StrokeOrder.vue'
 import Merge from '@/components/Merge.vue'
 import store from './store'
 import $ from 'jquery'
+import Test from '@/lib/test'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
-Vue.component('Star', Star)
-Vue.component('Speak', Speak)
-Vue.component('PinyinButton', PinyinButton)
-Vue.component('ShowMoreButton', ShowMoreButton)
-Vue.component('StrokeOrder', StrokeOrder)
-Vue.component('Merge', Merge)
-Vue.component('WordList', WordList)
-
-let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
-  Helper.loaderMessage('All data loaded.')
+if (location.hash === '#/test') {
   $('#loader').remove()
-  window.hskDictionaryApp = new Vue({
-    router,
-    store,
-    render: h => h(HSKDictionary)
-  }).$mount('#hsk-dictionary')
-})
+  Test.run()
+} else {
+  Vue.component('Star', Star)
+  Vue.component('Speak', Speak)
+  Vue.component('PinyinButton', PinyinButton)
+  Vue.component('ShowMoreButton', ShowMoreButton)
+  Vue.component('StrokeOrder', StrokeOrder)
+  Vue.component('Merge', Merge)
+  Vue.component('WordList', WordList)
 
-// CEDICT.parsePinyinInCEDICTFIle(function(parsed) {
-//   console.log(parsed)
-//   window.parsed = parsed
-// })
+  let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
+    Helper.loaderMessage('All data loaded.')
+    $('#loader').remove()
+    window.hskDictionaryApp = new Vue({
+      router,
+      store,
+      render: h => h(HSKDictionary)
+    }).$mount('#hsk-dictionary')
+  })
 
-HSK.load(function() {
-  window.HSK = HSK
-  loader.loaded('hsk')
-})
+  HSK.load(function() {
+    window.HSK = HSK
+    loader.loaded('hsk')
+  })
 
-CEDICT.load(function() {
-  window.CEDICT = CEDICT
-  loader.loaded('cedict')
-})
+  CEDICT.load(function() {
+    window.CEDICT = CEDICT
+    loader.loaded('cedict')
+  })
 
-Grammar.load(function() {
-  loader.loaded('grammar')
-})
+  Grammar.load(function() {
+    loader.loaded('grammar')
+  })
+}
