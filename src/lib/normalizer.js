@@ -17,7 +17,10 @@ export default {
     return word
   },
   assignCEDICT(hskWord) {
-    const cedictWords = CEDICT.lookupSimplified(hskWord.word, hskWord.pinyin)
+    const cedictWords = CEDICT.lookupSimplified(
+      hskWord.simplified,
+      hskWord.pinyin
+    )
     if (cedictWords.length > 0) {
       const cedictWord = cedictWords[0]
       Object.assign(hskWord, cedictWord)

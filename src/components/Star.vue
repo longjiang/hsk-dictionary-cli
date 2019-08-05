@@ -37,6 +37,7 @@ export default {
     },
     saveWordClick() {
       this.word = Normalizer.normalize(this.word)
+      console.log(this.word)
       this.$store.dispatch('addSavedWord', this.word.identifier)
     },
     removeWordClick() {
