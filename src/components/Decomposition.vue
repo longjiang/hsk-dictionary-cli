@@ -91,6 +91,16 @@ export default {
             $template = $(`<div class="part-pinyin">(other elements)</div>`)
           } else {
             const childCharacter = Hanzi.lookupShallow(node.character)
+            HSKCEDICT.lookupSimplified(
+              words => {
+                if (words.length > 0) {
+                  $(`.part-character-${node.character} a`)
+                    .attr('href', '#/view/cedict/' + words[0].identifier)
+                    .attr('data-hsk', words[0].hsk)
+                }
+              },
+              [node.character]
+            )
             let href = ''
             if (node.info) {
               // eslint-disable-next-line no-undef
@@ -109,9 +119,9 @@ export default {
             <div class="part-pinyin part-pinyin-${node.character}">${
               childCharacter.pinyin
             }</div>
-            <div class="part-character"><a ${href}>${
-              childCharacter.character
-            }</a></div>`)
+            <div class="part-character part-character-${
+              node.character
+            }"><a ${href}>${childCharacter.character}</a></div>`)
           }
           if (node.parent) {
             node.selector = `${node.parent.selector} > .description-${
