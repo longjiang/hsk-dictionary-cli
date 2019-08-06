@@ -85,7 +85,9 @@ const HSKCEDICT = {
   },
   lookupPinyinFuzzy(pinyin) {
     return this._data.filter(
-      row => this.removeTones(row.pinyin).replace(/ /g, '') === pinyin
+      row =>
+        this.removeTones(row.pinyin).replace(/ /g, '') ===
+        this.removeTones(pinyin).replace(/ /g, '')
     )
   },
   randomArrayItem(array, start = 0, length = false) {
