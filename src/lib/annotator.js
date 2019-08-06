@@ -28,17 +28,18 @@ export default {
     window.HSKCEDICT = {}
     for (let method of methods) {
       window.HSKCEDICT[method] = (callback, args = undefined) => {
+        let id = Helper.uniqueId()
         let m1 = e => {
-          if (e.data[0] === method) {
-            callback(e.data[1])
+          if (e.data[0] === id && e.data[1] === method) {
+            callback(e.data[2])
             this.worker.removeEventListener('message', m1)
           }
         }
         if (args !== undefined) {
-          this.worker.postMessage([method, args])
+          this.worker.postMessage([id, method, args])
           this.worker.addEventListener('message', m1)
         } else {
-          this.worker.postMessage([method, []])
+          this.worker.postMessage([id, method, []])
           this.worker.addEventListener('message', m1)
         }
       }
