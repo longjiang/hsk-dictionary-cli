@@ -6,7 +6,7 @@ const HSKCEDICT = {
       download: true,
       header: true,
       complete: results => {
-        this._data = results.data
+        this._data = results.data.map(row => this.augment(row))
         callback()
       }
     })
