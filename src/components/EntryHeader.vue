@@ -52,7 +52,6 @@
 <script>
 import Helper from '@/lib/helper'
 import List from '@/lib/list'
-import Normalizer from '@/lib/normalizer'
 import DefinitionsList from '@/components/DefinitionsList.vue'
 
 export default {

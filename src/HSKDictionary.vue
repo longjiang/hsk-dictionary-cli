@@ -147,7 +147,6 @@
 <script>
 import $ from 'jquery'
 import Helper from '@/lib/helper'
-import HSK from '@/lib/hsk'
 import Search from '@/components/Search.vue'
 
 // eslint-disable-next-line no-unused-vars
@@ -158,9 +157,6 @@ export default {
   },
   data: function() {
     return {
-      wordList: HSK.listWhere(function(word) {
-        word.oofc === ''
-      }),
       Helper,
       compare: false,
       compareHrefFunc: compareEntry => {

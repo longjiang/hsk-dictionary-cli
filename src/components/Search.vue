@@ -80,9 +80,7 @@
 
 <script>
 import $ from 'jquery'
-import CEDICT from '@/lib/cedict.js'
 import { setTimeout } from 'timers'
-import Normalizer from '@/lib/normalizer'
 
 export default {
   props: {

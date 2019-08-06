@@ -3,7 +3,6 @@ import $ from 'jquery'
 import Annotator from '@/lib/annotator'
 import AnnotatorTooltip from '@/lib/annotator-tooltip'
 import Helper from '@/lib/helper'
-import Normalizer from '@/lib/normalizer'
 import Config from '@/lib/config'
 
 export default {
@@ -46,7 +45,6 @@ export default {
         if (candidates) {
           for (let candidate of candidates) {
             const saved = Helper.saved(candidate)
-            candidate = Normalizer.normalize(candidate)
             if (saved) $(block).addClass('saved')
           }
           // Sort the candidates by HSK

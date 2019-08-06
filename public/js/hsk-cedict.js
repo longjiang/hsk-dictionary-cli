@@ -78,6 +78,14 @@ const HSKCEDICT = {
       return results
     }
   },
+  lookupByCharacter(char) {
+    return this._data.filter(row => row.simplified.includes(char))
+  },
+  lookupPinyinFuzzy(pinyin) {
+    return this._data.filter(
+      row => this.removeTones(row.pinyin).replace(/ /g, '') === pinyin
+    )
+  },
   randomArrayItem(array, start = 0, length = false) {
     length = length || array.length
     array = array.slice(start, length)

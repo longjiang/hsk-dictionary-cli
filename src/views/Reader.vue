@@ -132,12 +132,9 @@
 
 <script>
 import $ from 'jquery'
-import CEDICT from '@/lib/cedict'
 import Helper from '@/lib/helper'
 import Annotator from '@/lib/annotator'
 import Marked from 'marked'
-import Normalizer from '@/lib/normalizer'
-import Config from '@/lib/config'
 
 const Reader = {
   get() {

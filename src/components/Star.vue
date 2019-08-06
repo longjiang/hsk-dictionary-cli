@@ -21,7 +21,6 @@
 
 <script>
 import Helper from '@/lib/helper'
-import Normalizer from '@/lib/normalizer'
 
 export default {
   props: ['word'],

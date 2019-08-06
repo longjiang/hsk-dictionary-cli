@@ -59,16 +59,13 @@ const decompositionTemplate = {
 import Annotator from '@/lib/annotator.js'
 import Helper from '@/lib/helper'
 import Hanzi from '@/lib/hanzi'
-import HSK from '@/lib/hsk'
-import CEDICT from '@/lib/cedict'
 import $ from 'jquery'
 
 export default {
   props: ['char'],
   data() {
     return {
-      id: 'decomposition-' + Helper.uniqueId(),
-      CEDICT
+      id: 'decomposition-' + Helper.uniqueId()
     }
   },
   mounted() {
@@ -94,14 +91,7 @@ export default {
             $template = $(`<div class="part-pinyin">(other elements)</div>`)
           } else {
             const childCharacter = Hanzi.lookupShallow(node.character)
-            const childCharacterHSK = HSK.lookup(childCharacter.character)[0]
-            const childCharacterCEDICT = CEDICT.lookupSimplified(
-              childCharacter.character
-            )[0]
             let href = ''
-            if (childCharacterCEDICT) {
-              href = `href="#/view/cedict/${childCharacterCEDICT.identifier}"`
-            }
             if (node.info) {
               // eslint-disable-next-line no-undef
               Annotator.annotateText(node.info.name, data => {
@@ -115,12 +105,11 @@ export default {
                 }
               })
             }
-            const hsk = childCharacterHSK ? childCharacterHSK.hsk : 'outside'
             $template = $(`
             <div class="part-pinyin part-pinyin-${node.character}">${
               childCharacter.pinyin
             }</div>
-            <div class="part-character"><a ${href} data-hsk="${hsk}">${
+            <div class="part-character"><a ${href}>${
               childCharacter.character
             }</a></div>`)
           }

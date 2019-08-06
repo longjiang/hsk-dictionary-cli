@@ -536,14 +536,13 @@ export default {
 
   getCharactersInWord: function(word) {
     var characters = []
-    var hanzi = this
-    word.split('').forEach(function(char) {
-      var character = hanzi.lookup(char)
+    for (let char of word.split('')) {
+      var character = this.lookup(char)
       if (character) {
         // new character
         characters.push(character)
       }
-    })
+    }
     return characters
   },
 

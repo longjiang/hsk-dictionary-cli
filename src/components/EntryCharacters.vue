@@ -8,9 +8,7 @@
         :class="
           `col-md-${Math.max(4, Math.floor(12 / entry.simplified.length))}`
         "
-        v-for="(character, index) in Hanzi.getCharactersInWord(
-          entry.simplified
-        )"
+        v-for="(character, index) in characters"
       >
         <!-- ANCHOR img/anchors/parts.png -->
         <div class="text-center">
@@ -18,28 +16,27 @@
             {{ entry.pinyin.split(' ')[index] }}
           </div>
           <StrokeOrder :char="character.character" />
-          <div class="english mt-3 mb-3">{{ character.definition }}</div>
-        </div>
-        <div class="etymology mb-4" v-if="character.etymology">
-          <span v-if="character.etymology.type">
-            <b>Origin:</b> A
-            <em v-if="character.etymology">{{ character.etymology.type }}</em>
-            character.
-          </span>
-          <span v-if="character.etymology.hint">
-            <b>Mnemonic:</b>
-            {{ character.etymology.hint }}.
-          </span>
         </div>
 
-        <div class="parts">
+        <div class="parts mt-4">
           <div class="text-center">
             <Decomposition :char="character.character"></Decomposition>
+          </div>
+          <div class="english mt-3 mb-3 text-center">
+            {{ character.definition.split(';')[0] }}
           </div>
           <div class="part character-example" v-for="part in character.parts">
             <span class="part-part" v-if="part">
               <b>{{ part.character }}</b>
             </span>
+            <a
+              class="stroke btn-small ml-2 mr-2"
+              :href="animatedSvgUrl(part.character)"
+              target="_blank"
+              title="Show stroke order animation"
+            >
+              <img src="img/stroke.svg" />
+            </a>
             <span
               class="part-definition character-example-english"
               v-if="part.definition"
@@ -50,14 +47,6 @@
               v-if="part.character == '？'"
               >Other elements</span
             >
-            <a
-              class="stroke btn-small"
-              :href="Hanzi.animatedSvgUrl(part.character)"
-              target="_blank"
-              title="Show stroke order animation"
-            >
-              <img src="img/stroke.svg" />
-            </a>
             <ul
               class="part-examples"
               v-if="part.showExamples && part.hskCharacters"
@@ -91,15 +80,20 @@
                 >
               </li>
             </ul>
-            <button v-on:click="togglePartExamples(part)" class="btn-small">
-              <span v-if="!part.showExamples"
-                >List characters with {{ part.character }}</span
-              >
-              <span v-else>Collapse</span>
-            </button>
+          </div>
+          <div class="etymology mb-4" v-if="character.etymology">
+            <span v-if="character.etymology.type">
+              <b>Origin:</b> A
+              <em v-if="character.etymology">{{ character.etymology.type }}</em>
+              character.
+            </span>
+            <span v-if="character.etymology.hint">
+              <b>Mnemonic:</b>
+              {{ character.etymology.hint }}.
+            </span>
           </div>
         </div>
-        <div v-for="examples in [lookupByCharacter(character.character)]">
+        <div v-for="examples in []">
           <WordList
             :words="examples"
             :highlight="character.character"
@@ -114,8 +108,6 @@
 <script>
 import Decomposition from '@/components/Decomposition.vue'
 import Hanzi from '@/lib/hanzi'
-import HSK from '@/lib/hsk'
-import Normalizer from '@/lib/normalizer'
 import $ from 'jquery'
 
 export default {
@@ -125,16 +117,20 @@ export default {
   },
   data() {
     return {
-      Hanzi,
-      HSK
+      characters: Hanzi.getCharactersInWord(this.entry.simplified)
+    }
+  },
+  mounted() {
+    for (let character of this.characters) {
+      this.lookupByCharacter(character)
     }
   },
   methods: {
-    lookupByCharacter(char) {
-      const words = HSK.lookupByCharacter(char).map(row =>
-        Normalizer.normalize(row)
-      )
-      return words
+    animatedSvgUrl: Hanzi.animatedSvgUrl,
+    lookupByCharacter(character) {
+      HSKCEDICT.lookupByCharacter(words => (character.words = words), [
+        character.character
+      ])
     },
     recalculateExampleColumns() {
       if (this.entry.simplified) {
@@ -151,16 +147,6 @@ export default {
           '<span data-hsk="' + hsk + '">' + character + '</span>'
         )
       }
-    },
-    togglePartExamples(part) {
-      var app = this
-      if (!part.hskCharacters) {
-        part.hskCharacters = HSK.getHSKCharactersByRadical(part.character)
-      }
-      part.showExamples
-        ? (part.showExamples = false)
-        : (part.showExamples = true)
-      app.$forceUpdate()
     }
   },
   updated() {

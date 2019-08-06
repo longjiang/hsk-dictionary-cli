@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import CEDICT from '@/lib/cedict'
 export default {
   data() {
     return {

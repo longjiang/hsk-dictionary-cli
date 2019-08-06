@@ -1,6 +1,3 @@
-import Papa from 'papaparse'
-import $ from 'jquery'
-
 export default {
   _cedictData: [],
   _hskData: [],

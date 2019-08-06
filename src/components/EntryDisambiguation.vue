@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import CEDICT from '@/lib/cedict'
-import Normalizer from '@/lib/normalizer'
 import WordList from '@/components/WordList.vue'
 
 export default {
@@ -28,38 +26,57 @@ export default {
     WordList
   },
   props: ['entry'],
-  data() {
-    return {}
+  mounted() {
+    if (this.entry.simplified.length > 1) {
+      this.getReverse()
+      this.getHomonyms()
+    } else {
+      this.getOtherPronunciations()
+    }
   },
-  computed: {
-    similarWords() {
-      if (this.entry.simplified.length > 1) {
-        return this.getReverse().concat(this.getHomonyms())
-      } else {
-        return this.getOtherPronunciations()
-      }
+  data() {
+    return {
+      similarWords: []
     }
   },
   methods: {
     getOtherPronunciations() {
-      return CEDICT.lookupSimplified(this.entry.simplified)
-        .map(word => Normalizer.normalize(word))
-        .filter(word => word.identifier !== this.entry.identifier)
+      return HSKCEDICT.lookupSimplified(
+        words => {
+          for (let word of words) {
+            if (word.identifier !== this.entry.identifier) {
+              this.similarWords.push(word)
+            }
+          }
+        },
+        [this.entry.simplified]
+      )
     },
     getReverse() {
       const reverse = this.entry.simplified
         .split('')
         .reverse()
         .join('')
-      return CEDICT.lookupSimplified(reverse).map(word =>
-        Normalizer.normalize(word)
+      return HSKCEDICT.lookupSimplified(
+        words => {
+          for (let word of words) {
+            this.words.push(word)
+          }
+        },
+        [reverse]
       )
     },
     getHomonyms() {
-      const words = CEDICT.lookupPinyinFuzzy(this.entry.pinyin)
-      return words
-        .map(word => Normalizer.normalize(word))
-        .filter(word => word.identifier !== this.entry.identifier)
+      return HSKCEDICT.lookupPinyinFuzzy(
+        words => {
+          for (let word of words) {
+            if (word.identifier !== this.entry.identifier) {
+              this.words.push(word)
+            }
+          }
+        },
+        [this.entry.pinyin]
+      )
     }
   }
 }
