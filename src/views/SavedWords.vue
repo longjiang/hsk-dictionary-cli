@@ -86,6 +86,7 @@
 <script>
 import $ from 'jquery'
 import WordList from '@/components/WordList.vue'
+import { mapState } from 'vuex'
 
 export default {
   template: '#saved-words-template',
@@ -94,22 +95,34 @@ export default {
   },
   data() {
     return {
-      savedWordIds: this.$store.state.savedWords,
       savedWords: []
     }
   },
-  mounted() {
-    for (let item of this.savedWordIds) {
-      let identifier = item.join(',').replace(/ /g, '_')
-      HSKCEDICT.getByIdentifier(
-        entry => {
-          this.savedWords.push(entry)
-        },
-        [identifier]
-      )
+  computed: mapState({
+    savedWordIds: state => state.savedWords
+  }),
+  watch: {
+    savedWordIds() {
+      this.updateWords()
     }
   },
+  mounted() {
+    this.updateWords()
+  },
   methods: {
+    updateWords() {
+      this.savedWords = []
+
+      for (let item of this.savedWordIds) {
+        let identifier = item.join(',').replace(/ /g, '_')
+        HSKCEDICT.getByIdentifier(
+          entry => {
+            this.savedWords.push(entry)
+          },
+          [identifier]
+        )
+      }
+    },
     csv() {
       let SavedWordsVue = this
       return (

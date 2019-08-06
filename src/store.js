@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import $ from 'jquery'
-import Normalizer from '@/lib/normalizer'
-import CEDICT from '@/lib/cedict'
 
 Vue.use(Vuex)
 
