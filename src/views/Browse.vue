@@ -16,7 +16,7 @@
           >
             <div
               class="book-title collapsed"
-              v-on:click="bookClick"
+              v-on:click="toggleCollapsed"
               :data-bg-hsk="bookIndex"
             >
               HSK {{ bookIndex }}
@@ -28,7 +28,10 @@
                 :data-lesson="lessonIndex"
                 v-bind:key="'lesson-' + lessonIndex"
               >
-                <div class="lesson-title collapsed" v-on:click="lessonClick">
+                <div
+                  class="lesson-title collapsed"
+                  v-on:click="toggleCollapsed"
+                >
                   Lesson {{ lessonIndex }}
                   <br />
                   <span
@@ -47,7 +50,7 @@
                   >
                     <div
                       class="dialog-title collapsed"
-                      v-on:click="dialogClick"
+                      v-on:click="toggleCollapsed"
                     >
                       Part {{ dialogIndex }}
                       <br />
@@ -101,7 +104,7 @@ export default {
   },
   mounted() {
     // mounted
-    HSKCEDICT.compileBooks(books => console.log(books))
+    HSKCEDICT.compileBooks(books => (this.books = books))
   },
   methods: {
     saveAllClick: function(e) {
@@ -118,39 +121,8 @@ export default {
       }
       return count
     },
-    bookClick(e) {
-      var book = $(e.target)
-        .parents('[data-book]')
-        .attr('data-book')
-      this.wordList = HSK.listByBook(book)
+    toggleCollapsed(e) {
       $(e.target)
-        .toggleClass('collapsed')
-        .next('ul')
-        .toggleClass('collapsed')
-    },
-    lessonClick(e) {
-      var $target = $(e.target)
-      if (e.target.tagName.toLowerCase() !== 'div') {
-        $target = $target.parent()
-      }
-      var lesson = $target.parents('[data-lesson]').attr('data-lesson')
-      var book = $target.parents('[data-book]').attr('data-book')
-      this.wordList = HSK.listByBookLesson(book, lesson)
-      $target
-        .toggleClass('collapsed')
-        .next('ul')
-        .toggleClass('collapsed')
-    },
-    dialogClick(e) {
-      var $target = $(e.target)
-      if (e.target.tagName.toLowerCase() !== 'div') {
-        $target = $target.parent()
-      }
-      var dialog = $target.parents('[data-dialog]').attr('data-dialog')
-      var lesson = $target.parents('[data-lesson]').attr('data-lesson')
-      var book = $target.parents('[data-book]').attr('data-book')
-      this.wordList = HSK.listBookLessonDialog(book, lesson, dialog)
-      $target
         .toggleClass('collapsed')
         .next('ul')
         .toggleClass('collapsed')

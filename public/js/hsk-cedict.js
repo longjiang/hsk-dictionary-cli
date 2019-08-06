@@ -21,7 +21,7 @@ const HSKCEDICT = {
         return groups
       }, {})
     }
-    var books = this._data.groupBy('book')
+    var books = this._data.filter(row => row.book).groupBy('book')
     for (var book in books) {
       books[book] = books[book].groupBy('lesson')
       for (var lesson in books[book]) {
