@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Helper from '@/lib/helper'
 
 /* Responsible for actually annotating elements */
 export default {
@@ -14,11 +15,11 @@ export default {
     // worker ready
     this.worker = new Worker('./workers/hskcedict-annotator-worker.js')
     this.worker.addEventListener('message', e => {
-      if (e.data[0] === 'load' && e.data[1] === 'ready') {
-        this.worker.postMessage(['hskcedictMethods'])
+      if (e.data[1] === 'load' && e.data[2] === 'ready') {
+        this.worker.postMessage([1, 'hskcedictMethods'])
       }
-      if (e.data[0] === 'hskcedictMethods') {
-        this.makeHSKCEDICTAvailable(e.data[1])
+      if (e.data[1] === 'hskcedictMethods') {
+        this.makeHSKCEDICTAvailable(e.data[2])
         callback()
       }
     })
@@ -74,38 +75,30 @@ export default {
   },
 
   annotateText(text, callback) {
-    console.log(text)
-    this.worker.postMessage(['annotate', [text]])
-    this.worker.addEventListener('message', event => {
-      let [method, data] = event.data
-      if (method === 'annotate') {
+    console.log(text, 'annotateText')
+    let id = Helper.uniqueId()
+    this.worker.postMessage([id, 'annotate', [text]])
+    let m = event => {
+      let [returnId, method, data] = event.data
+      if (method === 'annotate' && returnId == id) {
+        this.worker.removeEventListener('message', m)
         callback(data)
       }
-    })
+    }
+    this.worker.addEventListener('message', m)
   },
 
   annotate(node) {
+    console.log(node, 'anno')
     let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
-      this.annotateText(data => {
+      this.annotateText(node.nodeValue, data => {
         var html = ''
         data.map(textOrCandidates => {
           html += annotator.wordBlockTemplate(textOrCandidates)
         })
         annotator.replaceNodeWithHTML(node, html)
-      }, node.nodeValue)
-
-      this.worker.postMessage(['annotate', [node.nodeValue]])
-      this.worker.addEventListener('message', event => {
-        let [method, data] = event.data
-        if (method === 'annotate') {
-          var html = ''
-          data.map(textOrCandidates => {
-            html += annotator.wordBlockTemplate(textOrCandidates)
-          })
-          annotator.replaceNodeWithHTML(node, html)
-        }
       })
     }
   },

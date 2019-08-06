@@ -3,16 +3,17 @@ importScripts('../js/hsk-cedict.js')
 importScripts('../js/annotator-service.js')
 
 HSKCEDICT.load(() => {
-  this.postMessage(['load', 'ready'])
+  this.postMessage([1, 'load', 'ready'])
   onmessage = function(e) {
-    const method = e.data[0]
-    const args = e.data[1]
+    const id = e.data[0]
+    const method = e.data[1]
+    const args = e.data[2]
     if (AnnotatorService[method]) {
-      this.postMessage([method, AnnotatorService[method](...args)])
+      this.postMessage([id, method, AnnotatorService[method](...args)])
     } else if (HSKCEDICT[method]) {
-      this.postMessage([method, HSKCEDICT[method](...args)])
+      this.postMessage([id, method, HSKCEDICT[method](...args)])
     } else if (method === 'hskcedictMethods') {
-      this.postMessage(['hskcedictMethods', Object.keys(HSKCEDICT)])
+      this.postMessage([id, 'hskcedictMethods', Object.keys(HSKCEDICT)])
     }
   }
 })

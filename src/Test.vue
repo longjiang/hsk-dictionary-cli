@@ -71,7 +71,8 @@ export default {
     }
   },
   mounted() {
-    this.testMerge()
+    // this.testMerge()
+    this.testWorker()
   }
 }
 </script>
