@@ -104,22 +104,20 @@ export default {
             }
             if (node.info) {
               // eslint-disable-next-line no-undef
-              Annotator.annotateText(node.info.name, node => {
-                return data => {
-                  let radicalNamePinyin = data
-                    .map(function(candidates) {
-                      return candidates[0].pinyin
-                    })
-                    .join(' ')
-                  if (radicalNamePinyin) {
-                    $(`.part-pinyin.${node.info.name}`).text(radicalNamePinyin)
-                  }
+              Annotator.annotateText(node.info.name, data => {
+                let radicalNamePinyin = data
+                  .map(function(candidates) {
+                    return candidates[0].pinyin
+                  })
+                  .join(' ')
+                if (radicalNamePinyin) {
+                  $(`.part-pinyin-${node.character}`).text(radicalNamePinyin)
                 }
               })
             }
             const book = childCharacterHSK ? childCharacterHSK.book : 'outside'
             $template = $(`
-            <div class="part-pinyin ${node.info ? node.info.name : ''}">${
+            <div class="part-pinyin part-pinyin-${node.character}">${
               childCharacter.pinyin
             }</div>
             <div class="part-character"><a ${href} data-hsk="${book}">${
