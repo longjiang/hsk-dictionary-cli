@@ -95,7 +95,19 @@ export default {
   },
   data() {
     return {
-      savedWords: this.$store.getters.savedWords()
+      savedWordIds: this.$store.state.savedWords,
+      savedWords: []
+    }
+  },
+  mounted() {
+    for (let item of this.savedWordIds) {
+      let identifier = item.join(',').replace(/ /g, '_')
+      HSKCEDICT.getByIdentifier(
+        entry => {
+          this.savedWords.push(entry)
+        },
+        [identifier]
+      )
     }
   },
   methods: {

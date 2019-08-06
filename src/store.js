@@ -79,14 +79,6 @@ export default new Vuex.Store({
     },
     savedWordCount: state => () => {
       return state.savedWords.length
-    },
-    savedWords: state => () => {
-      return state.savedWords.map(item => {
-        if (!item[2]) item[2] = 0
-        return Normalizer.normalize(
-          CEDICT.get(item.join(',').replace(/ /g, '_'))
-        )
-      })
     }
   }
 })
