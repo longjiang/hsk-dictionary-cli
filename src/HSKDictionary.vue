@@ -79,6 +79,13 @@
         </div>
       </div>
     </div>
+    <div class="container mt-4 mb-4">
+      <div class="row">
+        <div class="col-md-6">
+          <Loader class="center-block" />
+        </div>
+      </div>
+    </div>
 
     <keep-alive>
       <router-view ref="routerView" />
@@ -176,13 +183,15 @@ export default {
       return count < 100 ? count : '多'
     }
   },
+  beforeMount() {
+    window.annotatorLoads = Annotator.load()
+    window.hanziLoads = Hanzi.load()
+    window.grammarLoads = Grammar.load()
+  },
   mounted() {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')
     window.entry = undefined
     window.hskDictionaryApp = this
-    window.annotatorLoads = Annotator.load()
-    window.hanziLoads = Hanzi.load()
-    window.grammarLoads = Grammar.load()
   }
 }
 </script>

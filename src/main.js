@@ -10,10 +10,6 @@ import HSKDictionary from './HSKDictionary.vue'
 import Test from './Test.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
-import Annotator from '@/lib/annotator'
-import Grammar from '@/lib/grammar'
-import Hanzi from '@/lib/hanzi'
-import Helper from '@/lib/helper'
 import Star from '@/components/Star'
 import Speak from '@/components/Speak'
 import PinyinButton from '@/components/PinyinButton'
@@ -21,6 +17,7 @@ import WordList from '@/components/WordList'
 import ShowMoreButton from '@/components/ShowMoreButton'
 import StrokeOrder from '@/components/StrokeOrder.vue'
 import Merge from '@/components/Merge.vue'
+import Loader from '@/components/Loader.vue'
 import store from './store'
 import $ from 'jquery'
 import VueWorker from 'vue-worker'
@@ -42,6 +39,7 @@ if (location.hash === '#/test') {
   Vue.component('StrokeOrder', StrokeOrder)
   Vue.component('Merge', Merge)
   Vue.component('WordList', WordList)
+  Vue.component('Loader', Loader)
 
   window.hskDictionaryApp = new Vue({
     router,

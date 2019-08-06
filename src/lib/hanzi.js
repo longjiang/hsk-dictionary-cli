@@ -508,7 +508,10 @@ export default {
   },
 
   lookup: function(char) {
-    return new Character(this.lookupShallow(char))
+    let row = this.lookupShallow(char)
+    if (row) {
+      return new Character(row)
+    }
   },
 
   lookupShallow: function(char) {
