@@ -44,6 +44,34 @@ const HSKCEDICT = {
     }
     return books
   },
+  isChinese(text) {
+    return text.match(
+      // eslint-disable-next-line no-irregular-whitespace
+      /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
+    )
+  },
+  lookupFuzzy(text, limit = false) {
+    let results = []
+    if (this.isChinese(text)) {
+      results = this._data.filter(
+        row => row.simplified.includes(text) || row.traditional.includes(text)
+      )
+    } else {
+      text = text.toLowerCase().replace(/ /g, '')
+      results = this._data.filter(row => {
+        return row.search.includes(text)
+      })
+    }
+    if (results) {
+      results = results.sort(
+        (a, b) => a.simplified.length - b.simplified.length
+      )
+      if (limit) {
+        results = results.slice(0, limit)
+      }
+      return results
+    }
+  },
   randomArrayItem(array, start = 0, length = false) {
     length = length || array.length
     array = array.slice(start, length)

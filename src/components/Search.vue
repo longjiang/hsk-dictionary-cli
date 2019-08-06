@@ -115,8 +115,11 @@ export default {
       this.active = false
     },
     text() {
-      this.suggestions = CEDICT.lookupFuzzy(this.text, 5).map(item =>
-        Normalizer.normalize(item)
+      HSKCEDICT.lookupFuzzy(
+        rows => {
+          this.suggestions = rows
+        },
+        [this.text, 5]
       )
     }
   },
