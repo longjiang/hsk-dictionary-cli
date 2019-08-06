@@ -35,55 +35,44 @@ export default {
       )
     }
   },
-  augmentAnnotatedBlocks(selectorOrNode) {
-    const annotator = new Annotator()
-    let nodes = []
-    if (typeof selectorOrNode === 'object') {
-      nodes = [selectorOrNode]
-    } else {
-      nodes = $(selectorOrNode).get()
-    }
-    for (let node of nodes) {
-      const wordBlocks = $(node)
-        .find('.word-block[data-candidates]')
-        .get()
-      for (let block of wordBlocks) {
-        let data = $(block).attr('data-candidates')
-        if (data) {
-          let candidates = JSON.parse(unescape(data))
-          if (candidates) {
-            for (let candidate of candidates) {
-              const saved = Helper.saved(candidate)
-              candidate = Normalizer.normalize(candidate)
-              if (saved) $(block).addClass('saved')
-            }
-            // Sort the candidates by HSK
-            candidates = candidates.sort((a, b) => {
-              let abook = a.book === 'outside' ? 7 : a.book
-              let bbook = b.book === 'outside' ? 7 : b.book
-              return abook - bbook
-            })
-            // Set the best candidate
-            block.outerHTML = annotator.wordBlockTemplate(candidates)
+  augmentAnnotatedBlock(node) {
+    const wordBlocks = $(node)
+      .find('.word-block[data-candidates]')
+      .get()
+    for (let block of wordBlocks) {
+      let data = $(block).attr('data-candidates')
+      if (data) {
+        let candidates = JSON.parse(unescape(data))
+        if (candidates) {
+          for (let candidate of candidates) {
+            const saved = Helper.saved(candidate)
+            candidate = Normalizer.normalize(candidate)
+            if (saved) $(block).addClass('saved')
           }
+          // Sort the candidates by HSK
+          candidates = candidates.sort((a, b) => {
+            let abook = a.book === 'outside' ? 7 : a.book
+            let bbook = b.book === 'outside' ? 7 : b.book
+            return abook - bbook
+          })
+          // Set the best candidate
+          block.outerHTML = Annotator.wordBlockTemplate(candidates)
         }
       }
-      $(node)
-        .find('.word-block[data-candidates]')
-        .click(function() {
-          const candidates = JSON.parse(
-            unescape($(this).attr('data-candidates'))
-          )
-          if (candidates && candidates.length > 0) {
-            if ($(this).hasClass('saved')) {
-              Helper.removeSaved(candidates[0])
-            } else {
-              Helper.addSaved(candidates[0])
-            }
-          }
-        })
-      Helper.addToolTips(node)
     }
+    $(node)
+      .find('.word-block[data-candidates]')
+      .click(function() {
+        const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
+        if (candidates && candidates.length > 0) {
+          if ($(this).hasClass('saved')) {
+            Helper.removeSaved(candidates[0])
+          } else {
+            Helper.addSaved(candidates[0])
+          }
+        }
+      })
+    Helper.addToolTips(node)
   },
   saved(candidate) {
     return window.hskDictionaryApp.$store.getters.hasSavedWord(

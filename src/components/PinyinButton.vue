@@ -71,13 +71,13 @@ export default {
         this.state = 'annotating'
         // eslint-disable-next-line no-undef
         for (let node of this.$target.get()) {
-          Annotator.annotateIteratively(node, () => {
+          Annotator.annotateIteratively(node, node => {
             this.state = 'idle'
             if (this.sticky === 'false') {
               this.annotated = true
               this.shown = true
             }
-            Helper.augmentAnnotatedBlocks(this.$target.get())
+            Helper.augmentAnnotatedBlock(node)
           })
         }
       }

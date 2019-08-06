@@ -76,7 +76,6 @@ export default {
   },
 
   annotateText(text, callback) {
-    console.log(text, 'annotateText')
     let id = Helper.uniqueId()
     this.worker.postMessage([id, 'annotate', [text]])
     let m = event => {
@@ -89,8 +88,7 @@ export default {
     this.worker.addEventListener('message', m)
   },
 
-  annotate(node) {
-    console.log(node, 'anno')
+  annotate(node, callback = function() {}) {
     let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
@@ -99,7 +97,9 @@ export default {
         data.map(textOrCandidates => {
           html += annotator.wordBlockTemplate(textOrCandidates)
         })
+        let parent = node.parentElement
         annotator.replaceNodeWithHTML(node, html)
+        callback(parent)
       })
     }
   },
@@ -107,17 +107,16 @@ export default {
   annotateIteratively(node, callback = function() {}) {
     if (node.nodeType === 3) {
       // textNode
-      this.annotate(node)
+      this.annotate(node, callback)
     } else {
       let nodes = []
       for (let n of node.childNodes) {
         nodes.push(n)
       }
       for (let n of nodes) {
-        this.annotateIteratively(n)
+        this.annotateIteratively(n, callback)
       }
     }
-    callback()
   },
 
   annotateBySelector(selector, callback) {
