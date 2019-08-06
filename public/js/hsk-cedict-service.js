@@ -84,7 +84,6 @@ const HSKCEDICT = {
     return this._data.filter(row => row.simplified.includes(char))
   },
   lookupByDefinition(definition) {
-    console.log(definition)
     return this._data.filter(row => row.search.split('/').includes(definition))
   },
   lookupPinyinFuzzy(pinyin) {
