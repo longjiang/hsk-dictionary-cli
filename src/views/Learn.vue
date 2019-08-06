@@ -5,6 +5,13 @@
         <h4 class="page-title mb-4" v-if="method === 'saved'">
           Learn the words you saved
         </h4>
+        <p
+          v-if="method === 'saved' && savedWordIds.length === 0"
+          class="alert alert-warning no-saved-words"
+        >
+          You don't have any words saved yet. Save words by clicking on the
+          <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
+        </p>
         <h4 class="page-title mb-4" v-if="method === 'hsk'">
           <b :data-hsk="args[0]">HSK {{ args[0] }}</b>
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
@@ -25,6 +32,7 @@
 <script>
 import WordList from '@/components/WordList.vue'
 import Questions from '@/components/Questions.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -35,7 +43,6 @@ export default {
     return {
       started: false,
       words: [],
-      wordIds: [],
       method: false,
       args: [],
       questionTypes: [
@@ -46,25 +53,41 @@ export default {
       ]
     }
   },
+  watch: {
+    $route() {
+      if (this.$route.name === 'learn') {
+        this.route()
+      }
+    },
+    savedWordIds() {
+      this.updateWords()
+    }
+  },
+  beforeMount() {
+    this.route()
+  },
+  computed: mapState({
+    savedWordIds: state => state.savedWords
+  }),
   methods: {
-    beforeMount() {
-      this.route()
+    updateWords() {
+      this.words = []
+      for (let item of this.savedWordIds) {
+        let identifier = item.join(',').replace(/ /g, '_')
+        HSKCEDICT.getByIdentifier(
+          entry => {
+            this.words.push(entry)
+          },
+          [identifier]
+        )
+      }
     },
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {
-          this.wordIds = this.$store.state.savedWords
-          for (let item of this.wordIds) {
-            let identifier = item.join(',').replace(/ /g, '_')
-            HSKCEDICT.getByIdentifier(
-              entry => {
-                this.words.push(entry)
-              },
-              [identifier]
-            )
-          }
+          this.updateWords()
           return
         } else if (this.method == 'hsk' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')
@@ -81,16 +104,6 @@ export default {
         location.hash = '/learn/saved'
       }
     }
-  },
-  watch: {
-    $route() {
-      if (this.$route.name === 'learn') {
-        this.route()
-      }
-    }
-  },
-  mounted() {
-    this.route()
   }
 }
 </script>
