@@ -1,3 +1,5 @@
+import Papa from 'papaparse'
+
 export default {
   _cedictData: [],
   _hskData: [],

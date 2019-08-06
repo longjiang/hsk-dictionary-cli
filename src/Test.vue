@@ -53,6 +53,7 @@ import Annotator from '@/lib/annotator'
 import Grammar from '@/lib/grammar'
 import Hanzi from '@/lib/hanzi'
 import Merge from '@/lib/merge-hsk-cedict'
+import Papa from 'papaparse'
 import $ from 'jquery'
 
 export default {
@@ -80,7 +81,7 @@ export default {
   },
   mounted() {
     // this.testMerge()
-    this.testWorker()
+    this.testMerge()
   }
 }
 </script>
