@@ -27,6 +27,7 @@ export default {
     window.HSKCEDICT = {}
     for (let method of methods) {
       window.HSKCEDICT[method] = (callback, args = undefined) => {
+        console.log(method, callback, args, 'makeavail')
         let m1 = e => {
           if (e.data[0] === method) {
             callback(e.data[1])
@@ -37,7 +38,7 @@ export default {
           this.worker.postMessage([method, args])
           this.worker.addEventListener('message', m1)
         } else {
-          this.worker.postMessage([method])
+          this.worker.postMessage([method, []])
           this.worker.addEventListener('message', m1)
         }
       }

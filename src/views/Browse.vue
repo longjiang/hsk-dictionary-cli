@@ -89,18 +89,19 @@
 
 <script>
 import $ from 'jquery'
-import HSK from '@/lib/hsk'
+import Annotator from '@/lib/annotator'
 
 export default {
   data() {
     return {
-      books: HSK.compileBooks(),
+      books: undefined,
       browseKey: 0, // used to force re-render this component
       savedWordsKey: 0
     }
   },
   mounted() {
     // mounted
+    HSKCEDICT.compileBooks(books => console.log(books))
   },
   methods: {
     saveAllClick: function(e) {

@@ -11,6 +11,25 @@ const HSKCEDICT = {
       }
     })
   },
+  compileBooks() {
+    // https://www.consolelog.io/group-by-in-javascript/
+    Array.prototype.groupBy = function(prop) {
+      return this.reduce(function(groups, item) {
+        const val = item[prop]
+        groups[val] = groups[val] || []
+        groups[val].push(item)
+        return groups
+      }, {})
+    }
+    var books = this._data.groupBy('book')
+    for (var book in books) {
+      books[book] = books[book].groupBy('lesson')
+      for (var lesson in books[book]) {
+        books[book][lesson] = books[book][lesson].groupBy('dialog')
+      }
+    }
+    return books
+  },
   lookupSimplified(simplified, pinyin = false) {
     const candidates = this._data
       .filter(row => {
