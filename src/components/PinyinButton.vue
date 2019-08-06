@@ -77,7 +77,7 @@ export default {
               this.annotated = true
               this.shown = true
             }
-            Helper.augmentAnnotatedBlock(node)
+            Helper.augmentAnnotatedBlocks(node)
           })
         }
       }

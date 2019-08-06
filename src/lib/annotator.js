@@ -122,8 +122,7 @@ export default {
   annotateBySelector(selector, callback) {
     const annotator = this
     $(selector).each(function() {
-      annotator.annotateIteratively(this)
+      annotator.annotateIteratively(this, callback)
     })
-    callback()
   }
 }

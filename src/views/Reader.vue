@@ -169,9 +169,9 @@ export default {
     show() {
       $('#reader-annotated').html(this.text)
       // eslint-disable-next-line no-undef
-      new Annotator(CEDICT).annotateBySelector('#reader-annotated', () => {
+      Annotator.annotateBySelector('#reader-annotated', node => {
         this.annotated = true
-        Helper.augmentAnnotatedBlocks('#reader-annotated')
+        Helper.augmentAnnotatedBlocks(node)
         this.$store.dispatch('updateSavedWordsDisplay')
       })
     },

@@ -35,7 +35,7 @@ export default {
       )
     }
   },
-  augmentAnnotatedBlock(node) {
+  augmentAnnotatedBlocks(node) {
     const wordBlocks = $(node)
       .find('.word-block[data-candidates]')
       .get()
