@@ -1,11 +1,14 @@
 <template>
   <div
     id="loader"
+    class="text-center"
     v-if="
       !LoadedAnnotator || !LoadedHSKCEDICT || !loadedGrammar || !LoadedHanzi
     "
   >
     <div class="heartbeat-loader mb-4"></div>
+    <div>Loading</div>
+    <!--
     <div v-if="LoadedAnnotator">
       <i class="glyphicon glyphicon-check"></i> Annotator Loaded
     </div>
@@ -32,6 +35,7 @@
       <i class="glyphicon glyphicon-unchecked"></i> "Make Me a Hanzi" library
       Loading...
     </div>
+    -->
   </div>
 </template>
 

@@ -107,6 +107,7 @@ import EntryWebImages from '@/components/EntryWebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
+import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
@@ -135,21 +136,31 @@ export default {
       let method = this.$route.params.method
       let args = this.$route.params.args.split(',')
       if (method && args) {
-        let a = undefined
-        let b = undefined
         if (method === 'cedict') {
-          HSKCEDICT.getByIdentifier(entry => (this.a = entry), [
-            [args[0], args[1], args[2]].join(',')
-          ])
-          HSKCEDICT.getByIdentifier(entry => (this.b = entry), [
-            [args[3], args[4], args[5]].join(',')
-          ])
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByIdentifier(entry => (this.a = entry), [
+                [args[0], args[1], args[2]].join(',')
+              ])
+              LoadedHSKCEDICT.getByIdentifier(entry => (this.b = entry), [
+                [args[3], args[4], args[5]].join(',')
+              ])
+            }
+          )
         } else if (method === 'hsk') {
-          HSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
-          HSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
+            }
+          )
         } else if (method === 'simplified') {
-          HSKCEDICT.lookupSimplified(words => (this.a = words[0]), [[args[0]]])
-          HSKCEDICT.lookupSimplified(words => (this.b = words[0]), [[args[1]]])
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
+            }
+          )
         }
       }
     }

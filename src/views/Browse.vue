@@ -7,6 +7,7 @@
         <hr />
       </div>
       <div class="col-sm-12">
+        <Loader class="mt-5" />
         <ul class="books mt1">
           <li
             class="book"
