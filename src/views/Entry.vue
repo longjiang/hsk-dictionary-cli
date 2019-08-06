@@ -38,7 +38,8 @@
 
     <EntryCollocations v-if="entry" :entry="entry"></EntryCollocations>
 
-    <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance>
+    <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
+    <!-- <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance> -->
 
     <EntryMistakes v-if="entry" :entry="entry"></EntryMistakes>
 
