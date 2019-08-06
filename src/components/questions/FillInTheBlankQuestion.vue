@@ -1,5 +1,5 @@
 <template>
-  <div class="question" :id="id">
+  <div class="question" v-if="word" :id="id">
     <div class="question-fill-in-the-blank">
       <div class="question-slide-aspect">
         <div class="question-slide" :id="`${id}-slide-1`">
@@ -62,7 +62,9 @@ export default {
     }
   },
   beforeMount() {
-    this.split = this.randomChar(this.word.simplified)
+    if (this.word) {
+      this.split = this.randomChar(this.word.simplified)
+    }
   },
   methods: {
     fillInTheBlankHTML() {

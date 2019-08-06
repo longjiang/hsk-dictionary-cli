@@ -1,5 +1,5 @@
 <template>
-  <div class="question-decomposition" :id="id">
+  <div class="question-decomposition" v-if="word" :id="id">
     <div
       class="question-slide-aspect"
       v-for="rc in [randomChar(word.simplified)]"

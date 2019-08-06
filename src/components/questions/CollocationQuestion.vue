@@ -1,5 +1,5 @@
 <template>
-  <div class="question-collocation" :id="id">
+  <div class="question-collocation" v-if="word" :id="id">
     <div class="question-slide-aspect">
       <div class="question-slide" :id="`${id}-slide-1`">
         <div class="container text-center mt-4">
@@ -81,21 +81,23 @@ export default {
     }
   },
   beforeMount() {
-    SketchEngine.wsketch(this.word.simplified, response => {
-      this.loading = false
-      if (response.Gramrels && response.Gramrels.length > 0) {
-        this.word.sketch = response
-        this.word.sketch.Gramrels = this.word.sketch.Gramrels.sort(
-          (a, b) => b.count - a.count
-        )
-        for (let gramrel of this.word.sketch.Gramrels) {
-          gramrel.Words.sort((a, b) => a.cm.length - b.cm.length)
+    if (this.word) {
+      SketchEngine.wsketch(this.word.simplified, response => {
+        this.loading = false
+        if (response.Gramrels && response.Gramrels.length > 0) {
+          this.word.sketch = response
+          this.word.sketch.Gramrels = this.word.sketch.Gramrels.sort(
+            (a, b) => b.count - a.count
+          )
+          for (let gramrel of this.word.sketch.Gramrels) {
+            gramrel.Words.sort((a, b) => a.cm.length - b.cm.length)
+          }
+          this.choosePhrase()
+        } else {
+          this.error = true
         }
-        this.choosePhrase()
-      } else {
-        this.error = true
-      }
-    })
+      })
+    }
   },
   methods: {
     choosePhrase() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="question-make-sentence" v-if="word.example" :id="id">
+  <div class="question-make-sentence" v-if="word && word.example" :id="id">
     <div class="question-slide-aspect">
       <div class="question-slide" :id="`${id}-slide-1`">
         <div class="question-prompt mb-4">
