@@ -91,15 +91,24 @@ export default {
             $template = $(`<div class="part-pinyin">(other elements)</div>`)
           } else {
             const childCharacter = Hanzi.lookupShallow(node.character)
-            HSKCEDICT.lookupSimplified(
-              words => {
-                if (words.length > 0) {
-                  $(`.part-character-${node.character} a`)
-                    .attr('href', '#/view/cedict/' + words[0].identifier)
-                    .attr('data-hsk', words[0].hsk)
-                }
-              },
-              [node.character]
+            Helper.loaded(
+              (
+                LoadedAnnotator,
+                LoadedHSKCEDICT,
+                loadedGrammar,
+                LoadedHanzi
+              ) => {
+                LoadedHSKCEDICT.lookupSimplified(
+                  words => {
+                    if (words.length > 0) {
+                      $(`.part-character-${node.character} a`)
+                        .attr('href', '#/view/cedict/' + words[0].identifier)
+                        .attr('data-hsk', words[0].hsk)
+                    }
+                  },
+                  [node.character]
+                )
+              }
             )
             let href = ''
             if (node.info) {

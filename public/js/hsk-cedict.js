@@ -1,14 +1,16 @@
 const HSKCEDICT = {
   _csv: '../data/hsk_cedict.csv.txt',
   _data: [],
-  load(callback) {
-    Papa.parse(this._csv, {
-      download: true,
-      header: true,
-      complete: results => {
-        this._data = results.data.map(row => this.augment(row))
-        callback()
-      }
+  load() {
+    return new Promise(resolve => {
+      Papa.parse(this._csv, {
+        download: true,
+        header: true,
+        complete: results => {
+          this._data = results.data.map(row => this.augment(row))
+          resolve()
+        }
+      })
     })
   },
   getByHSKId(hskId) {

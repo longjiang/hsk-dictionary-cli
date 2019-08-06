@@ -87,7 +87,6 @@
 
 <script>
 import $ from 'jquery'
-import Annotator from '@/lib/annotator'
 
 export default {
   data() {
@@ -98,8 +97,13 @@ export default {
     }
   },
   mounted() {
-    // mounted
-    HSKCEDICT.compileBooks(books => (this.books = books))
+    let that = this
+    const f = async () => {
+      let a = await window.annotatorLoads
+      let LoadedHSKCEDICT = a[1]
+      LoadedHSKCEDICT.compileBooks(books => (that.books = books))
+    }
+    f()
   },
   methods: {
     saveAllClick: function(e) {

@@ -14,27 +14,31 @@ export default {
     exampleTranslation: 'Example Translation'
   },
 
-  load(callback) {
-    var grammar = this
-    Papa.parse(grammar._grammarCSV, {
-      download: true,
-      header: true,
-      complete(results) {
-        results.data.forEach(function(row) {
-          var result = {}
-          for (var index in grammar._grammarCSVFields) {
-            result[index] = row[grammar._grammarCSVFields[index]]
+  load() {
+    return new Promise(resolve => {
+      var grammar = this
+      Papa.parse(grammar._grammarCSV, {
+        download: true,
+        header: true,
+        complete: results => {
+          for (let row of results.data) {
+            var result = {}
+            for (var index in grammar._grammarCSVFields) {
+              result[index] = row[grammar._grammarCSVFields[index]]
+            }
+            result.book = parseInt(result.code.replace(/^(\d).*/, '$1'))
+            result.lesson = parseInt(
+              result.code.replace(/^(\d)\.(\d+).*/, '$2')
+            )
+            result.number = parseInt(
+              result.code.replace(/^(\d)\.(\d+)\.(\d+).*/, '$3')
+            )
+            grammar._grammarData.push(result)
           }
-          result.book = parseInt(result.code.replace(/^(\d).*/, '$1'))
-          result.lesson = parseInt(result.code.replace(/^(\d)\.(\d+).*/, '$2'))
-          result.number = parseInt(
-            result.code.replace(/^(\d)\.(\d+)\.(\d+).*/, '$3')
-          )
-          grammar._grammarData.push(result)
-        })
-        Helper.loaderMessage('Grammar library ready.')
-        callback(grammar)
-      }
+          Helper.loaderMessage('Grammar library ready.')
+          resolve(this)
+        }
+      })
     })
   },
 

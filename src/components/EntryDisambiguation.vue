@@ -20,6 +20,7 @@
 
 <script>
 import WordList from '@/components/WordList.vue'
+import Helper from '@/lib/helper'
 
 export default {
   components: {
@@ -41,15 +42,19 @@ export default {
   },
   methods: {
     getOtherPronunciations() {
-      return HSKCEDICT.lookupSimplified(
-        words => {
-          for (let word of words) {
-            if (word.identifier !== this.entry.identifier) {
-              this.similarWords.push(word)
-            }
-          }
-        },
-        [this.entry.simplified]
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          LoadedHSKCEDICT.lookupSimplified(
+            words => {
+              for (let word of words) {
+                if (word.identifier !== this.entry.identifier) {
+                  this.similarWords.push(word)
+                }
+              }
+            },
+            [this.entry.simplified]
+          )
+        }
       )
     },
     getReverse() {
@@ -57,25 +62,34 @@ export default {
         .split('')
         .reverse()
         .join('')
-      return HSKCEDICT.lookupSimplified(
-        words => {
-          for (let word of words) {
-            this.words.push(word)
-          }
-        },
-        [reverse]
+
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          LoadedHSKCEDICT.lookupSimplified(
+            words => {
+              for (let word of words) {
+                this.words.push(word)
+              }
+            },
+            [reverse]
+          )
+        }
       )
     },
     getHomonyms() {
-      return HSKCEDICT.lookupPinyinFuzzy(
-        words => {
-          for (let word of words) {
-            if (word.identifier !== this.entry.identifier) {
-              this.words.push(word)
-            }
-          }
-        },
-        [this.entry.pinyin]
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          LoadedHSKCEDICT.lookupPinyinFuzzy(
+            words => {
+              for (let word of words) {
+                if (word.identifier !== this.entry.identifier) {
+                  this.words.push(word)
+                }
+              }
+            },
+            [this.entry.pinyin]
+          )
+        }
       )
     }
   }

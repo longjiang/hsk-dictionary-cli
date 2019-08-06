@@ -81,6 +81,7 @@
 <script>
 import $ from 'jquery'
 import { setTimeout } from 'timers'
+import Helper from '@/lib/helper'
 
 export default {
   props: {
@@ -113,11 +114,15 @@ export default {
       this.active = false
     },
     text() {
-      HSKCEDICT.lookupFuzzy(
-        rows => {
-          this.suggestions = rows
-        },
-        [this.text, 20]
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          LoadedHSKCEDICT.lookupFuzzy(
+            rows => {
+              this.suggestions = rows
+            },
+            [this.text, 20]
+          )
+        }
       )
     }
   },

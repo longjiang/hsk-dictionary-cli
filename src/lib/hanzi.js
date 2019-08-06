@@ -498,11 +498,12 @@ export default {
   },
   _makeMeAHanziDictionaryTxt: 'data/hanzi.json',
 
-  load: function(callback) {
-    var hanzi = this
-    $.getJSON(hanzi._makeMeAHanziDictionaryTxt).done(function(data) {
-      hanzi._hanziData = data
-      callback(hanzi)
+  load: function() {
+    return new Promise(resolve => {
+      $.getJSON(this._makeMeAHanziDictionaryTxt).done(data => {
+        this._hanziData = data
+        resolve(this)
+      })
     })
   },
 

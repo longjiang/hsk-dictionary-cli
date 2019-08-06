@@ -50,16 +50,24 @@
 
 <script>
 import Annotator from '@/lib/annotator'
+import Grammar from '@/lib/grammar'
+import Hanzi from '@/lib/hanzi'
 import Merge from '@/lib/merge-hsk-cedict'
 import $ from 'jquery'
 
 export default {
   methods: {
     testWorker() {
-      Annotator.load(() => {
+      async function f() {
         // HSKCEDICT now available
-        Annotator.annotateIteratively($('#annotate-me')[0])
-      })
+        let LoadedAnnotator = await Annotator.load()
+        let LoadedHanzi = await Hanzi.load()
+        let LoadedGrammar = await Grammar.load()
+        LoadedAnnotator.annotateIteratively($('#annotate-me')[0])
+        console.log(LoadedHanzi.lookup('笨'))
+        console.log(LoadedGrammar.get(123))
+      }
+      f()
     },
     testMerge() {
       Merge.loadHSK(() => {

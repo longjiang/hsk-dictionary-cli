@@ -45,8 +45,6 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
-import Hanzi from '@/lib/hanzi'
-import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -92,12 +90,22 @@ export default {
         const method = this.$route.params.method
         const arg = this.$route.params.arg
         if (method === 'hsk') {
-          HSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
+          const f = async () => {
+            let a = await window.annotatorLoads
+            let LoadedHSKCEDICT = a[1]
+            LoadedHSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
+          }
+          f()
         } else if (method === 'cedict') {
           if (arg === 'random') {
             this.random()
           }
-          HSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
+          const f = async () => {
+            let a = await window.annotatorLoads
+            let LoadedHSKCEDICT = a[1]
+            LoadedHSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
+          }
+          f()
         } else {
           this.random()
         }
@@ -106,9 +114,11 @@ export default {
       }
     },
     random() {
-      HSKCEDICT.random(
-        entry => (location.hash = `/view/cedict/${entry.identifier}`)
-      )
+      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
+        LoadedHSKCEDICT.random(
+          entry => (location.hash = `/view/cedict/${entry.identifier}`)
+        )
+      })
     }
   },
   watch: {

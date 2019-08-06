@@ -11,23 +11,25 @@ export default {
     addUrl:
       '//cc-cedict.org/editor/editor.php?return=&popup=0&handler=InsertQueueEntry&insertqueueentry_diff=%2B+' // &#43; is the plus sign
   },
-  load(callback) {
-    // worker ready
-    this.worker = new Worker('./workers/hskcedict-annotator-worker.js')
-    this.worker.addEventListener('message', e => {
-      if (e.data[1] === 'load' && e.data[2] === 'ready') {
-        this.worker.postMessage([1, 'hskcedictMethods'])
-      }
-      if (e.data[1] === 'hskcedictMethods') {
-        this.makeHSKCEDICTAvailable(e.data[2])
-        callback()
-      }
+  load() {
+    return new Promise(resolve => {
+      // worker ready
+      this.worker = new Worker('./workers/hskcedict-annotator-worker.js')
+      this.worker.addEventListener('message', e => {
+        if (e.data[1] === 'load' && e.data[2] === 'ready') {
+          this.worker.postMessage([1, 'hskcedictMethods'])
+        }
+        if (e.data[1] === 'hskcedictMethods') {
+          let HSKCEDICT = this.makeHSKCEDICTAvailable(e.data[2])
+          resolve([this, HSKCEDICT])
+        }
+      })
     })
   },
   makeHSKCEDICTAvailable(methods) {
-    window.HSKCEDICT = {}
+    let HSKCEDICT = {}
     for (let method of methods) {
-      window.HSKCEDICT[method] = (callback, args = undefined) => {
+      HSKCEDICT[method] = (callback, args = undefined) => {
         let id = Helper.uniqueId()
         let m1 = e => {
           if (e.data[0] === id && e.data[1] === method) {
@@ -44,6 +46,7 @@ export default {
         }
       }
     }
+    return HSKCEDICT
   },
   wordBlockTemplate(textOrCandidates) {
     if (Array.isArray(textOrCandidates)) {

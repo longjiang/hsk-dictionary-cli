@@ -10,7 +10,6 @@ import HSKDictionary from './HSKDictionary.vue'
 import Test from './Test.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
-import Loader from '@/lib/loader'
 import Annotator from '@/lib/annotator'
 import Grammar from '@/lib/grammar'
 import Hanzi from '@/lib/hanzi'
@@ -44,28 +43,9 @@ if (location.hash === '#/test') {
   Vue.component('Merge', Merge)
   Vue.component('WordList', WordList)
 
-  let loader = new Loader(['annotator', 'hanzi', 'grammar'], function() {
-    Helper.loaderMessage('All data loaded.')
-    $('#loader').remove()
-    window.hskDictionaryApp = new Vue({
-      router,
-      store,
-      render: h => h(HSKDictionary)
-    }).$mount('#hsk-dictionary')
-  })
-
-  Annotator.load(function() {
-    window.Annotator = Annotator
-    loader.loaded('annotator')
-  })
-
-  Grammar.load(function() {
-    window.Grammar = Grammar
-    loader.loaded('grammar')
-  })
-
-  Hanzi.load(function() {
-    window.Hanzi = Hanzi
-    loader.loaded('hanzi')
-  })
+  window.hskDictionaryApp = new Vue({
+    router,
+    store,
+    render: h => h(HSKDictionary)
+  }).$mount('#hsk-dictionary')
 }

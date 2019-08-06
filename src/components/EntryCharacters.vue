@@ -2,7 +2,7 @@
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
   <div class="container" v-if="entry.simplified" v-cloak>
-    <div class="row character-example-wrapper mt-4">
+    <div class="row character-example-wrapper mt-4" v-if="characters">
       <!-- ANCHOR img/anchors/character.png -->
       <div
         :class="
@@ -108,6 +108,7 @@
 <script>
 import Decomposition from '@/components/Decomposition.vue'
 import Hanzi from '@/lib/hanzi'
+import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
@@ -117,20 +118,27 @@ export default {
   },
   data() {
     return {
-      characters: Hanzi.getCharactersInWord(this.entry.simplified)
+      characters: []
     }
   },
   mounted() {
-    for (let character of this.characters) {
-      this.lookupByCharacter(character)
-    }
+    Helper.loaded(
+      (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+        this.characters = LoadedHanzi.getCharactersInWord(this.entry.simplified)
+        for (let character of this.characters) {
+          this.lookupByCharacter(character)
+        }
+      }
+    )
   },
   methods: {
     animatedSvgUrl: Hanzi.animatedSvgUrl,
     lookupByCharacter(character) {
-      HSKCEDICT.lookupByCharacter(words => (character.words = words), [
-        character.character
-      ])
+      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
+        LoadedHSKCEDICT.lookupByCharacter(words => (character.words = words), [
+          character.character
+        ])
+      })
     },
     recalculateExampleColumns() {
       if (this.entry.simplified) {

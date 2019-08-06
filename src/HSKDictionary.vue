@@ -84,23 +84,6 @@
       <router-view ref="routerView" />
     </keep-alive>
 
-    <!--
-    <div
-      class="container-fluid text-center pt-4 pb-4"
-      style="background-color: #666"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <button class="show-more" id="add-all-pinyin" @click="addAllPinyin">
-              Add Pinyin to All
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
-
     <!-- ANCHOR img/anchors/footer.png -->
     <footer class="container-fluid" v-cloak>
       <div class="container">
@@ -148,6 +131,9 @@
 import $ from 'jquery'
 import Helper from '@/lib/helper'
 import Search from '@/components/Search.vue'
+import Annotator from '@/lib/annotator'
+import Hanzi from '@/lib/hanzi'
+import Grammar from '@/lib/grammar'
 
 // eslint-disable-next-line no-unused-vars
 
@@ -191,9 +177,12 @@ export default {
     }
   },
   mounted() {
+    Helper.loaderMessage('HSK Dictionary Vue app mounted.')
     window.entry = undefined
     window.hskDictionaryApp = this
-    Helper.loaderMessage('HSK Dictionary Vue app mounted.')
+    window.annotatorLoads = Annotator.load()
+    window.hanziLoads = Hanzi.load()
+    window.grammarLoads = Grammar.load()
   }
 }
 </script>

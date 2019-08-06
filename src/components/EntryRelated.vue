@@ -33,15 +33,17 @@ export default {
       this.words = []
       if (response) {
         for (let Word of response.Words) {
-          HSKCEDICT.lookupSimplified(
-            words => {
-              if (words.length > 0) {
-                let word = words[0]
-                this.words.push(word)
-              }
-            },
-            [Word.word]
-          )
+          Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
+            LoadedHSKCEDICT.lookupSimplified(
+              words => {
+                if (words.length > 0) {
+                  let word = words[0]
+                  this.words.push(word)
+                }
+              },
+              [Word.word]
+            )
+          })
         }
       }
     })
