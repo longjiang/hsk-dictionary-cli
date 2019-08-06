@@ -12,7 +12,7 @@
           <div class="image-wrapper">
             <img
               v-bind:src="
-                Config.imageUrl + entry.id + '-' + entry.simplified + '.jpg'
+                Config.imageUrl + entry.hskId + '-' + entry.simplified + '.jpg'
               "
               class="example-image"
               v-if="hasImage && !admin"

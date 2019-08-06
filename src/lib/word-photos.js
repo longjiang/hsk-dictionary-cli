@@ -5,7 +5,7 @@ import Config from './config'
 export default {
   savePhoto(word, url, callback) {
     $.getJSON(
-      `${Config.savePhoto}?id=${word.id}&word=${
+      `${Config.savePhoto}?id=${word.hskId}&word=${
         word.simplified
       }&url=${encodeURIComponent(url)}`,
       callback

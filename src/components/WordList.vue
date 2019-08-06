@@ -20,7 +20,9 @@
         <a
           v-if="word"
           :href="
-            hsk ? `#/view/hsk/${word.id}` : `#/view/cedict/${word.identifier}`
+            hsk
+              ? `#/view/hsk/${word.hskId}`
+              : `#/view/cedict/${word.identifier}`
           "
         >
           <span

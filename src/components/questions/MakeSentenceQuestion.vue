@@ -25,7 +25,7 @@
       <div class="question-slide answer" :id="`${id}-slide-2`">
         <div>
           <img
-            :src="`${Config.imageUrl}${word.id}-${word.simplified}.jpg`"
+            :src="`${Config.imageUrl}${word.hskId}-${word.simplified}.jpg`"
             class="question-image mb-4"
           />
         </div>
