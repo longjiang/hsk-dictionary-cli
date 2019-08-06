@@ -119,7 +119,7 @@ export default {
         rows => {
           this.suggestions = rows
         },
-        [this.text, 5]
+        [this.text, 20]
       )
     }
   },

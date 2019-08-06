@@ -50,6 +50,9 @@ const HSKCEDICT = {
       /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
     )
   },
+  removeTones(pinyin) {
+    return pinyin.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  },
   lookupFuzzy(text, limit = false) {
     let results = []
     if (this.isChinese(text)) {
@@ -59,7 +62,10 @@ const HSKCEDICT = {
     } else {
       text = text.toLowerCase().replace(/ /g, '')
       results = this._data.filter(row => {
-        return row.search.includes(text)
+        return (
+          this.removeTones(row.pinyin.replace(/ /g, '')).includes(text) ||
+          row.definitions[0].text.includes(text)
+        )
       })
     }
     if (results) {
@@ -101,6 +107,7 @@ const HSKCEDICT = {
   augment(row) {
     let hskCEDICT = this
     let augmented = Object.assign({}, row)
+    augmented.search = augmented.definitions
     augmented.definitions = augmented.definitions.split('/')
     if (augmented && augmented.definitions) {
       augmented.definitions.forEach((definition, index) => {
