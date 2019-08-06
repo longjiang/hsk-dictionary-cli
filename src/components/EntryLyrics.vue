@@ -3,7 +3,7 @@
     <!-- ANCHOR img/anchors/lyrics-bar.png -->
     <div
       class="container-fluid song-lyrics-bar"
-      :data-bg-hsk="entry.book"
+      :data-bg-hsk="entry.hsk"
       v-cloak
       v-if="lrcs && lrcs.length > 0"
     >
@@ -47,11 +47,11 @@
                     }"
                     v-on:click="seekYouTube(lrc, line.starttime)"
                     v-html="
-                      Helper.highlight(line.line, entry.simplified, entry.book)
+                      Helper.highlight(line.line, entry.simplified, entry.hsk)
                     "
                   ></div>
                 </div>
-                <ShowMoreButton :data-bg-hsk="entry.book" class="mt-4" />
+                <ShowMoreButton :data-bg-hsk="entry.hsk" class="mt-4" />
               </div>
               <div class="col-md-6 text-center">
                 <div

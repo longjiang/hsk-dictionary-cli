@@ -36,18 +36,18 @@
               <Speak :text="phrase" class="ml-2"></Speak>
               <div
                 class="text-center big-word"
-                v-html="Helper.highlight(phrase, word.simplified, word.book)"
+                v-html="Helper.highlight(phrase, word.simplified, word.hsk)"
               ></div>
               <div
                 class="example-sentence-word mt-2"
                 v-html="
-                  Helper.highlight(gramrelName, word.simplified, word.book)
+                  Helper.highlight(gramrelName, word.simplified, word.hsk)
                 "
               ></div>
               <button
                 class="show-more mt-3"
                 v-on:click="choosePhrase()"
-                :data-bg-hsk="word.book"
+                :data-bg-hsk="word.hsk"
                 :data-target-selector="`#Gramrels-${type}`"
               >
                 Another Example

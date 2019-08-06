@@ -12,7 +12,7 @@
         <div v-if="words.length > 0">
           <Questions
             :words="words"
-            :book="args[0] ? args[0] : words[0].book"
+            :book="args[0] ? args[0] : words[0].hsk"
           ></Questions>
           <h5 class="mt-4 mb-2">Words to learn:</h5>
           <WordList :words="words" style="column-count: 2"></WordList>

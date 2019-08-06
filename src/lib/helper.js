@@ -51,8 +51,8 @@ export default {
           }
           // Sort the candidates by HSK
           candidates = candidates.sort((a, b) => {
-            let abook = a.book === 'outside' ? 7 : a.book
-            let bbook = b.book === 'outside' ? 7 : b.book
+            let abook = a.hsk === 'outside' ? 7 : a.hsk
+            let bbook = b.hsk === 'outside' ? 7 : b.hsk
             return abook - bbook
           })
           // Set the best candidate
@@ -109,7 +109,7 @@ export default {
         <div class="tooltip-entry">
           <a class="tooltip-entry-character" href="#/view/cedict/${
             candidate.identifier
-          }"><span data-hsk="${candidate.book}">${
+          }"><span data-hsk="${candidate.hsk}">${
           candidate.simplified
         }</span>${traditionalHtml}</a>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>

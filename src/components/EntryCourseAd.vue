@@ -4,7 +4,7 @@
     <div
       class="container-fluid learn-this-bar"
       v-cloak
-      v-if="entry.book !== 'outside'"
+      v-if="entry.hsk !== 'outside'"
     >
       <div class="container">
         <div class="row">
@@ -12,12 +12,12 @@
             <a
               :href="
                 `https://courses.chinesezerotohero.com/p/hsk-${
-                  entry.book
+                  entry.hsk
                 }-course`
               "
             >
               <img
-                :src="`img/courses/hsk${entry.book}.jpg`"
+                :src="`img/courses/hsk${entry.hsk}.jpg`"
                 class="course-cover"
               />
             </a>
@@ -25,13 +25,13 @@
             Learn how to use “{{ entry.simplified }}” in
             <b>
               Lesson {{ entry.lesson }}
-              <span v-if="entry.book < 5">, Text {{ entry.dialog }}</span>
+              <span v-if="entry.hsk < 5">, Text {{ entry.dialog }}</span>
             </b>
             of our
             <a
               href="https://courses.chinesezerotohero.com/"
               class="video-course"
-              >HSK {{ entry.book }} Video Course</a
+              >HSK {{ entry.hsk }} Video Course</a
             >
           </div>
         </div>
@@ -42,7 +42,7 @@
     <div
       class="container-fluid learn-this-bar"
       v-cloak
-      v-if="entry.book === 'outside'"
+      v-if="entry.hsk === 'outside'"
     >
       <div class="container">
         <div class="row">

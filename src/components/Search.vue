@@ -42,7 +42,7 @@
         <span>
           <span
             class="character-example-word mr-1"
-            :data-hsk="suggestion.book"
+            :data-hsk="suggestion.hsk"
             >{{ suggestion.simplified }}</span
           >
           <span class="character-example-pinyin mr-1">{{

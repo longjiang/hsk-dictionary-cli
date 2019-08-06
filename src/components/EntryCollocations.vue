@@ -15,7 +15,7 @@
           v-if="entry.sketch && entry.sketch.Gramrels"
           class="mb-4"
           :word="entry.simplified"
-          :level="entry.book"
+          :level="entry.hsk"
           :title="colDesc[name]"
           :type="name"
           :id="`collocation-${name}`"

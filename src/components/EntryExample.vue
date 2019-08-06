@@ -34,10 +34,10 @@
         <div class="col-lg-6 example-wrapper text-lg-left text-center mt-4">
           <div
             class="label"
-            v-bind:data-bg-hsk="entry.book"
+            v-bind:data-bg-hsk="entry.hsk"
             v-if="entry.oofc == ''"
           >
-            HSK {{ entry.book }}
+            HSK {{ entry.hsk }}
           </div>
           <div class="example-sentence mt-4">
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
@@ -46,7 +46,7 @@
             <p
               class="example-sentence-word"
               v-html="
-                Helper.highlight(entry.example, entry.simplified, entry.book)
+                Helper.highlight(entry.example, entry.simplified, entry.hsk)
               "
             ></p>
             <p class="example-sentence-english">

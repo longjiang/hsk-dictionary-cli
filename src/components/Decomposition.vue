@@ -115,12 +115,12 @@ export default {
                 }
               })
             }
-            const book = childCharacterHSK ? childCharacterHSK.book : 'outside'
+            const hsk = childCharacterHSK ? childCharacterHSK.hsk : 'outside'
             $template = $(`
             <div class="part-pinyin part-pinyin-${node.character}">${
               childCharacter.pinyin
             }</div>
-            <div class="part-character"><a ${href} data-hsk="${book}">${
+            <div class="part-character"><a ${href} data-hsk="${hsk}">${
               childCharacter.character
             }</a></div>`)
           }

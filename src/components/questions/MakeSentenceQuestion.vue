@@ -9,7 +9,7 @@
           <PinyinButton class="mb-1" :selector="`#${id}-slide-1 .big-word`" />
           <Speak :text="word.simplified" class="ml-2"></Speak>
         </div>
-        <div class="text-center big-word" :data-hsk="word.book">
+        <div class="text-center big-word" :data-hsk="word.hsk">
           {{ word.simplified }}
         </div>
         <div class="text-center character-example-english mt-4">
@@ -38,7 +38,7 @@
         </div>
         <div
           class="text-center example-sentence-word mb-4"
-          v-html="Helper.highlight(word.example, word.simplified, word.book)"
+          v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
         >
           {{ word.example }}
         </div>

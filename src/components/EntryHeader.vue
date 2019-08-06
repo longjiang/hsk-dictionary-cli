@@ -36,7 +36,7 @@
         </div>
         <div class="word">
           <a :href="`#/view/cedict/${entry.identifier}`">
-            <span v-bind:data-hsk="entry.book">{{ entry.simplified }}</span>
+            <span v-bind:data-hsk="entry.hsk">{{ entry.simplified }}</span>
           </a>
         </div>
       </div>

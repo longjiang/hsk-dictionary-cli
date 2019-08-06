@@ -19,7 +19,7 @@
         <Collocations
           v-if="a.sketch && a.sketch.Gramrels"
           :word="a.simplified"
-          :level="a.book"
+          :level="a.hsk"
           :title="colDesc.a[name]"
           :type="name"
           :id="`collocation-a-${name}`"
@@ -30,7 +30,7 @@
         <Collocations
           v-if="b.sketch && b.sketch.Gramrels"
           :word="b.simplified"
-          :level="b.book"
+          :level="b.hsk"
           :title="colDesc.b[name]"
           :type="name"
           :id="`collocation-a-${name}`"

@@ -68,7 +68,7 @@
         <ShowMoreButton
           :length="entry.mistakes.length"
           min="4"
-          :data-bg-hsk="entry.book"
+          :data-bg-hsk="entry.hsk"
         ></ShowMoreButton>
       </div>
     </div>

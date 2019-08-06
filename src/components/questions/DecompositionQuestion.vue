@@ -5,7 +5,7 @@
       v-for="rc in [randomChar(word.simplified)]"
     >
       <div class="question-slide" :id="`question-${id}-slide-1`">
-        <div :data-hsk="word.book" class="text-center big-word-pinyin mb-4">
+        <div :data-hsk="word.hsk" class="text-center big-word-pinyin mb-4">
           {{ word.pinyin }}
           <Speak :text="word.simplified" class="ml-2"></Speak>
         </div>
@@ -13,13 +13,13 @@
           <span
             v-if="rc.before !== ''"
             class="decomposition-before"
-            v-html="Helper.highlight(rc.before, rc.before, word.book)"
+            v-html="Helper.highlight(rc.before, rc.before, word.hsk)"
           ></span>
           <decomposition :char="rc.char"></decomposition>
           <span
             class="decomposition-after"
             v-if="rc.after !== ''"
-            v-html="Helper.highlight(rc.after, rc.after, word.book)"
+            v-html="Helper.highlight(rc.after, rc.after, word.hsk)"
           ></span>
         </div>
         <div class="text-center character-example-english mt-4">

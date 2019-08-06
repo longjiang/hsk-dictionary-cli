@@ -70,7 +70,7 @@
                     highlightCharacter(
                       row.firstHSKWord.simplified,
                       row.character,
-                      row.firstHSKWord.book
+                      row.firstHSKWord.hsk
                     )
                   "
                 ></a>

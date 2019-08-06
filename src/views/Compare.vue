@@ -88,7 +88,7 @@
       </div>
     </div>
 
-    <EntryCourseAd :entry="b.book > a.book ? b : a"></EntryCourseAd>
+    <EntryCourseAd :entry="b.hsk > a.hsk ? b : a"></EntryCourseAd>
 
     <EntryLyrics :entry="a" limit="1"></EntryLyrics>
 

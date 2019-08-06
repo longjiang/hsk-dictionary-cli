@@ -24,13 +24,13 @@
         >
           <span
             class="character-example-word"
-            :data-hsk="word.book"
+            :data-hsk="word.hsk"
             v-if="!highlight"
             >{{ word.simplified }}</span
           ><span
             class="character-example-word"
             v-if="highlight"
-            v-html="Helper.highlight(word.simplified, highlight, word.book)"
+            v-html="Helper.highlight(word.simplified, highlight, word.hsk)"
           ></span
           ><span class="character-example-word" v-if="traditional === true"
             >({{ word.traditional }})</span

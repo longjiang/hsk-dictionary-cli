@@ -17,14 +17,14 @@
           >
             <span
               class="character-example-word"
-              v-html="Helper.highlight(example, entry.simplified, entry.book)"
+              v-html="Helper.highlight(example, entry.simplified, entry.hsk)"
             ></span>
           </li>
         </ul>
         <ShowMoreButton
           :length="entry.examples.length"
           :min="4"
-          :data-bg-hsk="entry.book"
+          :data-bg-hsk="entry.hsk"
         />
       </div>
     </div>
