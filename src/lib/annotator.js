@@ -73,10 +73,28 @@ export default {
     return newNode
   },
 
+  annotateText(text, callback) {
+    this.worker.postMessage(['annotate', [text]])
+    this.worker.addEventListener('message', event => {
+      let [method, data] = event.data
+      if (method === 'annotate') {
+        callback(data)
+      }
+    })
+  },
+
   annotate(node) {
     let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
+      this.annotateText(data => {
+        var html = ''
+        data.map(textOrCandidates => {
+          html += annotator.wordBlockTemplate(textOrCandidates)
+        })
+        annotator.replaceNodeWithHTML(node, html)
+      }, node.nodeValue)
+
       this.worker.postMessage(['annotate', [node.nodeValue]])
       this.worker.addEventListener('message', event => {
         let [method, data] = event.data

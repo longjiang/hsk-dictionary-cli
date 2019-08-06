@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import AnnotatorService from '@/vendor/annotator-js/js/annotator-service.js'
-
 const decompositionTemplate = {
   '⿰': `<div class="description description-⿰">
     <div class="part part-⿰-1"></div>
@@ -58,6 +56,7 @@ const decompositionTemplate = {
   </div>`
 }
 
+import Annotator from '@/lib/annotator.js'
 import Helper from '@/lib/helper'
 import Hanzi from '@/lib/hanzi'
 import HSK from '@/lib/hsk'
@@ -106,11 +105,13 @@ export default {
             let radicalNamePinyin = false
             if (node.info) {
               // eslint-disable-next-line no-undef
-              radicalNamePinyin = AnnotatorService.annotate(node.info.name)
-                .map(function(candidates) {
-                  return candidates[0].pinyin
-                })
-                .join(' ')
+              Annotator.annotateText(node.info.name, data => {
+                radicalNamePinyin = data
+                  .map(function(candidates) {
+                    return candidates[0].pinyin
+                  })
+                  .join(' ')
+              })
             }
             const book = childCharacterHSK ? childCharacterHSK.book : 'outside'
             $template = $(`

@@ -87,7 +87,6 @@
 import $ from 'jquery'
 import WordList from '@/components/WordList.vue'
 import Normalizer from '@/lib/normalizer'
-import AnnotatorService from '@/vendor/annotator-js/js/annotator-service'
 
 export default {
   template: '#saved-words-template',
@@ -160,7 +159,7 @@ export default {
         .split('\n')
       // eslint-disable-next-line no-undef
       for (let line of lines) {
-        AnnotatorService.annotate(line, annotated => {
+        Annotator.annotateText(line, annotated => {
           for (let candidates of annotated) {
             for (let candidate of candidates) {
               if (candidate.pinyin) {
