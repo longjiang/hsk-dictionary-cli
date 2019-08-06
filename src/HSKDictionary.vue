@@ -41,55 +41,56 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4" v-cloak>
-          <nav class="tabs">
-            <div class="col-sm-12">
-              <router-link
-                class="tab"
-                :to="{ name: 'browse' }"
-                title="Browse words by course"
-              >
-                <i class="glyphicon glyphicon-book"></i>
-                Browse
-              </router-link>
-              <router-link
-                class="tab"
-                :to="{ name: 'entry' }"
-                title="View a word"
-              >
-                <i class="glyphicon glyphicon-font"></i> Entry
-              </router-link>
-              <router-link
-                class="tab"
-                :to="{ name: 'reader' }"
-                title="Read your text with annotation"
-              >
-                <i class="glyphicon glyphicon-file"></i> Reader
-              </router-link>
-              <router-link
-                class="tab"
-                :to="{ name: 'learn' }"
-                title="Learn new words"
-              >
-                <i class="glyphicon glyphicon-blackboard"></i> Learn
-              </router-link>
-              <router-link
-                class="tab tab-saved-words"
-                :to="{ name: 'saved-words' }"
-              >
-                <i class="glyphicon glyphicon-star"></i> Saved
-                <span class="tab-saved-words-count" v-cloak>
-                  {{ savedWordsCount() }}
-                </span>
-              </router-link>
-              <router-link
-                class="tab tab-info"
-                :to="{ name: 'settings' }"
-                title="Settings"
-              >
-                <i class="glyphicon glyphicon-cog"></i> Settings
-              </router-link>
-            </div>
+      </div>
+
+      <div class="row mt-4" v-cloak>
+        <div class="col-sm-12">
+          <nav class="tabs text-center">
+            <router-link
+              class="tab"
+              :to="{ name: 'browse' }"
+              title="Browse words by course"
+            >
+              <i class="glyphicon glyphicon-book"></i>
+              Browse
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'entry' }"
+              title="View a word"
+            >
+              <i class="glyphicon glyphicon-font"></i> Entry
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'reader' }"
+              title="Read your text with annotation"
+            >
+              <i class="glyphicon glyphicon-file"></i> Reader
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'learn' }"
+              title="Learn new words"
+            >
+              <i class="glyphicon glyphicon-blackboard"></i> Learn
+            </router-link>
+            <router-link
+              class="tab tab-saved-words"
+              :to="{ name: 'saved-words' }"
+            >
+              <i class="glyphicon glyphicon-star"></i> Saved
+              <span class="tab-saved-words-count" v-cloak>
+                {{ savedWordsCount() }}
+              </span>
+            </router-link>
+            <router-link
+              class="tab tab-info"
+              :to="{ name: 'settings' }"
+              title="Settings"
+            >
+              <i class="glyphicon glyphicon-cog"></i> Settings
+            </router-link>
           </nav>
         </div>
       </div>
