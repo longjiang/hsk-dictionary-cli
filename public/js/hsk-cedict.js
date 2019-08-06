@@ -17,6 +17,14 @@ const HSKCEDICT = {
   getByIdentifier(identifier) {
     return this._data.find(row => row.identifier === identifier)
   },
+  getByBookLessonDialog(book, lesson, dialog) {
+    return this._data.filter(
+      row =>
+        parseInt(row.book) === parseInt(book) &&
+        parseInt(row.lesson) === parseInt(lesson) &&
+        row.dialog.toString() === dialog.toString()
+    )
+  },
   compileBooks() {
     // https://www.consolelog.io/group-by-in-javascript/
     Array.prototype.groupBy = function(prop) {

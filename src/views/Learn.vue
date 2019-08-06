@@ -23,11 +23,8 @@
 </template>
 
 <script>
-import Helper from '@/lib/helper'
-import Normalizer from '@/lib/normalizer'
 import WordList from '@/components/WordList.vue'
 import Questions from '@/components/Questions.vue'
-import HSK from '@/lib/hsk'
 
 export default {
   components: {
@@ -36,9 +33,9 @@ export default {
   },
   data() {
     return {
-      Helper,
       started: false,
       words: [],
+      wordIds: [],
       method: false,
       args: [],
       questionTypes: [
@@ -58,15 +55,25 @@ export default {
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {
-          this.words = this.$store.getters.savedWords()
+          this.wordIds = this.$store.state.savedWords
+          for (let item of this.wordIds) {
+            let identifier = item.join(',').replace(/ /g, '_')
+            HSKCEDICT.getByIdentifier(
+              entry => {
+                this.words.push(entry)
+              },
+              [identifier]
+            )
+          }
           return
         } else if (this.method == 'hsk' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')
-          this.words = HSK.getByBookLessonDialog(
-            this.args[0],
-            this.args[1],
-            this.args[2]
-          ).map(word => Normalizer.normalize(word))
+          HSKCEDICT.getByBookLessonDialog(
+            words => {
+              this.words = words
+            },
+            [this.args[0], this.args[1], this.args[2]]
+          )
           return
         }
       } else {
