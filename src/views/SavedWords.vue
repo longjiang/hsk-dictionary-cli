@@ -72,7 +72,11 @@
         </p>
         <div>
           <WordList :words="savedWords"></WordList>
-          <a class="btn btn-warning mt-4 mb-5" :href="`#/learn/saved`">
+          <a
+            v-if="savedWordIds.length > 0"
+            class="btn btn-warning mt-4 mb-5"
+            :href="`#/learn/saved`"
+          >
             <i class="glyphicon glyphicon-blackboard"></i> Learn These Words
           </a>
         </div>
