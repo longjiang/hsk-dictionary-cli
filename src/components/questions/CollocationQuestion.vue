@@ -32,6 +32,7 @@
                 class="mb-3"
                 sticky="true"
                 :selector="`#${id}-slide-1 .big-word`"
+                ref="pinyinButton"
               />
               <Speak :text="phrase" class="ml-2"></Speak>
               <div
@@ -98,6 +99,11 @@ export default {
         }
       })
     }
+  },
+  updated() {
+    $(this.$refs.pinyinButton.$el)
+      .find('.add-pinyin')
+      .click()
   },
   methods: {
     choosePhrase() {

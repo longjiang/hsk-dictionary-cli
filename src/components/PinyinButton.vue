@@ -1,18 +1,18 @@
 <template>
   <div class="pinyin-button-wrapper hidden">
-    <button class="show-more pinyin-button" v-on:click="annotate">
+    <button class="show-more pinyin-button add-pinyin" v-on:click="annotate">
       <span v-if="state == 'idle'">{{ this.buttonText }}</span>
       <span v-if="state == 'annotating'">Adding...</span>
     </button>
     <button
-      class="show-more"
+      class="show-more show-pinyin"
       v-if="annotated && !shown"
       v-on:click="showPinyin()"
     >
       Show Pinyin
     </button>
     <button
-      class="show-more"
+      class="show-more hide-pinyin"
       v-if="annotated && shown"
       v-on:click="hidePinyin()"
     >
