@@ -74,6 +74,7 @@ export default {
   },
 
   annotateText(text, callback) {
+    console.log(text)
     this.worker.postMessage(['annotate', [text]])
     this.worker.addEventListener('message', event => {
       let [method, data] = event.data

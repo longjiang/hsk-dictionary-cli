@@ -77,7 +77,7 @@ export default {
   methods: {
     drawDecomposition(char, selector) {
       const character = Hanzi.lookup(char)
-      character.walkDecompositionTree(function(node) {
+      character.walkDecompositionTree(node => {
         if (character.isIdeographicDescCharacter(node.character)) {
           if (node.parent) {
             node.selector = `${node.parent.selector} > .description-${
@@ -102,21 +102,26 @@ export default {
             if (childCharacterCEDICT) {
               href = `href="#/view/cedict/${childCharacterCEDICT.identifier}"`
             }
-            let radicalNamePinyin = false
             if (node.info) {
               // eslint-disable-next-line no-undef
-              Annotator.annotateText(node.info.name, data => {
-                radicalNamePinyin = data
-                  .map(function(candidates) {
-                    return candidates[0].pinyin
-                  })
-                  .join(' ')
+              Annotator.annotateText(node.info.name, node => {
+                return data => {
+                  let radicalNamePinyin = data
+                    .map(function(candidates) {
+                      return candidates[0].pinyin
+                    })
+                    .join(' ')
+                  if (radicalNamePinyin) {
+                    $(`.part-pinyin.${node.info.name}`).text(radicalNamePinyin)
+                  }
+                }
               })
             }
             const book = childCharacterHSK ? childCharacterHSK.book : 'outside'
             $template = $(`
-            <div class="part-pinyin">${radicalNamePinyin ||
-              childCharacter.pinyin}</div>
+            <div class="part-pinyin ${node.info ? node.info.name : ''}">${
+              childCharacter.pinyin
+            }</div>
             <div class="part-character"><a ${href} data-hsk="${book}">${
               childCharacter.character
             }</a></div>`)

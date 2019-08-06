@@ -77,7 +77,6 @@ export default {
   },
   methods: {
     show(entry) {
-      console.log(entry, 'shwoing')
       this.entryKey += 1
       this.entry = entry
       if (this.$parent.$refs.search) {

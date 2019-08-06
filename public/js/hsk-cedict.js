@@ -133,9 +133,6 @@ const HSKCEDICT = {
       .sort((a, b) => {
         return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
       })
-      .map(row => {
-        return this.augment(row)
-      })
     return {
       matches: matches,
       text: matches && matches.length > 0 ? matches[0][tradOrSimp] : ''
