@@ -1,10 +1,6 @@
 <template>
-  <div class="pinyin-button-wrapper">
-    <button
-      class="show-more pinyin-button"
-      v-if="!annotated"
-      v-on:click="annotate"
-    >
+  <div class="pinyin-button-wrapper hidden">
+    <button class="show-more pinyin-button" v-on:click="annotate">
       <span v-if="state == 'idle'">{{ this.buttonText }}</span>
       <span v-if="state == 'annotating'">Adding...</span>
     </button>
@@ -55,6 +51,7 @@ export default {
   mounted() {
     this.buttonText = this.$el.innerText
     this.$target = this.selector ? $(this.selector) : $(this.$el).next()
+    this.annotate()
   },
   methods: {
     showPinyin() {
