@@ -88,6 +88,7 @@
 
 <script>
 import $ from 'jquery'
+import Helper from '@/lib/helper'
 
 export default {
   data() {
@@ -99,12 +100,11 @@ export default {
   },
   mounted() {
     let that = this
-    const f = async () => {
-      let a = await window.annotatorLoads
-      let LoadedHSKCEDICT = a[1]
-      LoadedHSKCEDICT.compileBooks(books => (that.books = books))
-    }
-    f()
+    Helper.loaded(
+      (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+        LoadedHSKCEDICT.compileBooks(books => (that.books = books))
+      }
+    )
   },
   methods: {
     saveAllClick: function(e) {

@@ -147,6 +147,7 @@ import $ from 'jquery'
 import Helper from '@/lib/helper'
 import Search from '@/components/Search.vue'
 import Annotator from '@/lib/annotator'
+import HSKCEDICT from '@/lib/hsk-cedict'
 import Hanzi from '@/lib/hanzi'
 import Grammar from '@/lib/grammar'
 
@@ -194,6 +195,7 @@ export default {
   },
   beforeMount() {
     window.annotatorLoads = Annotator.load()
+    window.hskCEDICTLoads = HSKCEDICT.load()
     window.hanziLoads = Hanzi.load()
     window.grammarLoads = Grammar.load()
   },

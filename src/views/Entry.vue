@@ -107,22 +107,20 @@ export default {
         const method = this.$route.params.method
         const arg = this.$route.params.arg
         if (method === 'hsk') {
-          const f = async () => {
-            let a = await window.annotatorLoads
-            let LoadedHSKCEDICT = a[1]
-            LoadedHSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
-          }
-          f()
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
+            }
+          )
         } else if (method === 'cedict') {
           if (arg === 'random') {
             this.random()
           }
-          const f = async () => {
-            let a = await window.annotatorLoads
-            let LoadedHSKCEDICT = a[1]
-            LoadedHSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
-          }
-          f()
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
+            }
+          )
         } else {
           if (!this.entry) {
             this.random()

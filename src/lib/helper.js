@@ -9,10 +9,11 @@ export default {
   loaderMessages: [],
   lastId: 0,
   async loaded(callback) {
-    let a = await window.annotatorLoads
+    let loadedAnnotator = await window.annotatorLoads
     let loadedGrammar = await window.grammarLoads
     let loadedHanzi = await window.hanziLoads
-    callback(a[0], a[1], loadedGrammar, loadedHanzi)
+    let loadedHSKCEDICT = await window.hskCEDICTLoads
+    callback(loadedAnnotator, loadedHSKCEDICT, loadedGrammar, loadedHanzi)
   },
   uniqueId() {
     this.lastId += 1
