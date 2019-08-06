@@ -72,7 +72,7 @@ export default {
   },
 
   replaceNodeWithHTML(oldNode, html) {
-    $(oldNode).after(html + ' ')
+    $(oldNode).after(html)
     var newNode = oldNode.nextSibling
     $(oldNode).remove()
     return newNode
