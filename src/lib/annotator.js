@@ -15,7 +15,6 @@ export default {
     this.worker = new Worker('./workers/hskcedict-annotator-worker.js')
     this.worker.addEventListener('message', e => {
       if (e.data[0] === 'load' && e.data[1] === 'ready') {
-        window.Annotator = this
         this.worker.postMessage(['hskcedictMethods'])
       }
       if (e.data[0] === 'hskcedictMethods') {

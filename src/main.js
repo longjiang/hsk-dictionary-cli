@@ -11,9 +11,9 @@ import Test from './Test.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Loader from '@/lib/loader'
-import CEDICT from '@/lib/cedict'
+import Annotator from '@/lib/annotator'
 import Grammar from '@/lib/grammar'
-import HSK from '@/lib/hsk'
+import Hanzi from '@/lib/hanzi'
 import Helper from '@/lib/helper'
 import Star from '@/components/Star'
 import Speak from '@/components/Speak'
@@ -44,7 +44,7 @@ if (location.hash === '#/test') {
   Vue.component('Merge', Merge)
   Vue.component('WordList', WordList)
 
-  let loader = new Loader(['hsk', 'cedict', 'grammar'], function() {
+  let loader = new Loader(['annotator', 'hanzi', 'grammar'], function() {
     Helper.loaderMessage('All data loaded.')
     $('#loader').remove()
     window.hskDictionaryApp = new Vue({
@@ -54,17 +54,18 @@ if (location.hash === '#/test') {
     }).$mount('#hsk-dictionary')
   })
 
-  HSK.load(function() {
-    window.HSK = HSK
-    loader.loaded('hsk')
-  })
-
-  CEDICT.load(function() {
-    window.CEDICT = CEDICT
-    loader.loaded('cedict')
+  Annotator.load(function() {
+    window.Annotator = Annotator
+    loader.loaded('annotator')
   })
 
   Grammar.load(function() {
+    window.Grammar = Grammar
     loader.loaded('grammar')
+  })
+
+  Hanzi.load(function() {
+    window.Hanzi = Hanzi
+    loader.loaded('hanzi')
   })
 }
