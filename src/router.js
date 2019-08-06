@@ -45,6 +45,11 @@ export default new Router({
       path: '/pinyin-list',
       name: 'pinyin',
       component: () => import('./views/PinyinList.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./views/Settings.vue')
     }
   ]
 })

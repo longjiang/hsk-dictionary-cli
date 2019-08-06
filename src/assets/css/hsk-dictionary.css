@@ -810,6 +810,10 @@ a.suggestion {
   margin-right: 0.2rem;
 }
 
+.tab-info {
+  background: #8e8e8e;
+}
+
 .tab-saved-words {
   background: #f8b51e;
 }
@@ -1461,4 +1465,8 @@ a.suggestion {
 
 .show-pinyin-for-saved .word-block.saved .word-block-pinyin {
   display: block;
+}
+
+.add-pinyin {
+  line-height: 2;
 }

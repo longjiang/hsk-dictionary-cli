@@ -1,5 +1,13 @@
 <template>
-  <div id="hsk-dictionary">
+  <div
+    id="hsk-dictionary"
+    :class="{
+      'show-pinyin': !hidePinyinExceptSaved,
+      'show-pinyin-for-saved': hidePinyinExceptSaved,
+      'show-simplified': !useTraditional,
+      'show-traditional': useTraditional
+    }"
+  >
     <!-- ANCHOR img/anchors/top-bar.png -->
     <!-- To highlight ANCHORS in the Visual Studio Code editor, download the "comment anchors" extension by Exodius Studios  -->
     <!-- To see image previews, download the "image preview" extension from Kiss Tamás  -->
@@ -74,6 +82,13 @@
                   {{ savedWordsCount() }}
                 </span>
               </router-link>
+              <router-link
+                class="tab tab-info"
+                :to="{ name: 'settings' }"
+                title="Settings"
+              >
+                <i class="glyphicon glyphicon-cog"></i> Settings
+              </router-link>
             </div>
           </nav>
         </div>
@@ -143,7 +158,8 @@ export default {
   },
   data: function() {
     return {
-      Helper,
+      hidePinyinExceptSaved: localStorage.getItem('czhHidePinyinExceptSaved'),
+      useTraditional: localStorage.getItem('czhUseTraditional'),
       compare: false,
       compareHrefFunc: compareEntry => {
         const entry =

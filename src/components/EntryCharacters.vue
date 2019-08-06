@@ -116,7 +116,6 @@ export default {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
         this.characters = LoadedHanzi.getCharactersInWord(this.entry.simplified)
-        console.log(this.characters)
         for (let character of this.characters) {
           this.lookupByCharacter(character)
         }

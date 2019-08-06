@@ -55,16 +55,14 @@ export default {
   },
   methods: {
     showPinyin() {
-      this.$target.addClass('show-pinyin')
       this.shown = true
     },
     hidePinyin() {
-      this.$target.removeClass('show-pinyin')
       this.shown = false
     },
     annotate() {
       if (this.$target.find('.word-block').length === 0) {
-        this.$target.addClass('add-pinyin show-pinyin show-simplified') // Soo it will have the pinyin looks
+        this.$target.addClass('add-pinyin') // Soo it will have the pinyin looks
         this.state = 'annotating'
         // eslint-disable-next-line no-undef
         for (let node of this.$target.get()) {
