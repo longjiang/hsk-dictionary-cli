@@ -8,7 +8,7 @@
       data-collapse-target
     >
       <li class="saved-words-item character-example" v-for="word in words">
-        <Star v-if="star === true" :word="word" class="mr-1"></Star>
+        <Star v-if="word && star === true" :word="word" class="mr-1"></Star>
         <a
           v-if="compareWith"
           :href="
@@ -18,6 +18,7 @@
           >Compare</a
         >
         <a
+          v-if="word"
           :href="
             hsk ? `#/view/hsk/${word.id}` : `#/view/cedict/${word.identifier}`
           "
