@@ -16,7 +16,7 @@ export default new Router({
       component: () => import('./views/Browse.vue')
     },
     {
-      path: '/view/:method?/:args?',
+      path: '/view/:method?/:arg?',
       name: 'entry',
       component: () => import('./views/Entry.vue'),
       props: true

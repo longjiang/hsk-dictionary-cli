@@ -139,19 +139,15 @@ export default {
     document.body.removeChild(element)
   },
   merge() {
-    this.loadCEDICT(() => {
-      this.loadHSK(() => {
-        console.log('Data loaded, merging...')
-        let normalized = []
-        for (let row of this._cedictData) {
-          normalized.push(this.assignHSK(row))
-        }
-        console.log(normalized.filter(row => row.hskId))
-        window.csv = Papa.unparse(normalized)
-        console.log(
-          'CSV ready. Type `copy(csv)` in the console to copy to clipboard.'
-        )
-      })
-    })
+    console.log('Data loaded, merging...')
+    let normalized = []
+    for (let row of this._cedictData) {
+      normalized.push(this.assignHSK(row))
+    }
+    console.log(normalized)
+    window.csv = Papa.unparse(normalized)
+    console.log(
+      'CSV ready. Type `copy(csv)` in the console to copy to clipboard.'
+    )
   }
 }

@@ -45,10 +45,7 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
-import Normalizer from '@/lib/normalizer'
-import HSK from '@/lib/hsk'
 import Hanzi from '@/lib/hanzi'
-import CEDICT from '@/lib/cedict'
 import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
@@ -75,10 +72,6 @@ export default {
       character: {},
       unsplashSrcs: [],
       unsplashSearchTerm: '',
-      Helper,
-      HSK,
-      LRC,
-      Hanzi,
       entryKey: 0 // used to force re-render this component
     }
   },
@@ -95,35 +88,17 @@ export default {
     },
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
-      if (this.$route.params.method && this.$route.params.args) {
+      if (this.$route.params.method && this.$route.params.arg) {
         const method = this.$route.params.method
-        const args = this.$route.params.args.split(',')
-        let entry = undefined
+        const arg = this.$route.params.arg
         if (method === 'hsk') {
-          entry = HSK.get(args[0])
+          HSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
         } else if (method === 'cedict') {
-          if (!args[1]) {
-            this.random()
-            return
-          }
-          entry = CEDICT.get(args.join(','))
-        }
-        entry = Normalizer.normalize(entry)
-        if (entry.hasCEDICT) {
-          if (method === 'hsk' || args[1].includes(' '))
-            // normalize url
-            location.hash = `/view/cedict/${entry.identifier}`
-          else this.show(entry)
-          return
+          HSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
         } else {
-          // in the RARE care like "踢足球" the word is in HSK but not in CEDICT
-          this.show(entry)
-          return
+          this.random()
         }
-      } else {
-        if (this.entry) return
       }
-      this.random()
     },
     random() {
       const random = CEDICT.random()

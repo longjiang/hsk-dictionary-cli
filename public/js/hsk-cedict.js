@@ -11,6 +11,13 @@ const HSKCEDICT = {
       }
     })
   },
+  getByHSKId(hskId) {
+    return this._data.find(row => row.hskId === hskId)
+  },
+  getByIdentifier(identifier) {
+    console.log(identifier)
+    return this._data.find(row => row.identifier === identifier)
+  },
   compileBooks() {
     // https://www.consolelog.io/group-by-in-javascript/
     Array.prototype.groupBy = function(prop) {
