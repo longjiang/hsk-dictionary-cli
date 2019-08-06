@@ -54,7 +54,6 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupSimplified(
             words => {
-              console.log(words, 'getOtherPronunciations')
               for (let word of words) {
                 if (word.identifier !== this.entry.identifier) {
                   this.similarWords.push(word)
@@ -76,7 +75,6 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupSimplified(
             words => {
-              console.log(words, 'getReverse')
               for (let word of words) {
                 this.similarWords.push(word)
               }
@@ -92,7 +90,6 @@ export default {
           for (let definition of this.entry.definitions) {
             LoadedHSKCEDICT.lookupByDefinition(
               words => {
-                console.log(words, 'getSimilarWords')
                 for (let word of words) {
                   if (word.identifier !== this.entry.identifier) {
                     this.similarWords.push(word)
@@ -110,7 +107,6 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupPinyinFuzzy(
             words => {
-              console.log(words, 'getHomonyms')
               for (let word of words) {
                 if (word.identifier !== this.entry.identifier) {
                   this.similarWords.push(word)
