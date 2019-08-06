@@ -3,9 +3,11 @@
     <div class="container">
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
+          <Loader class="mt-5" />
           <EntryHeader :entry="a" minimal="true"></EntryHeader>
         </div>
         <div class="col-sm-6">
+          <Loader class="mt-5" />
           <EntryHeader :entry="b" minimal="true"></EntryHeader>
         </div>
       </div>

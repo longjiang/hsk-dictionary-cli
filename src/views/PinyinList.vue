@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import Helper from '@/lib/helper'
 export default {
   data() {
     return {
@@ -46,8 +47,7 @@ export default {
   methods: {
     getPinyinClick() {
       localStorage.setItem('pinyinList', this.text)
-      this.words = this.lookup(this.text)
-      this.csv = this.getCsv(this.words)
+      this.lookup(this.text)
     },
     getCsv(words) {
       return words
@@ -59,11 +59,21 @@ export default {
     lookup(text) {
       let words = text.split('\n').map(line => {
         let seen = []
-        return CEDICT.lookupSimplified(line).filter(candidate => {
-          const keep = !seen.includes(candidate.pinyin)
-          seen.push(candidate.pinyin)
-          return keep
-        })
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedHSKCEDICT.lookupSimplified(
+              candidates => {
+                this.words = candidates.filter(candidate => {
+                  const keep = !seen.includes(candidate.pinyin)
+                  seen.push(candidate.pinyin)
+                  return keep
+                })
+                this.csv = this.getCsv(this.words)
+              },
+              [line]
+            )
+          }
+        )
       })
       return words
     }

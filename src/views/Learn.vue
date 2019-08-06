@@ -16,6 +16,7 @@
           <b :data-hsk="args[0]">HSK {{ args[0] }}</b>
           <b> Lesson {{ args[1] }}</b> (Part {{ args[2] }}) Vocabulary
         </h4>
+        <Loader class="mt-5" />
         <div v-if="words.length > 0">
           <Questions
             :words="words"
