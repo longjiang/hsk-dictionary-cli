@@ -35,11 +35,9 @@ export default {
       return this.$store.getters.hasSavedWord(this.word.identifier)
     },
     saveWordClick() {
-      this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('addSavedWord', this.word.identifier)
     },
     removeWordClick() {
-      this.word = Normalizer.normalize(this.word)
       this.$store.dispatch('removeSavedWord', this.word.identifier)
     }
   }

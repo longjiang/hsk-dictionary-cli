@@ -63,7 +63,7 @@
                       ></span>
                     </div>
                     <ul class="browse-words collapsed">
-                      <WordList :words="dialog" star="false" class="ml-2" />
+                      <WordList :words="dialog" class="ml-2" />
                       <a
                         class="btn btn-small ml-2 learn-all-button"
                         :data-bg-hsk="bookIndex"
