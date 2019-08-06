@@ -1,29 +1,29 @@
 <template>
-  <div class="main" v-cloak v-if="a && b" :key="'compare-' + compareKey">
+  <div class="main" v-cloak v-if="a && b">
     <div class="container">
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
           <Loader class="mt-5" />
-          <EntryHeader :entry="a" minimal="true"></EntryHeader>
+          <EntryHeader :entry="a" minimal="true" :key="aKey"></EntryHeader>
         </div>
         <div class="col-sm-6">
           <Loader class="mt-5" />
-          <EntryHeader :entry="b" minimal="true"></EntryHeader>
+          <EntryHeader :entry="b" minimal="true" :key="aKey"></EntryHeader>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-12">
-          <CompareDefs :a="a" :b="b"></CompareDefs>
+          <CompareDefs :a="a" :b="b" :key="aKey + bKey"></CompareDefs>
         </div>
       </div>
 
       <div class="row mt-4">
         <div class="col-sm-6">
-          <EntryWebImages :entry="a" limit="10"></EntryWebImages>
+          <EntryWebImages :entry="a" limit="10" :key="aKey"></EntryWebImages>
         </div>
         <div class="col-sm-6">
-          <EntryWebImages :entry="b" limit="10"></EntryWebImages>
+          <EntryWebImages :entry="b" limit="10" :key="bKey"></EntryWebImages>
         </div>
       </div>
     </div>
@@ -37,6 +37,7 @@
           <div class="col-sm-6">
             <EntryExample
               class="mini"
+              :key="aKey"
               :entry="a"
               id="compare-example-a"
             ></EntryExample>
@@ -44,6 +45,7 @@
           <div class="col-sm-6">
             <EntryExample
               class="mini"
+              :key="bKey"
               :entry="b"
               id="compare-example-b"
             ></EntryExample>
@@ -60,10 +62,10 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
-          <EntryConcordance :entry="a"></EntryConcordance>
+          <EntryConcordance :entry="a" :key="aKey"></EntryConcordance>
         </div>
         <div class="col-sm-6">
-          <EntryConcordance :entry="b"></EntryConcordance>
+          <EntryConcordance :entry="b" :key="bKey"></EntryConcordance>
         </div>
       </div>
     </div>
@@ -71,10 +73,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          <EntryGrammar :entry="a"></EntryGrammar>
+          <EntryGrammar :entry="a" :key="aKey"></EntryGrammar>
         </div>
         <div class="col-sm-6">
-          <EntryGrammar :entry="b"></EntryGrammar>
+          <EntryGrammar :entry="b" :key="bKey"></EntryGrammar>
         </div>
       </div>
     </div>
@@ -82,19 +84,22 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
-          <EntryMistakes :entry="a"></EntryMistakes>
+          <EntryMistakes :entry="a" :key="aKey"></EntryMistakes>
         </div>
         <div class="col-sm-6">
-          <EntryMistakes :entry="b"></EntryMistakes>
+          <EntryMistakes :entry="b" :key="bKey"></EntryMistakes>
         </div>
       </div>
     </div>
 
-    <EntryCourseAd :entry="b.hsk > a.hsk ? b : a"></EntryCourseAd>
+    <EntryCourseAd
+      :entry="b.hsk > a.hsk ? b : a"
+      :key="aKey + bKey"
+    ></EntryCourseAd>
 
-    <EntryLyrics :entry="a" limit="1"></EntryLyrics>
+    <EntryLyrics :entry="a" limit="1" :key="aKey"></EntryLyrics>
 
-    <EntryLyrics :entry="b" limit="1"></EntryLyrics>
+    <EntryLyrics :entry="b" limit="1" :key="bKey"></EntryLyrics>
   </div>
 </template>
 
@@ -171,10 +176,12 @@ export default {
     a() {
       this.$parent.$refs.search.entry = this.a
       this.$parent.$refs.search.text = this.a.simplified
+      this.aKey++
     },
     b() {
       this.$parent.$refs.compare.entry = this.b
       this.$parent.$refs.compare.text = this.b.simplified
+      this.bKey++
     },
     $route() {
       if (this.$route.name === 'compare') {
