@@ -81,7 +81,7 @@
     </div>
     <div class="container mt-4 mb-4">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <Loader class="center-block" />
         </div>
       </div>

@@ -26,17 +26,9 @@
             {{ character.definition.split(';')[0] }}
           </div>
           <div class="part character-example" v-for="part in character.parts">
-            <span class="part-part" v-if="part">
+            <span class="part-part mr-2" v-if="part">
               <b>{{ part.character }}</b>
             </span>
-            <a
-              class="stroke btn-small ml-2 mr-2"
-              :href="animatedSvgUrl(part.character)"
-              target="_blank"
-              title="Show stroke order animation"
-            >
-              <img src="img/stroke.svg" />
-            </a>
             <span
               class="part-definition character-example-english"
               v-if="part.definition"
@@ -107,7 +99,6 @@
 
 <script>
 import Decomposition from '@/components/Decomposition.vue'
-import Hanzi from '@/lib/hanzi'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -125,6 +116,7 @@ export default {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
         this.characters = LoadedHanzi.getCharactersInWord(this.entry.simplified)
+        console.log(this.characters)
         for (let character of this.characters) {
           this.lookupByCharacter(character)
         }
@@ -132,7 +124,6 @@ export default {
     )
   },
   methods: {
-    animatedSvgUrl: Hanzi.animatedSvgUrl,
     lookupByCharacter(character) {
       Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
         LoadedHSKCEDICT.lookupByCharacter(words => (character.words = words), [
