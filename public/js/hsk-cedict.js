@@ -99,9 +99,6 @@ const HSKCEDICT = {
       .sort((a, b) => {
         return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
       })
-      .map(row => {
-        return this.augment(row)
-      })
     return candidates
   },
   augment(row) {

@@ -101,6 +101,8 @@ export default {
         } else {
           this.random()
         }
+      } else {
+        this.random()
       }
     },
     random() {
