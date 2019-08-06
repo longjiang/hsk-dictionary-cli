@@ -3,6 +3,7 @@ import Papa from 'papaparse'
 export default {
   _cedictData: [],
   _hskData: [],
+  _merged: [],
   _cedictFile: 'data/cedict_ts.u8.txt',
   _hskCSV: 'data/HSK 1-6 Vocabulary/HSK Standard Course 1-6-Table 1.csv',
   _hskFields: {
@@ -36,11 +37,26 @@ export default {
           for (var index in this._hskFields) {
             result[index] = row[this._hskFields[index]]
           }
+          Object.freeze(result)
           this._hskData.push(result)
         }
         callback()
       }
     })
+  },
+  lookupSimplified(simplified, pinyin = false) {
+    const candidates = this._cedictData
+      .filter(row => {
+        let pinyinMatch = true
+        if (pinyin.length > 0) {
+          pinyinMatch = row.pinyin === pinyin
+        }
+        return pinyinMatch && row.simplified === simplified
+      })
+      .sort((a, b) => {
+        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
+      })
+    return candidates
   },
   parsePinyin(pinyin) {
     return pinyinify(pinyin.replace(/u:/gi, 'ü')) // use the pinyinify library to parse tones
@@ -110,7 +126,8 @@ export default {
   assignHSK(cedictWord) {
     const hskWords = this.getHSK(cedictWord.simplified, cedictWord.pinyin)
     if (hskWords.length > 0) {
-      const result = Object.assign(hskWords[0], cedictWord)
+      const hskWord = Object.assign({}, hskWords[0])
+      const result = Object.assign(hskWord, cedictWord)
       return result
     } else {
       let emptyHSKWord = {}
@@ -138,13 +155,13 @@ export default {
     document.body.removeChild(element)
   },
   merge() {
-    console.log('Data loaded, merging...')
-    let normalized = []
+    console.log('Merging...')
+    this._merged = []
     for (let row of this._cedictData) {
-      normalized.push(this.assignHSK(row))
+      this._merged.push(this.assignHSK(row))
     }
-    console.log(normalized)
-    window.csv = Papa.unparse(normalized)
+    console.log('Merged, generating CSV...')
+    window.csv = Papa.unparse(this._merged)
     console.log(
       'CSV ready. Type `copy(csv)` in the console to copy to clipboard.'
     )
