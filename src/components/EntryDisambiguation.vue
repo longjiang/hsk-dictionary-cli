@@ -99,7 +99,7 @@ export default {
                   }
                 }
               },
-              [definition]
+              [definition.text]
             )
           }
         }
