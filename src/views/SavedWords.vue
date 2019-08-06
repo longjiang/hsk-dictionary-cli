@@ -90,6 +90,7 @@
 <script>
 import $ from 'jquery'
 import WordList from '@/components/WordList.vue'
+import Helper from '@/lib/helper'
 import { mapState } from 'vuex'
 
 export default {
@@ -119,11 +120,15 @@ export default {
 
       for (let item of this.savedWordIds) {
         let identifier = item.join(',').replace(/ /g, '_')
-        HSKCEDICT.getByIdentifier(
-          entry => {
-            this.savedWords.push(entry)
-          },
-          [identifier]
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedHSKCEDICT.getByIdentifier(
+              entry => {
+                this.savedWords.push(entry)
+              },
+              [identifier]
+            )
+          }
         )
       }
     },
@@ -189,15 +194,19 @@ export default {
         .split('\n')
       // eslint-disable-next-line no-undef
       for (let line of lines) {
-        Annotator.annotateText(line, annotated => {
-          for (let candidates of annotated) {
-            for (let candidate of candidates) {
-              if (candidate.pinyin) {
-                this.$store.dispatch('addSavedWord', candidate.identifier)
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedAnnotator.annotateText(line, annotated => {
+              for (let candidates of annotated) {
+                for (let candidate of candidates) {
+                  if (candidate.pinyin) {
+                    this.$store.dispatch('addSavedWord', candidate.identifier)
+                  }
+                }
               }
-            }
+            })
           }
-        })
+        )
       }
       $('.import-wrapper').addClass('hidden')
     }

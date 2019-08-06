@@ -32,6 +32,7 @@
 <script>
 import WordList from '@/components/WordList.vue'
 import Questions from '@/components/Questions.vue'
+import Helper from '@/lib/helper'
 import { mapState } from 'vuex'
 
 export default {
@@ -76,11 +77,15 @@ export default {
       this.words = []
       for (let item of this.savedWordIds) {
         let identifier = item.join(',').replace(/ /g, '_')
-        HSKCEDICT.getByIdentifier(
-          entry => {
-            this.words.push(entry)
-          },
-          [identifier]
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedHSKCEDICT.getByIdentifier(
+              entry => {
+                this.words.push(entry)
+              },
+              [identifier]
+            )
+          }
         )
       }
     },
@@ -93,11 +98,15 @@ export default {
           return
         } else if (this.method == 'hsk' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')
-          HSKCEDICT.getByBookLessonDialog(
-            words => {
-              this.words = words
-            },
-            [this.args[0], this.args[1], this.args[2]]
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedHSKCEDICT.getByBookLessonDialog(
+                words => {
+                  this.words = words
+                },
+                [this.args[0], this.args[1], this.args[2]]
+              )
+            }
           )
           return
         }
