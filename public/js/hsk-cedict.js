@@ -1,5 +1,5 @@
 const HSKCEDICT = {
-  _csv: '../data/hsk_cedict.csv',
+  _csv: '../data/hsk_cedict.csv.txt',
   _data: [],
   load(callback) {
     Papa.parse(this._csv, {

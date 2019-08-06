@@ -3,7 +3,7 @@ import Papa from 'papaparse'
 
 export default {
   _grammarData: [],
-  _grammarCSV: 'data/grammar.csv',
+  _grammarCSV: 'data/grammar.csv.txt',
   _grammarCSVFields: {
     id: 'ID',
     code: 'Code',
