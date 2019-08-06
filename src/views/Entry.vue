@@ -123,10 +123,14 @@ export default {
           }
           f()
         } else {
-          this.random()
+          if (!this.entry) {
+            this.random()
+          }
         }
       } else {
-        this.random()
+        if (!this.entry) {
+          this.random()
+        }
       }
     },
     random() {

@@ -6,40 +6,7 @@
           <h4>Reader</h4>
           <p>This tool helps you read Chinese text.</p>
           <hr />
-          <div class="mt-2 mb-2" v-if="annotated">
-            <input
-              type="checkbox"
-              id="hide-pinyin"
-              class="mr-1"
-              v-model="hidePinyinExceptSaved"
-              checked
-            />
-            <label for="hide-pinyin">Hide Pinyin</label>
-            <input
-              type="checkbox"
-              id="use-traditional"
-              class="ml-3 mr-1"
-              v-model="useTraditional"
-            />
-            <label for="use-traditional">Traditional</label>
-            <input
-              type="checkbox"
-              id="show-definition"
-              class="ml-3 mr-1"
-              v-model="showDefinition"
-            />
-            <label for="show-definition">Definition</label>
-          </div>
-          <div
-            id="reader-annotated"
-            v-bind:class="{
-              'show-pinyin': !hidePinyinExceptSaved,
-              'show-pinyin-for-saved': hidePinyinExceptSaved,
-              'show-simplified': !useTraditional,
-              'show-traditional': useTraditional,
-              'show-definition': showDefinition
-            }"
-          ></div>
+          <div id="reader-annotated"></div>
           <Loader />
           <div class="mt-4">
             <textarea

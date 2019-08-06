@@ -10,6 +10,7 @@
             class="mt-2"
             :words="similarWords"
             :compareWith="entry"
+            :key="wordsKey"
             :traditional="entry.simplified.length === 1"
           ></WordList>
         </div>
@@ -35,8 +36,14 @@ export default {
       this.getOtherPronunciations()
     }
   },
+  watch: {
+    similarWords() {
+      this.wordsKey++
+    }
+  },
   data() {
     return {
+      wordsKey: 0,
       similarWords: []
     }
   },
@@ -46,8 +53,9 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupSimplified(
             words => {
+              console.log(words)
               for (let word of words) {
-                if (word.identifier !== this.entry.identifier) {
+                if (word.simplified !== this.entry.simplified) {
                   this.similarWords.push(word)
                 }
               }
@@ -67,8 +75,9 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupSimplified(
             words => {
+              console.log(words)
               for (let word of words) {
-                this.words.push(word)
+                this.similarWords.push(word)
               }
             },
             [reverse]
@@ -81,9 +90,10 @@ export default {
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedHSKCEDICT.lookupPinyinFuzzy(
             words => {
+              console.log(words)
               for (let word of words) {
                 if (word.identifier !== this.entry.identifier) {
-                  this.words.push(word)
+                  this.similarWords.push(word)
                 }
               }
             },
