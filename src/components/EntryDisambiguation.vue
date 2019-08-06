@@ -35,6 +35,7 @@ export default {
     } else {
       this.getOtherPronunciations()
     }
+    this.getSimilarWords()
   },
   watch: {
     similarWords() {
@@ -82,6 +83,25 @@ export default {
             },
             [reverse]
           )
+        }
+      )
+    },
+    getSimilarWords() {
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          for (let definition of this.entry.definitions) {
+            LoadedHSKCEDICT.lookupByDefinition(
+              words => {
+                console.log(words, 'getSimilarWords')
+                for (let word of words) {
+                  if (word.identifier !== this.entry.identifier) {
+                    this.similarWords.push(word)
+                  }
+                }
+              },
+              [definition]
+            )
+          }
         }
       )
     },
