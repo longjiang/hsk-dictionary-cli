@@ -50,14 +50,28 @@
 
 <script>
 import Annotator from '@/lib/annotator'
+import Merge from '@/lib/merge-hsk-cedict'
 import $ from 'jquery'
 
 export default {
+  methods: {
+    testWorker() {
+      Annotator.load(() => {
+        // HSKCEDICT now available
+        Annotator.annotateIteratively($('#annotate-me')[0])
+      })
+    },
+    testMerge() {
+      Merge.loadHSK(() => {
+        Merge.loadCEDICT(() => {
+          window.Merge = Merge
+          console.log('Merge ready.')
+        })
+      })
+    }
+  },
   mounted() {
-    Annotator.load(() => {
-      // HSKCEDICT now available
-      Annotator.annotateIteratively($('#annotate-me')[0])
-    })
+    this.testMerge()
   }
 }
 </script>

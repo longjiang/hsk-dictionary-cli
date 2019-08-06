@@ -114,7 +114,12 @@ export default {
       const result = Object.assign(hskWords[0], cedictWord)
       return result
     } else {
-      const result = Object.assign({ hsk: 'outside' }, cedictWord)
+      let emptyHSKWord = {}
+      for (let field in this._hskFields) {
+        emptyHSKWord[field] = ''
+      }
+      emptyHSKWord.hsk = 'outside'
+      const result = Object.assign(emptyHSKWord, cedictWord)
       return result
     }
   },
@@ -141,6 +146,7 @@ export default {
         for (let row of this._cedictData) {
           normalized.push(this.assignHSK(row))
         }
+        console.log(normalized.filter(row => row.hskId))
         window.csv = Papa.unparse(normalized)
         console.log(
           'CSV ready. Type `copy(csv)` in the console to copy to clipboard.'

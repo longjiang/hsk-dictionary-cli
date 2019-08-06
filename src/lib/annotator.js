@@ -27,7 +27,6 @@ export default {
     window.HSKCEDICT = {}
     for (let method of methods) {
       window.HSKCEDICT[method] = (callback, args = undefined) => {
-        console.log(method, callback, args, 'makeavail')
         let m1 = e => {
           if (e.data[0] === method) {
             callback(e.data[1])
