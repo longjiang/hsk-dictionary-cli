@@ -8,6 +8,7 @@
           unless you clear your browsing data.
         </p>
         <hr />
+        <Loader />
         <div class="my-words-tools mt1 mb1 text-right">
           <button
             class="upload-list btn btn-primary"

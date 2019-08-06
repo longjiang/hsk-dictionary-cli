@@ -40,6 +40,7 @@
               'show-definition': showDefinition
             }"
           ></div>
+          <Loader />
           <div class="mt-4">
             <textarea
               id="reader-textarea"

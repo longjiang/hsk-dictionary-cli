@@ -1,35 +1,39 @@
 <template>
-  <div class="main" v-cloak :key="'entry-' + entryKey" v-if="entry">
+  <div class="main" v-cloak :key="'entry-' + entryKey">
     <div class="container mt-4 mb-4">
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />
-          <EntryHeader :entry="entry"></EntryHeader>
+          <EntryHeader v-if="entry" :entry="entry"></EntryHeader>
         </div>
       </div>
     </div>
 
-    <EntryDisambiguation class="mt-3 mb-5" :entry="entry"></EntryDisambiguation>
+    <EntryDisambiguation
+      class="mt-3 mb-5"
+      v-if="entry"
+      :entry="entry"
+    ></EntryDisambiguation>
 
-    <EntryExample class="mt5" :entry="entry"></EntryExample>
+    <EntryExample class="mt5" v-if="entry" :entry="entry"></EntryExample>
 
-    <EntryCharacters class="mb-4" :entry="entry"></EntryCharacters>
+    <EntryCharacters class="mb-4" v-if="entry" :entry="entry"></EntryCharacters>
 
-    <EntryWebImages class="mt-5" :entry="entry"></EntryWebImages>
+    <EntryWebImages class="mt-5" v-if="entry" :entry="entry"></EntryWebImages>
 
-    <EntryGrammar :entry="entry"></EntryGrammar>
+    <EntryGrammar :entry="entry" v-if="entry"></EntryGrammar>
 
-    <EntryRelated class="mb-5" :entry="entry"></EntryRelated>
+    <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated>
 
-    <EntryCollocations :entry="entry"></EntryCollocations>
+    <EntryCollocations v-if="entry" :entry="entry"></EntryCollocations>
 
-    <EntryConcordance :entry="entry"></EntryConcordance>
+    <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance>
 
-    <EntryMistakes :entry="entry"></EntryMistakes>
+    <EntryMistakes v-if="entry" :entry="entry"></EntryMistakes>
 
-    <EntryCourseAd :entry="entry"></EntryCourseAd>
+    <EntryCourseAd v-if="entry" :entry="entry"></EntryCourseAd>
 
-    <EntryLyrics :entry="entry"></EntryLyrics>
+    <EntryLyrics v-if="entry" :entry="entry"></EntryLyrics>
   </div>
 </template>
 

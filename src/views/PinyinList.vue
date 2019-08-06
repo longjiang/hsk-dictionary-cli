@@ -40,7 +40,8 @@ export default {
     return {
       text: localStorage.getItem('pinyinList'),
       words: [],
-      csv: ''
+      csv: '',
+      ready: false
     }
   },
   beforeMount() {},
