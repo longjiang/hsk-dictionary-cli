@@ -21,8 +21,7 @@
             <div class="search-compare-wrapper">
               <Search ref="search" random="true"></Search>
               <Search
-                v-if="compare"
-                class="ml-2"
+                :class="{ 'ml-2': true, hidden: !compare }"
                 ref="compare"
                 placeholder="Compare with..."
                 :hrefFunc="compareHrefFunc"

@@ -9,9 +9,11 @@
       v-for="(description, name) in colDesc.a"
       v-bind:key="'collocation-' + name"
       v-if="
-        (getGramrelsByName(a.sketch.Gramrels, name) &&
+        (a.sketch &&
+          getGramrelsByName(a.sketch.Gramrels, name) &&
           getGramrelsByName(a.sketch.Gramrels, name).Words.length > 0) ||
-          (getGramrelsByName(b.sketch.Gramrels, name) &&
+          (b.sketch &&
+            getGramrelsByName(b.sketch.Gramrels, name) &&
             getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
       "
     >

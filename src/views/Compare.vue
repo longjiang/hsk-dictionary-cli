@@ -107,9 +107,6 @@ import EntryWebImages from '@/components/EntryWebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
-import Normalizer from '@/lib/normalizer'
-import CEDICT from '@/lib/cedict'
-import HSK from '@/lib/hsk'
 import $ from 'jquery'
 
 export default {
@@ -141,36 +138,31 @@ export default {
         let a = undefined
         let b = undefined
         if (method === 'cedict') {
-          a = CEDICT.get([args[0], args[1], args[2]].join(','))
-          b = CEDICT.get([args[3], args[4], args[5]].join(','))
+          HSKCEDICT.getByIdentifier(entry => (this.a = entry), [
+            [args[0], args[1], args[2]].join(',')
+          ])
+          HSKCEDICT.getByIdentifier(entry => (this.b = entry), [
+            [args[3], args[4], args[5]].join(',')
+          ])
         } else if (method === 'hsk') {
-          a = HSK.get(args[0])
-          b = HSK.get(args[1])
+          HSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
+          HSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
         } else if (method === 'simplified') {
-          a = CEDICT.lookupSimplified(args[0])[0]
-          b = CEDICT.lookupSimplified(args[1])[0]
-        }
-        if (a && b) {
-          this.a = Normalizer.normalize(a)
-          this.b = Normalizer.normalize(b)
-          this.compareKey++
-          if (this.$parent.$refs.search) {
-            this.$parent.$refs.search.entry = a
-            this.$parent.$refs.search.text = a.simplified
-          } else {
-            throw 'Main-Search-Entry link broken.'
-          }
-          if (this.$parent.$refs.compare) {
-            this.$parent.$refs.compare.entry = b
-            this.$parent.$refs.compare.text = b.simplified
-          } else {
-            throw 'Compare-Search-Entry link broken.'
-          }
+          HSKCEDICT.lookupSimplified(words => (this.a = words[0]), [[args[0]]])
+          HSKCEDICT.lookupSimplified(words => (this.b = words[0]), [[args[1]]])
         }
       }
     }
   },
   watch: {
+    a() {
+      this.$parent.$refs.search.entry = this.a
+      this.$parent.$refs.search.text = this.a.simplified
+    },
+    b() {
+      this.$parent.$refs.compare.entry = this.b
+      this.$parent.$refs.compare.text = this.b.simplified
+    },
     $route() {
       if (this.$route.name === 'compare') {
         this.route()
