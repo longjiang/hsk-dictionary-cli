@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     show(entry) {
+      console.log(entry, 'shwoing')
       this.entryKey += 1
       this.entry = entry
       if (this.$parent.$refs.search) {
@@ -94,6 +95,9 @@ export default {
         if (method === 'hsk') {
           HSKCEDICT.getByHSKId(entry => this.show(entry), [arg])
         } else if (method === 'cedict') {
+          if (arg === 'random') {
+            this.random()
+          }
           HSKCEDICT.getByIdentifier(entry => this.show(entry), [arg])
         } else {
           this.random()
@@ -101,8 +105,9 @@ export default {
       }
     },
     random() {
-      const random = CEDICT.random()
-      location.hash = `/view/cedict/${random.identifier}`
+      HSKCEDICT.random(
+        entry => (location.hash = `/view/cedict/${entry.identifier}`)
+      )
     }
   },
   watch: {

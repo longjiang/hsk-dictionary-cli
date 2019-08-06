@@ -15,7 +15,6 @@ const HSKCEDICT = {
     return this._data.find(row => row.hskId === hskId)
   },
   getByIdentifier(identifier) {
-    console.log(identifier)
     return this._data.find(row => row.identifier === identifier)
   },
   compileBooks() {
@@ -36,6 +35,15 @@ const HSKCEDICT = {
       }
     }
     return books
+  },
+  randomArrayItem(array, start = 0, length = false) {
+    length = length || array.length
+    array = array.slice(start, length)
+    let index = Math.floor(Math.random() * array.length)
+    return array[index]
+  },
+  random() {
+    return this.randomArrayItem(this._data)
   },
   lookupSimplified(simplified, pinyin = false) {
     const candidates = this._data
