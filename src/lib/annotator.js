@@ -12,11 +12,35 @@ export default {
   },
   load(callback) {
     // worker ready
-    this.worker = new Worker('./workers/annotator-worker.js')
-    this.worker.onmessage = e => {
+    this.worker = new Worker('./workers/hskcedict-annotator-worker.js')
+    this.worker.addEventListener('message', e => {
       if (e.data[0] === 'load' && e.data[1] === 'ready') {
         window.Annotator = this
+        this.worker.postMessage(['hskcedictMethods'])
+      }
+      if (e.data[0] === 'hskcedictMethods') {
+        this.makeHSKCEDICTAvailable(e.data[1])
         callback()
+      }
+    })
+  },
+  makeHSKCEDICTAvailable(methods) {
+    window.HSKCEDICT = {}
+    for (let method of methods) {
+      window.HSKCEDICT[method] = (callback, args = undefined) => {
+        let m1 = e => {
+          if (e.data[0] === method) {
+            callback(e.data[1])
+            this.worker.removeEventListener('message', m1)
+          }
+        }
+        if (args !== undefined) {
+          this.worker.postMessage([method, args])
+          this.worker.addEventListener('message', m1)
+        } else {
+          this.worker.postMessage([method])
+          this.worker.addEventListener('message', m1)
+        }
       }
     }
   },
@@ -55,10 +79,8 @@ export default {
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
       this.worker.postMessage(['annotate', [node.nodeValue]])
-      this.worker.onmessage = function(event) {
-        console.log(event.data)
+      this.worker.addEventListener('message', event => {
         let [method, data] = event.data
-        console.log(method, data)
         if (method === 'annotate') {
           var html = ''
           data.map(textOrCandidates => {
@@ -66,7 +88,7 @@ export default {
           })
           annotator.replaceNodeWithHTML(node, html)
         }
-      }
+      })
     }
   },
 
