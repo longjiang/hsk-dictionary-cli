@@ -60,7 +60,9 @@ export default {
       }
     },
     savedWordIds() {
-      this.updateWords()
+      if (this.method == 'saved') {
+        this.updateWords()
+      }
     }
   },
   beforeMount() {
