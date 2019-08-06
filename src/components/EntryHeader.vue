@@ -94,7 +94,7 @@ export default {
   methods: {
     findCurrentFunction(entry) {
       return function(item) {
-        return item.join(',') === entry.identifier
+        return item.join(',').replace(/ /g, '_') === entry.identifier
       }
     },
     list() {
@@ -108,15 +108,21 @@ export default {
     previousClick() {
       let list = this.list()
       if (list.hasPrevious()) {
-        const previousWord = Normalizer.get(...list.previous())
-        location.hash = `/view/cedict/${previousWord.identifier}`
+        const identifier = list
+          .previous()
+          .join(',')
+          .replace(/ /g, '_')
+        location.hash = `/view/cedict/${identifier}`
       }
     },
     nextClick() {
       let list = this.list()
       if (list.hasNext()) {
-        const nextWord = Normalizer.get(...list.next())
-        location.hash = `/view/cedict/${nextWord.identifier}`
+        const identifier = list
+          .next()
+          .join(',')
+          .replace(/ /g, '_')
+        location.hash = `/view/cedict/${identifier}`
       }
     }
   }
