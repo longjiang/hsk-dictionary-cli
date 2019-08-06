@@ -3,7 +3,9 @@
     <div class="row" v-if="entry.examples && entry.examples.length > 0">
       <div class="col-sm-12">
         <div class="label song-label mb-2">
-          Sentences with “{{ entry.simplified }}”
+          Sentences with “<span class="simplified">{{ entry.simplified }}</span
+          ><span class="traditional">{{ entry.traditional }}</span
+          >”
         </div>
         <PinyinButton class="mt-3" :selector="`#examples`" />
         <ul

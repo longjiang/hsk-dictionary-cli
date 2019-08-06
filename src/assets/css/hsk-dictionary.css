@@ -16,6 +16,12 @@ body {
   min-height: calc(100vh - 30rem);
 }
 
+#hsk-dictionary:not(.show-simplified) .simplified,
+#hsk-dictionary:not(.show-traditional) .traditional {
+  display: none;
+}
+
+
 .title {
   margin: 0;
   font-size: 1.5rem;

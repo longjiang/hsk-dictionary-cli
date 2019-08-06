@@ -29,14 +29,17 @@
             class="character-example-word"
             :data-hsk="word.hsk"
             v-if="!highlight"
-            >{{ word.simplified }}</span
+            ><span class="simplified">{{ word.simplified }}</span
+            ><span class="traditional">{{ word.traditional }}</span></span
           ><span
             class="character-example-word"
             v-if="highlight"
             v-html="Helper.highlight(word.simplified, highlight, word.hsk)"
           ></span
           ><span class="character-example-word" v-if="traditional === true"
-            >({{ word.traditional }})</span
+            >(<span class="traditional">{{ word.simplified }}</span
+            ><span class="simplified">{{ word.traditional }}</span
+            >)</span
           ><span class="character-example-pinyin ml-1">{{ word.pinyin }}</span
           >&nbsp;
           <span v-if="word.definitions" class="character-example-english">

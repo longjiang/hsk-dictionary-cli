@@ -25,7 +25,12 @@
           <Speak class="ml-1" :text="'一' + entry.measureWords[0].simplified" />
         </div>
         <div class="word measure-word">
-          一{{ entry.measureWords[0].simplified }}
+          一<span class="simplified">{{
+            entry.measureWords[0].simplified
+          }}</span
+          ><span class="traditional">{{
+            entry.measureWords[0].traditional
+          }}</span>
         </div>
       </div>
       <div class="entry-word" style="display:inline-block">
@@ -36,7 +41,10 @@
         </div>
         <div class="word">
           <a :href="`#/view/cedict/${entry.identifier}`">
-            <span v-bind:data-hsk="entry.hsk">{{ entry.simplified }}</span>
+            <span v-bind:data-hsk="entry.hsk"
+              ><span class="simplified">{{ entry.simplified }}</span
+              ><span class="traditional">{{ entry.traditional }}</span></span
+            >
           </a>
         </div>
       </div>

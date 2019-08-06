@@ -6,7 +6,7 @@
           Settings
         </h4>
         <hr />
-        <div class="mt-2 mb-2">
+        <div class="mt-5 text-center">
           <input
             type="checkbox"
             id="hide-pinyin"
@@ -14,15 +14,17 @@
             v-model="hidePinyinExceptSaved"
             checked
           />
-          <label for="hide-pinyin">Hide Pinyin</label>
+          <label for="hide-pinyin">Hide Pinyin Throughout</label>
           <input
             type="checkbox"
             id="use-traditional"
             class="ml-3 mr-1"
             v-model="useTraditional"
           />
-          <label for="use-traditional">Traditional</label>
+          <label for="use-traditional">Use Traditional Throughout</label>
         </div>
+        <PinyinButton />
+        <div class="big-word text-center mt-4">文字范例</div>
       </div>
     </div>
   </div>

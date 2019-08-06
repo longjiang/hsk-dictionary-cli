@@ -1,19 +1,17 @@
 <template>
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
-  <div class="container" v-if="entry.simplified" v-cloak>
+  <div class="container" v-if="text" v-cloak>
     <div class="row character-example-wrapper mt-4" v-if="characters">
       <!-- ANCHOR img/anchors/character.png -->
       <div
-        :class="
-          `col-md-${Math.max(4, Math.floor(12 / entry.simplified.length))}`
-        "
+        :class="`col-md-${Math.max(4, Math.floor(12 / text.length))}`"
         v-for="(character, index) in characters"
       >
         <!-- ANCHOR img/anchors/parts.png -->
         <div class="text-center">
-          <div class="pinyin mb-2" v-if="entry.pinyin">
-            {{ entry.pinyin.split(' ')[index] }}
+          <div class="pinyin mb-2" v-if="pinyin">
+            {{ pinyin.split(' ')[index] }}
           </div>
           <StrokeOrder :char="character.character" />
         </div>
@@ -44,33 +42,6 @@
               v-if="part.showExamples && part.hskCharacters"
             >
               <li>{{ part.hskCharacters.length }} characters:</li>
-              <li class="part-example" v-for="row in part.hskCharacters">
-                <a
-                  :href="'#view/hsk/' + row.firstHSKWord.id"
-                  v-html="
-                    highlightCharacter(
-                      row.firstHSKWord.simplified,
-                      row.character,
-                      row.firstHSKWord.hsk
-                    )
-                  "
-                ></a>
-                <span
-                  class="part-pinyin character-example-pinyin"
-                  v-if="part.pinyin"
-                >
-                  {{ row.firstHSKWord.pinyin }}
-                  <i
-                    class="speak glyphicon glyphicon-volume-up"
-                    v-bind:data-speak="row.firstHSKWord.simplified"
-                  ></i>
-                </span>
-                <span
-                  class="part-definition character-example-english"
-                  v-if="part.definition"
-                  >{{ row.firstHSKWord.english }}</span
-                >
-              </li>
             </ul>
           </div>
           <div class="etymology mb-4" v-if="character.etymology">
@@ -103,7 +74,7 @@ import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
-  props: ['entry'],
+  props: ['text', 'pinyin'],
   components: {
     Decomposition
   },
@@ -115,7 +86,7 @@ export default {
   mounted() {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-        this.characters = LoadedHanzi.getCharactersInWord(this.entry.simplified)
+        this.characters = LoadedHanzi.getCharactersInWord(this.text)
         for (let character of this.characters) {
           this.lookupByCharacter(character)
         }
@@ -131,9 +102,9 @@ export default {
       })
     },
     recalculateExampleColumns() {
-      if (this.entry.simplified) {
+      if (this.text) {
         let $div = $('.character-example-wrapper > div')
-        let span = 12 / this.entry.simplified.length
+        let span = 12 / this.text.length
         $div.removeClass()
         $div.addClass('col-md-' + span)
       }

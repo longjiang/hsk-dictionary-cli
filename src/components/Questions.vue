@@ -20,11 +20,35 @@
       </div>
       <div v-for="(word, index) in words">
         <DecompositionQuestion
-          :word="word"
+          :text="word.simplified"
+          :pinyin="word.pinyin"
+          :hsk="word.hsk"
+          :definitions="word.definitions"
+          class="simplified"
+          :id="`word-${index}-decomposition-1`"
+        ></DecompositionQuestion>
+        <DecompositionQuestion
+          :text="word.traditional"
+          :pinyin="word.pinyin"
+          :hsk="word.hsk"
+          :definitions="word.definitions"
+          class="simplified"
           :id="`word-${index}-decomposition-1`"
         ></DecompositionQuestion>
         <FillInTheBlankQuestion
-          :word="word"
+          :text="word.simplified"
+          :pinyin="word.pinyin"
+          :hsk="word.hsk"
+          class="simplified"
+          :definitions="word.definitions"
+          :id="`word-${index}-fill-in-the-blank`"
+        ></FillInTheBlankQuestion>
+        <FillInTheBlankQuestion
+          :text="word.traditional"
+          :pinyin="word.pinyin"
+          :hsk="word.hsk"
+          class="traditional"
+          :definitions="word.definitions"
           :id="`word-${index}-fill-in-the-blank`"
         ></FillInTheBlankQuestion>
         <CollocationQuestion

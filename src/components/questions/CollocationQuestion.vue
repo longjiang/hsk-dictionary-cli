@@ -40,9 +40,23 @@
                 v-html="Helper.highlight(phrase, word.simplified, word.hsk)"
               ></div>
               <div
-                class="example-sentence-word mt-2"
+                class="example-sentence-word mt-2 simplified"
                 v-html="
-                  Helper.highlight(gramrelName, word.simplified, word.hsk)
+                  Helper.highlight(
+                    gramrelNameSimplified,
+                    word.simplified,
+                    word.hsk
+                  )
+                "
+              ></div>
+              <div
+                class="example-sentence-word mt-2 traditional"
+                v-html="
+                  Helper.highlight(
+                    gramrelNameTraditional,
+                    word.traditional,
+                    word.hsk
+                  )
                 "
               ></div>
               <button
@@ -109,8 +123,11 @@ export default {
     choosePhrase() {
       this.gramrel = Helper.randomArrayItem(this.word.sketch.Gramrels)
       this.phrase = Helper.randomArrayItem(this.gramrel.Words, 0, 5).cm
-      this.gramrelName = SketchEngine.collocationDescription(
+      this.gramrelNameSimplified = SketchEngine.collocationDescription(
         this.word.simplified
+      )[this.gramrel.name]
+      this.gramrelNameTraditional = SketchEngine.collocationDescription(
+        this.word.traditional
       )[this.gramrel.name]
     }
   }

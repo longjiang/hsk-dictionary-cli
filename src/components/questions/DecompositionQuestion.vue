@@ -1,29 +1,26 @@
 <template>
   <div class="question-decomposition" v-if="word" :id="id">
-    <div
-      class="question-slide-aspect"
-      v-for="rc in [randomChar(word.simplified)]"
-    >
+    <div class="question-slide-aspect" v-for="rc in [randomChar(text)]">
       <div class="question-slide" :id="`question-${id}-slide-1`">
-        <div :data-hsk="word.hsk" class="text-center big-word-pinyin mb-4">
-          {{ word.pinyin }}
-          <Speak :text="word.simplified" class="ml-2"></Speak>
+        <div :data-hsk="hsk" class="text-center big-word-pinyin mb-4">
+          {{ pinyin }}
+          <Speak :text="text" class="ml-2"></Speak>
         </div>
         <div class="decomposition-word">
           <span
             v-if="rc.before !== ''"
             class="decomposition-before"
-            v-html="Helper.highlight(rc.before, rc.before, word.hsk)"
+            v-html="Helper.highlight(rc.before, rc.before, hsk)"
           ></span>
           <decomposition :char="rc.char"></decomposition>
           <span
             class="decomposition-after"
             v-if="rc.after !== ''"
-            v-html="Helper.highlight(rc.after, rc.after, word.hsk)"
+            v-html="Helper.highlight(rc.after, rc.after, hsk)"
           ></span>
         </div>
         <div class="text-center character-example-english mt-4">
-          {{ word.definitions[0].text }}
+          {{ definitions[0].text }}
         </div>
       </div>
     </div>

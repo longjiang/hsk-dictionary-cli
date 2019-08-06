@@ -1,5 +1,5 @@
 <template>
-  <div class="main mt-4 mb-4" v-cloak :key="readerKey">
+  <div class="main mt-4" v-cloak :key="readerKey">
     <div class="container mt2 mb2">
       <div class="row">
         <div class="col-sm-12">
@@ -152,8 +152,8 @@ export default {
     return {
       text: '',
       annotated: false,
-      hidePinyinExceptSaved: false,
-      useTraditional: false,
+      hidePinyinExceptSaved: localStorage.getItem('czhHidePinyinExceptSaved'),
+      useTraditional: localStorage.getItem('czhUseTraditional'),
       showDefinition: false,
       readerKey: 0, // used to force re-render this component
       savedWordsKey: 0

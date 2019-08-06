@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-cloak :key="'entry-' + entryKey">
-    <div class="container mt-4 mb-4">
+    <div class="container mt-4">
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />
@@ -17,7 +17,18 @@
 
     <EntryExample class="mt5" v-if="entry" :entry="entry"></EntryExample>
 
-    <EntryCharacters class="mb-4" v-if="entry" :entry="entry"></EntryCharacters>
+    <EntryCharacters
+      class="mb-4 simplified"
+      v-if="entry"
+      :text="entry.simplified"
+      :pinyin="entry.pinyin"
+    ></EntryCharacters>
+    <EntryCharacters
+      class="mb-4 traditional"
+      v-if="entry"
+      :text="entry.traditional"
+      :pinyin="entry.pinyin"
+    ></EntryCharacters>
 
     <EntryWebImages class="mt-5" v-if="entry" :entry="entry"></EntryWebImages>
 
