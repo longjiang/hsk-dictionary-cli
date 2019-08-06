@@ -86,7 +86,6 @@
 <script>
 import $ from 'jquery'
 import WordList from '@/components/WordList.vue'
-import Normalizer from '@/lib/normalizer'
 
 export default {
   template: '#saved-words-template',
@@ -117,35 +116,37 @@ export default {
         'Simplified\tTraditional\tPinyin\tDefinitions\tMeasure Words\n' +
         SavedWordsVue.savedWords
           .map(function(word) {
-            word = Normalizer.get(...word)
-            const definitions = word.definitions.map(function(definition) {
-              return definition.text
-            })
-            const measureWords =
-              word.measureWords && word.measureWords.length > 0
-                ? word.measureWords
-                    .map(function(measureWord) {
-                      return `${
-                        measureWord.simplified
-                      } (${measureWord.traditional}, ${measureWord.pinyin})`
-                    })
-                    .join(', ')
-                : ''
-            return `${
-              word.simplified
-            }\t${word.traditional}\t${word.pinyin}\t${definitions.join(', ')}\t${measureWords}`
+            if (word) {
+              const definitions = word.definitions.map(function(definition) {
+                return definition.text
+              })
+              const measureWords =
+                word.measureWords && word.measureWords.length > 0
+                  ? word.measureWords
+                      .map(function(measureWord) {
+                        return `${
+                          measureWord.simplified
+                        } (${measureWord.traditional}, ${measureWord.pinyin})`
+                      })
+                      .join(', ')
+                  : ''
+              return `${word.simplified}\t${word.traditional}\t${
+                word.pinyin
+              }\t${definitions.join(', ')}\t${measureWords}`
+            }
           })
           .join('\n')
       )
     },
     csvSimple() {
-      return this.$store.state.savedWords
+      return this.savedWords
         .map(function(word) {
-          word = Normalizer.get(...word)
-          const definitions = word.definitions.map(function(definition) {
-            return definition.text
-          })
-          return `${word.simplified}\t${definitions.join(', ')}`
+          if (word) {
+            const definitions = word.definitions.map(function(definition) {
+              return definition.text
+            })
+            return `${word.simplified}\t${definitions.join(', ')}`
+          }
         })
         .join('\n')
     },
