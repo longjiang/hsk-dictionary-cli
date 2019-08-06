@@ -48,7 +48,7 @@ export default {
     if (Array.isArray(textOrCandidates)) {
       let candidates = textOrCandidates
       let word = candidates[0]
-      let book = candidates[0].book ? candidates[0].book : 'outside'
+      let book = candidates[0].hsk
       try {
         return `<span class="word-block" data-candidates="${escape(
           JSON.stringify(candidates)
