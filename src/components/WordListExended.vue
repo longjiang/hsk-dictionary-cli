@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul
+      :key="listKey"
       :class="{
         'word-list-ext': true,
         collapsed: collapse > 0
@@ -20,6 +21,9 @@
             </button>
             <button class="paginate-button next" v-on:click="imgNext(word)">
               <img src="img/angle-right.svg" alt />
+            </button>
+            <button class="paginate-button close" v-on:click="remove(word)">
+              <i class="glyphicon glyphicon-remove"></i>
             </button>
           </div>
           <img
@@ -115,6 +119,7 @@ export default {
     return {
       Helper,
       Config,
+      listKey: 0,
       imgKey: 0
     }
   },
@@ -142,6 +147,16 @@ export default {
     }
   },
   methods: {
+    remove(word) {
+      if (word) {
+        for (let i in this.words) {
+          if (this.words[i].simplified === word.simplified) {
+            this.words.splice(i, 1)
+            this.listKey++
+          }
+        }
+      }
+    },
     imgPrev(word) {
       word.srcs.push(word.srcs.shift())
       this.imgKey++

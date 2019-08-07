@@ -1601,3 +1601,10 @@ a.suggestion {
 .word-list-ext-cycle .paginate-button img {
   opacity: 0.5;
 }
+
+.word-list-ext-item-head .paginate-button.close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  opacity: 0.5;
+}
