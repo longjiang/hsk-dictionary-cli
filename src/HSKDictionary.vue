@@ -12,9 +12,9 @@
     <!-- To highlight ANCHORS in the Visual Studio Code editor, download the "comment anchors" extension by Exodius Studios  -->
     <!-- To see image previews, download the "image preview" extension from Kiss Tamás  -->
     <!-- To paste images from clipboard directly, download the "Paste Image" extension from mushan -->
-    <div class="container-fluid top-bar pt-4">
+    <div class="container-fluid top-bar pt-3">
       <div class="container">
-        <div class="row mb-4">
+        <div class="row mb-3">
           <div class="col-sm-12">
             <h1 class="title">
               <a class="title-text" href="#/">Dictionary</a>
@@ -34,7 +34,7 @@
                 placeholder="Compare with..."
                 :hrefFunc="compareHrefFunc"
               ></Search>
-              <button class="btn btn-primary ml-2" @click="compareClick">
+              <button class="btn btn-danger ml-2" @click="compareClick">
                 <span v-if="compare">Close</span
                 ><span v-if="!compare">Compare</span>
               </button>
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="row mt-4" v-cloak>
+      <div class="row mt-3" v-cloak>
         <div class="col-sm-12">
           <nav class="tabs text-center">
             <router-link

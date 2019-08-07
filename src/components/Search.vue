@@ -19,7 +19,7 @@
       </a>
       <div class="input-group-append">
         <button
-          class="btn btn-primary lookup-button"
+          class="btn btn-danger lookup-button"
           v-on:click="lookupButtonClick"
           type="button"
           title="Search"
