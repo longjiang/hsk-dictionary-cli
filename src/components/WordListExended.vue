@@ -19,8 +19,6 @@
             :src="word.srcs[0]"
             class="word-list-ext-image"
           />
-          <img v-else :src="`https://source.unsplash.com/featured/?${word.simplified}`" 
-            class="word-list-ext-image"/>
         </div>
         <div class="word-list-ext-item-body">
           <div class="character-example-pinyin">
@@ -39,7 +37,10 @@
             >
               {{ word.simplified }}
             </div>
-            <div class="word-list-ext-item-word traditional">
+            <div
+              :data-hsk="word.hsk"
+              class="word-list-ext-item-word traditional"
+            >
               {{ word.traditional }}
             </div>
           </a>
@@ -129,20 +130,34 @@ export default {
   methods: {
     updateImages() {
       for (let word of this.words) {
+        const unsplash = `https://source.unsplash.com/featured/?${
+          word.simplified
+        }`
         if (!word.srcs) {
           word.srcs = []
           if (word.hsk !== 'outside') {
-            WordPhotos.getPhoto(word, src => {
-              word.srcs.push(src)
-              this.imgKey++
+            WordPhotos.getPhoto(
+              word,
+              src => {
+                word.srcs.push(src)
+                this.imgKey++
+              },
+              () => {
+                word.srcs.push(unsplash)
+              }
+            )
+          } else {
+            WordPhotos.getWebImages(word.simplified, images => {
+              WordPhotos.testImages(
+                images.map(image => image.img).concat([unsplash]),
+                src => {
+                  word.srcs.push(src)
+                  console.log(word.simplified, 'pushing', src)
+                  this.imgKey++
+                }
+              )
             })
           }
-          WordPhotos.getWebImages(word.simplified, images => {
-            WordPhotos.testImages(images.map(image => image.img), src => {
-              word.srcs.push(src)
-              this.imgKey++
-            })
-          })
         }
       }
     }

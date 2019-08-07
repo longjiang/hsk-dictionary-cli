@@ -27,14 +27,9 @@ export default {
   },
   testImages(srcs, success, fail = () => {}) {
     if (srcs.length === 0) return
-    let f = srcs => {
-      this.testImages(srcs.slice(1), success, srcs => {
-        f(srcs)
-      })
+    for (let src of srcs) {
+      this.testImage(src, success, fail)
     }
-    this.testImage(srcs[0], success, () => {
-      f(srcs)
-    })
   },
   // strWord = "视频"
   getWebImages(strWord, callback) {
@@ -82,6 +77,8 @@ export default {
   },
   reject: [
     'nipic',
+    '16pic.com',
+    'photophoto.cn',
     'pconline',
     'zol.com',
     'youth.cn',
