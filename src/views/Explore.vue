@@ -15,7 +15,8 @@
             </thead>
             <tbody>
               <tr v-for="root in rootsAugmented">
-                <td>
+                <td class="character-example">
+                  <a href="#/explore/roots/root.root">
                   <span
                     class="character-example-word"
                     v-if="root.word"
@@ -27,9 +28,7 @@
                       )
                     "
                   ></span
-                  ><span class="character-example-word" v-if="!root.word">{{
-                    root.root
-                  }}</span>
+                  ></a>
                 </td>
                 <td>
                   <b>{{ root.count }}</b> HSK words match this pattern.
