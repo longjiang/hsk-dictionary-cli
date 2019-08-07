@@ -47,7 +47,9 @@
 
           <div v-if="word.definitions" class="character-example-english mb-2">
             <div v-for="definition in word.definitions.slice(0, 3)">
-              {{ definition.text.replace(/\(.*\)/, '') }}
+              <span v-if="definition.text">
+                {{ definition.text.replace(/\(.*\)/, '') }}
+              </span>
             </div>
           </div>
           <PinyinButton />
@@ -149,7 +151,7 @@ export default {
           } else {
             WordPhotos.getWebImages(word.simplified, images => {
               WordPhotos.findFirstWorkingImage(
-                images.map(image => image.img).slice(0, 5),
+                images.map(image => image.img),
                 src => {
                   word.srcs.push(src)
                   this.imgKey++

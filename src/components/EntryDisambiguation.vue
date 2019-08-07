@@ -1,11 +1,12 @@
 <template>
-  <div class="container" v-if="similarWords.length > 0">
+  <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <div>
+        <div v-if="similarWords.length > 0">
           <div class="label song-label">
             Compare with
           </div>
+
           <WordList
             class="mt-2"
             collapse="10"
@@ -14,6 +15,16 @@
             :key="wordsKey"
             :traditional="entry.simplified.length === 1"
           ></WordList>
+        </div>
+
+        <div class="text-center mt-3 mb-3">
+          <a
+            class="btn show-more"
+            :data-bg-hsk="entry.hsk"
+            :href="`#/explore/related/${entry.identifier}`"
+            ><i class="glyphicon glyphicon-fullscreen"></i> Explore Related
+            Words</a
+          >
         </div>
       </div>
     </div>
