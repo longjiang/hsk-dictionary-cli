@@ -43,6 +43,7 @@
               <PinyinButton />
               <div class="big-word">{{ root.pattern }}</div>
               <DefinitionsList
+                v-if="rootCharacter"
                 class="mt-2"
                 :definitions="rootCharacter.definition.split(';')"
               ></DefinitionsList>
