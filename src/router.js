@@ -42,6 +42,11 @@ export default new Router({
       component: () => import('./views/SavedWords.vue')
     },
     {
+      path: '/explore',
+      name: 'explore',
+      component: () => import('./views/Explore.vue')
+    },
+    {
       path: '/pinyin-list',
       name: 'pinyin',
       component: () => import('./views/PinyinList.vue')

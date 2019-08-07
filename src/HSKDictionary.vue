@@ -79,6 +79,13 @@
               <i class="glyphicon glyphicon-blackboard"></i> Learn
             </router-link>
             <router-link
+              class="tab"
+              :to="{ name: 'explore' }"
+              title="Explore"
+            >
+              <i class="glyphicon glyphicon-sunglasses"></i> Explore
+            </router-link>
+            <router-link
               class="tab tab-saved-words"
               :to="{ name: 'saved-words' }"
             >
