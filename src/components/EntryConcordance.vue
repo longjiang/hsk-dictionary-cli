@@ -2,32 +2,45 @@
   <div class="container concordance" :key="'concordance-' + concordanceKey">
     <div class="row" v-if="entry.examples && entry.examples.length > 0">
       <div class="col-sm-12">
-        <div class="label song-label mb-2">
+        <div class="label song-label">
           Sentences with “<span class="simplified">{{ entry.simplified }}</span
           ><span class="traditional">{{ entry.traditional }}</span
           >”
         </div>
-        <PinyinButton class="mt-3" :selector="`#examples`" />
-        <ul
-          class="character-examples collapsed"
-          id="examples"
-          data-collapse-target
-        >
-          <li
-            class="character-example"
-            v-for="example in entry.examples.slice(0, 100)"
+        <div class="text-center pt-4 pb-4 lyrics-bar">
+          <button
+            class="btn show-more"
+            :data-bg-hsk="entry.hsk"
+            v-if="!show"
+            @click="showClick"
           >
-            <span
-              class="character-example-word"
-              v-html="Helper.highlight(example, entry.simplified, entry.hsk)"
-            ></span>
-          </li>
-        </ul>
-        <ShowMoreButton
-          :length="entry.examples.length"
-          :min="4"
-          :data-bg-hsk="entry.hsk"
-        />
+            Show Sentences
+          </button>
+        </div>
+
+        <div v-if="show">
+          <PinyinButton class="mt-3" :selector="`#examples`" />
+          <ul
+            class="character-examples collapsed"
+            id="examples"
+            data-collapse-target
+          >
+            <li
+              class="character-example"
+              v-for="example in entry.examples.slice(0, 100)"
+            >
+              <span
+                class="character-example-word"
+                v-html="Helper.highlight(example, entry.simplified, entry.hsk)"
+              ></span>
+            </li>
+          </ul>
+          <ShowMoreButton
+            :length="entry.examples.length"
+            :min="4"
+            :data-bg-hsk="entry.hsk"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -42,7 +55,13 @@ export default {
   data() {
     return {
       Helper,
+      show: false,
       concordanceKey: 0
+    }
+  },
+  methods: {
+    showClick() {
+      this.show = true
     }
   },
   mounted() {

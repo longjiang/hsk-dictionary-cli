@@ -8,6 +8,7 @@
           </div>
           <WordList
             class="mt-2"
+            collapse="10"
             :words="similarWords"
             :compareWith="entry"
             :key="wordsKey"

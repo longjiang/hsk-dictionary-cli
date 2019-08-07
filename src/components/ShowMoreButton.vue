@@ -1,7 +1,7 @@
 <template>
   <button
     v-if="visible()"
-    class="show-more collapsed mb-4"
+    class="show-more collapsed"
     v-on:click="showMoreClick"
   >
     <span class="label-expand">

@@ -37,11 +37,11 @@
     <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
     <!-- <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated> -->
 
-    <EntryCollocations v-if="entry" :entry="entry"></EntryCollocations>
+    <EntryCollocations class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryCollocations>
 
-    <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance>
+    <EntryConcordance class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryConcordance>
 
-    <EntryMistakes v-if="entry" :entry="entry"></EntryMistakes>
+    <EntryMistakes class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryMistakes>
 
     <EntryCourseAd v-if="entry" :entry="entry"></EntryCourseAd>
 

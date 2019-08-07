@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div v-if="lrcs && lrcs.length > 0">
     <!-- ANCHOR img/anchors/lyrics-bar.png -->
     <div
       class="container-fluid song-lyrics-bar"
       :data-bg-hsk="entry.hsk"
       v-cloak
-      v-if="lrcs && lrcs.length > 0"
     >
       <div class="container">
         <div class="row">
@@ -20,11 +19,21 @@
       </div>
     </div>
 
-    <div
-      class="container-flud lyrics-bar"
-      v-cloak
-      v-if="lrcs && lrcs.length > 0"
-    >
+    <div class="container-flud lyrics-bar">
+      <div class="songs" v-if="!show">
+        <div class="row song">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 text-center lyrics-wrapper">
+                <button class="btn show-more" :data-bg-hsk="entry.hsk" @click="showLRCs">Show Songs and Music Videos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-flud lyrics-bar" v-cloak v-if="show">
       <div class="songs">
         <div class="row song" v-for="(lrc, lrcIndex) in lrcs.slice(0, limit)">
           <div class="container">
@@ -126,10 +135,14 @@ export default {
     return {
       Helper,
       LRC,
+      show: false,
       lrcs: [] // matched song lyrics, pulled from another server
     }
   },
   methods: {
+    showLRCs() {
+      this.show = true
+    },
     removeYouTubeAPIVars() {
       if (window['YT']) {
         let vars = [
