@@ -37,14 +37,14 @@
             <Loader class="mt-5" />
             <WordListExended
               v-if="related.length > 0"
-              :words="related.slice(0, 12)"
+              :words="related.slice(0, 18)"
               :compareWith="word"
             />
-            <h4 v-if="related.length > 12" class="text-center mb-5">More Related Words</h4>
+            <h4 v-if="related.length > 18" class="text-center mb-5">More Related Words</h4>
             <WordList
-              v-if="related.length > 12"
+              v-if="related.length > 18"
               :compareWith="word"
-              :words="related.slice(12)"
+              :words="related.slice(18)"
               class="related mb-5"
             />
           </div>
@@ -120,7 +120,6 @@ export default {
                       Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
                         LoadedHSKCEDICT.lookupSimplified(
                           words => {
-                            words = words
                             if (words.length > 0) {
                               let word = words[0]
                               this.related.push(word)
@@ -128,6 +127,11 @@ export default {
                           },
                           [Word.word]
                         )
+                        this.related = this.related.sort((a, b) => {
+                          let ahsk = a.hsk === 'outside' ? 7 : parseInt(a.hsk)
+                          let bhsk = b.hsk === 'outside' ? 7 : parseInt(b.hsk)
+                          return ahsk - bhsk
+                        })
                       })
                     }
                   }

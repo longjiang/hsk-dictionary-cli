@@ -803,8 +803,8 @@ a.suggestion {
 
 .bg-hskoutside,
 [data-bg-hsk='outside'] {
-  background-color: #c59f94;
-  color: white;
+  background-color: #c59f94 !important;
+  color: white !important;
 }
 
 .btn-small {

@@ -19,6 +19,8 @@
             :src="word.srcs[0]"
             class="word-list-ext-image"
           />
+          <img v-else :src="`https://source.unsplash.com/featured/?${word.simplified}`" 
+            class="word-list-ext-image"/>
         </div>
         <div class="word-list-ext-item-body">
           <div class="character-example-pinyin">
