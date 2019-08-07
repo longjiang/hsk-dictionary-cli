@@ -163,8 +163,8 @@ export default {
   },
   data: function() {
     return {
-      hidePinyinExceptSaved: localStorage.getItem('czhHidePinyinExceptSaved'),
-      useTraditional: localStorage.getItem('czhUseTraditional'),
+      hidePinyinExceptSaved: localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
+      useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
       compare: false,
       compareHrefFunc: compareEntry => {
         const entry =

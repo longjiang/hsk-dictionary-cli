@@ -49,8 +49,8 @@
 export default {
   data() {
     return {
-      showPinyin: !localStorage.getItem('czhHidePinyinExceptSaved'),
-      useTraditional: localStorage.getItem('czhUseTraditional')
+      showPinyin: localStorage.getItem('czhHidePinyinExceptSaved') === 'false',
+      useTraditional: localStorage.getItem('czhUseTraditional') === 'true'
     }
   },
   watch: {
