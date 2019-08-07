@@ -1,41 +1,52 @@
 <template>
-  <div class="main mt-4">
+  <div class="main mt-4 mb-4">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h4>Explore Words Endings</h4>
-          <p>See how words are built.</p>
-          <Loader class="mt-5" />
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Pattern</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="root in rootsAugmented">
-                <td class="character-example">
-                  <a href="#/explore/roots/root.root">
-                  <span
-                    class="character-example-word"
-                    v-if="root.word"
-                    v-html="
-                      Helper.highlight(
-                        root.root,
-                        root.word.simplified,
-                        root.word.hsk
-                      )
-                    "
-                  ></span
-                  ></a>
-                </td>
-                <td>
-                  <b>{{ root.count }}</b> HSK words match this pattern.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div v-if="!arg">
+            <h4>Explore Words Endings</h4>
+            <p>See how words are built.</p>
+            <Loader class="mt-5" />
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Pattern</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="root in rootsAugmented">
+                  <td class="character-example">
+                    <a :href="`#/explore/roots/${root.root}`">
+                      <span
+                        class="character-example-word"
+                        v-if="root.word"
+                        v-html="
+                          Helper.highlight(
+                            root.root,
+                            root.word.simplified,
+                            root.word.hsk
+                          )
+                        "
+                      ></span
+                    ></a>
+                  </td>
+                  <td>
+                    <b>{{ root.count }}</b> HSK words match this pattern.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-if="arg">
+            <PinyinButton />
+            <div class="big-word text-center">{{ root.pattern }}</div>
+            <div class="english text-center mb-4">
+              {{ rootCharacter.definition.split(';')[0] }}
+            </div>
+            <Loader class="mt-5" />
+            <WordList v-if="rootWords" :words="rootWords" />
+          </div>
         </div>
       </div>
     </div>
@@ -44,26 +55,65 @@
 
 <script>
 import Helper from '@/lib/helper'
+import $ from 'jquery'
 
 export default {
-  mounted() {
-    Helper.loaded(
-      (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-        for (let root of this.roots) {
-          LoadedHSKCEDICT.lookupSimplified(
-            words => {
-              root.word = words[0]
-              this.rootsAugmented.push(root)
-            },
-            [root.root.replace(/～/g, '')]
-          )
+  beforeMount() {
+    this.route()
+  },
+  methods: {
+    route() {
+      $('#hsk-dictionary')[0].scrollIntoView()
+      if (this.$route.params.arg) {
+        this.arg = this.$route.params.arg
+        this.root = {
+          pattern: this.arg
         }
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedHSKCEDICT.lookupByPattern(
+              words => {
+                this.rootWords = words
+                  .sort((a, b) => a.simplified.length - b.simplified.length)
+                  .sort((a, b) => a.hsk - b.hsk)
+              },
+              [this.root.pattern]
+            )
+            this.rootCharacter = LoadedHanzi.lookup(
+              this.root.pattern.replace(/～/g, '')
+            )
+          }
+        )
+      } else {
+        this.arg = ''
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            for (let root of this.roots) {
+              LoadedHSKCEDICT.lookupSimplified(
+                words => {
+                  root.word = words[0]
+                  this.rootsAugmented.push(root)
+                },
+                [root.root.replace(/～/g, '')]
+              )
+            }
+          }
+        )
       }
-    )
+    }
+  },
+  watch: {
+    $route() {
+      this.route()
+    }
   },
   data() {
     return {
       Helper,
+      root: undefined,
+      arg: undefined,
+      rootCharacter: undefined,
+      rootWords: [],
       rootsAugmented: [],
       roots: [
         {

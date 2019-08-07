@@ -24,7 +24,7 @@
         <div class="row song">
           <div class="container">
             <div class="row">
-              <div class="col-md-6 text-center lyrics-wrapper">
+              <div class="col-md-12 text-center lyrics-wrapper">
                 <button class="btn show-more" :data-bg-hsk="entry.hsk" @click="showLRCs">Show Songs and Music Videos</button>
               </div>
             </div>

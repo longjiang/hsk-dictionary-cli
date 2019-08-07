@@ -116,6 +116,22 @@ const HSKCEDICT = {
       })
     return candidates
   },
+  lookupByPattern(pattern) {
+    // pattern like '～体'
+    var results = []
+    if (pattern.includes('～')) {
+      const regexPattern = '^' + pattern.replace(/～/gi, '.+') + '$'
+      const regex = new RegExp(regexPattern)
+      results = this._data.filter(
+        word => regex.test(word.simplified) && word.hsk != 'outside'
+      )
+    } else {
+      results = this._data.filter(
+        word => word.simplified.includes(pattern) && word.hsk != 'outside'
+      )
+    }
+    return results
+  },
   augment(row) {
     let hskCEDICT = this
     let augmented = Object.assign({}, row)

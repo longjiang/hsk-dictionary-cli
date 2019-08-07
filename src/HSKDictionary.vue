@@ -80,7 +80,7 @@
             </router-link>
             <router-link
               class="tab"
-              :to="{ name: 'explore' }"
+              :to="{ name: 'explore-roots' }"
               title="Explore"
             >
               <i class="glyphicon glyphicon-sunglasses"></i> Explore

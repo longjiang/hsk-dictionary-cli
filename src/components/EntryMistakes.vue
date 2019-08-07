@@ -8,7 +8,7 @@
       Common mistakes containing “{{ entry.simplified }}”
     </div>
 
-    <div v-if="!show" class="text-center pt-4 pb-4 lyrics-bar">
+    <div  class="text-center pt-4 pb-4 lyrics-bar">
       <button class="btn show-more" :data-bg-hsk="entry.hsk" @click="showClick">
         Show Mistakes
       </button>
