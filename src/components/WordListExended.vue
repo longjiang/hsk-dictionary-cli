@@ -14,11 +14,18 @@
         v-for="(word, index) in words"
       >
         <div class="word-list-ext-item-head" :key="`image-${index}-${imgKey}`">
+          <div class="word-list-ext-cycle">
+            <button class="paginate-button previous" v-on:click="imgPrev(word)">
+              <img src="img/angle-left.svg" alt />
+            </button>
+            <button class="paginate-button next" v-on:click="imgNext(word)">
+              <img src="img/angle-right.svg" alt />
+            </button>
+          </div>
           <img
             v-if="word.srcs && word.srcs.length > 0"
             :src="word.srcs[0]"
             class="word-list-ext-image"
-            @click="cycleImage(word)"
           />
         </div>
         <div class="word-list-ext-item-body">
@@ -135,8 +142,12 @@ export default {
     }
   },
   methods: {
-    cycleImage(word) {
+    imgPrev(word) {
       word.srcs.push(word.srcs.shift())
+      this.imgKey++
+    },
+    imgNext(word) {
+      word.srcs.unshift(word.srcs.pop())
       this.imgKey++
     },
     getWebImages(word) {

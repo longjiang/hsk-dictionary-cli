@@ -1579,3 +1579,25 @@ a.suggestion {
   background: #fd4f1c;
   color: white;
 }
+
+.word-list-ext-item-head:not(:hover) .word-list-ext-cycle {
+  display: none;
+}
+
+.word-list-ext-cycle .previous {
+  left: 0;
+  top: 5rem;
+}
+
+.word-list-ext-cycle .next {
+ right: 0;
+  top: 5rem;
+}
+
+.word-list-ext-item-head {
+  position: relative;
+}
+
+.word-list-ext-cycle .paginate-button img {
+  opacity: 0.5;
+}
