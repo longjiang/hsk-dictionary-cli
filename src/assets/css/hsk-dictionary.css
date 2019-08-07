@@ -1511,9 +1511,6 @@ a.suggestion {
   border-radius: 0.3rem;
   overflow: hidden;
   box-shadow: 3px 3px 25px rgba(0,0,0,0.2);
-}
-
-.word-list-ext-item-body {
   position: relative;
 }
 
@@ -1533,6 +1530,17 @@ a.suggestion {
 
 .word-list-ext-item-body {
   padding: 2rem;
+}
+
+.word-list-ext-item.compare .word-list-ext-item-body {
+  padding-bottom: 5rem;
+}
+
+.word-list-ext-compare-btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: calc(100% - 4rem);
 }
 
 .word-list-ext-item-word {

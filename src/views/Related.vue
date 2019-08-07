@@ -16,19 +16,27 @@
               <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
-              <WordListExended v-if="similar.length > 0" :words="similar" />
+              <WordListExended
+                v-if="similar.length > 0"
+                :words="similar"
+                :compareWith="word"
+              />
               <Merge direction="top" class="h-half mt-5 mb-5" />
             </div>
 
             <h4 class="text-center">Related Words</h4>
             <Merge direction="bottom" class="h-half mt-5 mb-5" />
             <Loader class="mt-5" />
-            <WordListExended v-if="related.length > 0" :words="related.slice(0,12)" />
+            <WordListExended
+              v-if="related.length > 0"
+              :words="related.slice(0, 12)"
+              :compareWith="word"
+            />
             <h4 class="text-center mb-4">More Related Words</h4>
             <WordList
+              :compareWith="word"
               :words="related.slice(12)"
               class="related mb-5"
-              :compareWith="word"
             />
           </div>
         </div>
@@ -70,6 +78,9 @@ export default {
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.arg) {
+        this.word = undefined
+        this.similar = []
+        this.related = []
         this.arg = this.$route.params.arg
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
