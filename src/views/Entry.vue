@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-cloak :key="'entry-' + entryKey">
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />

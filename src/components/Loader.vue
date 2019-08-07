@@ -1,7 +1,7 @@
 <template>
   <div
     id="loader"
-    class="text-center"
+    class="text-center mb-5"
     v-if="
       !LoadedAnnotator || !LoadedHSKCEDICT || !loadedGrammar || !LoadedHanzi
     "
