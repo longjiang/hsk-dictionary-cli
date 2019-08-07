@@ -230,7 +230,7 @@ body {
 
 .character-example-english {
   font-style: italic;
-  color: #c1c1c1;
+  color: #a7a7a7;
 }
 
 .character-example-word a,
@@ -1488,4 +1488,37 @@ a.suggestion {
 
 .add-pinyin {
   line-height: 2;
+}
+
+.word-list-ext {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.word-list-ext-item {
+  margin: 2rem 0;
+  min-width: 15rem;
+  margin: 2rem 1rem;
+  flex: 1;
+}
+
+.word-list-ext-item a:hover {
+  text-decoration: none;
+}
+
+.word-list-ext-item-word {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.word-list-ext-example.add-pinyin {
+  line-height: 1;
+}
+
+.word-list-ext-example {
+  font-weight: bold;
+  font-size: 1.4rem;
 }

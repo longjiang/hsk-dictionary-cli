@@ -41,11 +41,14 @@
           <div v-if="arg">
             <PinyinButton />
             <div class="big-word text-center">{{ root.pattern }}</div>
-            <div class="english text-center mb-4">
+            <div class="english text-center mb-4" v-if="rootCharacter">
               {{ rootCharacter.definition.split(';')[0] }}
             </div>
             <Loader class="mt-5" />
-            <WordList v-if="rootWords" :words="rootWords" />
+            <WordListExended
+              v-if="rootWords"
+              :words="rootWords"
+            />
           </div>
         </div>
       </div>
@@ -55,9 +58,13 @@
 
 <script>
 import Helper from '@/lib/helper'
+import WordListExended from '@/components/WordListExended.vue'
 import $ from 'jquery'
 
 export default {
+  components: {
+    WordListExended
+  },
   beforeMount() {
     this.route()
   },

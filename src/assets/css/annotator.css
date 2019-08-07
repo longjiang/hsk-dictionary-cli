@@ -38,6 +38,7 @@
 
 .word-block-pinyin {
   font-size: 0.7em;
+  margin: 0 0.2rem;
 }
 
 .word-block-definition {
