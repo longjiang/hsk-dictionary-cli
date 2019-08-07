@@ -43,7 +43,7 @@
               <PinyinButton />
               <div class="big-word">{{ root.pattern }}</div>
               <DefinitionsList
-                v-if="rootCharacter"
+                v-if="rootCharacter && rootCharacter.definition"
                 class="mt-2"
                 :definitions="rootCharacter.definition.split(';')"
               ></DefinitionsList>
@@ -75,6 +75,8 @@ export default {
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.arg) {
+        this.rootCharacter = undefined
+        this.rootWords = []
         this.arg = this.$route.params.arg
         this.root = {
           pattern: this.arg

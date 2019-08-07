@@ -70,10 +70,15 @@ body {
   color: white;
 }
 
+.search-wrapper {
+  position: relative;
+}
+
 .search-compare-wrapper {
   display: flex;
   position: relative;
 }
+
 .search-compare-wrapper .search-wrapper {
   flex: 1;
 }
