@@ -109,6 +109,16 @@ body {
   }
 }
 
+.btn-compare {
+  color: white;
+}
+
+.btn-compare:hover {
+  color: #fd4f1c;
+  background: white;
+
+}
+
 .example-bar {
   background-color: #dedede;
   overflow: hidden;

@@ -34,9 +34,12 @@
                 placeholder="Compare with..."
                 :hrefFunc="compareHrefFunc"
               ></Search>
-              <button class="btn btn-danger ml-2" @click="compareClick">
-                <span v-if="compare">Close</span
-                ><span v-if="!compare">Compare</span>
+              <button class="btn btn-compare ml-2" @click="compareClick">
+                <span v-if="compare"
+                  ><i class="glyphicon glyphicon-remove-sign"></i></span
+                ><span v-if="!compare"
+                  ><i class="glyphicon glyphicon-adjust"></i> Compare</span
+                >
               </button>
             </div>
           </div>
