@@ -768,7 +768,7 @@ a.suggestion {
 
 .bg-hsk2,
 [data-bg-hsk='2'] {
-  background-color: #267f94;
+  background-color: #267f94 !important;
   color: white !important;
 }
 

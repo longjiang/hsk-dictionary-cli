@@ -120,6 +120,10 @@ const HSKCEDICT = {
     let hskCEDICT = this
     let augmented = Object.assign({}, row)
     augmented.search = augmented.definitions
+    augmented.identifier = `${augmented.traditional},${augmented.pinyin.replace(
+      / /g,
+      '_'
+    )},${augmented.index}`
     augmented.definitions = augmented.definitions.split('/')
     if (augmented && augmented.definitions) {
       augmented.definitions.forEach((definition, index) => {

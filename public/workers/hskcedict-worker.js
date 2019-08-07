@@ -1,5 +1,5 @@
 importScripts('../vendor/papaparse/papaparse.min.js')
-importScripts('../js/hsk-cedict.js')
+importScripts('../js/hsk-cedict-service.js')
 
 let ready = false
 

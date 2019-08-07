@@ -8,7 +8,8 @@ export default {
   _hskCSV: 'data/HSK 1-6 Vocabulary/HSK Standard Course 1-6-Table 1.csv',
   _hskFields: {
     hskId: 'Id',
-    simplified: 'Word',
+    simplified: 'Simplified',
+    traditional: 'Traditional',
     pinyin: 'Pinyin',
     definitions: 'English',
     book: 'Book',
@@ -37,6 +38,7 @@ export default {
           for (var index in this._hskFields) {
             result[index] = row[this._hskFields[index]]
           }
+          result.index = 0
           Object.freeze(result)
           this._hskData.push(result)
         }
@@ -102,9 +104,6 @@ export default {
               pinyin: row.pinyin
             }
           }
-          row.identifier = `${row.traditional},${row.pinyin},${
-            row.index
-          }`.replace(/ /g, '_')
           Object.freeze(row)
           if (row) this._cedictData.push(row)
         }
@@ -154,12 +153,18 @@ export default {
 
     document.body.removeChild(element)
   },
+  findHSKNotInCEDICT() {
+    return this._hskData.filter(
+      h => !this._cedictData.find(c => c.simplified === h.simplified)
+    )
+  },
   merge() {
     console.log('Merging...')
     this._merged = []
     for (let row of this._cedictData) {
       this._merged.push(this.assignHSK(row))
     }
+    this._merged = this._merged.concat(this.findHSKNotInCEDICT())
     console.log('Merged, generating CSV...')
     window.csv = Papa.unparse(this._merged)
     console.log(
