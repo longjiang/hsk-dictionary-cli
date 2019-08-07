@@ -130,9 +130,7 @@ export default {
   methods: {
     updateImages() {
       for (let word of this.words) {
-        const unsplash = `https://source.unsplash.com/featured/?${
-          word.simplified
-        }`
+        const unsplash = `https://source.unsplash.com/random`
         if (!word.srcs) {
           word.srcs = []
           if (word.hsk !== 'outside') {
@@ -148,12 +146,14 @@ export default {
             )
           } else {
             WordPhotos.getWebImages(word.simplified, images => {
-              WordPhotos.testImages(
-                images.map(image => image.img).concat([unsplash]),
+              WordPhotos.findFirstWorkingImage(
+                images.map(image => image.img).slice(0, 5),
                 src => {
                   word.srcs.push(src)
-                  console.log(word.simplified, 'pushing', src)
                   this.imgKey++
+                },
+                () => {
+                  word.srcs.push(unsplash)
                 }
               )
             })

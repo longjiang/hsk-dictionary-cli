@@ -31,9 +31,22 @@ export default {
       this.testImage(src, success, fail)
     }
   },
+  findFirstWorkingImage(srcs, success, fail = () => {}) {
+    if (srcs.length === 0) {
+      fail()
+      return
+    }
+    let f = srcs => {
+      this.findFirstWorkingImage(srcs.slice(1), success, srcs => {
+        f(srcs)
+      })
+    }
+    this.testImage(srcs[0], success, () => {
+      f(srcs)
+    })
+  },
   // strWord = "视频"
   getWebImages(strWord, callback) {
-    console.log(strWord, 'getting...')
     $.getJSON(
       `${
         Config.proxy
@@ -52,7 +65,6 @@ export default {
           }
           return keep
         })
-        console.log(strWord, images)
         callback(images)
       }
     )
