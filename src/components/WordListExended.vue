@@ -7,24 +7,30 @@
       }"
       data-collapse-target
     >
-      <li :class="`word-list-ext-item text-center ${compareWith ? 'compare' : ''}`" v-for="word in words">
-        <a v-if="word" :href="`#/view/cedict/${word.identifier}`">
-          <div class="word-list-ext-item-head">
-            <img
-              :src="`${Config.imageUrl}${word.hskId}-${word.simplified}.jpg`"
-              class="word-list-ext-image"
-            />
+      <li
+        :class="
+          `word-list-ext-item text-center ${compareWith ? 'compare' : ''}`
+        "
+        v-for="(word, index) in words"
+      >
+        <div class="word-list-ext-item-head" :key="`image-${index}+${imgKey}`">
+          <img
+            v-if="word.srcs && word.srcs.length > 0"
+            :src="word.srcs[0]"
+            class="word-list-ext-image"
+          />
+        </div>
+        <div class="word-list-ext-item-body">
+          <div class="character-example-pinyin">
+            <Star
+              class="word-list-ext-item-head-star"
+              v-if="word && star === true"
+              :word="word"
+            ></Star>
+            {{ word.pinyin }}
+            <Speak :text="word.simplified" />
           </div>
-          <div class="word-list-ext-item-body">
-            <div class="character-example-pinyin">
-              <Star
-                class="word-list-ext-item-head-star"
-                v-if="word && star === true"
-                :word="word"
-              ></Star>
-              {{ word.pinyin }}
-              <Speak :text="word.simplified" />
-            </div>
+          <a v-if="word" :href="`#/view/cedict/${word.identifier}`">
             <div
               :data-hsk="word.hsk"
               class="word-list-ext-item-word simplified"
@@ -34,30 +40,35 @@
             <div class="word-list-ext-item-word traditional">
               {{ word.traditional }}
             </div>
+          </a>
 
-            <div v-if="word.definitions" class="character-example-english mb-2">
-              {{ word.definitions[0].text }}
-            </div>
-            <PinyinButton />
-            <div
-              v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
-              class="word-list-ext-example"
-            ></div>
-            <div class="character-example-english mt-1">
-              {{ word.exampleTranslation }}
-            </div>
-            <a
-              v-if="compareWith"
-              :href="
-                `#/compare/cedict/${compareWith.identifier},${word.identifier}`
-              "
-              class="btn show-more word-list-ext-compare-btn mt-3"
-              :data-bg-hsk="word.hsk"
-              >Compare: <span class="simplified">{{compareWith.simplified}} vs {{word.simplified}}</span>
-              <span class="traditional">{{compareWith.traditional}} vs {{word.traditional}}</span></a
-            >
+          <div v-if="word.definitions" class="character-example-english mb-2">
+            {{ word.definitions[0].text }}
           </div>
-        </a>
+          <PinyinButton />
+          <div
+            v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
+            class="word-list-ext-example"
+          ></div>
+          <div class="character-example-english mt-1">
+            {{ word.exampleTranslation }}
+          </div>
+          <a
+            v-if="compareWith"
+            :href="
+              `#/compare/cedict/${compareWith.identifier},${word.identifier}`
+            "
+            class="btn show-more word-list-ext-compare-btn mt-3"
+            :data-bg-hsk="word.hsk"
+            >Compare:
+            <span class="simplified"
+              >{{ compareWith.simplified }} vs {{ word.simplified }}</span
+            >
+            <span class="traditional"
+              >{{ compareWith.traditional }} vs {{ word.traditional }}</span
+            ></a
+          >
+        </div>
       </li>
     </ul>
     <ShowMoreButton
@@ -70,12 +81,33 @@
 <script>
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
+import WordPhotos from '@/lib/word-photos'
 
 export default {
+  mounted() {
+    if (this.words && this.words.length > 0) {
+      for (let word of this.words) {
+        word.srcs = []
+        if (word.hsk !== 'outside') {
+          WordPhotos.getPhoto(word, src => {
+            word.srcs.push(src)
+            this.imgKey++
+          })
+        }
+        WordPhotos.getWebImages(word.simplified, images => {
+          WordPhotos.testImages(images.map(image => image.img), src => {
+            word.srcs.push(src)
+            this.imgKey++
+          })
+        })
+      }
+    }
+  },
   data() {
     return {
       Helper,
-      Config
+      Config,
+      imgKey: 0
     }
   },
   props: {
@@ -100,6 +132,7 @@ export default {
     hsk: {
       default: false
     }
-  }
+  },
+  methods: {}
 }
 </script>

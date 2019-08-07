@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="image-wall">
           <img
-            :src="image.img"
+            :src="image._thumb"
             @click="imageClick(image.img)"
             alt
             class="image-wall-image"

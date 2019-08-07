@@ -18,8 +18,16 @@
               <Loader class="mt-5" />
               <WordListExended
                 v-if="similar.length > 0"
-                :words="similar"
+                :words="similar.slice(0, 6)"
                 :compareWith="word"
+              />
+              <h4 v-if="similar.length > 6" class="text-center mb-4">More Similar Words</h4>
+              <WordList
+              v-if="similar.length > 6"
+                :compareWith="word"
+                :words="similar.slice(6)"
+                class="related mb-5"
+                collapse="4"
               />
               <Merge direction="top" class="h-half mt-5 mb-5" />
             </div>
@@ -32,8 +40,9 @@
               :words="related.slice(0, 12)"
               :compareWith="word"
             />
-            <h4 class="text-center mb-4">More Related Words</h4>
+            <h4 v-if="related.length > 12" class="text-center mb-5">More Related Words</h4>
             <WordList
+              v-if="related.length > 12"
               :compareWith="word"
               :words="related.slice(12)"
               class="related mb-5"
@@ -90,13 +99,16 @@ export default {
                 for (let definition of this.word.definitions) {
                   LoadedHSKCEDICT.lookupByDefinition(
                     words => {
-                      for (let word of words.filter(
-                        word => word.hsk !== 'outside'
-                      )) {
+                      for (let word of words) {
                         if (word.identifier !== this.word.identifier) {
                           this.similar.push(word)
                         }
                       }
+                      this.similar = this.similar.sort((a, b) => {
+                        let ahsk = a.hsk === 'outside' ? 7 : parseInt(a.hsk)
+                        let bhsk = b.hsk === 'outside' ? 7 : parseInt(b.hsk)
+                        return ahsk - bhsk
+                      })
                     },
                     [definition.text]
                   )
@@ -108,7 +120,7 @@ export default {
                       Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
                         LoadedHSKCEDICT.lookupSimplified(
                           words => {
-                            words = words.filter(word => word.hsk !== 'outside')
+                            words = words
                             if (words.length > 0) {
                               let word = words[0]
                               this.related.push(word)
