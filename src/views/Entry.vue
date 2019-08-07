@@ -34,12 +34,12 @@
 
     <EntryGrammar :entry="entry" v-if="entry"></EntryGrammar>
 
-    <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated>
+    <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
+    <!-- <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated> -->
 
     <EntryCollocations v-if="entry" :entry="entry"></EntryCollocations>
 
-    <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
-    <!-- <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance> -->
+    <EntryConcordance v-if="entry" :entry="entry"></EntryConcordance>
 
     <EntryMistakes v-if="entry" :entry="entry"></EntryMistakes>
 
