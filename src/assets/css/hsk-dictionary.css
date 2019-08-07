@@ -1499,13 +1499,35 @@ a.suggestion {
 
 .word-list-ext-item {
   margin: 2rem 0;
-  min-width: 15rem;
+  min-width: 18rem;
   margin: 2rem 1rem;
   flex: 1;
+  background: #f6f6f6;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  box-shadow: 3px 3px 25px rgba(0,0,0,0.2);
+}
+
+.word-list-ext-item-body {
+  position: relative;
+}
+
+.word-list-ext-image {
+  height: 10rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.word-list-ext-item a {
+  color: inherit;
 }
 
 .word-list-ext-item a:hover {
   text-decoration: none;
+}
+
+.word-list-ext-item-body {
+  padding: 2rem;
 }
 
 .word-list-ext-item-word {

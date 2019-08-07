@@ -3,7 +3,7 @@
     <div v-if="definitions && definitions.length > 0">
       <ul class="definitions collapsed mb-2" data-collapse-target>
         <li v-for="definition in definitions" class="english">
-          {{ definition.text }}
+          {{ definition.text ? definition.text : definition}}
         </li>
       </ul>
       <ShowMoreButton :length="definitions.length" :min="3" />

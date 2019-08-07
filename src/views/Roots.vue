@@ -39,16 +39,16 @@
             </table>
           </div>
           <div v-if="arg">
-            <PinyinButton />
-            <div class="big-word text-center">{{ root.pattern }}</div>
-            <div class="english text-center mb-4" v-if="rootCharacter">
-              {{ rootCharacter.definition.split(';')[0] }}
+            <div class="text-center">
+              <PinyinButton />
+              <div class="big-word">{{ root.pattern }}</div>
+              <DefinitionsList
+                class="mt-2"
+                :definitions="rootCharacter.definition.split(';')"
+              ></DefinitionsList>
+              <Loader class="mt-5" />
             </div>
-            <Loader class="mt-5" />
-            <WordListExended
-              v-if="rootWords"
-              :words="rootWords"
-            />
+            <WordListExended v-if="rootWords" :words="rootWords" />
           </div>
         </div>
       </div>
@@ -59,11 +59,13 @@
 <script>
 import Helper from '@/lib/helper'
 import WordListExended from '@/components/WordListExended.vue'
+import DefinitionsList from '@/components/DefinitionsList.vue'
 import $ from 'jquery'
 
 export default {
   components: {
-    WordListExended
+    WordListExended,
+    DefinitionsList
   },
   beforeMount() {
     this.route()

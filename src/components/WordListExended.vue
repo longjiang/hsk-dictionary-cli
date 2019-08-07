@@ -8,34 +8,47 @@
       data-collapse-target
     >
       <li class="word-list-ext-item text-center" v-for="word in words">
-        <div>
-          <div class="character-example-pinyin">
-            <Star v-if="word && star === true" :word="word"></Star>
-            {{ word.pinyin }}
-            <Speak :text="word.simplified" />
+        <a v-if="word" :href="`#/view/cedict/${word.identifier}`">
+          <div class="word-list-ext-item-head">
+            <img
+              :src="`${Config.imageUrl}${word.hskId}-${word.simplified}.jpg`"
+              class="word-list-ext-image"
+            />
           </div>
-          <a
-            v-if="word"
-            :data-hsk="word.hsk"
-            :href="`#/view/cedict/${word.identifier}`"
-          >
-            <div class="word-list-ext-item-word simplified">
+          <div class="word-list-ext-item-body">
+
+            <div class="character-example-pinyin">
+            <Star
+              class="word-list-ext-item-head-star"
+              v-if="word && star === true"
+              :word="word"
+            ></Star>
+              {{ word.pinyin }}
+              <Speak :text="word.simplified" />
+            </div>
+            <div
+              :data-hsk="word.hsk"
+              class="word-list-ext-item-word simplified"
+            >
               {{ word.simplified }}
             </div>
             <div class="word-list-ext-item-word traditional">
               {{ word.traditional }}
             </div>
 
-          <div v-if="word.definitions" class="character-example-english">
-            {{ word.definitions[0].text }}
+            <div v-if="word.definitions" class="character-example-english mb-2">
+              {{ word.definitions[0].text }}
+            </div>
+            <PinyinButton />
+            <div
+              v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
+              class="word-list-ext-example"
+            ></div>
+            <div class="character-example-english mt-1">
+              {{ word.exampleTranslation }}
+            </div>
           </div>
-          </a>
-        </div>
-        <div class="word-list-ext-item-desc mt-2">
-          <PinyinButton/>
-          <div v-html="Helper.highlight(word.example, word.simplified, word.hsk)" class="word-list-ext-example"></div>
-          <div class="character-example-english mt-1">{{ word.exampleTranslation}}</div>
-        </div>
+        </a>
       </li>
     </ul>
     <ShowMoreButton
@@ -47,10 +60,13 @@
 </template>
 <script>
 import Helper from '@/lib/helper'
+import Config from '@/lib/config'
+
 export default {
   data() {
     return {
-      Helper
+      Helper,
+      Config
     }
   },
   props: {
