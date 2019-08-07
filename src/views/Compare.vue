@@ -1,39 +1,64 @@
 <template>
-  <div class="main" v-cloak v-if="a && b">
+  <div class="main" v-cloak>
     <div class="container">
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
-          <Loader class="mt-5" />
-          <EntryHeader :entry="a" minimal="true" :key="aKey"></EntryHeader>
+          <Loader v-if="!a" class="mt-5" />
+          <EntryHeader
+            v-if="a"
+            :entry="a"
+            minimal="true"
+            :key="aKey"
+          ></EntryHeader>
         </div>
         <div class="col-sm-6">
-          <Loader class="mt-5" />
-          <EntryHeader :entry="b" minimal="true" :key="aKey"></EntryHeader>
+          <Loader v-if="!b" class="mt-5" />
+          <EntryHeader
+            v-if="b"
+            :entry="b"
+            minimal="true"
+            :key="aKey"
+          ></EntryHeader>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-12">
-          <CompareDefs :a="a" :b="b" :key="aKey + bKey"></CompareDefs>
+          <CompareDefs
+            v-if="a && b"
+            :a="a"
+            :b="b"
+            :key="aKey + bKey"
+          ></CompareDefs>
         </div>
       </div>
 
       <div class="row mt-4">
         <div class="col-sm-6">
-          <EntryWebImages :entry="a" limit="10" :key="aKey"></EntryWebImages>
+          <EntryWebImages
+            v-if="a"
+            :entry="a"
+            limit="10"
+            :key="aKey"
+          ></EntryWebImages>
         </div>
         <div class="col-sm-6">
-          <EntryWebImages :entry="b" limit="10" :key="bKey"></EntryWebImages>
+          <EntryWebImages
+            v-if="b"
+            :entry="b"
+            limit="10"
+            :key="bKey"
+          ></EntryWebImages>
         </div>
       </div>
     </div>
 
     <div
       class="container-fluid mt-5 compare-example-bar pt-4 pb-4"
-      v-if="a.example && b.example"
+      v-if="a && b && a.example && b.example"
     >
       <div class="container">
-        <div class="row" v-if="a.example && b.example">
+        <div class="row">
           <div class="col-sm-6">
             <EntryExample
               class="mini"
@@ -56,16 +81,29 @@
 
     <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
-    <CompareCollocations class="mt-5" :a="a" :b="b"></CompareCollocations>
+    <CompareCollocations
+      class="mt-5"
+      v-if="a && b"
+      :a="a"
+      :b="b"
+    ></CompareCollocations>
 
     <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
-          <EntryConcordance :entry="a" :key="aKey"></EntryConcordance>
+          <EntryConcordance
+            v-if="a && a.examples"
+            :entry="a"
+            :key="aKey"
+          ></EntryConcordance>
         </div>
         <div class="col-sm-6">
-          <EntryConcordance :entry="b" :key="bKey"></EntryConcordance>
+          <EntryConcordance
+            v-if="a && a.examples"
+            :entry="b"
+            :key="bKey"
+          ></EntryConcordance>
         </div>
       </div>
     </div>
@@ -73,10 +111,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          <EntryGrammar :entry="a" :key="aKey"></EntryGrammar>
+          <EntryGrammar v-if="a" :entry="a" :key="aKey"></EntryGrammar>
         </div>
         <div class="col-sm-6">
-          <EntryGrammar :entry="b" :key="bKey"></EntryGrammar>
+          <EntryGrammar v-if="b" :entry="b" :key="bKey"></EntryGrammar>
         </div>
       </div>
     </div>
@@ -84,22 +122,23 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-6">
-          <EntryMistakes :entry="a" :key="aKey"></EntryMistakes>
+          <EntryMistakes v-if="a" :entry="a" :key="aKey"></EntryMistakes>
         </div>
         <div class="col-sm-6">
-          <EntryMistakes :entry="b" :key="bKey"></EntryMistakes>
+          <EntryMistakes v-if="b" :entry="b" :key="bKey"></EntryMistakes>
         </div>
       </div>
     </div>
 
     <EntryCourseAd
+      v-if="a && b"
       :entry="b.hsk > a.hsk ? b : a"
       :key="aKey + bKey"
     ></EntryCourseAd>
 
-    <EntryLyrics :entry="a" limit="1" :key="aKey"></EntryLyrics>
+    <EntryLyrics v-if="a" :entry="a" limit="1" :key="aKey"></EntryLyrics>
 
-    <EntryLyrics :entry="b" limit="1" :key="bKey"></EntryLyrics>
+    <EntryLyrics v-if="b" :entry="b" limit="1" :key="bKey"></EntryLyrics>
   </div>
 </template>
 
@@ -134,7 +173,8 @@ export default {
     return {
       a: undefined,
       b: undefined,
-      compareKey: 0
+      aKey: 0,
+      bKey: 100
     }
   },
   methods: {

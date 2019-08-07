@@ -15,7 +15,7 @@
         class="btn btn-secondary btn-random ml-2"
         href="#/view/cedict/random"
       >
-        <i class="glyphicon glyphicon-random"></i> Random
+        <i class="glyphicon glyphicon-random"></i><span> Random</span>
       </a>
       <div class="input-group-append">
         <button

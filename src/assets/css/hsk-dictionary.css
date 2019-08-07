@@ -93,6 +93,12 @@ body {
   border: none;
 }
 
+@media (max-width: 768px) {
+  .btn-random span {
+    display: none;
+  }
+}
+
 .example-bar {
   background-color: #dedede;
   overflow: hidden;

@@ -45,9 +45,9 @@ export default {
     common(a, b) {
       for (let adef of a.definitions) {
         for (let bdef of b.definitions) {
-          if (bdef.text.includes(adef.text)) {
+          if (bdef.text && bdef.text.includes(adef.text)) {
             this.defCommon.push(bdef)
-          } else if (adef.text.includes(bdef.text)) {
+          } else if (adef.text && adef.text.includes(bdef.text)) {
             this.defCommon.push(adef)
           }
         }
