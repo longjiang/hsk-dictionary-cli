@@ -84,23 +84,14 @@ import Config from '@/lib/config'
 import WordPhotos from '@/lib/word-photos'
 
 export default {
+  watch: {
+    words() {
+      this.updateImages()
+    }
+  },
   mounted() {
     if (this.words && this.words.length > 0) {
-      for (let word of this.words) {
-        word.srcs = []
-        if (word.hsk !== 'outside') {
-          WordPhotos.getPhoto(word, src => {
-            word.srcs.push(src)
-            this.imgKey++
-          })
-        }
-        WordPhotos.getWebImages(word.simplified, images => {
-          WordPhotos.testImages(images.map(image => image.img), src => {
-            word.srcs.push(src)
-            this.imgKey++
-          })
-        })
-      }
+      this.updateImages()
     }
   },
   data() {
@@ -133,6 +124,26 @@ export default {
       default: false
     }
   },
-  methods: {}
+  methods: {
+    updateImages() {
+      for (let word of this.words) {
+        if (!word.srcs) {
+          word.srcs = []
+          if (word.hsk !== 'outside') {
+            WordPhotos.getPhoto(word, src => {
+              word.srcs.push(src)
+              this.imgKey++
+            })
+          }
+          WordPhotos.getWebImages(word.simplified, images => {
+            WordPhotos.testImages(images.map(image => image.img), src => {
+              word.srcs.push(src)
+              this.imgKey++
+            })
+          })
+        }
+      }
+    }
+  }
 }
 </script>

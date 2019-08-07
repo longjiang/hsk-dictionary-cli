@@ -1500,13 +1500,15 @@ a.suggestion {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .word-list-ext-item {
   margin: 2rem 0;
   min-width: 18rem;
+  max-width: 30rem;
   margin: 2rem 1rem;
-  flex: 1;
+  flex: 1 1 0;
   background: #f6f6f6;
   border-radius: 0.3rem;
   overflow: hidden;
@@ -1515,7 +1517,7 @@ a.suggestion {
 }
 
 .word-list-ext-image {
-  height: 10rem;
+  height: 15rem;
   object-fit: cover;
   width: 100%;
 }

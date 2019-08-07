@@ -21,7 +21,6 @@ export default {
       success(src)
     }
     tester.onerror = () => {
-      console.log(src, 'testImage fail')
       fail(src)
     }
     tester.src = src
@@ -39,6 +38,7 @@ export default {
   },
   // strWord = "视频"
   getWebImages(strWord, callback) {
+    console.log(strWord, 'getting...')
     $.getJSON(
       `${
         Config.proxy
@@ -57,6 +57,7 @@ export default {
           }
           return keep
         })
+        console.log(strWord, images)
         callback(images)
       }
     )
