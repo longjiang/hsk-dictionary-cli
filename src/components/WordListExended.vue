@@ -13,9 +13,8 @@
         "
         v-for="(word, index) in words"
       >
-        <div class="word-list-ext-item-head">
+        <div class="word-list-ext-item-head" :key="`image-${index}-${imgKey}`">
           <img
-            :key="`image-${index}+${imgKey}`"
             v-if="word.srcs && word.srcs.length > 0"
             :src="word.srcs[0]"
             class="word-list-ext-image"
@@ -96,9 +95,11 @@ export default {
   watch: {
     words() {
       this.updateImages()
+      this.imgKey++
     }
   },
   mounted() {
+    this.imgKey++
     if (this.words && this.words.length > 0) {
       this.updateImages()
     }
