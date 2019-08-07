@@ -184,6 +184,7 @@ export default {
               src => {
                 word.srcs.push(src)
                 this.imgKey++
+                this.getWebImages(word)
               },
               () => {
                 this.getWebImages(word)
