@@ -41,7 +41,13 @@
 
     <EntryConcordance class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryConcordance>
 
-    <EntryMistakes class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryMistakes>
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <div class="col-sm-12">
+          <EntryMistakes v-if="entry" :entry="entry"></EntryMistakes>
+        </div>
+      </div>
+    </div>
 
     <EntryCourseAd v-if="entry" :entry="entry"></EntryCourseAd>
 

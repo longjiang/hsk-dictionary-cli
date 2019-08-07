@@ -5,7 +5,7 @@
     v-if="colDesc"
   >
     <div class="row" v-if="!show">
-      <div class="col-sm-12 text-center mb-4">
+      <div class="col-sm-12 text-center">
         <div class="label song-label">
           Collocations with “<span class="simplified">{{
             entry.simplified
