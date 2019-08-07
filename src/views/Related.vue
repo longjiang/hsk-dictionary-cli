@@ -6,11 +6,10 @@
           <div>
             <h4>Explore Related Words</h4>
             <p>Search for a word, and see words associated with it.</p>
-            <Loader class="mt-5" />
             <Search :hrefFunc="hrefFunc" class="mb-4" />
           </div>
+          <Loader class="mt-5" />
           <div v-if="arg">
-            <Loader class="mt-5" />
             <WordListExended v-if="word" :words="[word]" />
             <div v-if="similar && similar.length > 0">
               <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>

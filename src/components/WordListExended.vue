@@ -132,9 +132,22 @@ export default {
     }
   },
   methods: {
+    getWebImages(word) {
+      const unsplash = `https://source.unsplash.com/featured/?${
+        word.definitions[0].text
+      }`
+      WordPhotos.getWebImages(word.simplified, images => {
+        WordPhotos.findFirstWorkingImage(
+          images.map(image => image.img).concat([unsplash]),
+          src => {
+            word.srcs.push(src)
+            this.imgKey++
+          }
+        )
+      })
+    },
     updateImages() {
       for (let word of this.words) {
-        const unsplash = `https://source.unsplash.com/random`
         if (!word.srcs) {
           word.srcs = []
           if (word.hsk !== 'outside') {
@@ -145,22 +158,11 @@ export default {
                 this.imgKey++
               },
               () => {
-                word.srcs.push(unsplash)
+                this.getWebImages(word)
               }
             )
           } else {
-            WordPhotos.getWebImages(word.simplified, images => {
-              WordPhotos.findFirstWorkingImage(
-                images.map(image => image.img),
-                src => {
-                  word.srcs.push(src)
-                  this.imgKey++
-                },
-                () => {
-                  word.srcs.push(unsplash)
-                }
-              )
-            })
+            this.getWebImages(word)
           }
         }
       }
