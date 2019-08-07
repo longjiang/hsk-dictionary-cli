@@ -46,7 +46,9 @@
           </a>
 
           <div v-if="word.definitions" class="character-example-english mb-2">
-            {{ word.definitions[0].text }}
+            <div v-for="definition in word.definitions.slice(0, 3)">
+              {{ definition.text.replace(/\(.*\)/, '') }}
+            </div>
           </div>
           <PinyinButton />
           <div
