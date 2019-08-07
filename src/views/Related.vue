@@ -10,13 +10,16 @@
             <Search :hrefFunc="hrefFunc" />
           </div>
           <div v-if="arg">
+            <Loader class="mt-5" />
             <WordListExended v-if="word" :words="[word]" />
             <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
             <Merge direction="bottom" class="h-half mt-5 mb-5" />
+            <Loader class="mt-5" />
             <WordListExended v-if="similar.length > 0" :words="similar" />
             <Merge direction="top" class="h-half mt-5 mb-5" />
             <h4 class="text-center">Related Words</h4>
             <Merge direction="bottom" class="h-half mt-5 mb-5" />
+            <Loader class="mt-5" />
             <WordListExended v-if="related.length > 0" :words="related" />
           </div>
         </div>

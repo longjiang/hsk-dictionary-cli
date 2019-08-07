@@ -78,11 +78,7 @@
             >
               <i class="glyphicon glyphicon-blackboard"></i> Learn
             </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'explore-roots' }"
-              title="Explore"
-            >
+            <router-link class="tab" :to="{ name: 'explore' }" title="Explore">
               <i class="glyphicon glyphicon-sunglasses"></i> Explore
             </router-link>
             <router-link
@@ -104,6 +100,24 @@
           </nav>
         </div>
       </div>
+    </div>
+    <div v-if="$route.path.startsWith('/explore')" class="mt-4">
+      <nav class="secondary-menu text-center">
+        <router-link
+          class="secondary-menu-item"
+          :to="{ name: 'explore-roots' }"
+        >
+          <i class="glyphicon glyphicon-grain"></i>
+          Roots
+        </router-link>
+        <router-link
+          class="secondary-menu-item"
+          :to="{ name: 'explore-related' }"
+        >
+          <i class="glyphicon glyphicon-fullscreen"></i>
+          Related
+        </router-link>
+      </nav>
     </div>
 
     <keep-alive>
@@ -169,7 +183,8 @@ export default {
   },
   data: function() {
     return {
-      hidePinyinExceptSaved: localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
+      hidePinyinExceptSaved:
+        localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
       compare: false,
       compareHrefFunc: compareEntry => {
