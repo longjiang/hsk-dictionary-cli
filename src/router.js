@@ -44,7 +44,7 @@ export default new Router({
     {
       path: '/explore',
       name: 'explore',
-      component: () => import('./views/Explore.vue')
+      redirect: '/explore/roots'
     },
     {
       path: '/explore/roots/:arg?',

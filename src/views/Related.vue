@@ -3,24 +3,33 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div v-if="!arg">
+          <div>
             <h4>Explore Related Words</h4>
             <p>Search for a word, and see words associated with it.</p>
             <Loader class="mt-5" />
-            <Search :hrefFunc="hrefFunc" />
+            <Search :hrefFunc="hrefFunc" class="mb-4" />
           </div>
           <div v-if="arg">
             <Loader class="mt-5" />
             <WordListExended v-if="word" :words="[word]" />
-            <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
-            <Merge direction="bottom" class="h-half mt-5 mb-5" />
-            <Loader class="mt-5" />
-            <WordListExended v-if="similar.length > 0" :words="similar" />
-            <Merge direction="top" class="h-half mt-5 mb-5" />
+            <div v-if="similar && similar.length > 0">
+              <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
+              <Merge direction="bottom" class="h-half mt-5 mb-5" />
+              <Loader class="mt-5" />
+              <WordListExended v-if="similar.length > 0" :words="similar" />
+              <Merge direction="top" class="h-half mt-5 mb-5" />
+            </div>
+
             <h4 class="text-center">Related Words</h4>
             <Merge direction="bottom" class="h-half mt-5 mb-5" />
             <Loader class="mt-5" />
-            <WordListExended v-if="related.length > 0" :words="related" />
+            <WordListExended v-if="related.length > 0" :words="related.slice(0,12)" />
+            <h4 class="text-center mb-4">More Related Words</h4>
+            <WordList
+              :words="related.slice(12)"
+              class="related mb-5"
+              :compareWith="word"
+            />
           </div>
         </div>
       </div>
@@ -46,6 +55,16 @@ export default {
   },
   beforeMount() {
     this.route()
+  },
+  data() {
+    return {
+      Helper,
+      word: undefined,
+      arg: undefined,
+      similar: [],
+      related: [],
+      hrefFunc: entry => `#/explore/related/${entry.identifier}`
+    }
   },
   methods: {
     route() {
@@ -103,16 +122,6 @@ export default {
   watch: {
     $route() {
       this.route()
-    }
-  },
-  data() {
-    return {
-      Helper,
-      word: undefined,
-      arg: undefined,
-      similar: [],
-      related: [],
-      hrefFunc: entry => `#/explore/related/${entry.identifier}`
     }
   }
 }
