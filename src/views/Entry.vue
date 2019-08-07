@@ -30,7 +30,7 @@
       :pinyin="entry.pinyin"
     ></EntryCharacters>
 
-    <EntryWebImages class="mt-5" v-if="entry" :entry="entry"></EntryWebImages>
+    <EntryWebImages class="mt-5" v-if="entry" :entry="entry" limit="10"></EntryWebImages>
 
     <EntryGrammar :entry="entry" v-if="entry"></EntryGrammar>
 

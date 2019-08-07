@@ -34,14 +34,10 @@ export default {
     WordPhotos.getWebImages(this.entry.simplified, images => {
       WordPhotos.testImages(
         images
-          .map(image => image.img)
-          .concat([
-            `https://source.unsplash.com/featured/?${this.entry.simplified}`
-          ]),
+          .map(image => image.img).slice(0, this.limit),
         src => {
           this.entry.srcs.push(src)
           this.webImagesKey++
-          console.log(this.entry.simplified, 'pushing', src)
           this.imgKey++
         }
       )

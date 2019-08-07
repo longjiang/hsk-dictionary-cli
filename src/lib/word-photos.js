@@ -88,6 +88,7 @@ export default {
     })
   },
   reject: [
+    'jianbihua.cc',
     'nipic',
     '16pic.com',
     'photophoto.cn',
