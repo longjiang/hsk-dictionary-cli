@@ -1,15 +1,15 @@
 <template>
   <div class="container" :key="webImagesKey" v-cloak>
-    <div class="row" v-if="entry.images && entry.images.length > 0">
+    <div class="row" v-if="entry.srcs && entry.srcs.length > 0">
       <div class="col-sm-12">
         <div class="image-wall">
           <img
-            :src="image.img"
             @click="imageClick(image.img)"
             alt
             class="image-wall-image"
             v-bind:key="'image-' + index"
-            v-for="(image, index) in entry.images.slice(0, limit)"
+            v-for="(src, index) in entry.srcs.slice(0, limit)"
+            :src="src"
           />
         </div>
       </div>
@@ -30,9 +30,21 @@ export default {
     }
   },
   mounted() {
-    WordPhotos.getWebImages(this.entry.simplified, srcs => {
-      this.entry.images = srcs
-      this.webImagesKey += 1
+    this.entry.srcs = []
+    WordPhotos.getWebImages(this.entry.simplified, images => {
+      WordPhotos.testImages(
+        images
+          .map(image => image.img)
+          .concat([
+            `https://source.unsplash.com/featured/?${this.entry.simplified}`
+          ]),
+        src => {
+          this.entry.srcs.push(src)
+          this.webImagesKey++
+          console.log(this.entry.simplified, 'pushing', src)
+          this.imgKey++
+        }
+      )
     })
   },
   data() {

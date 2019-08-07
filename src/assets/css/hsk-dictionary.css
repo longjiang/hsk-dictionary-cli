@@ -1019,14 +1019,15 @@ a.suggestion {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: stretch;
+  justify-content: center;
   width: 100%;
 }
 
 .image-wall-image {
   flex: auto;
   object-fit: cover;
-  height: 5rem;
+  height: 10rem;
+  width: 10rem;
   margin: 0 0.5rem 0.5rem 0;
   background-color: #f5f5f5;
   display: inline-block;
