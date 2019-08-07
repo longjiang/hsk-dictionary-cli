@@ -13,11 +13,13 @@
         "
         v-for="(word, index) in words"
       >
-        <div class="word-list-ext-item-head" :key="`image-${index}+${imgKey}`">
+        <div class="word-list-ext-item-head">
           <img
+            :key="`image-${index}+${imgKey}`"
             v-if="word.srcs && word.srcs.length > 0"
             :src="word.srcs[0]"
             class="word-list-ext-image"
+            @click="cycleImage(word)"
           />
         </div>
         <div class="word-list-ext-item-body">
@@ -132,18 +134,17 @@ export default {
     }
   },
   methods: {
+    cycleImage(word) {
+      word.srcs.push(word.srcs.shift())
+      this.imgKey++
+    },
     getWebImages(word) {
       const unsplash = `https://source.unsplash.com/featured/?${
         word.definitions[0].text
       }`
       WordPhotos.getWebImages(word.simplified, images => {
-        WordPhotos.findFirstWorkingImage(
-          images.map(image => image.img).concat([unsplash]),
-          src => {
-            word.srcs.push(src)
-            this.imgKey++
-          }
-        )
+        word.srcs = images.map(image => image.img).concat([unsplash])
+        this.imgKey++
       })
     },
     updateImages() {
