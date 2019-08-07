@@ -1,5 +1,6 @@
 importScripts('../vendor/papaparse/papaparse.min.js')
-importScripts('../js/hsk-cedict-service.js')
+importScripts('../js/hsk-cedict.js')
+importScripts('../js/annotator-service.js')
 
 let ready = false
 
@@ -10,7 +11,12 @@ onmessage = function(e) {
   if (method === 'hskcedictMethods') {
     this.postMessage([id, 'hskcedictMethods', Object.keys(HSKCEDICT)])
   } else {
-    this.postMessage([id, method, HSKCEDICT[method](...args)])
+    if (AnnotatorService[method]) {
+      this.postMessage([id, method, AnnotatorService[method](...args)])
+    }
+    if (HSKCEDICT[method]) {
+      this.postMessage([id, method, HSKCEDICT[method](...args)])
+    }
   }
 }
 
