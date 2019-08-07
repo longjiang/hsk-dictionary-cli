@@ -31,42 +31,13 @@ export default {
   },
   mounted() {
     WordPhotos.getWebImages(this.entry.simplified, srcs => {
-      this.entry.images = srcs.filter(src => {
-        let keep = true
-        for (let keyword of this.reject) {
-          if (src.img && src.img.includes(keyword)) keep = false
-        }
-        return keep
-      })
+      this.entry.images = srcs
       this.webImagesKey += 1
     })
   },
   data() {
     return {
-      webImagesKey: 0,
-      reject: [
-        'nipic',
-        'pconline',
-        'zol.com',
-        'youth.cn',
-        '58pic.com',
-        'sanwen.net',
-        'winxuancdn.com',
-        'gtimg.com',
-        'pic.ibaotu.com',
-        'sc.jb51.net',
-        'so.qhmsg.com',
-        'soso.com',
-        'comicyu.com',
-        'duitang.com',
-        'chachaba.com',
-        'qzone.cc',
-        'tianjimedia.com',
-        'bitauto.com',
-        'dzwww.com',
-        'pstatp.com',
-        'huitu.com'
-      ]
+      webImagesKey: 0
     }
   },
   methods: {
