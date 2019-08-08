@@ -160,11 +160,8 @@ export default {
       this.imgKey++
     },
     getWebImages(word) {
-      const unsplash = `https://source.unsplash.com/featured/?${
-        word.definitions[0].text
-      }`
       WordPhotos.getWebImages(word.simplified, images => {
-        word.srcs = images.map(image => image.img).concat([unsplash])
+        word.srcs = word.srcs.concat(images.map(image => image.img))
         this.imgKey++
       })
     },
