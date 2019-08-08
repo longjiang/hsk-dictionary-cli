@@ -1596,6 +1596,8 @@ a.suggestion {
 
 .word-list-ext-item-head {
   position: relative;
+  height: 15rem;
+  background-color:white;
 }
 
 .word-list-ext-cycle .paginate-button img {
