@@ -1,4 +1,5 @@
 // const dictionaryServer = 'http://hsk-server.local:8888/'
+// const dictionaryServer = 'http://hsk-dictionary:8888/'
 const dictionaryServer = 'https://www.chinesezerotohero.com/hsk-dictionary/'
 
 export default {

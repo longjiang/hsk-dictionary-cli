@@ -22,7 +22,7 @@
             <button class="paginate-button next" v-on:click="imgNext(word)">
               <img src="img/angle-right.svg" alt />
             </button>
-            <button class="paginate-button close" v-on:click="remove(word)">
+            <button class="paginate-button close" v-on:click="remove(index)">
               <i class="glyphicon glyphicon-remove"></i>
             </button>
           </div>
@@ -147,15 +147,9 @@ export default {
     }
   },
   methods: {
-    remove(word) {
-      if (word) {
-        for (let i in this.words) {
-          if (this.words[i].simplified === word.simplified) {
-            this.words.splice(i, 1)
-            this.listKey++
-          }
-        }
-      }
+    remove(index) {
+      this.words.splice(index, 1)
+      this.listKey++
     },
     imgPrev(word) {
       word.srcs.push(word.srcs.shift())
