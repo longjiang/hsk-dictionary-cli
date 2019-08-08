@@ -123,11 +123,11 @@ const HSKCEDICT = {
       const regexPattern = '^' + pattern.replace(/～/gi, '.+') + '$'
       const regex = new RegExp(regexPattern)
       results = this._data.filter(
-        word => regex.test(word.simplified) && word.hsk != 'outside'
+        word => regex.test(word.simplified) && word.oofc === '' && word.hsk != 'outside'
       )
     } else {
       results = this._data.filter(
-        word => word.simplified.includes(pattern) && word.hsk != 'outside'
+        word => word.simplified.includes(pattern) && word.oofc === '' && word.hsk != 'outside'
       )
     }
     return results
