@@ -38,17 +38,17 @@
               <div>
                 <WordListExtended
                   class="focus"
-                  :words="related.slice(0, 18)"
+                  :words="related.slice(0, 30)"
                   :compareWith="word"
                 />
               </div>
-              <h4 v-if="related.length > 18" class="text-center mb-5">
+              <h4 v-if="related.length > 30" class="text-center mb-5">
                 More Related Words
               </h4>
               <WordList
-                v-if="related.length > 18"
+                v-if="related.length > 30"
                 :compareWith="word"
-                :words="related.slice(18)"
+                :words="related.slice(30)"
                 class="related mb-5"
               />
             </div>
