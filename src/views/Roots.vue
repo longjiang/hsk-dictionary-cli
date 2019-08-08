@@ -39,15 +39,23 @@
             </table>
           </div>
           <div v-if="arg" class="focus">
-            <button class="paginate-button previous focus-hover" v-on:click="previousClick">
+            <button
+              class="paginate-button previous focus-hover"
+              v-on:click="previousClick"
+            >
               <img src="img/angle-left.svg" alt />
             </button>
-            <button class="paginate-button next focus-hover" v-on:click="nextClick">
+            <button
+              class="paginate-button next focus-hover"
+              v-on:click="nextClick"
+            >
               <img src="img/angle-right.svg" alt />
             </button>
             <div class="text-center">
-              <PinyinButton />
-              <div class="big-word">{{ arg }}</div>
+              <div :key="rootsKey">
+                <PinyinButton />
+                <div class="big-word">{{ arg }}</div>
+              </div>
               <DefinitionsList
                 v-if="rootCharacter && rootCharacter.definition"
                 class="mt-2"
@@ -99,6 +107,7 @@ export default {
         this.rootCharacter = undefined
         this.rootWords = []
         this.arg = this.$route.params.arg
+        this.rootsKey++
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
             LoadedHSKCEDICT.lookupByPattern(
@@ -109,9 +118,7 @@ export default {
               },
               [this.arg]
             )
-            this.rootCharacter = LoadedHanzi.lookup(
-              this.arg.replace(/～/g, '')
-            )
+            this.rootCharacter = LoadedHanzi.lookup(this.arg.replace(/～/g, ''))
           }
         )
       } else {
@@ -140,6 +147,7 @@ export default {
   data() {
     return {
       Helper,
+      rootsKey: 0,
       arg: undefined,
       rootCharacter: undefined,
       rootWords: [],

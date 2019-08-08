@@ -204,12 +204,13 @@ export default {
     toggleFocus() {
       this.focus = this.focus ? false : true
       if (this.focus) {
+        $('#hsk-dictionary *').addClass('focus-off')
         $('.focus')
           .parents()
-          .addClass('focus-on')
-        $('.focus, .focus *').addClass('focus-on')
+          .removeClass('focus-off')
+        $('.focus, .focus *').removeClass('focus-off')
       } else {
-        $('.focus-on').removeClass('focus-on')
+        $('#hsk-dictionary *').removeClass('focus-off')
       }
     },
     addAllPinyin() {

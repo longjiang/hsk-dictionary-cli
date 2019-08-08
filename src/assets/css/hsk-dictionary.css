@@ -6,7 +6,11 @@ body {
   display: none;
 }
 
-.hide-except-focus :not(.focus-on) {
+.hide-except-focus .focus-off {
+  display: none;
+}
+
+.hide-except-focus .focus-exclude {
   display: none;
 }
 
@@ -1513,11 +1517,10 @@ a.suggestion {
 }
 
 .word-list-ext-item {
-  margin: 2rem 0;
-  min-width: 18rem;
-  max-width: 30rem;
+  margin: 2rem;
+  width: 20rem;
   margin: 2rem 1rem;
-  flex: 1 1 0;
+  flex: 1 0 auto;
   background: #fafafa;
   border-radius: 0.3rem;
   overflow: hidden;

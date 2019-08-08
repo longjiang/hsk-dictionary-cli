@@ -6,7 +6,7 @@
           {{ definition.text ? definition.text : definition}}
         </li>
       </ul>
-      <ShowMoreButton :length="definitions.length" :min="3" />
+      <ShowMoreButton :length="definitions.length" :min="3" class="focus-exclude" />
     </div>
     <div class="english" v-else>
       {{ nodef }}
