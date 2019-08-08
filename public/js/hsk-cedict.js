@@ -116,7 +116,7 @@ const HSKCEDICT = {
         return pinyinMatch && row.simplified === simplified
       })
       .sort((a, b) => {
-        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
+        return b.weight - a.weight
       })
     return candidates
   },
@@ -217,7 +217,7 @@ const HSKCEDICT = {
         }
       })
       .sort((a, b) => {
-        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
+        return b.weight - a.weight
       })
     return {
       matches: matches,
