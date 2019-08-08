@@ -4,25 +4,6 @@
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />
-          <div v-if="entry" class="frequency-wrapper mb-4">
-            <div class="frequency">
-              <div
-                class="frequency-fill"
-                :data-bg-hsk="entry.hsk"
-                :style="
-                  `width: ${(Math.log10(1 + entry.rank * 10000) * 100) / 4}%`
-                "
-              ></div>
-            </div>
-            <div class="text-center mt-2 frequency-text">
-              <b
-                >{{
-                  Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4)
-                }}%</b
-              >
-              as common as “的”
-            </div>
-          </div>
           <EntryHeader v-if="entry" :entry="entry"></EntryHeader>
         </div>
       </div>
