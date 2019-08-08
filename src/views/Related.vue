@@ -35,10 +35,13 @@
               <h4 class="text-center">Related Words</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
-              <WordListExtended
-                :words="related.slice(0, 18)"
-                :compareWith="word"
-              />
+              <div>
+                <WordListExtended
+                  class="focus"
+                  :words="related.slice(0, 18)"
+                  :compareWith="word"
+                />
+              </div>
               <h4 v-if="related.length > 18" class="text-center mb-5">
                 More Related Words
               </h4>

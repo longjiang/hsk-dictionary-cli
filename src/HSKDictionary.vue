@@ -2,6 +2,7 @@
   <div
     id="hsk-dictionary"
     :class="{
+      'hide-except-focus': focus,
       'show-pinyin': !hidePinyinExceptSaved,
       'show-pinyin-for-saved': hidePinyinExceptSaved,
       'show-simplified': !useTraditional,
@@ -125,7 +126,7 @@
     </keep-alive>
 
     <!-- ANCHOR img/anchors/footer.png -->
-    <footer class="container-fluid" v-cloak>
+    <footer class="container-fluid focus" v-cloak>
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
@@ -156,6 +157,9 @@
             >. Over 7,000 time-synced lyrics (LRCs) from
             <a href="http://www.22lrc.com/" class="add-pinyin">爱歌词</a> and
             <a href="http://www.gecimi.com/" class="add-pinyin">歌词迷</a>.
+            <button @click="toggleFocus" class="btn btn-small">
+              Turn {{ focus ? 'off' : 'on' }} Focus Mode
+            </button>
             <hr />
             <a href="https://www.chinesezerotohero.com">
               <img src="img/logo-mark.png" class="logo-footer" alt />
@@ -183,6 +187,7 @@ export default {
   },
   data: function() {
     return {
+      focus: false,
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
@@ -196,6 +201,17 @@ export default {
     }
   },
   methods: {
+    toggleFocus() {
+      this.focus = this.focus ? false : true
+      if (this.focus) {
+        $('.focus')
+          .parents()
+          .addClass('focus-on')
+        $('.focus, .focus *').addClass('focus-on')
+      } else {
+        $('.focus-on').removeClass('focus-on')
+      }
+    },
     addAllPinyin() {
       $('.pinyin-button').click()
     },

@@ -6,6 +6,10 @@ body {
   display: none;
 }
 
+.hide-except-focus :not(.focus-on) {
+  display: none;
+}
+
 .lines {
   padding: 1rem;
   border-top: 1px solid #ccc;
@@ -1510,7 +1514,7 @@ a.suggestion {
   max-width: 30rem;
   margin: 2rem 1rem;
   flex: 1 1 0;
-  background: #f6f6f6;
+  background: #fafafa;
   border-radius: 0.3rem;
   overflow: hidden;
   box-shadow: 3px 3px 25px rgba(0,0,0,0.2);
@@ -1535,13 +1539,9 @@ a.suggestion {
   padding: 2rem;
 }
 
-.word-list-ext-item.compare .word-list-ext-item-body {
-  padding-bottom: 5rem;
-}
-
 .word-list-ext-compare-btn {
   position: absolute;
-  bottom: 2rem;
+  top: 10.5rem;
   left: 2rem;
   width: calc(100% - 4rem);
 }
@@ -1580,7 +1580,8 @@ a.suggestion {
   color: white;
 }
 
-.word-list-ext-item-head:not(:hover) .word-list-ext-cycle {
+.word-list-ext-item:not(:hover) .word-list-ext-cycle,
+.word-list-ext-item:not(:hover) .word-list-ext-compare-btn {
   display: none;
 }
 
