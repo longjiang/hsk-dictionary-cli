@@ -11,12 +11,11 @@
           <Loader class="mt-5" />
           <div v-if="arg">
             <WordListExtended v-if="word" :words="[word]" />
-            <div v-if="similar && similar.length > 0">
+            <div v-if="similar && similar.length > 1">
               <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
               <WordListExtended
-                v-if="similar.length > 0"
                 :words="similar.slice(0, 6)"
                 :compareWith="word"
               />
@@ -32,12 +31,11 @@
               />
               <Merge direction="top" class="h-half mt-5 mb-5" />
             </div>
-            <div v-if="related && related.length > 0">
+            <div v-if="related && related.length > 1">
               <h4 class="text-center">Related Words</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
               <WordListExtended
-                v-if="related.length > 0"
                 :words="related.slice(0, 18)"
                 :compareWith="word"
               />
@@ -100,6 +98,8 @@ export default {
             LoadedHSKCEDICT.getByIdentifier(
               word => {
                 this.word = word
+                this.similar = [this.word]
+                this.related = [this.word]
                 for (let definition of this.word.definitions) {
                   LoadedHSKCEDICT.lookupByDefinition(
                     words => {
