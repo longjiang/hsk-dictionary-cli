@@ -1,6 +1,7 @@
 const HSKCEDICT = {
   _csv: '../data/hsk_cedict.csv.txt',
   _data: [],
+  _maxWeight: 0,
   load() {
     return new Promise(resolve => {
       Papa.parse(this._csv, {
@@ -8,6 +9,9 @@ const HSKCEDICT = {
         header: true,
         complete: results => {
           this._data = results.data.map(row => this.augment(row))
+          for (let row of this._data) {
+            row.rank = row.weight / this._maxWeight
+          }
           resolve()
         }
       })
@@ -141,6 +145,7 @@ const HSKCEDICT = {
   augment(row) {
     let hskCEDICT = this
     let augmented = Object.assign({}, row)
+    this._maxWeight = Math.max(augmented.weight, this._maxWeight)
     augmented.search = augmented.definitions
     augmented.identifier = `${augmented.traditional},${augmented.pinyin.replace(
       / /g,

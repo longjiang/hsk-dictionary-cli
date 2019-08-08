@@ -4,6 +4,25 @@
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />
+          <div v-if="entry" class="frequency-wrapper mb-4">
+            <div class="frequency">
+              <div
+                class="frequency-fill"
+                :data-bg-hsk="entry.hsk"
+                :style="
+                  `width: ${(Math.log10(1 + entry.rank * 10000) * 100) / 4}%`
+                "
+              ></div>
+            </div>
+            <div class="text-center mt-2 frequency-text">
+              <b
+                >{{
+                  Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4)
+                }}%</b
+              >
+              as common as “的”
+            </div>
+          </div>
           <EntryHeader v-if="entry" :entry="entry"></EntryHeader>
         </div>
       </div>
@@ -30,16 +49,29 @@
       :pinyin="entry.pinyin"
     ></EntryCharacters>
 
-    <EntryWebImages class="mt-5" v-if="entry" :entry="entry" limit="10"></EntryWebImages>
+    <EntryWebImages
+      class="mt-5"
+      v-if="entry"
+      :entry="entry"
+      limit="10"
+    ></EntryWebImages>
 
     <EntryGrammar :entry="entry" v-if="entry"></EntryGrammar>
 
     <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
     <!-- <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated> -->
 
-    <EntryCollocations class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryCollocations>
+    <EntryCollocations
+      class="mt-5 mb-5"
+      v-if="entry"
+      :entry="entry"
+    ></EntryCollocations>
 
-    <EntryConcordance class="mt-5 mb-5" v-if="entry" :entry="entry"></EntryConcordance>
+    <EntryConcordance
+      class="mt-5 mb-5"
+      v-if="entry"
+      :entry="entry"
+    ></EntryConcordance>
 
     <div class="container mt-5 mb-5">
       <div class="row">

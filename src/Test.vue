@@ -72,9 +72,11 @@ export default {
     },
     testMerge() {
       Merge.loadHSK(() => {
-        Merge.loadCEDICT(() => {
-          window.Merge = Merge
-          console.log('Merge ready.')
+        Merge.loadCEDICTWeights(() => {
+          Merge.loadCEDICT(() => {
+            window.Merge = Merge
+            console.log('Merge ready.')
+          })
         })
       })
     }

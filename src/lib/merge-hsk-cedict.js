@@ -1,10 +1,13 @@
 import Papa from 'papaparse'
 
 export default {
-  _cedictData: [],
-  _hskData: [],
   _merged: [],
+  _weightHash: {},
+  _cedictData: [],
+  _cedictWeightsData: [],
+  _hskData: [],
   _cedictFile: 'data/cedict_ts.u8.txt',
+  _cedictWeightsCSV: 'data/cedict_weights.csv',
   _hskCSV: 'data/HSK 1-6 Vocabulary/HSK Standard Course 1-6-Table 1.csv',
   _hskFields: {
     hskId: 'Id',
@@ -22,12 +25,6 @@ export default {
     oofc: 'OofC',
     pn: 'PN'
   },
-  f() {
-    // CEDICT.parsePinyinInCEDICTFIle(function(parsed) {
-    //   console.log(parsed)
-    //   window.parsed = parsed
-    // })
-  },
   loadHSK(callback) {
     Papa.parse(this._hskCSV, {
       download: true,
@@ -41,6 +38,41 @@ export default {
           result.index = 0
           Object.freeze(result)
           this._hskData.push(result)
+        }
+        callback()
+      }
+    })
+  },
+  loadCEDICTWeights(callback) {
+    Papa.parse(this._cedictWeightsCSV, {
+      download: true,
+      header: true,
+      complete: results => {
+        let same = {
+          traditional: undefined,
+          pinyin: undefined,
+          count: 0
+        }
+        this._cedictWeightsData = results.data
+        for (let row of this._cedictWeightsData) {
+          row.pinyin = row.pinyin ? this.parsePinyin(row.pinyin) : ''
+          if (
+            row.traditional === same.traditional &&
+            row.pinyin === same.pinyin
+          ) {
+            row.index = same.count
+            same.count++
+          } else {
+            same = {
+              traditional: row.traditional,
+              pinyin: row.pinyin,
+              count: 0
+            }
+            row.index = 0
+          }
+          row.identifier = `${row.traditional},${row.pinyin.replace(/ /g, '_')},${row.index}`
+          this._weightHash[row.identifier] = row.weight
+          Object.freeze(row)
         }
         callback()
       }
@@ -79,7 +111,8 @@ export default {
   loadCEDICTData(cedictText, callback) {
     let same = {
       traditional: undefined,
-      pinyin: undefined
+      pinyin: undefined,
+      count: 0
     }
     for (let line of cedictText.split('\n')) {
       if (!line.startsWith('#')) {
@@ -97,11 +130,13 @@ export default {
             row.traditional === same.traditional &&
             row.pinyin === same.pinyin
           ) {
-            row.index++
+            row.index = same.count
+            same.count++
           } else {
             same = {
               traditional: row.traditional,
-              pinyin: row.pinyin
+              pinyin: row.pinyin,
+              count: 0
             }
           }
           Object.freeze(row)
@@ -134,6 +169,7 @@ export default {
         emptyHSKWord[field] = ''
       }
       emptyHSKWord.hsk = 'outside'
+      emptyHSKWord.weight = 0
       const result = Object.assign(emptyHSKWord, cedictWord)
       return result
     }
@@ -161,7 +197,11 @@ export default {
   merge() {
     console.log('Merging...')
     this._merged = []
-    for (let row of this._cedictData) {
+    for (let c of this._cedictData) {
+      let row = Object.assign({}, c)
+      let identifier = `${row.traditional},${row.pinyin.replace(/ /g, '_')},${row.index}`
+      let w = this._weightHash[identifier]
+      row.weight = w ? w : 0
       this._merged.push(this.assignHSK(row))
     }
     this._merged = this._merged.concat(this.findHSKNotInCEDICT())

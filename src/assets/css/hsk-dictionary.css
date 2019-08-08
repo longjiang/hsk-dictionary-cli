@@ -1618,3 +1618,18 @@ a.suggestion {
   right: 1.5rem;
   opacity: 0.5;
 }
+
+.frequency {
+  background: #ccc;
+  height: 0.3rem;
+  width: 100%;
+}
+
+.frequency-fill {
+  background:#88b1a2;
+  height:0.3rem;
+}
+
+.frequency-wrapper:not(:hover) .frequency-text {
+  opacity: 0;
+}
