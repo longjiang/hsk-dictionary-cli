@@ -49,7 +49,7 @@
               ></DefinitionsList>
               <Loader class="mt-5" />
             </div>
-            <WordListExended v-if="rootWords" :words="rootWords" />
+            <WordListExtended v-if="rootWords" :words="rootWords" />
           </div>
         </div>
       </div>
@@ -59,13 +59,13 @@
 
 <script>
 import Helper from '@/lib/helper'
-import WordListExended from '@/components/WordListExended.vue'
+import WordListExtended from '@/components/WordListExtended.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
 import $ from 'jquery'
 
 export default {
   components: {
-    WordListExended,
+    WordListExtended,
     DefinitionsList
   },
   beforeMount() {

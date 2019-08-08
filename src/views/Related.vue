@@ -10,12 +10,12 @@
           </div>
           <Loader class="mt-5" />
           <div v-if="arg">
-            <WordListExended v-if="word" :words="[word]" />
+            <WordListExtended v-if="word" :words="[word]" />
             <div v-if="similar && similar.length > 0">
               <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
-              <WordListExended
+              <WordListExtended
                 v-if="similar.length > 0"
                 :words="similar.slice(0, 6)"
                 :compareWith="word"
@@ -36,7 +36,7 @@
               <h4 class="text-center">Related Words</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
-              <WordListExended
+              <WordListExtended
                 v-if="related.length > 0"
                 :words="related.slice(0, 18)"
                 :compareWith="word"
@@ -60,7 +60,7 @@
 
 <script>
 import Helper from '@/lib/helper'
-import WordListExended from '@/components/WordListExended.vue'
+import WordListExtended from '@/components/WordListExtended.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
 import Search from '@/components/Search.vue'
 import SketchEngine from '@/lib/sketch-engine'
@@ -69,7 +69,7 @@ import $ from 'jquery'
 
 export default {
   components: {
-    WordListExended,
+    WordListExtended,
     DefinitionsList,
     Merge,
     Search
