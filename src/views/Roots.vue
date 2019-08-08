@@ -51,16 +51,13 @@
             >
               <img src="img/angle-right.svg" alt />
             </button>
-            <div class="text-center">
-              <div :key="rootsKey">
+            <div class="text-center" :key="rootsKey">
+              <div class="big-word">
+                Pattern
                 <PinyinButton />
-                <div class="big-word">{{ arg }}</div>
+                <span >{{ arg }}</span>
               </div>
-              <DefinitionsList
-                v-if="rootCharacter && rootCharacter.definition"
-                class="mt-2"
-                :definitions="rootCharacter.definition.split(';')"
-              ></DefinitionsList>
+              <EntryCharacters :text="arg.replace(/～/g, '')"></EntryCharacters>
               <Loader class="mt-5" />
             </div>
             <WordListExtended v-if="rootWords" :words="rootWords" />
@@ -75,10 +72,12 @@
 import Helper from '@/lib/helper'
 import WordListExtended from '@/components/WordListExtended.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
+import EntryCharacters from '@/components/EntryCharacters.vue'
 import $ from 'jquery'
 
 export default {
   components: {
+    EntryCharacters,
     WordListExtended,
     DefinitionsList
   },

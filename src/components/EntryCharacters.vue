@@ -11,31 +11,29 @@
         <!-- ANCHOR img/anchors/parts.png -->
         <div class="text-center">
           <div class="pinyin mb-2" v-if="pinyin">
-            {{ pinyin.split(' ')[index] }}
+            {{ pinyin ? pinyin.split(' ')[index] : '' }}
           </div>
           <StrokeOrder :char="character.character" />
         </div>
 
         <div class="parts mt-4">
+          <div class="english mt-3 mb-4 text-center">
+            <DefinitionsList
+              class="mt-2"
+              :definitions="character.definition.split(';')"
+            ></DefinitionsList>
+          </div>
           <div class="text-center">
             <Decomposition :char="character.character"></Decomposition>
           </div>
-          <div class="english mt-3 mb-3 text-center">
-            {{ character.definition.split(';')[0] }}
-          </div>
           <div class="part character-example" v-for="part in character.parts">
-            <span class="part-part mr-2" v-if="part">
-              <b>{{ part.character }}</b>
-            </span>
+            <span class="part-part mr-2" v-if="part && part.character !== '？'">
+              <b>{{ part.character }}</b> =</span
+            >
             <span
               class="part-definition character-example-english"
               v-if="part.definition"
               >{{ part.definition }}</span
-            >
-            <span
-              class="part-pinyin character-example-english"
-              v-if="part.character == '？'"
-              >Other elements</span
             >
             <ul
               class="part-examples"
@@ -44,7 +42,7 @@
               <li>{{ part.hskCharacters.length }} characters:</li>
             </ul>
           </div>
-          <div class="etymology mb-4" v-if="character.etymology">
+          <div class="etymology mt-4 mb-4" v-if="character.etymology">
             <span v-if="character.etymology.type">
               <b>Origin:</b> A
               <em v-if="character.etymology">{{ character.etymology.type }}</em>
@@ -70,13 +68,22 @@
 
 <script>
 import Decomposition from '@/components/Decomposition.vue'
+import DefinitionsList from '@/components/DefinitionsList.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
-  props: ['text', 'pinyin'],
+  props: {
+    text: {
+      stype: String
+    },
+    pinyin: {
+      default: ''
+    }
+  },
   components: {
-    Decomposition
+    Decomposition,
+    DefinitionsList
   },
   data() {
     return {

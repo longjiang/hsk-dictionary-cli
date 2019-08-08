@@ -1,7 +1,7 @@
 <template>
   <div class="animated-svg-wrapper">
     <img :src="src" class="animated-svg" />
-    <button class="replay-btn show-more mt-2" @click="playSVG">
+    <button class="replay-btn show-more mt-2 focus-exclude" @click="playSVG">
       <i class="glyphicon glyphicon-play"></i> Play Again
     </button>
   </div>
