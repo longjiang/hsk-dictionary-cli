@@ -6,7 +6,7 @@
           <h4>Reader</h4>
           <p>This tool helps you read Chinese text.</p>
           <hr />
-          <div id="reader-annotated"></div>
+          <div id="reader-annotated" class="focus"></div>
           <Loader />
           <div class="mt-4">
             <textarea

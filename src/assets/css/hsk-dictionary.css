@@ -10,6 +10,10 @@ body {
   display: none;
 }
 
+.hide-except-focus .focus-hover:not(:hover) {
+  opacity: 0;
+}
+
 .lines {
   padding: 1rem;
   border-top: 1px solid #ccc;

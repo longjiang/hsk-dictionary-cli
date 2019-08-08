@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div v-if="!arg">
+          <div v-if="!arg" class="focus">
             <h4>Explore Words Endings</h4>
             <p>See how words are built.</p>
             <Loader class="mt-5" />
@@ -17,13 +17,13 @@
               <tbody>
                 <tr v-for="root in rootsAugmented">
                   <td class="character-example">
-                    <a :href="`#/explore/roots/${root.root}`">
+                    <a :href="`#/explore/roots/${root.pattern}`">
                       <span
                         class="character-example-word"
                         v-if="root.word"
                         v-html="
                           Helper.highlight(
-                            root.root,
+                            root.pattern,
                             root.word.simplified,
                             root.word.hsk
                           )
@@ -38,10 +38,16 @@
               </tbody>
             </table>
           </div>
-          <div v-if="arg">
+          <div v-if="arg" class="focus">
+            <button class="paginate-button previous focus-hover" v-on:click="previousClick">
+              <img src="img/angle-left.svg" alt />
+            </button>
+            <button class="paginate-button next focus-hover" v-on:click="nextClick">
+              <img src="img/angle-right.svg" alt />
+            </button>
             <div class="text-center">
               <PinyinButton />
-              <div class="big-word">{{ root.pattern }}</div>
+              <div class="big-word">{{ arg }}</div>
               <DefinitionsList
                 v-if="rootCharacter && rootCharacter.definition"
                 class="mt-2"
@@ -72,15 +78,27 @@ export default {
     this.route()
   },
   methods: {
+    currentIndex() {
+      return this.roots.findIndex(root => root.pattern === this.arg)
+    },
+    previousClick() {
+      const i = this.currentIndex()
+      if (i > 0) {
+        location.hash = '#/explore/roots/' + this.roots[i - 1].pattern
+      }
+    },
+    nextClick() {
+      const i = this.currentIndex()
+      if (i < this.roots.length - 1) {
+        location.hash = '#/explore/roots/' + this.roots[i + 1].pattern
+      }
+    },
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.arg) {
         this.rootCharacter = undefined
         this.rootWords = []
         this.arg = this.$route.params.arg
-        this.root = {
-          pattern: this.arg
-        }
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
             LoadedHSKCEDICT.lookupByPattern(
@@ -89,10 +107,10 @@ export default {
                   .sort((a, b) => a.simplified.length - b.simplified.length)
                   .sort((a, b) => a.hsk - b.hsk)
               },
-              [this.root.pattern]
+              [this.arg]
             )
             this.rootCharacter = LoadedHanzi.lookup(
-              this.root.pattern.replace(/～/g, '')
+              this.arg.replace(/～/g, '')
             )
           }
         )
@@ -106,7 +124,7 @@ export default {
                   root.word = words[0]
                   this.rootsAugmented.push(root)
                 },
-                [root.root.replace(/～/g, '')]
+                [root.pattern.replace(/～/g, '')]
               )
             }
           }
@@ -122,1038 +140,1037 @@ export default {
   data() {
     return {
       Helper,
-      root: undefined,
       arg: undefined,
       rootCharacter: undefined,
       rootWords: [],
       rootsAugmented: [],
       roots: [
         {
-          root: '～子',
+          pattern: '～子',
           count: 59
         },
         {
-          root: '不～',
+          pattern: '不～',
           count: 38
         },
         {
-          root: '～心',
+          pattern: '～心',
           count: 28
         },
         {
-          root: '～不～',
+          pattern: '～不～',
           count: 27
         },
         {
-          root: '一～',
+          pattern: '一～',
           count: 27
         },
         {
-          root: '～气',
+          pattern: '～气',
           count: 26
         },
         {
-          root: '～力',
+          pattern: '～力',
           count: 25
         },
         {
-          root: '发～',
+          pattern: '发～',
           count: 24
         },
         {
-          root: '～理',
+          pattern: '～理',
           count: 24
         },
         {
-          root: '天',
+          pattern: '天',
           count: 23
         },
         {
-          root: '无～',
+          pattern: '无～',
           count: 22
         },
         {
-          root: '公～',
+          pattern: '公～',
           count: 22
         },
         {
-          root: '～然',
+          pattern: '～然',
           count: 21
         },
         {
-          root: '打～',
+          pattern: '打～',
           count: 21
         },
         {
-          root: '机',
+          pattern: '机',
           count: 21
         },
         {
-          root: '～动',
+          pattern: '～动',
           count: 20
         },
         {
-          root: '大～',
+          pattern: '大～',
           count: 20
         },
         {
-          root: '人～',
+          pattern: '人～',
           count: 19
         },
         {
-          root: '生～',
+          pattern: '生～',
           count: 19
         },
         {
-          root: '～实',
+          pattern: '～实',
           count: 19
         },
         {
-          root: '～面',
+          pattern: '～面',
           count: 19
         },
         {
-          root: '学',
+          pattern: '学',
           count: 19
         },
         {
-          root: '本',
+          pattern: '本',
           count: 19
         },
         {
-          root: '情',
+          pattern: '情',
           count: 19
         },
         {
-          root: '分～',
+          pattern: '分～',
           count: 18
         },
         {
-          root: '～行',
+          pattern: '～行',
           count: 18
         },
         {
-          root: '～明',
+          pattern: '～明',
           count: 18
         },
         {
-          root: '对～',
+          pattern: '对～',
           count: 18
         },
         {
-          root: '～儿',
+          pattern: '～儿',
           count: 18
         },
         {
-          root: '出～',
+          pattern: '出～',
           count: 18
         },
         {
-          root: '～业',
+          pattern: '～业',
           count: 18
         },
         {
-          root: '～定',
+          pattern: '～定',
           count: 18
         },
         {
-          root: '为',
+          pattern: '为',
           count: 18
         },
         {
-          root: '要',
+          pattern: '要',
           count: 18
         },
         {
-          root: '节',
+          pattern: '节',
           count: 18
         },
         {
-          root: '光',
+          pattern: '光',
           count: 18
         },
         {
-          root: '成～',
+          pattern: '成～',
           count: 17
         },
         {
-          root: '开～',
+          pattern: '开～',
           count: 17
         },
         {
-          root: '自～',
+          pattern: '自～',
           count: 17
         },
         {
-          root: '反～',
+          pattern: '反～',
           count: 17
         },
         {
-          root: '和',
+          pattern: '和',
           count: 17
         },
         {
-          root: '现',
+          pattern: '现',
           count: 17
         },
         {
-          root: '口',
+          pattern: '口',
           count: 17
         },
         {
-          root: '记',
+          pattern: '记',
           count: 17
         },
         {
-          root: '立',
+          pattern: '立',
           count: 17
         },
         {
-          root: '制',
+          pattern: '制',
           count: 17
         },
         {
-          root: '～意',
+          pattern: '～意',
           count: 16
         },
         {
-          root: '地～',
+          pattern: '地～',
           count: 16
         },
         {
-          root: '～道',
+          pattern: '～道',
           count: 16
         },
         {
-          root: '主～',
+          pattern: '主～',
           count: 16
         },
         {
-          root: '起',
+          pattern: '起',
           count: 16
         },
         {
-          root: '家',
+          pattern: '家',
           count: 16
         },
         {
-          root: '上',
+          pattern: '上',
           count: 16
         },
         {
-          root: '后',
+          pattern: '后',
           count: 16
         },
         {
-          root: '长',
+          pattern: '长',
           count: 16
         },
         {
-          root: '用',
+          pattern: '用',
           count: 16
         },
         {
-          root: '信',
+          pattern: '信',
           count: 16
         },
         {
-          root: '～人',
+          pattern: '～人',
           count: 15
         },
         {
-          root: '～得',
+          pattern: '～得',
           count: 15
         },
         {
-          root: '平～',
+          pattern: '平～',
           count: 15
         },
         {
-          root: '年',
+          pattern: '年',
           count: 15
         },
         {
-          root: '化',
+          pattern: '化',
           count: 15
         },
         {
-          root: '交',
+          pattern: '交',
           count: 15
         },
         {
-          root: '流',
+          pattern: '流',
           count: 15
         },
         {
-          root: '通',
+          pattern: '通',
           count: 15
         },
         {
-          root: '收',
+          pattern: '收',
           count: 15
         },
         {
-          root: '观',
+          pattern: '观',
           count: 15
         },
         {
-          root: '领',
+          pattern: '领',
           count: 15
         },
         {
-          root: '～发',
+          pattern: '～发',
           count: 14
         },
         {
-          root: '实～',
+          pattern: '实～',
           count: 14
         },
         {
-          root: '正～',
+          pattern: '正～',
           count: 14
         },
         {
-          root: '～来',
+          pattern: '～来',
           count: 14
         },
         {
-          root: '过～',
+          pattern: '过～',
           count: 14
         },
         {
-          root: '～于',
+          pattern: '～于',
           count: 14
         },
         {
-          root: '小～',
+          pattern: '小～',
           count: 14
         },
         {
-          root: '保～',
+          pattern: '保～',
           count: 14
         },
         {
-          root: '～度',
+          pattern: '～度',
           count: 14
         },
         {
-          root: '好',
+          pattern: '好',
           count: 14
         },
         {
-          root: '见',
+          pattern: '见',
           count: 14
         },
         {
-          root: '期',
+          pattern: '期',
           count: 14
         },
         {
-          root: '想',
+          pattern: '想',
           count: 14
         },
         {
-          root: '工',
+          pattern: '工',
           count: 14
         },
         {
-          root: '能',
+          pattern: '能',
           count: 14
         },
         {
-          root: '水',
+          pattern: '水',
           count: 14
         },
         {
-          root: '日',
+          pattern: '日',
           count: 14
         },
         {
-          root: '外',
+          pattern: '外',
           count: 14
         },
         {
-          root: '务',
+          pattern: '务',
           count: 14
         },
         {
-          root: '～望',
+          pattern: '～望',
           count: 14
         },
         {
-          root: '调',
+          pattern: '调',
           count: 14
         },
         {
-          root: '应',
+          pattern: '应',
           count: 14
         },
         {
-          root: '目',
+          pattern: '目',
           count: 14
         },
         {
-          root: '而',
+          pattern: '而',
           count: 14
         },
         {
-          root: '失',
+          pattern: '失',
           count: 14
         },
         {
-          root: '品',
+          pattern: '品',
           count: 14
         },
         {
-          root: '～成',
+          pattern: '～成',
           count: 13
         },
         {
-          root: '～体',
+          pattern: '～体',
           count: 13
         },
         {
-          root: '时～',
+          pattern: '时～',
           count: 13
         },
         {
-          root: '作～',
+          pattern: '作～',
           count: 13
         },
         {
-          root: '当～',
+          pattern: '当～',
           count: 13
         },
         {
-          root: '可～',
+          pattern: '可～',
           count: 13
         },
         {
-          root: '文～',
+          pattern: '文～',
           count: 13
         },
         {
-          root: '相～',
+          pattern: '相～',
           count: 13
         },
         {
-          root: '～视',
+          pattern: '～视',
           count: 13
         },
         {
-          root: '关',
+          pattern: '关',
           count: 13
         },
         {
-          root: '名',
+          pattern: '名',
           count: 13
         },
         {
-          root: '中',
+          pattern: '中',
           count: 13
         },
         {
-          root: '有',
+          pattern: '有',
           count: 13
         },
         {
-          root: '前',
+          pattern: '前',
           count: 13
         },
         {
-          root: '爱',
+          pattern: '爱',
           count: 13
         },
         {
-          root: '车',
+          pattern: '车',
           count: 13
         },
         {
-          root: '服',
+          pattern: '服',
           count: 13
         },
         {
-          root: '新',
+          pattern: '新',
           count: 13
         },
         {
-          root: '间',
+          pattern: '间',
           count: 13
         },
         {
-          root: '乐',
+          pattern: '乐',
           count: 13
         },
         {
-          root: '问',
+          pattern: '问',
           count: 13
         },
         {
-          root: '进',
+          pattern: '进',
           count: 13
         },
         {
-          root: '着',
+          pattern: '着',
           count: 13
         },
         {
-          root: '复',
+          pattern: '复',
           count: 13
         },
         {
-          root: '难',
+          pattern: '难',
           count: 13
         },
         {
-          root: '照',
+          pattern: '照',
           count: 13
         },
         {
-          root: '安',
+          pattern: '安',
           count: 13
         },
         {
-          root: '性',
+          pattern: '性',
           count: 13
         },
         {
-          root: '格',
+          pattern: '格',
           count: 13
         },
         {
-          root: '导',
+          pattern: '导',
           count: 13
         },
         {
-          root: '神',
+          pattern: '神',
           count: 13
         },
         {
-          root: '～生',
+          pattern: '～生',
           count: 12
         },
         {
-          root: '动～',
+          pattern: '动～',
           count: 12
         },
         {
-          root: '～时',
+          pattern: '～时',
           count: 12
         },
         {
-          root: '～手',
+          pattern: '～手',
           count: 12
         },
         {
-          root: '～重',
+          pattern: '～重',
           count: 12
         },
         {
-          root: '～合',
+          pattern: '～合',
           count: 12
         },
         {
-          root: '～解',
+          pattern: '～解',
           count: 12
         },
         {
-          root: '～会',
+          pattern: '～会',
           count: 12
         },
         {
-          root: '报～',
+          pattern: '报～',
           count: 12
         },
         {
-          root: '以～',
+          pattern: '以～',
           count: 12
         },
         {
-          root: '～利',
+          pattern: '～利',
           count: 12
         },
         {
-          root: '精～',
+          pattern: '精～',
           count: 12
         },
         {
-          root: '表～',
+          pattern: '表～',
           count: 12
         },
         {
-          root: '空～',
+          pattern: '空～',
           count: 12
         },
         {
-          root: '～法',
+          pattern: '～法',
           count: 12
         },
         {
-          root: '～话',
+          pattern: '～话',
           count: 12
         },
         {
-          root: '～常',
+          pattern: '～常',
           count: 12
         },
         {
-          root: '指～',
+          pattern: '指～',
           count: 12
         },
         {
-          root: '提～',
+          pattern: '提～',
           count: 12
         },
         {
-          root: '是',
+          pattern: '是',
           count: 12
         },
         {
-          root: '美',
+          pattern: '美',
           count: 12
         },
         {
-          root: '国',
+          pattern: '国',
           count: 12
         },
         {
-          root: '同',
+          pattern: '同',
           count: 12
         },
         {
-          root: '电',
+          pattern: '电',
           count: 12
         },
         {
-          root: '先',
+          pattern: '先',
           count: 12
         },
         {
-          root: '备',
+          pattern: '备',
           count: 12
         },
         {
-          root: '到',
+          pattern: '到',
           count: 12
         },
         {
-          root: '告',
+          pattern: '告',
           count: 12
         },
         {
-          root: '包',
+          pattern: '包',
           count: 12
         },
         {
-          root: '放',
+          pattern: '放',
           count: 12
         },
         {
-          root: '接',
+          pattern: '接',
           count: 12
         },
         {
-          root: '位',
+          pattern: '位',
           count: 12
         },
         {
-          root: '受',
+          pattern: '受',
           count: 12
         },
         {
-          root: '断',
+          pattern: '断',
           count: 12
         },
         {
-          root: '确',
+          pattern: '确',
           count: 12
         },
         {
-          root: '示',
+          pattern: '示',
           count: 12
         },
         {
-          root: '传',
+          pattern: '传',
           count: 12
         },
         {
-          root: '密',
+          pattern: '密',
           count: 12
         },
         {
-          root: '布',
+          pattern: '布',
           count: 12
         },
         {
-          root: '气～',
+          pattern: '气～',
           count: 11
         },
         {
-          root: '体～',
+          pattern: '体～',
           count: 11
         },
         {
-          root: '事～',
+          pattern: '事～',
           count: 11
         },
         {
-          root: '～事',
+          pattern: '～事',
           count: 11
         },
         {
-          root: '方～',
+          pattern: '方～',
           count: 11
         },
         {
-          root: '手～',
+          pattern: '手～',
           count: 11
         },
         {
-          root: '合～',
+          pattern: '合～',
           count: 11
         },
         {
-          root: '～物',
+          pattern: '～物',
           count: 11
         },
         {
-          root: '风～',
+          pattern: '风～',
           count: 11
         },
         {
-          root: '经～',
+          pattern: '经～',
           count: 11
         },
         {
-          root: '～别',
+          pattern: '～别',
           count: 11
         },
         {
-          root: '结～',
+          pattern: '结～',
           count: 11
         },
         {
-          root: '干～',
+          pattern: '干～',
           count: 11
         },
         {
-          root: '～代',
+          pattern: '～代',
           count: 11
         },
         {
-          root: '～点',
+          pattern: '～点',
           count: 11
         },
         {
-          root: '感～',
+          pattern: '感～',
           count: 11
         },
         {
-          root: '高～',
+          pattern: '高～',
           count: 11
         },
         {
-          root: '～论',
+          pattern: '～论',
           count: 11
         },
         {
-          root: '～件',
+          pattern: '～件',
           count: 11
         },
         {
-          root: '周～',
+          pattern: '周～',
           count: 11
         },
         {
-          root: '～头',
+          pattern: '～头',
           count: 11
         },
         {
-          root: '～质',
+          pattern: '～质',
           count: 11
         },
         {
-          root: '商',
+          pattern: '商',
           count: 11
         },
         {
-          root: '果',
+          pattern: '果',
           count: 11
         },
         {
-          root: '足',
+          pattern: '足',
           count: 11
         },
         {
-          root: '色',
+          pattern: '色',
           count: 11
         },
         {
-          root: '思',
+          pattern: '思',
           count: 11
         },
         {
-          root: '所',
+          pattern: '所',
           count: 11
         },
         {
-          root: '场',
+          pattern: '场',
           count: 11
         },
         {
-          root: '往',
+          pattern: '往',
           count: 11
         },
         {
-          root: '急',
+          pattern: '急',
           count: 11
         },
         {
-          root: '容',
+          pattern: '容',
           count: 11
         },
         {
-          root: '清',
+          pattern: '清',
           count: 11
         },
         {
-          root: '求',
+          pattern: '求',
           count: 11
         },
         {
-          root: '除',
+          pattern: '除',
           count: 11
         },
         {
-          root: '如',
+          pattern: '如',
           count: 11
         },
         {
-          root: '向',
+          pattern: '向',
           count: 11
         },
         {
-          root: '象',
+          pattern: '象',
           count: 11
         },
         {
-          root: '原',
+          pattern: '原',
           count: 11
         },
         {
-          root: '证',
+          pattern: '证',
           count: 11
         },
         {
-          root: '消',
+          pattern: '消',
           count: 11
         },
         {
-          root: '资',
+          pattern: '资',
           count: 11
         },
         {
-          root: '任',
+          pattern: '任',
           count: 11
         },
         {
-          root: '～量',
+          pattern: '～量',
           count: 11
         },
         {
-          root: '标',
+          pattern: '标',
           count: 11
         },
         {
-          root: '支',
+          pattern: '支',
           count: 11
         },
         {
-          root: '命',
+          pattern: '命',
           count: 11
         },
         {
-          root: '预',
+          pattern: '预',
           count: 11
         },
         {
-          root: '争',
+          pattern: '争',
           count: 11
         },
         {
-          root: '民',
+          pattern: '民',
           count: 11
         },
         {
-          root: '待',
+          pattern: '待',
           count: 11
         },
         {
-          root: '固',
+          pattern: '固',
           count: 11
         },
         {
-          root: '致',
+          pattern: '致',
           count: 11
         },
         {
-          root: '字',
+          pattern: '字',
           count: 10
         },
         {
-          root: '了',
+          pattern: '了',
           count: 10
         },
         {
-          root: '说',
+          pattern: '说',
           count: 10
         },
         {
-          root: '在',
+          pattern: '在',
           count: 10
         },
         {
-          root: '热',
+          pattern: '热',
           count: 10
         },
         {
-          root: '张',
+          pattern: '张',
           count: 10
         },
         {
-          root: '认',
+          pattern: '认',
           count: 10
         },
         {
-          root: '花',
+          pattern: '花',
           count: 10
         },
         {
-          root: '步',
+          pattern: '步',
           count: 10
         },
         {
-          root: '身',
+          pattern: '身',
           count: 10
         },
         {
-          root: '真',
+          pattern: '真',
           count: 10
         },
         {
-          root: '教',
+          pattern: '教',
           count: 10
         },
         {
-          root: '比',
+          pattern: '比',
           count: 10
         },
         {
-          root: '便',
+          pattern: '便',
           count: 10
         },
         {
-          root: '算',
+          pattern: '算',
           count: 10
         },
         {
-          root: '其',
+          pattern: '其',
           count: 10
         },
         {
-          root: '总',
+          pattern: '总',
           count: 10
         },
         {
-          root: '特',
+          pattern: '特',
           count: 10
         },
         {
-          root: '差',
+          pattern: '差',
           count: 10
         },
         {
-          root: '数',
+          pattern: '数',
           count: 10
         },
         {
-          root: '护',
+          pattern: '护',
           count: 10
         },
         {
-          root: '留',
+          pattern: '留',
           count: 10
         },
         {
-          root: '活',
+          pattern: '活',
           count: 10
         },
         {
-          root: '及',
+          pattern: '及',
           count: 10
         },
         {
-          root: '式',
+          pattern: '式',
           count: 10
         },
         {
-          root: '验',
+          pattern: '验',
           count: 10
         },
         {
-          root: '严',
+          pattern: '严',
           count: 10
         },
         {
-          root: '态',
+          pattern: '态',
           count: 10
         },
         {
-          root: '程',
+          pattern: '程',
           count: 10
         },
         {
-          root: '规',
+          pattern: '规',
           count: 10
         },
         {
-          root: '言',
+          pattern: '言',
           count: 10
         },
         {
-          root: '演',
+          pattern: '演',
           count: 10
         },
         {
-          root: '推',
+          pattern: '推',
           count: 10
         },
         {
-          root: '局',
+          pattern: '局',
           count: 10
         },
         {
-          root: '转',
+          pattern: '转',
           count: 10
         },
         {
-          root: '装',
+          pattern: '装',
           count: 10
         },
         {
-          root: '充',
+          pattern: '充',
           count: 10
         },
         {
-          root: '产',
+          pattern: '产',
           count: 10
         },
         {
-          root: '势',
+          pattern: '势',
           count: 10
         },
         {
-          root: '念',
+          pattern: '念',
           count: 10
         }
       ]
