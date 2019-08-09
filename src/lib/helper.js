@@ -18,7 +18,7 @@ export default {
     this.lastId += 1
     return this.lastId
   },
-  // json only, and returns object
+  // json or plain text only, and returns object
   proxy(url, callback) {
     $.ajax(Config.proxy + '?' + url).done(function(response) {
       callback(JSON.parse(response).data)

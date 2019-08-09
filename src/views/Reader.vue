@@ -171,11 +171,11 @@ export default {
   },
   methods: {
     startClick() {
-      Reader.save(this.text)
+      Reader.save()
       this.show()
     },
     show() {
-      $('#reader-annotated').html(this.text)
+      $('#reader-annotated').html(Marked(this.text))
       // eslint-disable-next-line no-undef
       Annotator.annotateBySelector('#reader-annotated', node => {
         this.annotated = true
@@ -189,20 +189,19 @@ export default {
       let arg = this.$route.params.arg
       if (method) {
         if (method === 'md-url') {
-          Helper.scrape(arg, md => {
-            this.text = Marked(md)
+          Helper.proxy(arg, md => {
+            this.text = md
             this.show()
           })
         }
         if (method === 'html-url') {
           Helper.scrape(arg, (html, response, text) => {
-            // console.log(text)
             this.text = text
-            // this.show()
+            this.show()
           })
         }
         if (method === 'md') {
-          this.text = Marked(arg)
+          this.text = arg
           this.show()
         }
         if (method === 'html') {
