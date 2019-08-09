@@ -37,7 +37,7 @@
         <div class="col-sm-6">
           <EntryWebImages
             v-if="a"
-            :entry="a"
+            :text="a.simplified"
             limit="10"
             :key="aKey"
           ></EntryWebImages>
@@ -45,7 +45,7 @@
         <div class="col-sm-6">
           <EntryWebImages
             v-if="b"
-            :entry="b"
+            :text="b.simplified"
             limit="10"
             :key="bKey"
           ></EntryWebImages>

@@ -1,16 +1,21 @@
 <template>
   <div class="container" :key="webImagesKey" v-cloak>
-    <div class="row" v-if="entry.srcs && entry.srcs.length > 0">
+    <div class="row" v-if="images && images.length > 0">
       <div class="col-sm-12">
         <div class="image-wall">
-          <img
-            @click="imageClick(image.img)"
-            alt
-            class="image-wall-image"
-            v-bind:key="'image-' + index"
-            v-for="(src, index) in entry.srcs.slice(0, limit)"
-            :src="src"
-          />
+          <a
+            v-for="(image, index) in images.slice(0, limit)"
+            class="image-wall-image-wrapper"
+            :href="image.link"
+            target="_blank"
+          >
+            <img
+              alt
+              class="image-wall-image"
+              v-bind:key="'image-' + index"
+              :src="image.img"
+            />
+          </a>
         </div>
       </div>
     </div>
@@ -21,8 +26,8 @@
 import WordPhotos from '@/lib/word-photos'
 export default {
   props: {
-    entry: {
-      type: Object
+    text: {
+      type: String
     },
     limit: {
       type: String,
@@ -30,27 +35,19 @@ export default {
     }
   },
   mounted() {
-    this.entry.srcs = []
-    WordPhotos.getWebImages(this.entry.simplified, images => {
-      WordPhotos.testImages(
-        images
-          .map(image => image.img).slice(0, this.limit),
-        src => {
-          this.entry.srcs.push(src)
-          this.webImagesKey++
-          this.imgKey++
-        }
-      )
+    WordPhotos.getWebImages(this.text, images => {
+      WordPhotos.testImages(images.slice(0, this.limit), image => {
+        this.images.push(image)
+        console.log(image)
+        this.webImagesKey++
+        this.imgKey++
+      })
     })
   },
   data() {
     return {
-      webImagesKey: 0
-    }
-  },
-  methods: {
-    imageClick(src) {
-      window.open(src)
+      webImagesKey: 0,
+      images: []
     }
   }
 }

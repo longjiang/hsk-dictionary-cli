@@ -15,20 +15,20 @@ export default {
     let src = `${Config.imageUrl}${word.hskId}-${word.simplified}.jpg`
     this.testImage(src, success, fail)
   },
-  testImage(src, success, fail = () => {}) {
+  testImage(image, success, fail = () => {}) {
     let tester = new Image()
     tester.onload = () => {
-      success(src)
+      success(image)
     }
     tester.onerror = () => {
-      fail(src)
+      fail(image)
     }
-    tester.src = src
+    tester.src = image.img
   },
-  testImages(srcs, success, fail = () => {}) {
-    if (srcs.length === 0) return
-    for (let src of srcs) {
-      this.testImage(src, success, fail)
+  testImages(images, success, fail = () => {}) {
+    if (images.length === 0) return
+    for (let image of images) {
+      this.testImage(image, success, fail)
     }
   },
   findFirstWorkingImage(srcs, success, fail = () => {}) {
@@ -51,7 +51,7 @@ export default {
       `${
         Config.proxy
       }?http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
-      (response) => {
+      response => {
         let images = [] // images = [{_thumb: "http://...", img: "http://..."}, {...}, {...}]
         if (response && response.data && response.data.list) {
           for (let item of response.data.list) {

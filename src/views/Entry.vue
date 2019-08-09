@@ -33,7 +33,7 @@
     <EntryWebImages
       class="mt-5"
       v-if="entry"
-      :entry="entry"
+      :text="entry.simplified"
       limit="10"
     ></EntryWebImages>
 

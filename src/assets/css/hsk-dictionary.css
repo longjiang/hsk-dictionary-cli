@@ -1035,14 +1035,19 @@ a.suggestion {
   width: 100%;
 }
 
-.image-wall-image {
+.image-wall-image-wrapper {
   flex: auto;
-  object-fit: cover;
+  display: block;
   height: 10rem;
   width: 10rem;
   margin: 0 0.5rem 0.5rem 0;
+}
+
+.image-wall-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
   background-color: #f5f5f5;
-  display: inline-block;
   cursor: pointer;
 }
 
