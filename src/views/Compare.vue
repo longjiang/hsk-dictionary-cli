@@ -54,7 +54,7 @@
     </div>
 
     <div
-      class="container-fluid mt-5 focus compare-example-bar pt-4 pb-4"
+      class="container-fluid mt-5 focus compare-example-bar"
       v-if="a && b && a.example && b.example"
     >
       <div class="container">
@@ -64,6 +64,7 @@
               class="mini"
               :key="aKey"
               :entry="a"
+              scale="0.5"
               id="compare-example-a"
             ></EntryExample>
           </div>
@@ -72,6 +73,7 @@
               class="mini"
               :key="bKey"
               :entry="b"
+              scale="0.5"
               id="compare-example-b"
             ></EntryExample>
           </div>

@@ -275,7 +275,6 @@ body {
   display: none;
 }
 
-.example-sentence,
 .lyrics {
   min-height: 9.5rem;
 }
@@ -1036,10 +1035,11 @@ a.suggestion {
 }
 
 .image-wall-image-wrapper {
-  flex: auto;
-  display: block;
   height: 10rem;
-  width: 10rem;
+  width: calc(50% - 1rem);
+  max-width: 10rem;
+  flex: 1 0 auto;
+  display: block;
   margin: 0 0.5rem 0.5rem 0;
 }
 

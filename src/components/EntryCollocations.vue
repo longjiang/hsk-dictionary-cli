@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="container"
-    :key="'collocations-' + collocationsKey"
-    v-if="colDesc"
-  >
+  <div :key="'collocations-' + collocationsKey" v-if="colDesc">
     <div class="row" v-if="!show">
       <div class="col-sm-12 text-center">
         <div class="label song-label">

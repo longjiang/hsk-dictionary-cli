@@ -1,14 +1,9 @@
 <template>
   <!-- ANCHOR img/anchors/example-bar.png -->
-  <div
-    class="container-fluid example-bar"
-    :id="id"
-    v-cloak
-    v-if="entry.example && entry.example !== ''"
-  >
-    <div class="container">
+  <div :id="id" v-cloak v-if="entry.example && entry.example !== ''">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-6">
+        <div :class="`col-lg-${6 / scale}`">
           <div class="image-wrapper">
             <img
               v-bind:src="
@@ -31,7 +26,7 @@
             />
           </div>
         </div>
-        <div class="col-lg-6 example-wrapper text-lg-left text-center mt-4">
+        <div :class="`col-lg-${6 / scale} example-wrapper pt-4 pb-4`">
           <div
             class="label"
             v-bind:data-bg-hsk="entry.hsk"
@@ -118,6 +113,9 @@ export default {
     },
     id: {
       default: 'entry-example'
+    },
+    scale: {
+      default: 1
     }
   },
   data() {

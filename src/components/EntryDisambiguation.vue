@@ -1,32 +1,26 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <div v-if="similarWords.length > 0">
-          <div class="label song-label">
-            Compare with
-          </div>
+  <div>
+    <div v-if="similarWords.length > 0">
+      <div class="label song-label">Compare with</div>
 
-          <WordList
-            class="mt-2"
-            collapse="10"
-            :words="similarWords"
-            :compareWith="entry"
-            :key="wordsKey"
-            :traditional="entry.simplified.length === 1"
-          ></WordList>
-        </div>
+      <WordList
+        class="mt-2"
+        collapse="10"
+        :words="similarWords"
+        :compareWith="entry"
+        :key="wordsKey"
+        :traditional="entry.simplified.length === 1"
+      ></WordList>
+    </div>
 
-        <div class="text-center mt-3 mb-3">
-          <a
-            class="btn show-more focus-exclude"
-            :data-bg-hsk="entry.hsk"
-            :href="`#/explore/related/${entry.identifier}`"
-            ><i class="glyphicon glyphicon-fullscreen"></i> Explore Related
-            Words</a
-          >
-        </div>
-      </div>
+    <div class="text-center mt-3 mb-3">
+      <a
+        class="btn show-more focus-exclude"
+        :data-bg-hsk="entry.hsk"
+        :href="`#/explore/related/${entry.identifier}`"
+      >
+        <i class="glyphicon glyphicon-fullscreen"></i> Explore Related Words
+      </a>
     </div>
   </div>
 </template>

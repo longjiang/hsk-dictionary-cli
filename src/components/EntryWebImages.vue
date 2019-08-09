@@ -1,24 +1,23 @@
 <template>
-  <div class="container" :key="webImagesKey" v-cloak>
-    <div class="row" v-if="images && images.length > 0">
-      <div class="col-sm-12">
-        <div class="image-wall">
-          <a
-            v-for="(image, index) in images.slice(0, limit)"
-            class="image-wall-image-wrapper"
-            :href="image.link"
-            target="_blank"
-          >
-            <img
-              alt
-              class="image-wall-image"
-              v-bind:key="'image-' + index"
-              :src="image.img"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
+  <div
+    class="image-wall"
+    :key="webImagesKey"
+    v-cloak
+    v-if="images && images.length > 0"
+  >
+    <a
+      v-for="(image, index) in images.slice(0, limit)"
+      class="image-wall-image-wrapper"
+      :href="image.link"
+      target="_blank"
+    >
+      <img
+        alt
+        class="image-wall-image"
+        v-bind:key="'image-' + index"
+        :src="image.img"
+      />
+    </a>
   </div>
 </template>
 
@@ -38,7 +37,6 @@ export default {
     WordPhotos.getWebImages(this.text, images => {
       WordPhotos.testImages(images.slice(0, this.limit), image => {
         this.images.push(image)
-        console.log(image)
         this.webImagesKey++
         this.imgKey++
       })

@@ -1,7 +1,7 @@
 <template>
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
-  <div class="container" v-if="text" v-cloak>
+  <div class="container-fluid" v-if="text" v-cloak>
     <div class="row character-example-wrapper mt-4" v-if="characters">
       <!-- ANCHOR img/anchors/character.png -->
       <div
