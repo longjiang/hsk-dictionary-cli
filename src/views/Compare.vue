@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-cloak>
-    <div class="container">
+    <div class="container focus">
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
           <Loader v-if="!a" class="mt-5" />
@@ -54,7 +54,7 @@
     </div>
 
     <div
-      class="container-fluid mt-5 compare-example-bar pt-4 pb-4"
+      class="container-fluid mt-5 focus compare-example-bar pt-4 pb-4"
       v-if="a && b && a.example && b.example"
     >
       <div class="container">
@@ -82,14 +82,14 @@
     <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
     <CompareCollocations
-      class="mt-5"
+      class="mt-5 focus"
       v-if="a && b"
       :a="a"
       :b="b"
     ></CompareCollocations>
 
     <!-- <EntryCharacters :entry="entry"></EntryCharacters> -->
-    <div class="container mt-5">
+    <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
           <EntryConcordance
@@ -108,7 +108,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container focus">
       <div class="row">
         <div class="col-sm-6">
           <EntryGrammar v-if="a" :entry="a" :key="aKey"></EntryGrammar>
@@ -119,7 +119,7 @@
       </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
           <EntryMistakes v-if="a" :entry="a" :key="aKey"></EntryMistakes>
