@@ -14,7 +14,7 @@
               class="form-control"
               cols="30"
               rows="10"
-              placeholder="Paste some Chinese text here, and click 'Start Reading'"
+              placeholder="Enter your Chinese text here. Markdown and HTML also supported."
               v-model="text"
             ></textarea>
             <button
@@ -171,17 +171,22 @@ export default {
   },
   methods: {
     startClick() {
-      Reader.save()
-      this.show()
+      if (this.text) {
+        Reader.save(this.text)
+        this.show()
+      }
     },
     show() {
-      $('#reader-annotated').html(Marked(this.text))
-      // eslint-disable-next-line no-undef
-      Annotator.annotateBySelector('#reader-annotated', node => {
-        this.annotated = true
-        Helper.augmentAnnotatedBlocks(node)
-        this.$store.dispatch('updateSavedWordsDisplay')
-      })
+      const marked = Marked(this.text) || this.text
+      if (marked) {
+        $('#reader-annotated').html(marked)
+        // eslint-disable-next-line no-undef
+        Annotator.annotateBySelector('#reader-annotated', node => {
+          this.annotated = true
+          Helper.augmentAnnotatedBlocks(node)
+          this.$store.dispatch('updateSavedWordsDisplay')
+        })
+      }
     },
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
@@ -214,8 +219,11 @@ export default {
         }
       } else {
         if (!this.text) {
-          this.text = Reader.get().replace(/\n/g, '<br>')
-          this.show()
+          const text = Reader.get()
+          if (text) {
+            this.text = text
+            this.show()
+          }
         }
       }
     }

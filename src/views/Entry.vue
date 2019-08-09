@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-cloak :key="'entry-' + entryKey">
+  <div class="main focus" v-cloak :key="'entry-' + entryKey">
     <div class="container mt-4 mb-4">
       <div class="row">
         <div class="col-sm-12">
@@ -62,9 +62,17 @@
       </div>
     </div>
 
-    <EntryCourseAd v-if="entry" :entry="entry"></EntryCourseAd>
+    <EntryCourseAd
+      v-if="entry"
+      :entry="entry"
+      class="focus-exclude"
+    ></EntryCourseAd>
 
-    <EntryLyrics v-if="entry" :entry="entry"></EntryLyrics>
+    <EntryLyrics
+      v-if="entry"
+      :entry="entry"
+      class="focus-exclude"
+    ></EntryLyrics>
   </div>
 </template>
 

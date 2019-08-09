@@ -3,8 +3,9 @@
     <div class="row" v-if="entry.examples && entry.examples.length > 0">
       <div class="col-sm-12">
         <div class="label song-label">
-          Sentences with “<span class="simplified">{{ entry.simplified }}</span
-          ><span class="traditional">{{ entry.traditional }}</span
+          Sentences with “
+          <span class="simplified">{{ entry.simplified }}</span>
+          <span class="traditional">{{ entry.traditional }}</span
           >”
         </div>
         <div v-if="!show" class="text-center pt-4 pb-4 lyrics-bar">
@@ -18,10 +19,9 @@
         </div>
 
         <div v-if="show" class="mt-4">
-          <PinyinButton class="mt-3" :selector="`#examples`" />
+          <PinyinButton class="mt-3" />
           <ul
-            class="character-examples collapsed"
-            id="examples"
+            class="character-examples collapsed examples"
             data-collapse-target
           >
             <li

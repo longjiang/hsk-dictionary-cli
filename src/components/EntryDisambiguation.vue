@@ -19,7 +19,7 @@
 
         <div class="text-center mt-3 mb-3">
           <a
-            class="btn show-more"
+            class="btn show-more focus-exclude"
             :data-bg-hsk="entry.hsk"
             :href="`#/explore/related/${entry.identifier}`"
             ><i class="glyphicon glyphicon-fullscreen"></i> Explore Related

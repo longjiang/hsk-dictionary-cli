@@ -92,18 +92,10 @@
     <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
-          <EntryConcordance
-            v-if="a && a.examples"
-            :entry="a"
-            :key="aKey"
-          ></EntryConcordance>
+          <EntryConcordance v-if="a" :entry="a" :key="aKey"></EntryConcordance>
         </div>
         <div class="col-sm-6">
-          <EntryConcordance
-            v-if="a && a.examples"
-            :entry="b"
-            :key="bKey"
-          ></EntryConcordance>
+          <EntryConcordance v-if="b" :entry="b" :key="bKey"></EntryConcordance>
         </div>
       </div>
     </div>

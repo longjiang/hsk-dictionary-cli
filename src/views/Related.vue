@@ -6,33 +6,12 @@
           <div>
             <h4>Explore Related Words</h4>
             <p>Search for a word, and see words associated with it.</p>
-            <Search :hrefFunc="hrefFunc" class="mb-4" />
+            <Search :hrefFunc="hrefFunc" class="mb-4" ref="search" />
           </div>
           <Loader class="mt-5" />
           <div v-if="arg">
-            <WordListExtended v-if="word" :words="[word]" />
-            <div v-if="similar && similar.length > 1">
-              <h4 class="text-center mt-5 mb-5">Words of Similar Meaning</h4>
-              <Merge direction="bottom" class="h-half mt-5 mb-5" />
-              <Loader class="mt-5" />
-              <WordListExtended
-                :words="similar.slice(0, 6)"
-                :compareWith="word"
-              />
-              <h4 v-if="similar.length > 6" class="text-center mb-4">
-                More Similar Words
-              </h4>
-              <WordList
-                v-if="similar.length > 6"
-                :compareWith="word"
-                :words="similar.slice(6)"
-                class="related mb-5"
-                collapse="4"
-              />
-              <Merge direction="top" class="h-half mt-5 mb-5" />
-            </div>
             <div v-if="related && related.length > 1">
-              <h4 class="text-center">Related Words</h4>
+              <h4 class="text-center mt-5">Related Words</h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
               <div>
@@ -62,7 +41,6 @@
 <script>
 import Helper from '@/lib/helper'
 import WordListExtended from '@/components/WordListExtended.vue'
-import DefinitionsList from '@/components/DefinitionsList.vue'
 import Search from '@/components/Search.vue'
 import SketchEngine from '@/lib/sketch-engine'
 import Merge from '@/components/Merge'
@@ -71,7 +49,6 @@ import $ from 'jquery'
 export default {
   components: {
     WordListExtended,
-    DefinitionsList,
     Merge,
     Search
   },
@@ -83,7 +60,6 @@ export default {
       Helper,
       word: undefined,
       arg: undefined,
-      similar: [],
       related: [],
       hrefFunc: entry => `#/explore/related/${entry.identifier}`
     }
@@ -93,7 +69,6 @@ export default {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.arg) {
         this.word = undefined
-        this.similar = []
         this.related = []
         this.arg = this.$route.params.arg
         Helper.loaded(
@@ -101,27 +76,9 @@ export default {
             LoadedHSKCEDICT.getByIdentifier(
               word => {
                 this.word = word
-                this.similar = [this.word]
+                this.$refs.search.entry = word
+                this.$refs.search.text = word.simplified
                 this.related = [this.word]
-                for (let definition of this.word.definitions) {
-                  LoadedHSKCEDICT.lookupByDefinition(
-                    words => {
-                      if (words) {
-                        for (let word of words) {
-                          if (word.identifier !== this.word.identifier) {
-                            this.similar.push(word)
-                          }
-                        }
-                        this.similar = this.similar.sort((a, b) => {
-                          let ahsk = a.hsk === 'outside' ? 7 : parseInt(a.hsk)
-                          let bhsk = b.hsk === 'outside' ? 7 : parseInt(b.hsk)
-                          return ahsk - bhsk
-                        })
-                      }
-                    },
-                    [definition.text]
-                  )
-                }
                 SketchEngine.thesaurus(this.word.simplified, response => {
                   this.words = []
                   if (response) {
