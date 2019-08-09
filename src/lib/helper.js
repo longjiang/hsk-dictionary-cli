@@ -18,18 +18,21 @@ export default {
     this.lastId += 1
     return this.lastId
   },
+  // json only, and returns object
   proxy(url, callback) {
     $.ajax(Config.proxy + '?' + url).done(function(response) {
       callback(JSON.parse(response).data)
     })
   },
+  // html only, and returns html
   scrape(url, callback) {
-    $.ajax(Config.proxy + '?' + url).done(function(response) {
+    $.ajax(Config.scrape + '?' + url).done(function(response) {
       // We use 'ownerDocument' so we don't load the images and scripts!
       // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
       var ownerDocument = document.implementation.createHTMLDocument('virtual')
-      var $html = $(response.data, ownerDocument)
-      callback($html, response.data)
+      var $html = $(response, ownerDocument)
+      var text = $html.find('a').text()
+      callback($html, response, text)
     })
   },
   highlight(text, word, level) {

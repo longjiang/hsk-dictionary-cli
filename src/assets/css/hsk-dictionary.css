@@ -1633,3 +1633,10 @@ a.suggestion {
 .frequency-wrapper:not(:hover) .frequency-text {
   opacity: 0;
 }
+
+code {
+  background: #f1f1f1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  color: #b17969;
+}

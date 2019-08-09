@@ -14,7 +14,7 @@
               class="form-control"
               cols="30"
               rows="10"
-              placeholder='Paste some Chinese text here, and click "Start Reading"'
+              placeholder="Paste some Chinese text here, and click 'Start Reading'"
               v-model="text"
             ></textarea>
             <button
@@ -24,52 +24,95 @@
               Start Reading
             </button>
           </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-6">
           <div>
-            <p class="mt-4">
-              Not sure what to read? Watch this video lesson from our
+            <h4 class="mb-4">Not sure what to read?</h4>
+            <p>
+              <a href="https://news.sogou.com/?w=03021800" target="_blank"
+                >搜狗新闻</a
+              >
+              (
+              <a href="https://news.sogou.com" target="_blank"
+                >https://news.sogou.com</a
+              >) is a popular Chinese news site.
+            </p>
+            <p>
+              For news sites in Taiwan and Hong Kong, check out
+              <a
+                href="https://news.google.com/?hl=zh-TW&amp;gl=TW&amp;ceid=TW:zh-Hant"
+                target="_blank"
+                >Google News Taiwan</a
+              >
+              and
+              <a href="https://hk.news.yahoo.com/" target="_blank"
+                >Yahoo News Hong Kong</a
+              >.
+            </p>
+
+            <hr />
+
+            <p>
+              This
+              <b>video lesson</b> from our
               <a
                 href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
                 >Path to Fluency Course</a
               >
-              for some ideas.
+              tells you how to get interesting online Chinese content for
+              reading:
+              <a
+                class="btn btn-danger mt-3 pl-3 pr-3"
+                href="https://chinesezerotohero.teachable.com/courses/path-to-fluency/lectures/10288884"
+              >
+                <i class="glyphicon glyphicon-facetime-video mr-2"></i>Watch
+                <em>Path to Fluency</em> Lecture 3.1.6
+              </a>
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
-              <video class="embed-responsive-item" controls>
-                <source
-                  src="https://www.filepicker.io/api/file/Wyy5PoptTeGfOXfgEiKx"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div class="lecture-text-container">
-              <h6 class="mt-4">Some resources mentioned in the video:</h6>
-              <p>
-                <a href="https://news.sogou.com/?w=03021800" target="_blank"
-                  >搜狗新闻</a
-                >
-                (<a href="https://news.sogou.com" target="_blank"
-                  >https://news.sogou.com</a
-                >) is particularly useful if you want to gain the “China
-                perspective” on a global issue, such as Brexit (<a
-                  href="https://news.sogou.com/news?query=%CD%D1%C5%B7&amp;mode=1&amp;w=01029901&amp;sut=1405&amp;sst0=1556927358381&amp;lkt=1%2C1556927358275%2C1556927358275"
-                  target="_blank"
-                  >脱欧</a
-                >).
-              </p>
-              <p>
-                For news sites in Taiwan and Hong Kong, check out
-                <a
-                  href="https://news.google.com/?hl=zh-TW&amp;gl=TW&amp;ceid=TW:zh-Hant"
-                  target="_blank"
-                  >Google News Taiwan</a
-                >
-                and
-                <a href="https://hk.news.yahoo.com/" target="_blank"
-                  >Yahoo News Hong Kong</a
-                >.
-              </p>
-            </div>
           </div>
+        </div>
+        <div class="col-sm-6">
+          <h4 class="mb-4">Using Desktop Google Chrome?</h4>
+          <img
+            src="img/extension-screenshot-1.jpg"
+            alt
+            class="img-fluid mb-4 shadow rounded"
+          />
+          <a
+            class="btn btn-danger mt-3 pl-3 pr-3"
+            href="files/czh-reader-extension.zip"
+            download
+          >
+            <i class="glyphicon glyphicon-download-alt mr-2"></i>Download "Add
+            Pinyin" Extension
+          </a>
+          <p class="mt-3 mb-0">
+            This downloads a
+            <code>.zip</code> file.
+          </p>
+          <ul class="mt-0">
+            <li>Extract it.</li>
+            <li>
+              Navigate to
+              <code>chrome://extensions</code>
+            </li>
+            <li>
+              Turn on
+              <b>Developer Mode</b>
+            </li>
+            <li>
+              Click
+              <b>Load Unpacked</b>
+            </li>
+            <li>Choose the folder you just extracted *</li>
+          </ul>
+          <hr class="mt2" />
+          <small>
+            * Google is in the process of reviewing this extension. Once we pass
+            it, the extension will be available in the Chrome Web Store.
+          </small>
         </div>
       </div>
     </div>
@@ -80,11 +123,11 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
-            <a href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
-              ><img src="img/courses/fluency.jpg" class="course-cover"/></a
-            ><br />
-            Learn how to progress <em>beyond the HSK</em> toward fluency with
-            our
+            <a href="https://chinesezerotohero.teachable.com/p/path-to-fluency">
+              <img src="img/courses/fluency.jpg" class="course-cover" />
+            </a>
+            <br />Learn how to progress <em>beyond the HSK</em> toward fluency
+            with our
             <a
               href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
               class="video-course"
@@ -146,15 +189,16 @@ export default {
       let arg = this.$route.params.arg
       if (method) {
         if (method === 'md-url') {
-          Helper.proxy(arg, md => {
+          Helper.scrape(arg, md => {
             this.text = Marked(md)
             this.show()
           })
         }
         if (method === 'html-url') {
-          Helper.proxy(arg, html => {
-            this.text = html
-            this.show()
+          Helper.scrape(arg, (html, response, text) => {
+            // console.log(text)
+            this.text = text
+            // this.show()
           })
         }
         if (method === 'md') {
