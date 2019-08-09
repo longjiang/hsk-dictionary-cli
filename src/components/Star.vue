@@ -1,5 +1,5 @@
 <template>
-  <div class="toggle-saved-word">
+  <div class="toggle-saved-word focus-exclude">
     <button
       class="saved-words-item-star remove-word"
       v-if="saved()"

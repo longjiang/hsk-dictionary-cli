@@ -1,5 +1,8 @@
 <template>
-  <i @click="speak(text)" class="speak glyphicon glyphicon-volume-up"></i>
+  <i
+    @click="speak(text)"
+    class="focus-exclude speak glyphicon glyphicon-volume-up"
+  ></i>
 </template>
 <script>
 export default {
