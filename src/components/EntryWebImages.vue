@@ -31,9 +31,15 @@ export default {
     limit: {
       type: String,
       default: '20'
+    },
+    entry: {
+      default: undefined
     }
   },
   mounted() {
+    if (this.entry) {
+      this.entry.images = this.images
+    }
     WordPhotos.getWebImages(this.text, images => {
       WordPhotos.testImages(images.slice(0, this.limit), image => {
         this.images.push(image)

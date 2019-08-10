@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-sm-12">
           <Loader class="mt-5" />
+          <InstagramButton v-if="entry" :entry="entry"></InstagramButton>
           <EntryHeader v-if="entry" :entry="entry"></EntryHeader>
 
           <EntryDisambiguation
@@ -52,6 +53,7 @@
             class="mt-5"
             v-if="entry"
             :text="entry.simplified"
+            :entry="entry"
             limit="10"
           ></EntryWebImages>
 
@@ -102,8 +104,8 @@ import EntryGrammar from '@/components/EntryGrammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
-import EntryRelated from '@/components/EntryRelated.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
+import InstagramButton from '@/components/InstagramButton.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -119,7 +121,7 @@ export default {
     EntryHeader,
     EntryLyrics,
     EntryMistakes,
-    EntryRelated,
+    InstagramButton,
     EntryWebImages
   },
   data() {

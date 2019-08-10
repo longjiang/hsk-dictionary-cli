@@ -8,12 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animejs": "^3.1.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
     "core-js": "^2.6.5",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "hashids": "^1.2.2",
+    "html2canvas": "^1.0.0-rc.3",
     "jquery": "^3.4.1",
     "marked": "^0.7.0",
     "papaparse": "^5.0.1",
