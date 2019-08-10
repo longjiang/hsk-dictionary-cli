@@ -11,7 +11,7 @@
             @click="toggleCollapsed"
             class="glyphicon glyphicon-minus collapse-btn"
           ></i>
-          <span>{{ l1.code }}</span>
+          <span class="dewey-code ml-1 mr-1">{{ l1.code }}</span>
           <span class="dewey-l1-title">{{ l1.title }}</span>
         </h4>
         <ul class="dewey-l2 collapsed">
@@ -25,13 +25,13 @@
                 @click="toggleCollapsed"
                 class="glyphicon glyphicon-minus collapse-btn"
               ></i>
-              <span>{{ l2.code }}</span>
+              <span class="dewey-code ml-1 mr-1">{{ l2.code }}</span>
               <span class="dewey-l2-title">{{ l2.title }}</span>
             </h5>
             <ul class="dewey-l3 collapsed">
               <li v-for="l3 of l2.children">
                 <h6 class="collapsed">
-                  <span>{{ l3.code }}</span>
+                  <span class="dewey-code ml-1 mr-1">{{ l3.code }}</span>
                   <span class="dewey-l3-title">{{ l3.title }}</span>
                 </h6>
               </li>

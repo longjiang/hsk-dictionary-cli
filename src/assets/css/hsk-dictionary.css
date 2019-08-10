@@ -1666,3 +1666,40 @@ code {
 .collapsed > .collapse-btn {
   display: none;
 }
+
+.dewey-l1,
+.dewey-l2,
+.dewey-l3 {
+  padding: 0;
+  list-style: none;
+}
+
+.dewey-l2 {
+  padding-left: 0.8rem;
+}
+
+.dewey-l3 {
+  padding-left: 1.8rem;
+}
+
+.collapse-btn,
+.expand-btn {
+  color: white;
+  background: #ccc;
+  width: 1.2em;
+  height: 1.2em;
+  text-align: center;
+  border-radius: 0.23em;
+  line-height: 1em !important;
+}
+
+.collapse-btn:hover,
+.expand-btn:hover {
+  background: #999;
+  cursor: pointer;
+}
+
+.dewey-code {
+  color: #ccc;
+  font-size: 0.8em;
+}
