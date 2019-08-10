@@ -27,13 +27,6 @@
           </div>
         </div>
         <div :class="`col-lg-${6 / scale} example-wrapper pt-4 pb-4`">
-          <div
-            class="label"
-            v-bind:data-bg-hsk="entry.hsk"
-            v-if="entry.oofc == ''"
-          >
-            HSK {{ entry.hsk }}
-          </div>
           <div class="example-sentence mt-4">
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
 

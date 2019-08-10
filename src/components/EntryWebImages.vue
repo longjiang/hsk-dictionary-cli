@@ -23,6 +23,8 @@
 
 <script>
 import WordPhotos from '@/lib/word-photos'
+import Vue from 'vue'
+
 export default {
   props: {
     text: {
@@ -38,7 +40,7 @@ export default {
   },
   mounted() {
     if (this.entry) {
-      this.entry.images = this.images
+      Vue.set(this.entry, 'images', this.images)
     }
     WordPhotos.getWebImages(this.text, images => {
       WordPhotos.testImages(images.slice(0, this.limit), image => {

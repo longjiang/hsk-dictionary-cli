@@ -25,7 +25,6 @@
 
 <script>
 import $ from 'jquery'
-import Helper from '@/lib/helper'
 import EntryHeader from '@/components/EntryHeader'
 import html2canvas from 'html2canvas'
 
@@ -35,9 +34,11 @@ export default {
     EntryHeader
   },
   data() {
-    return {
-      id: Helper.uniqueId(),
-      Helper
+    return {}
+  },
+  computed: {
+    images() {
+      return this.entry.images
     }
   },
   methods: {
@@ -83,7 +84,7 @@ export default {
 
 .instagram-image {
   position: absolute;
-  opacity: 0.5;
+  opacity: 0.4;
   width: 100%;
   height: 100%;
   object-fit: cover;

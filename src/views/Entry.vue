@@ -1,95 +1,76 @@
 <template>
   <div class="main focus" v-cloak :key="'entry-' + entryKey">
-    <div class="container mt-4 mb-4">
-      <div class="row">
-        <div class="col-sm-12">
-          <Loader class="mt-5" />
-          <InstagramButton v-if="entry" :entry="entry"></InstagramButton>
-          <EntryHeader v-if="entry" :entry="entry"></EntryHeader>
-
-          <EntryDisambiguation
-            class="mt-5 mb-5"
-            v-if="entry"
-            :entry="entry"
-          ></EntryDisambiguation>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid example-bar mt-4 mb-4">
-      <div class="container">
+    <div v-if="entry">
+      <div class="container mt-4 mb-4">
         <div class="row">
           <div class="col-sm-12">
-            <EntryExample
-              class="mt5"
-              v-if="entry"
+            <Loader class="mt-5" />
+            <InstagramButton :entry="entry"></InstagramButton>
+            <Frequency class="mb-4" :entry="entry" />
+            <EntryHeader :entry="entry"></EntryHeader>
+
+            <EntryDisambiguation
+              class="mt-5 mb-5"
               :entry="entry"
-            ></EntryExample>
+            ></EntryDisambiguation>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
-    <!-- <EntryRelated class="mb-5" v-if="entry" :entry="entry"></EntryRelated> -->
-
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <EntryCharacters
-            class="mb-4 simplified"
-            v-if="entry"
-            :text="entry.simplified"
-            :pinyin="entry.pinyin"
-          ></EntryCharacters>
-
-          <EntryCharacters
-            class="mb-4 traditional"
-            v-if="entry"
-            :text="entry.traditional"
-            :pinyin="entry.pinyin"
-          ></EntryCharacters>
-
-          <EntryWebImages
-            class="mt-5"
-            v-if="entry"
-            :text="entry.simplified"
-            :entry="entry"
-            limit="10"
-          ></EntryWebImages>
-
-          <EntryGrammar :entry="entry" v-if="entry" class="mt-5"></EntryGrammar>
-
-          <EntryCollocations
-            class="mt-5 mb-5"
-            v-if="entry"
-            :entry="entry"
-          ></EntryCollocations>
-          <EntryConcordance
-            class="mt-5 mb-5"
-            v-if="entry"
-            :entry="entry"
-          ></EntryConcordance>
-
-          <EntryMistakes
-            class="mt-5 mb-5"
-            v-if="entry"
-            :entry="entry"
-          ></EntryMistakes>
+      <div class="container-fluid example-bar mt-4 mb-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <EntryExample class="mt5" :entry="entry"></EntryExample>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- <EntryDisambiguation> already finds some pretty good suggestions. -->
+      <!-- <EntryRelated class="mb-5" :entry="entry"></EntryRelated> -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <EntryCharacters
+              class="mb-4 simplified"
+              :text="entry.simplified"
+              :pinyin="entry.pinyin"
+            ></EntryCharacters>
+
+            <EntryCharacters
+              class="mb-4 traditional"
+              :text="entry.traditional"
+              :pinyin="entry.pinyin"
+            ></EntryCharacters>
+
+            <EntryWebImages
+              class="mt-5"
+              :text="entry.simplified"
+              :entry="entry"
+              limit="10"
+            ></EntryWebImages>
+
+            <EntryGrammar :entry="entry" class="mt-5"></EntryGrammar>
+
+            <EntryCollocations
+              class="mt-5 mb-5"
+              :entry="entry"
+            ></EntryCollocations>
+            <EntryConcordance
+              class="mt-5 mb-5"
+              :entry="entry"
+            ></EntryConcordance>
+
+            <EntryMistakes class="mt-5 mb-5" :entry="entry"></EntryMistakes>
+          </div>
+        </div>
+      </div>
+
+      <EntryCourseAd :entry="entry" class="focus-exclude"></EntryCourseAd>
+
+      <EntryLyrics :entry="entry" class="focus-exclude"></EntryLyrics>
     </div>
-
-    <EntryCourseAd
-      v-if="entry"
-      :entry="entry"
-      class="focus-exclude"
-    ></EntryCourseAd>
-
-    <EntryLyrics
-      v-if="entry"
-      :entry="entry"
-      class="focus-exclude"
-    ></EntryLyrics>
   </div>
 </template>
 
@@ -106,6 +87,7 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
+import Frequency from '@/components/Frequency.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -122,7 +104,8 @@ export default {
     EntryLyrics,
     EntryMistakes,
     InstagramButton,
-    EntryWebImages
+    EntryWebImages,
+    Frequency
   },
   data() {
     return {
