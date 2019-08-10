@@ -1551,11 +1551,20 @@ a.suggestion {
   padding: 2rem;
 }
 
-.word-list-ext-compare-btn {
+.word-list-ext-compare-btn,
+.word-list-ext-related-btn
+ {
   position: absolute;
   top: 10.5rem;
+  width: calc(50% - 2.4rem);
+}
+
+.word-list-ext-compare-btn {
   left: 2rem;
-  width: calc(100% - 4rem);
+}
+
+.word-list-ext-related-btn {
+  right: 2rem;
 }
 
 .word-list-ext-item-word {
@@ -1593,7 +1602,8 @@ a.suggestion {
 }
 
 .word-list-ext-item:not(:hover) .word-list-ext-cycle,
-.word-list-ext-item:not(:hover) .word-list-ext-compare-btn {
+.word-list-ext-item:not(:hover) .word-list-ext-compare-btn,
+.word-list-ext-item:not(:hover) .word-list-ext-related-btn {
   display: none;
 }
 
@@ -1644,4 +1654,15 @@ code {
   padding: 0.2rem 0.4rem;
   border-radius: 0.3rem;
   color: #b17969;
+}
+
+.dewey-l1.collapsed,
+.dewey-l2.collapsed,
+.dewey-l3.collapsed {
+  display: none;
+}
+
+:not(.collapsed) > .expand-btn,
+.collapsed > .collapse-btn {
+  display: none;
 }

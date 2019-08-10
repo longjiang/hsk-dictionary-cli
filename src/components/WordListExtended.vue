@@ -26,23 +26,31 @@
               <i class="glyphicon glyphicon-remove"></i>
             </button>
           </div>
-          <img
-            v-if="word.srcs && word.srcs.length > 0"
-            :src="word.srcs[0]"
-            class="word-list-ext-image"
-          />
+          <a :href="`#/view/cedict/${word.identifier}`">
+            <img
+              v-if="word.srcs && word.srcs.length > 0"
+              :src="word.srcs[0]"
+              class="word-list-ext-image"
+            />
+          </a>
         </div>
         <div class="word-list-ext-item-body">
-          <div class="frequency-wrapper mb-4">
+          <div class="frequency-wrapper mb-1">
             <div class="frequency">
               <div
                 class="frequency-fill"
                 :data-bg-hsk="word.hsk"
-                :style="`width: ${(Math.log10(1 + word.rank * 10000) * 100) / 4}%`"
+                :style="
+                  `width: ${(Math.log10(1 + word.rank * 10000) * 100) / 4}%`
+                "
               ></div>
             </div>
             <div class="text-center mt-2 frequency-text">
-              <b>{{ Math.round((Math.log10(1 + word.rank * 10000) * 100) / 4) }}%</b>
+              <b
+                >{{
+                  Math.round((Math.log10(1 + word.rank * 10000) * 100) / 4)
+                }}%</b
+              >
               as common as “的”
             </div>
           </div>
@@ -92,13 +100,14 @@
             "
             class="btn show-more word-list-ext-compare-btn mt-3"
             :data-bg-hsk="word.hsk"
-            >Compare:
-            <span class="simplified"
-              >{{ compareWith.simplified }} vs {{ word.simplified }}</span
-            >
-            <span class="traditional"
-              >{{ compareWith.traditional }} vs {{ word.traditional }}</span
-            ></a
+            ><i class="glyphicon glyphicon-adjust"></i> Compare</a
+          >
+          <a
+            v-if="compareWith"
+            :href="`#/explore/related/${word.identifier}`"
+            class="btn show-more word-list-ext-related-btn mt-3"
+            :data-bg-hsk="word.hsk"
+            ><i class="glyphicon glyphicon-fullscreen"></i> Related</a
           >
         </div>
       </li>
