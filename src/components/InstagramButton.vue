@@ -11,11 +11,14 @@
     <div class="instagram-content-wrapper">
       <div class="instagram-content-aspect">
         <div class="instagram-content">
+          <div class="instagram-border"></div>
           <img
             v-if="entry.images && entry.images.length > 0"
             :src="entry.images[0].img"
             class="instagram-image"
           />
+          <img src="img/instagram-badge.png" class="instagram-badge" />
+          <img src="img/logo-mark.png" class="instagram-logo" />
           <EntryHeader :entry="entry" />
         </div>
       </div>
@@ -90,6 +93,19 @@ export default {
   object-fit: cover;
 }
 
+.instagram-badge {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+}
+
+.instagram-logo {
+  position: absolute;
+  width: 40%;
+  left: calc((100% - 40%) / 2);
+  top: 5%;
+}
+
 .instagram-content .word [data-hsk] {
   color: white !important;
 }
@@ -99,5 +115,14 @@ export default {
   width: 90%;
   top: 20%;
   left: 5%;
+}
+
+.instagram-border {
+  position: absolute;
+  border: 2px solid white;
+  width: 96%;
+  height: 96%;
+  left: 2%;
+  top: 2%;
 }
 </style>
