@@ -57,6 +57,11 @@ export default new Router({
       component: () => import('./views/Related.vue')
     },
     {
+      path: '/explore/topics',
+      name: 'explore-topics',
+      component: () => import('./views/Topics.vue')
+    },
+    {
       path: '/pinyin-list',
       name: 'pinyin',
       component: () => import('./views/PinyinList.vue')

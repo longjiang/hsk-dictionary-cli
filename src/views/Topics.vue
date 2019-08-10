@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-sm-12">
         <div>
-          <h4>Browse Words by Course</h4>
-          <p>Each tiny square represents a word.</p>
+          <h4>Browse Words by Theme</h4>
+          <p>Themes are as classified under the Dewey decimal system.</p>
           <hr />
           <Loader class="mt-5" />
-          <CourseBrowser />
+          <ThemeBrowser />
         </div>
       </div>
     </div>
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import CourseBrowser from '@/components/CourseBrowser.vue'
+import ThemeBrowser from '@/components/ThemeBrowser.vue'
 
 export default {
   components: {
-    CourseBrowser
+    ThemeBrowser
   },
   data() {
     return {}

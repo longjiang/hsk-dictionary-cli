@@ -113,6 +113,13 @@
         </router-link>
         <router-link
           class="secondary-menu-item"
+          :to="{ name: 'explore-topics' }"
+        >
+          <i class="glyphicon glyphicon-certificate"></i>
+          Topics
+        </router-link>
+        <router-link
+          class="secondary-menu-item"
           :to="{ name: 'explore-related' }"
         >
           <i class="glyphicon glyphicon-fullscreen"></i>

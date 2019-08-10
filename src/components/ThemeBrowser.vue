@@ -11,7 +11,7 @@
             @click="toggleCollapsed"
             class="glyphicon glyphicon-minus collapse-btn"
           ></i>
-          <span class="dewey-code ml-1 mr-1">{{ l1.code }}</span>
+          <span class="dewey-code ml-3">{{ l1.code }}</span>
           <span class="dewey-l1-title">{{ l1.title }}</span>
         </h4>
         <ul class="dewey-l2 collapsed">
@@ -25,13 +25,13 @@
                 @click="toggleCollapsed"
                 class="glyphicon glyphicon-minus collapse-btn"
               ></i>
-              <span class="dewey-code ml-1 mr-1">{{ l2.code }}</span>
+              <span class="dewey-code ml-3">{{ l2.code }}</span>
               <span class="dewey-l2-title">{{ l2.title }}</span>
             </h5>
             <ul class="dewey-l3 collapsed">
               <li v-for="l3 of l2.children">
                 <h6 class="collapsed">
-                  <span class="dewey-code ml-1 mr-1">{{ l3.code }}</span>
+                  <span class="dewey-code ml-3">{{ l3.code }}</span>
                   <span class="dewey-l3-title">{{ l3.title }}</span>
                 </h6>
               </li>
@@ -97,6 +97,7 @@ export default {
         let data = $(block).attr('data-candidates')
         if (data) {
           let candidates = JSON.parse(unescape(data))
+          $(block).attr('data-identifier', candidates[0].identifier)
           if (candidates) {
             // Sort the candidates by HSK
             candidates = candidates.sort((a, b) => {
@@ -105,18 +106,19 @@ export default {
               return abook - bbook
             })
             // Set the best candidate
-            block.outerHTML = Annotator.wordBlockTemplate(candidates)
+            let $newBlock = $(Annotator.wordBlockTemplate(candidates))
+              .clone()
+              .addClass('word-block-related')
+            $newBlock.prepend(`<i class="glyphicon glyphicon-fullscreen"></i>`)
+            $(block).after($newBlock)
+            $(block).remove()
+            $newBlock.click(function() {
+              location.hash = `#/explore/related/${candidates[0].identifier}`
+            })
           }
         }
       }
-      $(node)
-        .find('.word-block[data-candidates]')
-        .click(function() {
-          const candidates = JSON.parse(
-            unescape($(this).attr('data-candidates'))
-          )
-          location.hash = `#/explore/related/${candidates[0].identifier}`
-        })
+      Helper.addToolTips(node)
     }
   }
 }

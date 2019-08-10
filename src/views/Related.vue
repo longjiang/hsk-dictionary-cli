@@ -11,7 +11,14 @@
           <Loader class="mt-5" />
           <div v-if="arg">
             <div v-if="related && related.length > 1">
-              <h4 class="text-center mt-5">Related Words</h4>
+              <PinyinButton />
+              <h4 class="text-center mt-5">
+                Words related to “<span class="simplified">{{
+                  word.simplified
+                }}</span
+                ><span class="traditional">{{ word.traditional }}</span
+                >”
+              </h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
               <div>
