@@ -36,6 +36,10 @@ export default {
       // Do not change button face or function on click (useful when the annotation target changes)
       type: String,
       default: 'false'
+    },
+    augmentFunction: {
+      type: Function,
+      default: Helper.augmentAnnotatedBlocks
     }
   },
   data() {
@@ -72,7 +76,7 @@ export default {
               this.annotated = true
               this.shown = true
             }
-            Helper.augmentAnnotatedBlocks(node)
+            this.augmentFunction(node)
           })
         }
       }
