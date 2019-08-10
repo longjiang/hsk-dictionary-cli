@@ -1710,9 +1710,8 @@ code {
   padding: 0.5rem;
   margin: 0 0.2rem;
   border-radius: 0.3rem;
-  padding-top: 2rem;
-  margin-top: -1rem;
-  margin-bottom: 0.5rem;
+  padding-top: 1.2em;
+  margin-top: -0.5em;
 }
 
 .word-block-related:hover {

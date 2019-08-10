@@ -1,7 +1,7 @@
 <template>
   <div class="dewey" v-cloak :key="browseKey">
     <ul class="dewey-l1">
-      <li v-for="(l1, i) of l1s" :key="l1Key + i * 1000">
+      <li v-for="(l1, i) of l1s">
         <h4>
           <i
             v-if="!showL1[i]"
@@ -21,44 +21,48 @@
             :augmentFunction="augmentAnnotatedBlocks"
           />
         </h4>
-        <ul class="dewey-l2" v-if="showL1[i]">
-          <li v-for="(l2, j) of l1.children" :key="l2Key + i + j * 1000">
-            <h5>
-              <i
-                @click="toggleL2(i, j)"
-                class="glyphicon glyphicon-plus expand-btn"
-                v-if="!showL2[i][j]"
-              ></i>
-              <i
-                @click="toggleL2(i, j)"
-                class="glyphicon glyphicon-minus collapse-btn"
-                v-if="showL2[i][j]"
-              ></i>
-              <span class="dewey-code ml-3">{{ l2.code }}</span>
-              <PinyinButton
-                :selector="`#title-${i}-${j}`"
-                :augmentFunction="augmentAnnotatedBlocks"
-              />
-              <span class="dewey-l2-title" :id="`title-${i}-${j}`">{{
-                l2.title
-              }}</span>
-            </h5>
-            <ul class="dewey-l3" v-if="showL2[i][j]">
-              <li v-for="(l3, k) of l2.children">
-                <h6>
-                  <span class="dewey-code ml-3">{{ l3.code }}</span>
-                  <PinyinButton
-                    :selector="`#title-${i}-${j}-${k}`"
-                    :augmentFunction="augmentAnnotatedBlocks"
-                  />
-                  <span class="dewey-l3-title" :id="`title-${i}-${j}-${k}`">
-                    {{ l3.title }}
-                  </span>
-                </h6>
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <div :key="l1Key + i * 1000">
+          <ul class="dewey-l2" v-if="showL1[i]">
+            <li v-for="(l2, j) of l1.children">
+              <h5>
+                <i
+                  @click="toggleL2(i, j)"
+                  class="glyphicon glyphicon-plus expand-btn"
+                  v-if="!showL2[i][j]"
+                ></i>
+                <i
+                  @click="toggleL2(i, j)"
+                  class="glyphicon glyphicon-minus collapse-btn"
+                  v-if="showL2[i][j]"
+                ></i>
+                <span class="dewey-code ml-3">{{ l2.code }}</span>
+                <PinyinButton
+                  :selector="`#title-${i}-${j}`"
+                  :augmentFunction="augmentAnnotatedBlocks"
+                />
+                <span class="dewey-l2-title" :id="`title-${i}-${j}`">{{
+                  l2.title
+                }}</span>
+              </h5>
+              <div :key="l2Key + i + j * 1000">
+                <ul class="dewey-l3" v-if="showL2[i][j]">
+                  <li v-for="(l3, k) of l2.children">
+                    <h6>
+                      <span class="dewey-code ml-3">{{ l3.code }}</span>
+                      <PinyinButton
+                        :selector="`#title-${i}-${j}-${k}`"
+                        :augmentFunction="augmentAnnotatedBlocks"
+                      />
+                      <span class="dewey-l3-title" :id="`title-${i}-${j}-${k}`">
+                        {{ l3.title }}
+                      </span>
+                    </h6>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>
