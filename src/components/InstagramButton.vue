@@ -84,10 +84,13 @@ export default {
       let $content = $('.instagram-content-wrapper')
       $content.appendTo('#hsk-dictionary')
       html2canvas($content[0], {
-        allowTaint: true
+        useCORS: true,
+        allowTaint: false
       }).then(canvas => {
-        $('#instagram-canvas').html(canvas)
-        $content.appendTo('#instagram-content-slot')
+        $('#instagram-canvas').html(
+          `<img class="canvas-image" src="${canvas.toDataURL()}"/>`
+        )
+        setTimeout(() => {$content.appendTo('#instagram-content-slot')}, 500) // set time out so we don't have a weird white bar on top
         this.rendered = true
       })
     }
@@ -104,7 +107,7 @@ export default {
   padding: 0;
 }
 
-#instagram-canvas canvas {
+#instagram-canvas .canvas-image {
   box-shadow: 5px 5px 10px #00000040;
   width: 100% !important;
   height: 100% !important;
@@ -136,7 +139,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-
 }
 
 .instagram-content {
@@ -236,7 +238,7 @@ export default {
   width: 40%;
 }
 
-.example-sentence-english {
+.instagram-content .example-sentence-english {
   font-size: 1.5em;
   font-weight: 200;
 }
