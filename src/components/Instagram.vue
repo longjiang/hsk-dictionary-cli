@@ -74,7 +74,6 @@ export default {
 
 .instagram-content-wrapper {
   width: 720px;
-  max-width: 100%;
 }
 
 .instagram-content-aspect,
