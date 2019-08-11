@@ -35,25 +35,7 @@
           </a>
         </div>
         <div class="word-list-ext-item-body">
-          <div class="frequency-wrapper mb-1">
-            <div class="frequency">
-              <div
-                class="frequency-fill"
-                :data-bg-hsk="word.hsk"
-                :style="
-                  `width: ${(Math.log10(1 + word.rank * 10000) * 100) / 4}%`
-                "
-              ></div>
-            </div>
-            <div class="text-center mt-2 frequency-text">
-              <b
-                >{{
-                  Math.round((Math.log10(1 + word.rank * 10000) * 100) / 4)
-                }}%</b
-              >
-              as common as “的”
-            </div>
-          </div>
+          <Frequency class="mb-1" v-if="word" :entry="word" />
           <div class="character-example-pinyin">
             <Star
               class="word-list-ext-item-head-star"
@@ -123,8 +105,12 @@
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
 import WordPhotos from '@/lib/word-photos'
+import Frequency from '@/components/Frequency'
 
 export default {
+  components: {
+    Frequency
+  },
   watch: {
     words() {
       this.updateImages()

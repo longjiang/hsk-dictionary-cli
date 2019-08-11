@@ -4,6 +4,7 @@
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
           <Loader v-if="!a" class="mt-5" />
+          <Frequency class="mb-1" v-if="a" :entry="a" />
           <EntryHeader
             v-if="a"
             :entry="a"
@@ -13,6 +14,7 @@
         </div>
         <div class="col-sm-6">
           <Loader v-if="!b" class="mt-5" />
+          <Frequency class="mb-1" v-if="b" :entry="b" />
           <EntryHeader
             v-if="b"
             :entry="b"
@@ -147,6 +149,7 @@ import EntryWebImages from '@/components/EntryWebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
+import Frequency from '@/components/Frequency.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -159,6 +162,7 @@ export default {
     EntryHeader,
     EntryMistakes,
     EntryLyrics,
+    Frequency,
     CompareCollocations,
     EntryWebImages,
     CompareDefs
