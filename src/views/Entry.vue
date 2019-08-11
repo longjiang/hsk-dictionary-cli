@@ -5,8 +5,8 @@
         <div class="row">
           <div class="col-sm-12">
             <Loader class="mt-5" />
-            <InstagramButton :entry="entry"></InstagramButton>
             <Frequency class="mb-4" :entry="entry" />
+            <InstagramButton :entry="entry"></InstagramButton>
             <EntryHeader :entry="entry"></EntryHeader>
 
             <EntryDisambiguation
@@ -181,3 +181,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.instagram-btn {
+  position: absolute;
+  align-self: center;
+  z-index: 10;
+}
+  
+</style>

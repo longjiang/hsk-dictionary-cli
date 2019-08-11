@@ -4,36 +4,38 @@
       <img src="img/instagram.svg" alt="Instagram" />
     </button>
     <div id="instagram-canvas" class="hidden"></div>
-    <div class="instagram-content-wrapper hidden">
-      <div class="instagram-content-aspect">
-        <div class="instagram-content">
-          <div class="instagram-border"></div>
-          <img
-            v-if="entry.hsk !== 'outside'"
-            :src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
-            class="instagram-image"
-          />
-          <img
-            v-if="entry.hsk === 'outside' && entry.images && entry.images.length > 0"
-            :src="entry.images[0].img"
-            class="instagram-image"
-          />
-          <img src="img/instagram-badge.png" class="instagram-badge" />
-          <img src="img/logo-mark.png" class="instagram-logo" />
-          <EntryHeader :entry="entry" />
-          <div class="example-wrapper pt-4 pb-4">
-            <div class="example-sentence mt-4">
-              <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
+    <div id="instagram-content-slot" class="hidden">
+      <div class="instagram-content-wrapper">
+        <div class="instagram-content-aspect">
+          <div class="instagram-content">
+            <div class="instagram-border"></div>
+            <img
+              v-if="entry.hsk !== 'outside'"
+              :src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
+              class="instagram-image"
+            />
+            <img
+              v-if="entry.hsk === 'outside' && entry.images && entry.images.length > 0"
+              :src="entry.images[0].img"
+              class="instagram-image"
+            />
+            <img src="img/instagram-badge.png" class="instagram-badge" />
+            <img src="img/logo-mark.png" class="instagram-logo" />
+            <EntryHeader :entry="entry" />
+            <div class="example-wrapper pt-4 pb-4">
+              <div class="example-sentence mt-4">
+                <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
 
-              <PinyinButton class="mb-3" />
-              <p
-                class="example-sentence-word"
-                v-html="
-                  Helper.highlight(entry.example, entry.simplified, entry.hsk)
-                "
-              ></p>
-              <hr />
-              <p class="example-sentence-english">{{ entry.exampleTranslation }}</p>
+                <PinyinButton class="mb-3" />
+                <p
+                  class="example-sentence-word"
+                  v-html="
+                    Helper.highlight(entry.example, entry.simplified, entry.hsk)
+                  "
+                ></p>
+                <hr />
+                <p class="example-sentence-english">{{ entry.exampleTranslation }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -57,7 +59,8 @@ export default {
   data() {
     return {
       Helper,
-      Config
+      Config,
+      rendered: false
     }
   },
   computed: {
@@ -67,23 +70,21 @@ export default {
   },
   methods: {
     instagram() {
-      this.f()
-    },
-    f() {
-      if ($('#instagram-canvas').hasClass('hidden')) {
-        $('#instagram-canvas').removeClass('hidden')
-        let $content = $('.instagram-content-wrapper')
-        $('body').append($content)
-        $content.removeClass('hidden')
-        html2canvas($content[0], {
-          allowTaint: true
-        }).then(canvas => {
-          $('#instagram-canvas').append(canvas)
-          // $content.addClass('hidden')
-        })
-      } else {
-        $('#instagram-canvas').addClass('hidden')
+      $('#instagram-canvas').toggleClass('hidden')
+      if (!this.rendered) {
+        this.render()
       }
+    },
+    render() {
+      let $content = $('.instagram-content-wrapper')
+      $content.appendTo('#hsk-dictionary')
+      html2canvas($content[0], {
+        allowTaint: true
+      }).then(canvas => {
+        $('#instagram-canvas').html(canvas)
+        $content.appendTo('#instagram-content-slot')
+        this.rendered = true
+      })
     }
   }
 }
@@ -91,7 +92,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
 .instagram-btn {
   background: none;
   border: none;
@@ -125,7 +125,6 @@ export default {
 .instagram-content .paginate-button {
   display: none;
 }
-
 
 .instagram-content .focus-exclude {
   display: none;
