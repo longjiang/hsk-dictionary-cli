@@ -3,7 +3,13 @@
     <button class="instagram-btn" v-on:click="instagram" title="Make an instagram poster">
       <img src="img/instagram.svg" alt="Instagram" />
     </button>
-    <div id="instagram-canvas" class="hidden"></div>
+    <div class="instagram-canvas-wrapper hidden mt-4">
+      <div id="instagram-canvas"></div>
+      <div class="mt-1">
+        The instagram image is a
+        <code>&lt;canvas&gt;</code> element. To use it, right click and choose copy or save. On the phone, long press and choose Save to camerall roll.
+      </div>
+    </div>
     <div id="instagram-content-slot" class="hidden">
       <div class="instagram-content-wrapper">
         <div class="instagram-content-aspect">
@@ -70,7 +76,7 @@ export default {
   },
   methods: {
     instagram() {
-      $('#instagram-canvas').toggleClass('hidden')
+      $('.instagram-canvas-wrapper').toggleClass('hidden')
       if (!this.rendered) {
         this.render()
       }
@@ -96,6 +102,11 @@ export default {
   background: none;
   border: none;
   opacity: 0.5;
+  padding: 0;
+}
+
+#instagram-canvas canvas {
+  box-shadow: 5px 5px 10px #00000040;
 }
 
 .instagram-btn:hover {
