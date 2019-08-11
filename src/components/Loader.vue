@@ -1,7 +1,7 @@
 <template>
-  <div id="loader" class="text-center mb-5" v-if="test()">
+  <div id="loader" v-if="test()" class="d-inline-block text-center">
     <div class="heartbeat-loader mb-4"></div>
-    <div>Loading</div>
+    <div><slot>Loading</slot></div>
   </div>
 </template>
 
