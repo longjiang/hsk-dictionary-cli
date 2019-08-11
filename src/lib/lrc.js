@@ -1,11 +1,10 @@
 import $ from 'jquery'
+import Config from '@/lib/config'
 
 export default {
   getLrcs(word, callback) {
     $.getJSON(
-      'https://www.chinesezerotohero.com/lyrics-search/lrc/search/' +
-        word +
-        '/20', // Limit to only 20 songs
+      Config.lrcSearch + word + '/20', // Limit to only 20 songs
       function(results) {
         callback(results)
       }
