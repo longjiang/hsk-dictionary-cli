@@ -8,7 +8,6 @@
           unless you clear your browsing data.
         </p>
         <hr />
-        <Loader />
         <div class="my-words-tools mt1 mb1 text-right">
           <button
             class="upload-list btn btn-primary"
@@ -65,13 +64,14 @@
     <div class="row">
       <div class="col-sm-12">
         <p
-          v-if="savedWords.length === 0"
+          v-if="loaded && savedWords.length === 0"
           class="alert alert-warning no-saved-words"
         >
           You don't have any words saved yet. Save words by clicking on the
           <i class="glyphicon glyphicon-star-empty"></i> icon next to it.
         </p>
         <div>
+          <Loader />
           <WordList :words="savedWords"></WordList>
           <a
             v-if="savedWordIds.length > 0"
@@ -101,6 +101,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       savedWords: []
     }
   },
@@ -123,6 +124,7 @@ export default {
         let identifier = item.join(',').replace(/ /g, '_')
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            this.loaded = true
             LoadedHSKCEDICT.getByIdentifier(
               entry => {
                 this.savedWords.push(entry)

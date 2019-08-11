@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect: '/browse'
+      redirect: '/saved-words'
     },
     {
       path: '/browse',
