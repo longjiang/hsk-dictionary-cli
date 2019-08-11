@@ -1,18 +1,23 @@
 <template>
   <div class="main focus" v-cloak :key="'entry-' + entryKey">
+    <div class="text-center mt-5">
+      <Loader class="mt-5" />
+    </div>
     <div v-if="entry">
       <div class="container mt-4 mb-4">
         <div class="row">
           <div class="col-sm-12">
-            <Loader class="mt-5" />
             <Frequency class="mb-1" :entry="entry" />
             <div>
               <InstagramButton :entry="entry" class="mb-5"></InstagramButton>
             </div>
-            
+
             <EntryHeader :entry="entry"></EntryHeader>
 
-            <EntryDisambiguation class="mt-5 mb-5" :entry="entry"></EntryDisambiguation>
+            <EntryDisambiguation
+              class="mt-5 mb-5"
+              :entry="entry"
+            ></EntryDisambiguation>
           </div>
         </div>
       </div>
@@ -44,12 +49,23 @@
               :pinyin="entry.pinyin"
             ></EntryCharacters>
 
-            <EntryWebImages class="mt-5" :text="entry.simplified" :entry="entry" limit="10"></EntryWebImages>
+            <EntryWebImages
+              class="mt-5"
+              :text="entry.simplified"
+              :entry="entry"
+              limit="10"
+            ></EntryWebImages>
 
             <EntryGrammar :entry="entry" class="mt-5"></EntryGrammar>
 
-            <EntryCollocations class="mt-5 mb-5" :entry="entry"></EntryCollocations>
-            <EntryConcordance class="mt-5 mb-5" :entry="entry"></EntryConcordance>
+            <EntryCollocations
+              class="mt-5 mb-5"
+              :entry="entry"
+            ></EntryCollocations>
+            <EntryConcordance
+              class="mt-5 mb-5"
+              :entry="entry"
+            ></EntryConcordance>
 
             <EntryMistakes class="mt-5 mb-5" :entry="entry"></EntryMistakes>
           </div>
