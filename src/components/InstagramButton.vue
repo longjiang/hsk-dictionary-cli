@@ -15,20 +15,20 @@
         <div class="instagram-content-aspect">
           <div class="instagram-content">
             <div class="instagram-border"></div>
-            <img
+            <div
               v-if="entry.hsk !== 'outside'"
-              :src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
+              :style="`background-image: url(${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg)`"
               class="instagram-image"
             />
-            <img
+            <div
               v-if="entry.hsk === 'outside' && entry.images && entry.images.length > 0"
-              :src="entry.images[0].img"
+              :style="`background-image: url(${entry.images[0].img})`"
               class="instagram-image"
             />
             <img src="img/instagram-badge.png" class="instagram-badge" />
             <img src="img/logo-mark.png" class="instagram-logo" />
             <EntryHeader :entry="entry" />
-            <div class="example-wrapper pt-4 pb-4">
+            <div class="example-wrapper pt-4 pb-4" v-if="entry.example && entry.example.length > 0">
               <div class="example-sentence mt-4">
                 <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
 
@@ -69,16 +69,13 @@ export default {
       rendered: false
     }
   },
-  computed: {
-    images() {
-      return this.entry.images
-    }
-  },
   methods: {
     instagram() {
-      $('.instagram-canvas-wrapper').toggleClass('hidden')
-      if (!this.rendered) {
+      if ($('.instagram-canvas-wrapper').hasClass('hidden')) {
+        $('.instagram-canvas-wrapper').removeClass('hidden')
         this.render()
+      } else {
+        $('.instagram-canvas-wrapper').addClass('hidden')
       }
     },
     render() {
@@ -123,6 +120,10 @@ export default {
   position: relative;
 }
 
+.instagram-content .label {
+  font-size: 1.5em;
+}
+
 .instagram-content {
   height: 100%;
   width: 100%;
@@ -146,7 +147,8 @@ export default {
   opacity: 0.4;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
 }
 
 .instagram-badge {
@@ -169,6 +171,12 @@ export default {
 
 .instagram-content .pinyin {
   font-size: 2em;
+}
+
+.instagram-content .definitions {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .instagram-content .definitions li {
@@ -204,7 +212,7 @@ export default {
   position: absolute;
   width: 90%;
   left: 5%;
-  top: 63%;
+  top: 65%;
   text-align: center;
 }
 
