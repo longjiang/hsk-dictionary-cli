@@ -1,5 +1,5 @@
-const dictionaryServer = 'http://hsk-server.local:8888/'
-// const dictionaryServer = 'https://server.chinesezerotohero.com/'
+// const dictionaryServer = 'http://hsk-server.local:8888/'
+const dictionaryServer = 'https://server.chinesezerotohero.com/'
 
 const lrcServer = 'https://lyrics-search.chinesezerotohero.com/'
 
