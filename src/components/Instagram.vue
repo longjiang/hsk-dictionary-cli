@@ -16,7 +16,7 @@
           v-if="
             entry.hsk === 'outside' && entry.images && entry.images.length > 0
           "
-          :style="`background-image: url(${entry.images[0].img})`"
+          :style="`background-image: url(${Config.imageProxy}?${entry.images[0].img})`"
           class="instagram-image"
         />
         <img src="img/instagram-badge.png" class="instagram-badge" />

@@ -29,7 +29,7 @@
           <a :href="`#/view/cedict/${word.identifier}`">
             <img
               v-if="word.srcs && word.srcs.length > 0"
-              :src="word.srcs[0]"
+              :src="`${Config.imageProxy}?${word.srcs[0]}`"
               class="word-list-ext-image"
             />
           </a>

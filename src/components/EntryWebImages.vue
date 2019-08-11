@@ -15,7 +15,7 @@
         alt
         class="image-wall-image"
         v-bind:key="'image-' + index"
-        :src="image.img"
+        :src="`${Config.imageProxy}?${image.img}`"
       />
     </a>
   </div>
@@ -23,6 +23,7 @@
 
 <script>
 import WordPhotos from '@/lib/word-photos'
+import Config from '@/lib/config'
 import Vue from 'vue'
 
 export default {
@@ -53,6 +54,7 @@ export default {
   data() {
     return {
       webImagesKey: 0,
+      Config,
       images: []
     }
   }
