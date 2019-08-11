@@ -3,7 +3,9 @@
     <div class="container focus">
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
-          <Loader v-if="!a" class="mt-5" />
+          <div class="text-center">
+            <Loader v-if="!a" class="mt-5" />
+          </div>
           <Frequency class="mb-1" v-if="a" :entry="a" />
           <EntryHeader
             v-if="a"
@@ -13,7 +15,9 @@
           ></EntryHeader>
         </div>
         <div class="col-sm-6">
-          <Loader v-if="!b" class="mt-5" />
+          <div class="text-center">
+            <Loader v-if="!b" class="mt-5" />
+          </div>
           <Frequency class="mb-1" v-if="b" :entry="b" />
           <EntryHeader
             v-if="b"
@@ -195,15 +199,15 @@ export default {
         } else if (method === 'hsk') {
           Helper.loaded(
             (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
-              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [args[0]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [args[1]])
             }
           )
         } else if (method === 'simplified') {
           Helper.loaded(
             (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [[args[0]]])
-              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [[args[1]]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [args[0]])
+              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [args[1]])
             }
           )
         }
