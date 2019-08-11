@@ -1,19 +1,20 @@
 <template>
   <div class="instagram-btn-wrapper">
-    <button
-      class="instagram-btn"
-      v-on:click="instagram"
-      title="Make an instagram poster"
-    >
+    <button class="instagram-btn" v-on:click="instagram" title="Make an instagram poster">
       <img src="img/instagram.svg" alt="Instagram" />
     </button>
-    <div id="instagram-canvas"></div>
-    <div class="instagram-content-wrapper">
+    <div id="instagram-canvas" class="hidden"></div>
+    <div class="instagram-content-wrapper hidden">
       <div class="instagram-content-aspect">
         <div class="instagram-content">
           <div class="instagram-border"></div>
           <img
-            v-if="entry.images && entry.images.length > 0"
+            v-if="entry.hsk !== 'outside'"
+            :src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
+            class="instagram-image"
+          />
+          <img
+            v-if="entry.hsk === 'outside' && entry.images && entry.images.length > 0"
             :src="entry.images[0].img"
             class="instagram-image"
           />
@@ -31,10 +32,8 @@
                   Helper.highlight(entry.example, entry.simplified, entry.hsk)
                 "
               ></p>
-              <hr>
-              <p class="example-sentence-english">
-                {{ entry.exampleTranslation }}
-              </p>
+              <hr />
+              <p class="example-sentence-english">{{ entry.exampleTranslation }}</p>
             </div>
           </div>
         </div>
@@ -48,6 +47,7 @@ import $ from 'jquery'
 import Helper from '@/lib/helper'
 import EntryHeader from '@/components/EntryHeader'
 import html2canvas from 'html2canvas'
+import Config from '@/lib/config'
 
 export default {
   props: ['entry'],
@@ -56,7 +56,8 @@ export default {
   },
   data() {
     return {
-      Helper
+      Helper,
+      Config
     }
   },
   computed: {
@@ -69,11 +70,20 @@ export default {
       this.f()
     },
     f() {
-      html2canvas(document.querySelector('#hsk-dictionary'), {
-        allowTaint: true
-      }).then(canvas => {
-        $('#instagram-canvas').append(canvas)
-      })
+      if ($('#instagram-canvas').hasClass('hidden')) {
+        $('#instagram-canvas').removeClass('hidden')
+        let $content = $('.instagram-content-wrapper')
+        $('body').append($content)
+        $content.removeClass('hidden')
+        html2canvas($content[0], {
+          allowTaint: true
+        }).then(canvas => {
+          $('#instagram-canvas').append(canvas)
+          // $content.addClass('hidden')
+        })
+      } else {
+        $('#instagram-canvas').addClass('hidden')
+      }
     }
   }
 }
@@ -81,6 +91,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+.instagram-btn {
+  background: none;
+  border: none;
+  opacity: 0.5;
+}
+
+.instagram-btn:hover {
+  opacity: 0.7;
+}
+
 .instagram-content-wrapper {
   width: 720px;
 }
@@ -100,6 +121,11 @@ export default {
   left: 0;
   color: white;
 }
+
+.instagram-content .paginate-button {
+  display: none;
+}
+
 
 .instagram-content .focus-exclude {
   display: none;
@@ -178,9 +204,8 @@ export default {
 }
 
 .instagram-content .example-sentence hr {
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   width: 40%;
-
 }
 
 .example-sentence-english {

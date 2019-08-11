@@ -6,21 +6,12 @@
         <div :class="`col-lg-${6 / scale}`">
           <div class="image-wrapper">
             <img
-              v-bind:src="
-                Config.imageUrl + entry.hskId + '-' + entry.simplified + '.jpg'
-              "
+              v-bind:src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg`"
               class="example-image"
               v-if="hasImage && !admin"
             />
             <img
-              v-bind:src="
-                Config.imageUrl +
-                  entry.id +
-                  '-' +
-                  entry.simplified +
-                  '.jpg?v=' +
-                  Date.now()
-              "
+              v-bind:src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
               class="example-image"
               v-if="hasImage && admin"
             />
