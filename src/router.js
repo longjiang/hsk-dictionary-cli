@@ -32,6 +32,11 @@ export default new Router({
       component: () => import('./views/Reader.vue')
     },
     {
+      path: '/articles/',
+      name: 'articles',
+      component: () => import('./views/Articles.vue')
+    },
+    {
       path: '/learn/:method?/:args?',
       name: 'learn',
       component: () => import('./views/Learn.vue')
