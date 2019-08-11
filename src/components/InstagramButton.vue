@@ -4,7 +4,9 @@
       <img src="img/instagram.svg" alt="Instagram" />
     </button>
     <div class="instagram-canvas-wrapper hidden mt-4">
-      <div id="instagram-canvas"></div>
+      <div class="instagram-canvas-aspect">
+        <div id="instagram-canvas"></div>
+      </div>
       <div class="mt-1">
         The instagram image is a
         <code>&lt;canvas&gt;</code> element. To use it, right click and choose copy or save. On the phone, long press and choose Save to camerall roll.
@@ -104,6 +106,8 @@ export default {
 
 #instagram-canvas canvas {
   box-shadow: 5px 5px 10px #00000040;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .instagram-btn:hover {
@@ -114,7 +118,8 @@ export default {
   width: 720px;
 }
 
-.instagram-content-aspect {
+.instagram-content-aspect,
+.instagram-canvas-aspect {
   width: 100%;
   padding-top: 100%;
   position: relative;
@@ -124,13 +129,18 @@ export default {
   font-size: 1.5em;
 }
 
-.instagram-content {
+.instagram-content,
+#instagram-canvas {
   height: 100%;
   width: 100%;
-  background: black;
   position: absolute;
   top: 0;
   left: 0;
+
+}
+
+.instagram-content {
+  background: black;
   color: white;
 }
 
