@@ -4,12 +4,12 @@
       <img src="img/instagram.svg" alt="Instagram" /> Instagram Poster
     </button>
     <div class="instagram-canvas-wrapper hidden mt-4">
+      <Loader v-if="loading" sticky="true" />
       <div class="instagram-canvas-aspect">
         <div id="instagram-canvas"></div>
       </div>
-      <div class="mt-1">
-        The instagram image is a
-        <code>&lt;canvas&gt;</code> element. To use it, right click and choose copy or save. On the phone, long press and choose Save to camerall roll.
+      <div class="mt-2">
+        Click/tap on the image to download.
       </div>
     </div>
     <div id="instagram-content-slot" class="hidden">
@@ -58,17 +58,19 @@ import Helper from '@/lib/helper'
 import EntryHeader from '@/components/EntryHeader'
 import html2canvas from 'html2canvas'
 import Config from '@/lib/config'
+import Loader from '@/components/Loader'
 
 export default {
   props: ['entry'],
   components: {
-    EntryHeader
+    EntryHeader,
+    Loader
   },
   data() {
     return {
       Helper,
       Config,
-      rendered: false
+      loading: false
     }
   },
   methods: {
@@ -81,17 +83,19 @@ export default {
       }
     },
     render() {
+      this.loading = true
       let $content = $('.instagram-content-wrapper')
       $content.appendTo('#hsk-dictionary')
       html2canvas($content[0], {
         useCORS: true,
         allowTaint: false
       }).then(canvas => {
+        let dataURL = canvas.toDataURL()
         $('#instagram-canvas').html(
-          `<img class="canvas-image" src="${canvas.toDataURL()}"/>`
+          `<a href="${dataURL}" download><img class="canvas-image" src="${dataURL}"/></a>`
         )
-        setTimeout(() => {$content.appendTo('#instagram-content-slot')}, 500) // set time out so we don't have a weird white bar on top
-        this.rendered = true
+        setTimeout(() => {$content.appendTo('#instagram-content-slot')}, 1000) // set time out so we don't have a weird white bar on top
+        this.loading = false
       })
     }
   }

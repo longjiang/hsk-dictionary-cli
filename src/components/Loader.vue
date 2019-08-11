@@ -1,48 +1,32 @@
 <template>
-  <div
-    id="loader"
-    class="text-center mb-5"
-    v-if="
-      !LoadedAnnotator || !LoadedHSKCEDICT || !loadedGrammar || !LoadedHanzi
-    "
-  >
+  <div id="loader" class="text-center mb-5" v-if="test()">
     <div class="heartbeat-loader mb-4"></div>
     <div>Loading</div>
-    <!--
-    <div v-if="LoadedAnnotator">
-      <i class="glyphicon glyphicon-check"></i> Annotator Loaded
-    </div>
-    <div v-if="!LoadedAnnotator">
-      <i class="glyphicon glyphicon-unchecked"></i> Annotator Loading...
-    </div>
-    <div v-if="LoadedHSKCEDICT">
-      <i class="glyphicon glyphicon-check"></i> HSK+CEDICT Dictionary Loaded
-    </div>
-    <div v-if="!LoadedHSKCEDICT">
-      <i class="glyphicon glyphicon-unchecked"></i> HSK+CEDICT Dictionary
-      Loading (~5MB)...
-    </div>
-    <div v-if="loadedGrammar">
-      <i class="glyphicon glyphicon-check"></i> Grammar Library Loaded
-    </div>
-    <div v-if="!loadedGrammar">
-      <i class="glyphicon glyphicon-unchecked"></i> Grammar Library Loading...
-    </div>
-    <div v-if="LoadedHanzi">
-      <i class="glyphicon glyphicon-check"></i> "Make Me a Hanzi" Library Loaded
-    </div>
-    <div v-if="!LoadedHanzi">
-      <i class="glyphicon glyphicon-unchecked"></i> "Make Me a Hanzi" library
-      Loading...
-    </div>
-    -->
   </div>
 </template>
 
 <script>
 import Helper from '@/lib/helper'
 export default {
-  watch: {},
+  props: {
+    sticky: {
+      default: 'false'
+    }
+  },
+  methods: {
+    test() {
+      if (this.sticky === 'true') {
+        return true
+      } else {
+        return (
+          !this.LoadedAnnotator ||
+          !this.LoadedHSKCEDICT ||
+          !this.loadedGrammar ||
+          !this.LoadedHanzi
+        )
+      }
+    }
+  },
   data() {
     return {
       LoadedAnnotator: undefined,
