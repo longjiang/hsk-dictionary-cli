@@ -18,10 +18,7 @@
         <div class="row mb-3">
           <div class="col-sm-12">
             <h1 class="title">
-              <a class="title-text" href="#/">Dictionary</a>
-              <a href="https://www.chinesezerotohero.com">
-                <img src="img/logo-mark.png" class="logo" alt />
-              </a>
+              <a class="title-text" href="#/">Chinese Learning Wiki</a>
             </h1>
           </div>
         </div>
@@ -51,19 +48,28 @@
         <div class="col-sm-12">
           <nav class="tabs text-center">
             <router-link
-              class="tab"
-              :to="{ name: 'browse' }"
-              title="Browse words by course"
+              class="tab tab-saved-words"
+              :to="{ name: 'saved-words' }"
             >
-              <i class="glyphicon glyphicon-book"></i>
-              Browse
+              <i class="glyphicon glyphicon-star"></i> Saved
+              <span class="tab-saved-words-count" v-cloak>
+                {{ savedWordsCount() }}
+              </span>
             </router-link>
             <router-link
               class="tab"
               :to="{ name: 'entry' }"
               title="View a word"
             >
-              <i class="glyphicon glyphicon-font"></i> Entry
+              <i class="glyphicon glyphicon-font"></i> Dictionary
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'browse' }"
+              title="Browse words by course"
+            >
+              <i class="glyphicon glyphicon-book"></i>
+              Browse
             </router-link>
             <router-link
               class="tab"
@@ -74,6 +80,13 @@
             </router-link>
             <router-link
               class="tab"
+              :to="{ name: 'articles' }"
+              title="Articles related to Chinese learning"
+            >
+              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
+            </router-link>
+            <router-link
+              class="tab"
               :to="{ name: 'learn' }"
               title="Learn new words"
             >
@@ -81,15 +94,6 @@
             </router-link>
             <router-link class="tab" :to="{ name: 'explore' }" title="Explore">
               <i class="glyphicon glyphicon-sunglasses"></i> Explore
-            </router-link>
-            <router-link
-              class="tab tab-saved-words"
-              :to="{ name: 'saved-words' }"
-            >
-              <i class="glyphicon glyphicon-star"></i> Saved
-              <span class="tab-saved-words-count" v-cloak>
-                {{ savedWordsCount() }}
-              </span>
             </router-link>
             <router-link
               class="tab tab-info"
