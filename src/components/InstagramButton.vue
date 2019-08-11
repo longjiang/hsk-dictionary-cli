@@ -8,8 +8,19 @@
       <img src="img/instagram.svg" alt="Instagram" /> Instagram Poster
     </button>
     <div :class="{ hidden: !show, 'mt-4': true }">
-      <Instagram :entry="entry" />
-      <Loader v-if="!dataURL" sticky="true" class="mt-3">Generating download link...</Loader>
+      <Instagram  v-if="!dataURL" :entry="entry" />
+      <Loader v-if="!dataURL" sticky="true" class="mt-3"
+        >Generating download link...</Loader
+      >
+      <img
+        :src="dataURL"
+        class="instagram-generated-image"
+        :alt="
+          `Instagram poster for ${entry.simplified} (${entry.traditional}, ${
+            entry.pinyin
+          })`
+        "
+      />
       <a
         v-if="dataURL"
         :href="`${dataURL}`"
@@ -54,7 +65,7 @@ export default {
         this.dataURL = ''
         setTimeout(() => {
           this.render()
-        }, 0)
+        })
       }
     },
     render() {
@@ -95,5 +106,12 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.instagram-generated-image {
+  width: 100%;
+  max-width: 720px;
+  display: block;
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
 }
 </style>
