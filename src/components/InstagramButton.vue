@@ -1,7 +1,7 @@
 <template>
-  <div class="instagram-btn-wrapper">
+  <div class="instagram-btn-wrapper focus-exclude">
     <button class="instagram-btn" v-on:click="instagram" title="Make an instagram poster">
-      <img src="img/instagram.svg" alt="Instagram" />
+      <img src="img/instagram.svg" alt="Instagram" /> Instagram Poster
     </button>
     <div class="instagram-canvas-wrapper hidden mt-4">
       <div class="instagram-canvas-aspect">
