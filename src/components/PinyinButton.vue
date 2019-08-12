@@ -31,6 +31,9 @@ import $ from 'jquery'
 
 export default {
   props: {
+    always: {
+      default: 'false'
+    },
     selector: {
       type: String,
       default: undefined
@@ -58,6 +61,9 @@ export default {
   mounted() {
     this.buttonText = this.$el.innerText
     this.$target = this.selector ? $(this.selector) : $(this.$el).next()
+    if (this.always === 'true' && !this.annotated) {
+      this.annotate()
+    }
   },
   methods: {
     visibilityChanged(isVisible) {

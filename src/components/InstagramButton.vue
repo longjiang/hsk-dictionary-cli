@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     instagram() {
+      $('body')[0].scrollIntoView()
       this.show = !this.show
       if (this.show) {
         this.dataURL = ''
