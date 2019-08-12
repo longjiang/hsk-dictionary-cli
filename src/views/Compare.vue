@@ -6,7 +6,6 @@
           <div class="text-center">
             <Loader v-if="!a" class="mt-5" />
           </div>
-          <Frequency class="mb-1" v-if="a" :entry="a" />
           <EntryHeader
             v-if="a"
             :entry="a"
@@ -18,7 +17,6 @@
           <div class="text-center">
             <Loader v-if="!b" class="mt-5" />
           </div>
-          <Frequency class="mb-1" v-if="b" :entry="b" />
           <EntryHeader
             v-if="b"
             :entry="b"

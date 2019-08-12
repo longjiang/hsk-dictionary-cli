@@ -17,13 +17,8 @@
     >
       <img src="img/angle-right.svg" alt />
     </button>
-    <div
-      class="label mb-4"
-      v-bind:data-bg-hsk="entry.hsk"
-      v-if="entry.oofc == ''"
-    >
-      {{ entry.hsk === 'outside' ? 'Outside HSK' : 'HSK ' + entry.hsk }}
-    </div>
+
+            <Frequency class="mb-2" :entry="entry" />
 
     <div>
       <div v-if="entry.measureWords" style="display:inline-block">
@@ -68,6 +63,7 @@
 import Helper from '@/lib/helper'
 import List from '@/lib/list'
 import DefinitionsList from '@/components/DefinitionsList.vue'
+import Frequency from '@/components/Frequency.vue'
 
 export default {
   props: {
@@ -80,7 +76,8 @@ export default {
     }
   },
   components: {
-    DefinitionsList
+    DefinitionsList,
+    Frequency
   },
   data() {
     return {

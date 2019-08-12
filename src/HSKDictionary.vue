@@ -36,9 +36,13 @@
               <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
             </router-link>
             <router-link
-              class="tab"
+              :class="{
+                tab: true,
+                'router-link-active':
+                  $route.name === 'entry' || $route.name === 'compare'
+              }"
               :to="{ name: 'entry' }"
-              title="View a word"
+              title="Lookup and compare words"
             >
               <i class="glyphicon glyphicon-font"></i> Dictionary
             </router-link>
@@ -84,28 +88,30 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <div
-        class="row mt-4"
-        v-if="$route.name === 'entry' || $route.name === 'compare'"
-      >
-        <div class="col-sm-12">
-          <div class="search-compare-wrapper">
-            <Search ref="search" random="true"></Search>
-            <Search
-              :class="{ 'ml-2': true, hidden: !compare }"
-              ref="compare"
-              placeholder="Compare with..."
-              :hrefFunc="compareHrefFunc"
-            ></Search>
-            <button class="btn btn-compare ml-2" @click="compareClick">
-              <span v-if="compare"
-                ><i class="glyphicon glyphicon-remove-sign"></i></span
-              ><span v-if="!compare"
-                ><i class="glyphicon glyphicon-adjust"></i>
-                <span class="compare-btn-text ml-1">Compare</span></span
-              >
-            </button>
+    <div
+      class="row example-bar mb-5"
+      v-if="$route.name === 'entry' || $route.name === 'compare'"
+    >
+      <div class="container">
+        <div class="row mt-4 mb-4">
+          <div class="col-sm-12">
+            <div class="search-compare-wrapper">
+              <Search ref="search" random="true"></Search>
+              <Search
+                :class="{ 'ml-2': true, hidden: !compare }"
+                ref="compare"
+                placeholder="Compare with..."
+                :hrefFunc="compareHrefFunc"
+              ></Search>
+              <button class="btn btn-compare ml-2" @click="compareClick">
+                <span v-if="compare"
+                  ><i class="glyphicon glyphicon-remove-sign"></i></span
+                ><span v-if="!compare"
+                  ><i class="glyphicon glyphicon-adjust"></i>
+                  <span class="compare-btn-text ml-1">Compare</span></span
+                >
+              </button>
+            </div>
           </div>
         </div>
       </div>

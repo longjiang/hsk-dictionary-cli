@@ -7,7 +7,6 @@
       <div class="container mt-4 mb-4">
         <div class="row">
           <div class="col-sm-12">
-            <Frequency class="mb-1" :entry="entry" />
             <div>
               <InstagramButton :entry="entry" class="mb-5"></InstagramButton>
             </div>
@@ -157,10 +156,6 @@ export default {
           if (!this.entry) {
             this.random()
           }
-        }
-      } else {
-        if (!this.entry) {
-          this.random()
         }
       }
     },

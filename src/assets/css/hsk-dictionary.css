@@ -96,6 +96,8 @@ body {
 .search-compare-wrapper {
   display: flex;
   position: relative;
+  max-width: 50rem;
+  margin: 0 auto;
 }
 
 .search-compare-wrapper .search-wrapper {
@@ -151,7 +153,6 @@ body {
 
 .example-bar {
   background-color: #dedede;
-  overflow: hidden;
 }
 
 .compare-example-bar {
@@ -1647,20 +1648,6 @@ a.suggestion {
   opacity: 0.5;
 }
 
-.frequency {
-  background: #ccc;
-  height: 0.3rem;
-  width: 100%;
-}
-
-.frequency-fill {
-  background:#88b1a2;
-  height:0.3rem;
-}
-
-.frequency-wrapper:not(:hover) .frequency-text {
-  opacity: 0;
-}
 
 code {
   background: #f1f1f1;

@@ -1,26 +1,24 @@
 <template>
-  <div class="instagram-btn-wrapper focus-exclude">
+  <div
+    :class="{
+      'instagram-btn-wrapper': true,
+      'focus-exclude': true,
+      collapsed: !show
+    }"
+  >
     <button
       class="instagram-btn"
       v-on:click="instagram"
       title="Make an instagram poster"
     >
-      <img src="img/instagram.svg" alt="Instagram" /> Instagram Poster
+      <img src="img/instagram.svg" alt="Instagram" />
     </button>
     <div :class="{ hidden: !show, 'mt-4': true }">
-      <Instagram  v-if="!dataURL" :entry="entry" />
+      <Instagram v-if="!dataURL" :entry="entry" />
       <Loader v-if="!dataURL" sticky="true" class="mt-3"
         >Generating download link...</Loader
       >
-      <img
-        :src="dataURL"
-        class="instagram-generated-image"
-        :alt="
-          `Instagram poster for ${entry.simplified} (${entry.traditional}, ${
-            entry.pinyin
-          })`
-        "
-      />
+      <img :src="dataURL" class="instagram-generated-image" />
       <a
         v-if="dataURL"
         :href="`${dataURL}`"
@@ -90,6 +88,12 @@ export default {
   padding: 0;
 }
 
+.instagram-btn-wrapper.collapsed {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
 #instagram-canvas .canvas-image {
   box-shadow: 5px 5px 10px #00000040;
   width: 100% !important;
@@ -112,6 +116,6 @@ export default {
   width: 100%;
   max-width: 720px;
   display: block;
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 </style>
