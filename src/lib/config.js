@@ -13,5 +13,6 @@ export default {
   savePhoto: dictionaryServer + 'save-photo.php',
   imageUrl: dictionaryServer + 'img/words/',
   animatedSvgUrl: dictionaryServer + 'data/svgs/',
-  lrcSearch: lrcServer + 'lrc/search/'
+  lrcSearch: lrcServer + 'lrc/search/',
+  wiki: 'https://directus.chinesezerotohero.com/_/'
 }

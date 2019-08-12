@@ -121,7 +121,9 @@ export default {
   },
   watch: {
     $route() {
-      this.route()
+      if (this.$route.name === 'explore-related') {
+        this.route()
+      }
     }
   }
 }

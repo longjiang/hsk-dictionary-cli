@@ -140,7 +140,9 @@ export default {
   },
   watch: {
     $route() {
-      this.route()
+      if (this.$route.name === 'explore-roots') {
+        this.route()
+      }
     }
   },
   data() {
