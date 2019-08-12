@@ -7,7 +7,7 @@
     >
       {{ entry.hsk === 'outside' ? 'Outside HSK' : 'HSK ' + entry.hsk }}
     </div>
-    <div class="frequency">
+    <div class="frequency mt-1">
       <div
         class="frequency-fill"
         :data-bg-hsk="entry.hsk"

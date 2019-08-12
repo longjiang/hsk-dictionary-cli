@@ -1,6 +1,6 @@
 <template>
   <div :key="'collocations-' + collocationsKey" v-if="colDesc">
-    <div class="row" v-if="!show">
+    <!-- <div class="row" v-if="!show">
       <div class="col-sm-12 text-center">
         <div class="label song-label">
           Collocations with “<span class="simplified">{{
@@ -19,8 +19,8 @@
           </button>
         </div>
       </div>
-    </div>
-    <div v-if="show">
+    </div> -->
+    <div>
       <div class="row">
         <div
           class="col-sm-12 col-md-6 col-lg-4"
@@ -61,13 +61,13 @@ export default {
     getGramrelsByName(gramrels, name) {
       return gramrels.find(gram => gram.name === name)
     },
-    showClick() {
-      this.show = true
-    }
+    // showClick() {
+    //   this.show = true
+    // }
   },
   data() {
     return {
-      show: false,
+      // show: false,
       colDesc: undefined,
       collocationsKey: 0
     }

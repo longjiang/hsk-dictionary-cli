@@ -20,7 +20,7 @@
           class="instagram-image"
         />
         <img src="img/instagram-badge.png" class="instagram-badge" />
-        <img src="img/logo-mark.png" class="instagram-logo" />
+        <img src="img/czh-logo.png" class="instagram-logo" />
         <EntryHeader :entry="entry" />
         <div
           class="example-wrapper pt-4 pb-4"

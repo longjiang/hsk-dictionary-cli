@@ -1,9 +1,9 @@
 <template>
   <div class="main focus" v-cloak :key="'entry-' + entryKey">
-    <div class="text-center mt-5">
-      <Loader class="mt-5" />
-    </div>
     <div v-if="entry">
+      <div class="text-center mt-5">
+        <Loader class="mt-5" />
+      </div>
       <div class="container mt-4 mb-4">
         <div class="row">
           <div class="col-sm-12">

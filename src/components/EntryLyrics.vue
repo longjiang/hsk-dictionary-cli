@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="container-flud lyrics-bar">
+    <!-- <div class="container-flud lyrics-bar">
       <div class="songs" v-if="!show">
         <div class="row song">
           <div class="container">
@@ -31,9 +31,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="container-flud lyrics-bar" v-cloak v-if="show">
+    <div class="container-flud lyrics-bar" v-cloak>
       <div class="songs">
         <div class="row song" v-for="(lrc, lrcIndex) in lrcs.slice(0, limit)">
           <div class="container">
@@ -135,7 +135,7 @@ export default {
     return {
       Helper,
       LRC,
-      show: false,
+      // show: false,
       lrcs: [] // matched song lyrics, pulled from another server
     }
   },

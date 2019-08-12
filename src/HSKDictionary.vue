@@ -95,7 +95,10 @@
       <div class="container">
         <div class="row mt-4 mb-4">
           <div class="col-sm-12">
-            <div class="search-compare-wrapper">
+            <div class="text-center">
+              <Loader />
+            </div>
+            <div class="search-compare-wrapper" v-if="loaded">
               <Search ref="search" random="true"></Search>
               <Search
                 :class="{ 'ml-2': true, hidden: !compare }"
@@ -220,6 +223,7 @@ export default {
   data: function() {
     return {
       focus: false,
+      loaded: false,
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
@@ -276,6 +280,12 @@ export default {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')
     window.entry = undefined
     window.hskDictionaryApp = this
+
+    Helper.loaded(
+      (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+        this.loaded = true
+      }
+    )
   }
 }
 </script>
