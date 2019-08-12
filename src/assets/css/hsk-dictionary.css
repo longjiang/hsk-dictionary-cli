@@ -38,12 +38,12 @@ body {
   margin: 0;
   font-size: 1.5rem;
   cursor: pointer;
+  text-align: center;
 }
 
 .title-text {
-  margin-top: 0.5rem;
   color: white;
-  float: left;
+  margin-left: 0.5rem;
 }
 
 .title a:hover {
@@ -63,8 +63,8 @@ body {
 }
 
 .logo {
-  max-width: 15rem;
-  float: right;
+  width: 4rem;
+  border-radius: 100%;
 }
 
 @media (max-width: 768px) {
@@ -97,6 +97,12 @@ body {
 
 .search-compare-wrapper .input-group * {
   height: 2.3rem;
+}
+
+@media (max-width:480px) {
+  .compare-btn-text {
+    display: none;
+  }
 }
 
 .btn-danger {

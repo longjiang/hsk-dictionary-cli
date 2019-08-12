@@ -6,8 +6,7 @@
     >
       <div class="row">
         <div class="col-sm-12">
-          <h3>Articles</h3>
-          <hr />
+          <h3 class="mb-5">Wiki Articles</h3>
           <li v-for="article in articles" class="article-list-item">
             <PinyinButton/>
             <a :href="`#/articles/view/${article.id},${article.title}`"

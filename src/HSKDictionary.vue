@@ -18,6 +18,7 @@
         <div class="row mb-3">
           <div class="col-sm-12">
             <h1 class="title">
+              <img src="img/wiki-logo.jpg" class="logo" />
               <a class="title-text" href="#/">Chinese Learning Wiki</a>
             </h1>
           </div>
@@ -36,7 +37,8 @@
                 <span v-if="compare"
                   ><i class="glyphicon glyphicon-remove-sign"></i></span
                 ><span v-if="!compare"
-                  ><i class="glyphicon glyphicon-adjust"></i> Compare</span
+                  ><i class="glyphicon glyphicon-adjust"></i>
+                  <span class="compare-btn-text ml-1">Compare</span></span
                 >
               </button>
             </div>
@@ -48,13 +50,11 @@
         <div class="col-sm-12">
           <nav class="tabs text-center">
             <router-link
-              class="tab tab-saved-words"
-              :to="{ name: 'saved-words' }"
+              class="tab"
+              :to="{ name: 'articles' }"
+              title="Articles related to Chinese learning"
             >
-              <i class="glyphicon glyphicon-star"></i> Saved
-              <span class="tab-saved-words-count" v-cloak>
-                {{ savedWordsCount() }}
-              </span>
+              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
             </router-link>
             <router-link
               class="tab"
@@ -80,13 +80,6 @@
             </router-link>
             <router-link
               class="tab"
-              :to="{ name: 'articles' }"
-              title="Articles related to Chinese learning"
-            >
-              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
-            </router-link>
-            <router-link
-              class="tab"
               :to="{ name: 'learn' }"
               title="Learn new words"
             >
@@ -94,6 +87,15 @@
             </router-link>
             <router-link class="tab" :to="{ name: 'explore' }" title="Explore">
               <i class="glyphicon glyphicon-sunglasses"></i> Explore
+            </router-link>
+            <router-link
+              class="tab tab-saved-words"
+              :to="{ name: 'saved-words' }"
+            >
+              <i class="glyphicon glyphicon-star"></i> Saved
+              <span class="tab-saved-words-count" v-cloak>
+                {{ savedWordsCount() }}
+              </span>
             </router-link>
             <router-link
               class="tab tab-info"
@@ -173,7 +175,11 @@
             </button>
             <hr />
             <a href="https://www.chinesezerotohero.com">
-              <img src="img/logo-mark.png" class="logo-footer" alt />
+              <img
+                src="img/czh-logo.png"
+                class="logo-footer"
+                alt="Chinese Zero to Hero"
+              />
             </a>
           </div>
         </div>
