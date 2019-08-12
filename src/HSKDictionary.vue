@@ -132,7 +132,7 @@
     >
       <nav class="secondary-menu text-center">
         <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
-          <i class="glyphicon glyphicon-levels"></i>
+          <i class="glyphicon glyphicon-signal"></i>
           HSK Levels
         </router-link>
         <router-link

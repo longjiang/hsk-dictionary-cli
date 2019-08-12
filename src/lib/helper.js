@@ -49,6 +49,8 @@ export default {
         text = this.highlight(text, word, level)
       }
       return text
+    } else {
+      return text
     }
   },
   augmentAnnotatedBlocks(node) {
