@@ -43,6 +43,14 @@ export default {
       )
     }
   },
+  highlightMultiple(text, words, level) {
+    if (text && words && words.length > 0) {
+      for (let word of words) {
+        text = this.highlight(text, word, level)
+      }
+      return text
+    }
+  },
   augmentAnnotatedBlocks(node) {
     const wordBlocks = $(node)
       .find('.word-block[data-candidates]')

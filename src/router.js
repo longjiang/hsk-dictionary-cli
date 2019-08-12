@@ -16,6 +16,11 @@ export default new Router({
       redirect: '/explore/levels'
     },
     {
+      path: '/grammar',
+      name: 'grammar',
+      component: () => import('./views/Grammar.vue')
+    },
+    {
       path: '/explore/levels',
       name: 'levels',
       component: () => import('./views/Levels.vue')

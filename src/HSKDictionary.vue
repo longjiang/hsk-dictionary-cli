@@ -36,6 +36,13 @@
               <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
             </router-link>
             <router-link
+              class="tab"
+              :to="{ name: 'grammar' }"
+              title="Chinese grammar cheatsheet"
+            >
+              <i class="glyphicon glyphicon-list"></i> Grammar
+            </router-link>
+            <router-link
               :class="{
                 tab: true,
                 'router-link-active':
