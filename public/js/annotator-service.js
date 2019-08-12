@@ -10,6 +10,10 @@ const AnnotatorService = {
   },
   _annotateIteratively(text, subdict, traditional = false) {
     const annotatorService = this
+    const isChinese = subdict.isChinese(text)
+    if (!isChinese) {
+      return [text]
+    }
     const longest = subdict.longest(text, traditional)
     if (longest.matches.length > 0) {
       let result = []

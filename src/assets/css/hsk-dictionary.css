@@ -6,6 +6,13 @@ body {
   display: none;
 }
 
+.concealed {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  opacity: 0;
+}
+
 .hide-except-focus .focus-off {
   display: none;
 }

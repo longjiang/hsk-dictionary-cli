@@ -51,10 +51,13 @@ const HSKCEDICT = {
     return books
   },
   isChinese(text) {
-    return text.match(
-      // eslint-disable-next-line no-irregular-whitespace
-      /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
+    if (
+      text.match(
+        // eslint-disable-next-line no-irregular-whitespace
+        /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
+      )
     )
+      return true
   },
   removeTones(pinyin) {
     return pinyin.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -206,6 +209,7 @@ const HSKCEDICT = {
     let first = false
     const tradOrSimp = traditional ? 'traditional' : 'simplified'
     let matches = this._data
+      .filter(row => this.isChinese(row.simplified))
       .filter(function(row) {
         if (first) {
           return row[tradOrSimp] === first

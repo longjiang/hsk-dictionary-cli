@@ -1,5 +1,5 @@
 <template>
-  <div class="main mt-5">
+  <div class="main mt-5 mb-5">
     <div
       v-if="method === 'list' && articles && articles.length > 0"
       class="container"

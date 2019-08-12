@@ -21,10 +21,12 @@ import Loader from '@/components/Loader.vue'
 import store from './store'
 import $ from 'jquery'
 import VueWorker from 'vue-worker'
+import VueObserveVisibility from 'vue-observe-visibility'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueWorker)
+Vue.use(VueObserveVisibility)
 
 if (location.hash === '#/test') {
   $('#loader').remove()
