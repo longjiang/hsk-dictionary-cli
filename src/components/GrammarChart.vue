@@ -3,7 +3,11 @@
     <div class="text-center">
       <Loader />
     </div>
-    <div class="input-group w-50 mb-5" v-cloak>
+    <div
+      class="input-group w-50 mb-5"
+      v-if="grammar && grammar.length > 0"
+      v-cloak
+    >
       <input
         v-model="search"
         type="text"
@@ -42,9 +46,12 @@
         >
           <td class="text-center align-middle">
             <span
-              ><a :href="`${row.url}`" class="btn btn-secondary" style="white-space: nowrap;"
-                ><i class="glyphicon glyphicon-facetime-video"></i
-                > {{ row.code }}</a
+              ><a
+                :href="`${row.url}`"
+                class="btn btn-secondary"
+                style="white-space: nowrap;"
+                ><i class="glyphicon glyphicon-facetime-video"></i>
+                {{ row.code }}</a
               >
             </span>
           </td>

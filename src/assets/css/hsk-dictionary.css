@@ -6,6 +6,14 @@ body {
   display: none;
 }
 
+a {
+  color: #fd4f1c;
+}
+
+a:hover {
+  color: #f76135;
+}
+
 .concealed {
   height: 1px;
   width: 1px;
