@@ -133,12 +133,12 @@ body {
 }
 
 .btn-compare {
-  color: white;
+  color: #fd4f1c;
 }
 
 .btn-compare:hover {
-  color: #fd4f1c;
-  background: white;
+  color: white;
+  background: #fd4f1c;
 
 }
 

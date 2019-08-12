@@ -23,27 +23,6 @@
             </h1>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="search-compare-wrapper">
-              <Search ref="search" random="true"></Search>
-              <Search
-                :class="{ 'ml-2': true, hidden: !compare }"
-                ref="compare"
-                placeholder="Compare with..."
-                :hrefFunc="compareHrefFunc"
-              ></Search>
-              <button class="btn btn-compare ml-2" @click="compareClick">
-                <span v-if="compare"
-                  ><i class="glyphicon glyphicon-remove-sign"></i></span
-                ><span v-if="!compare"
-                  ><i class="glyphicon glyphicon-adjust"></i>
-                  <span class="compare-btn-text ml-1">Compare</span></span
-                >
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="row mt-3" v-cloak>
@@ -105,6 +84,32 @@
               <i class="glyphicon glyphicon-cog"></i> Settings
             </router-link>
           </nav>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div
+        class="row mt-4"
+        v-if="$route.name === 'entry' || $route.name === 'compare'"
+      >
+        <div class="col-sm-12">
+          <div class="search-compare-wrapper">
+            <Search ref="search" random="true"></Search>
+            <Search
+              :class="{ 'ml-2': true, hidden: !compare }"
+              ref="compare"
+              placeholder="Compare with..."
+              :hrefFunc="compareHrefFunc"
+            ></Search>
+            <button class="btn btn-compare ml-2" @click="compareClick">
+              <span v-if="compare"
+                ><i class="glyphicon glyphicon-remove-sign"></i></span
+              ><span v-if="!compare"
+                ><i class="glyphicon glyphicon-adjust"></i>
+                <span class="compare-btn-text ml-1">Compare</span></span
+              >
+            </button>
+          </div>
         </div>
       </div>
     </div>

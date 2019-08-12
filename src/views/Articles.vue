@@ -8,9 +8,19 @@
         <div class="col-sm-12">
           <h3 class="mb-5">Wiki Articles</h3>
           <li v-for="article in articles" class="article-list-item">
-            <PinyinButton/>
+            <PinyinButton />
             <a :href="`#/articles/view/${article.id},${article.title}`"
-              ><h5 class="article-list-item-title">{{ article.title }}</h5>
+              ><h5 class="article-list-item-title">
+                {{ article.title
+                }}<a
+                  :href="
+                    `${Config.wikiAdmin}collections/articles/${article.id}`
+                  "
+                  class="btn article-list-item-edit-btn"
+                  target="_blank"
+                  >Edit</a
+                >
+              </h5>
               <div v-html="article.body" class="article-list-item-body"></div
             ></a>
           </li>
@@ -20,10 +30,16 @@
     <div v-if="method === 'view' && article" class="container">
       <div class="row">
         <div class="col-sm-12">
-          <PinyinButton/>
+          <PinyinButton />
+          <a
+            :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
+            class="btn article-list-item-edit-btn"
+            target="_blank"
+            >Edit</a
+          >
           <h3>{{ article.title }}</h3>
           <hr />
-          <PinyinButton/>
+          <PinyinButton />
           <article v-html="article.body"></article>
         </div>
       </div>
@@ -41,7 +57,8 @@ export default {
       articles: [],
       article: undefined,
       method: undefined,
-      args: undefined
+      args: undefined,
+      Config
     }
   },
   watch: {
@@ -53,21 +70,17 @@ export default {
   },
   methods: {
     route() {
-      console.log('routing?')
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.$route.params.method) {
         this.method = this.$route.params.method
-        console.log('method', this.method)
         if (this.method === 'list') {
           this.articles = []
-          console.log('getting directus?')
           $.getJSON(`${Config.wiki}items/articles`, response => {
             this.articles = response.data
           })
         } else if (this.method === 'view' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')
           this.article = undefined
-          console.log('article', this.args[0])
           $.getJSON(
             `${Config.wiki}items/articles/${this.args[0]}`,
             response => {
@@ -93,12 +106,14 @@ export default {
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   padding: 1.5rem;
+  max-width: 40rem;
 }
 
 .article-list-item-title {
   border-bottom: 1px solid #ececec;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+  color: #fd4f1c;
 }
 
 .article-list-item-body {
@@ -120,5 +135,21 @@ export default {
 .article-list-item a:hover {
   color: inherit;
   text-decoration: none;
+}
+
+.article-list-item-body img {
+  display: none;
+}
+
+a.article-list-item-edit-btn {
+  float: right;
+  background: #cecece;
+  color: white;
+}
+
+a.article-list-item-edit-btn:hover {
+  float: right;
+  background: #fd4f1c;
+  color: white;
 }
 </style>

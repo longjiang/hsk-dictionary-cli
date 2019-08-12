@@ -14,5 +14,6 @@ export default {
   imageUrl: dictionaryServer + 'img/words/',
   animatedSvgUrl: dictionaryServer + 'data/svgs/',
   lrcSearch: lrcServer + 'lrc/search/',
-  wiki: 'https://directus.chinesezerotohero.com/_/'
+  wiki: 'https://directus.chinesezerotohero.com/_/',
+  wikiAdmin: 'https://directus.chinesezerotohero.com/admin/#/'
 }
