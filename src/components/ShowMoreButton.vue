@@ -30,7 +30,7 @@ export default {
     },
     count() {
       if (length) {
-        return length - min
+        return length - this.min
       } else {
         return ''
       }
