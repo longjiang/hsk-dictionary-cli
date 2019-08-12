@@ -13,7 +13,12 @@ export default new Router({
     {
       path: '/browse',
       name: 'browse',
-      component: () => import('./views/Browse.vue')
+      redirect: '/explore/levels'
+    },
+    {
+      path: '/explore/levels',
+      name: 'levels',
+      component: () => import('./views/Levels.vue')
     },
     {
       path: '/view/:method?/:arg?',
@@ -49,7 +54,7 @@ export default new Router({
     {
       path: '/explore',
       name: 'explore',
-      redirect: '/explore/roots'
+      redirect: '/explore/levels'
     },
     {
       path: '/explore/roots/:arg?',

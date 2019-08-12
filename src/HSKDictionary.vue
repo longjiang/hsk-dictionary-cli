@@ -44,11 +44,11 @@
             </router-link>
             <router-link
               class="tab"
-              :to="{ name: 'browse' }"
-              title="Browse words by course"
+              :to="{ name: 'explore' }"
+              title="Explore words by level and topic"
             >
               <i class="glyphicon glyphicon-book"></i>
-              Browse
+              Wordbook
             </router-link>
             <router-link
               class="tab"
@@ -63,9 +63,6 @@
               title="Learn new words"
             >
               <i class="glyphicon glyphicon-blackboard"></i> Learn
-            </router-link>
-            <router-link class="tab" :to="{ name: 'explore' }" title="Explore">
-              <i class="glyphicon glyphicon-sunglasses"></i> Explore
             </router-link>
             <router-link
               class="tab tab-saved-words"
@@ -113,8 +110,15 @@
         </div>
       </div>
     </div>
-    <div v-if="$route.path.startsWith('/explore')" class="mt-4">
+    <div
+      v-if="$route.path === '/browse' || $route.path.startsWith('/explore')"
+      class="mt-4"
+    >
       <nav class="secondary-menu text-center">
+        <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
+          <i class="glyphicon glyphicon-levels"></i>
+          HSK Levels
+        </router-link>
         <router-link
           class="secondary-menu-item"
           :to="{ name: 'explore-roots' }"
