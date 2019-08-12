@@ -125,6 +125,9 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
+      document.title = `${entry.simplified} (${entry.pinyin}) ${
+        entry.definitions[0].text
+      } | Chinese Learning Wiki`
       if (this.$parent.$refs.search) {
         this.$parent.$refs.search.entry = entry
         this.$parent.$refs.search.text = entry.simplified

@@ -53,9 +53,8 @@
             </button>
             <div class="text-center" :key="rootsKey">
               <div class="big-word">
-                Pattern
                 <PinyinButton />
-                <span >{{ arg }}</span>
+                <span>{{ arg }}</span> Words
               </div>
               <EntryCharacters :text="arg.replace(/～/g, '')"></EntryCharacters>
               <Loader class="mt-5" />
@@ -118,6 +117,9 @@ export default {
               [this.arg]
             )
             this.rootCharacter = LoadedHanzi.lookup(this.arg.replace(/～/g, ''))
+            document.title = `${this.arg} (${this.rootCharacter.pinyin}, ${
+              this.rootCharacter.definition.split(',')[0]
+            }) Words  | Chinese Learning Wiki`
           }
         )
       } else {

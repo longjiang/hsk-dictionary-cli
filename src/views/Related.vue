@@ -82,6 +82,7 @@ export default {
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
             LoadedHSKCEDICT.getByIdentifier(
               word => {
+                document.title = `Words Related to ${word.simplified} (${word.pinyin}) ${word.definitions[0].text}`
                 this.word = word
                 this.$refs.search.entry = word
                 this.$refs.search.text = word.simplified
