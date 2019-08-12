@@ -5,7 +5,7 @@
       class="container"
     >
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-md-8">
           <h3 class="mb-5">Wiki Articles</h3>
           <li v-for="article in articles" class="article-list-item">
             <PinyinButton />
@@ -24,6 +24,14 @@
               <div v-html="article.body" class="article-list-item-body"></div
             ></a>
           </li>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <h4 class="mb-5">About the Wiki</h4>
+          <hr>
+          <p>The Chinese Learning Wiki has been around since mid-2018. We are breathing it with new life by merging it with the new Dictionary so it can take advantage of all the features in the dictionary, such as pinyin annotation, dictionary lookup, word-saving, etc.</p>
+          <p>The previous version of the wiki can be viewed <a href="http://wiki.chinesezerotohero.com">here <i class="glyphicon glyphicon-new-window"></i> </a>.</p>
+          <p>Thanks for using the Wiki and the Dictionary!</p>
+          <p class="text-right">— Jon, Chinese Zero to Hero</p>
         </div>
       </div>
     </div>
@@ -106,7 +114,6 @@ export default {
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   padding: 1.5rem;
-  max-width: 40rem;
 }
 
 .article-list-item-title {
