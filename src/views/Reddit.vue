@@ -32,7 +32,7 @@
           <hr />
           <div
             v-if="article.media && article.media.oembed"
-            v-html="unescape(article.media.oembed.html)"
+            v-html="Helper.unescape(article.media.oembed.html)"
           ></div>
           <img v-if="article.post_hint === 'image'" :src="article.url" alt />
           <PinyinButton />

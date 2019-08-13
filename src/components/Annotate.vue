@@ -38,10 +38,14 @@ export default {
       if (this.annotated === false) {
         // annotate only once
         this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
-        Annotator.annotateIteratively(this.$el, node => {
-          this.annotated = true
-          // this.augmentFunction(node)
-        })
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedAnnotator.annotateIteratively(this.$el, node => {
+              this.annotated = true
+              // this.augmentFunction(node)
+            })
+          }
+        )
       }
     }
   }

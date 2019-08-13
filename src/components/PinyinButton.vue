@@ -83,14 +83,18 @@ export default {
         this.state = 'annotating'
         // eslint-disable-next-line no-undef
         for (let node of this.$target.get()) {
-          Annotator.annotateIteratively(node, node => {
-            this.state = 'idle'
-            if (this.sticky === 'false') {
-              this.annotated = true
-              this.shown = true
+          Helper.loaded(
+            (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+              LoadedAnnotator.annotateIteratively(node, node => {
+                this.state = 'idle'
+                if (this.sticky === 'false') {
+                  this.annotated = true
+                  this.shown = true
+                }
+                this.augmentFunction(node)
+              })
             }
-            this.augmentFunction(node)
-          })
+          )
         }
       }
     }
