@@ -37,10 +37,10 @@
             </router-link>
             <router-link
               class="tab"
-              :to="{ name: 'grammar' }"
-              title="Chinese grammar cheatsheet"
+              :to="{ name: 'resources' }"
+              title="Chinese-learning resources"
             >
-              <i class="glyphicon glyphicon-list"></i> Grammar
+              <i class="glyphicon glyphicon-menu-hamburger"></i> Resources
             </router-link>
             <router-link
               :class="{
@@ -60,6 +60,13 @@
             >
               <i class="glyphicon glyphicon-book"></i>
               Wordbook
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'grammar' }"
+              title="Chinese grammar cheatsheet"
+            >
+              <i class="glyphicon glyphicon-list"></i> Grammar
             </router-link>
             <router-link
               class="tab"

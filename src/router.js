@@ -109,6 +109,21 @@ export default new Router({
       }
     },
     {
+      path: '/resources/:method?/:args?',
+      name: 'resources',
+      component: () => import('./views/Resources.vue'),
+      props: true,
+      meta: {
+        title: 'Resources | Chinese Learning Wiki',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'User voted Chinese-learning resources.'
+          }
+        ]
+      }
+    },
+    {
       path: '/articles/reddit/:method?/:args?',
       name: 'articles-reddit',
       component: () => import('./views/Reddit.vue'),

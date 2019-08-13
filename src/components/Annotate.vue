@@ -30,7 +30,7 @@ export default {
   methods: {
     visibilityChanged(isVisible) {
       if (isVisible && !this.annotated) {
-        this.annotate()
+        // this.annotate()
       }
     },
     annotate() {
