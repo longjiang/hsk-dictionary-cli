@@ -1,16 +1,11 @@
 <template>
   <div class="main mt-5 mb-5">
-    <div
-      v-if="method === 'list' && articles && articles.length > 0"
-      class="container"
-    >
+    <div v-if="method === 'list' && articles && articles.length > 0" class="container">
       <div class="row">
         <div class="col-sm-12 col-md-8">
           <h3 class="mb-5">
             Reddit Posts under
-            <a href="https://www.reddit.com/r/ChineseLanguage"
-              >r/ChineseLanguage</a
-            >
+            <a href="https://www.reddit.com/r/ChineseLanguage">r/ChineseLanguage</a>
           </h3>
           <RedditArticlesList :articles="articles" />
         </div>
@@ -22,9 +17,9 @@
             just interested in the language. Please post interesting links,
             language learning advice, or questions about the Chinese language.
             To participate and create new content,
-            <a href="https://www.reddit.com/r/ChineseLanguage/"
-              >visit the community on Reddit</a
-            >.
+            <a
+              href="https://www.reddit.com/r/ChineseLanguage/"
+            >visit the community on Reddit</a>.
           </p>
         </div>
       </div>
@@ -41,7 +36,7 @@
           ></div>
           <img v-if="article.post_hint === 'image'" :src="article.url" alt />
           <PinyinButton />
-          <article v-html="article.body"></article>
+          <article v-html="Helper.unescape(article.selftext_html)"></article>
         </div>
       </div>
     </div>
@@ -51,6 +46,7 @@
 <script>
 import $ from 'jquery'
 import Config from '@/lib/config'
+import Helper from '@/lib/helper'
 import RedditArticlesList from '@/components/RedditArticlesList.vue'
 
 export default {
@@ -62,7 +58,8 @@ export default {
     return {
       articles: [],
       article: undefined,
-      Config
+      Config,
+      Helper
     }
   },
   watch: {
@@ -93,9 +90,7 @@ export default {
             $.getJSON(
               `${Config.proxy}?https://www.reddit.com/comments/${id}/.json`,
               response => {
-                let article = this.normalizeRedditArticle(
-                  response.data[0].data.children[0].data
-                )
+                let article = response.data[0].data.children[0].data
                 console.log(article)
                 this.article = article
               }

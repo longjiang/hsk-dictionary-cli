@@ -40,7 +40,7 @@ export default {
         this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
         Annotator.annotateIteratively(this.$el, node => {
           this.annotated = true
-          this.augmentFunction(node)
+          // this.augmentFunction(node)
         })
       }
     }

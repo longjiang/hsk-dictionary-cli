@@ -3,29 +3,25 @@
     <li v-for="article in articles" class="article-list-item">
       <a
         :href="
-          `#/articles/reddit/view/${article.id},encodeURIComponent(${
-            article.title
-          })`
+          `#/articles/reddit/view/${article.id},${encodeURIComponent(
+            article.title)
+          }`
         "
         class="media"
-        ><img
-          class="img-fluid"
-          v-if="article.post_hint === 'image'"
-          :src="article.url"/>
+      >
+        <img class="img-fluid" v-if="article.post_hint === 'image'" :src="article.url" />
         <div class="media-body">
           <Annotate tag="h5" class="article-list-item-title">
             {{
-              article.title
-                .split(' ')
-                .splice(0, 15)
-                .join(' ') + '...'
+            article.title
+            .split(' ')
+            .splice(0, 15)
+            .join(' ') + '...'
             }}
           </Annotate>
-          <div
-            v-html="Helper.unescape(article.selftext_html)"
-            class="article-list-item-body"
-          ></div></div
-      ></a>
+          <div v-html="Helper.unescape(article.selftext_html)" class="article-list-item-body"></div>
+        </div>
+      </a>
     </li>
   </ul>
 </template>

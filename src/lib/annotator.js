@@ -4,6 +4,7 @@ import Helper from '@/lib/helper'
 /* Responsible for actually annotating elements */
 export default {
   worker: undefined,
+  HSKCEDICT: undefined,
   config: {
     dictUrl: '//www.mdbg.net/chindict/chindict.php?wdqb=',
     editUrl:
@@ -20,8 +21,8 @@ export default {
           this.worker.postMessage([1, 'hskcedictMethods'])
         }
         if (e.data[1] === 'hskcedictMethods') {
-          let HSKCEDICT = this.makeHSKCEDICTAvailable(e.data[2])
-          resolve([this, HSKCEDICT])
+          this.HSKCEDICT = this.makeHSKCEDICTAvailable(e.data[2])
+          resolve([this, this.HSKCEDICT])
         }
       })
     })
@@ -91,7 +92,7 @@ export default {
     this.worker.addEventListener('message', m)
   },
 
-  annotate(node, callback = function() {}) {
+  annotate(node, callback = function () { }) {
     let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
@@ -107,24 +108,28 @@ export default {
     }
   },
 
-  annotateIteratively(node, callback = function() {}) {
+  annotateIteratively(node, callback = function () { }) {
     if (node.nodeType === 3) {
       // textNode
-      this.annotate(node, callback)
+      this.HSKCEDICT.isChinese(isChinese => {
+        if (isChinese) {
+          this.annotate(node, callback)
+        }
+      }, [node.nodeValue])
     } else {
       let nodes = []
       for (let n of node.childNodes) {
         nodes.push(n)
       }
       for (let n of nodes) {
-        this.annotateIteratively(n, callback)
+        this.annotateIteratively(n, callback) // recursive!
       }
     }
   },
 
   annotateBySelector(selector, callback) {
     const annotator = this
-    $(selector).each(function() {
+    $(selector).each(function () {
       annotator.annotateIteratively(this, callback)
     })
   }
