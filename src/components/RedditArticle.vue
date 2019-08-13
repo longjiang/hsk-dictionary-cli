@@ -1,15 +1,16 @@
 <template>
   <div class="col-sm-12" v-if="article">
-    <PinyinButton />
-    <h3>{{ article.title }}</h3>
+    <Annotate tag="h3">{{ article.title }}</Annotate>
     <hr />
     <div
       v-if="article.media && article.media.oembed"
       v-html="Helper.unescape(article.media.oembed.html)"
     ></div>
     <img v-if="article.post_hint === 'image'" :src="article.url" alt />
-    <PinyinButton />
-    <article v-html="Helper.unescape(article.selftext_html)"></article>
+    <Annotate
+      tag="article"
+      v-html="Helper.unescape(article.selftext_html)"
+    ></Annotate>
   </div>
 </template>
 

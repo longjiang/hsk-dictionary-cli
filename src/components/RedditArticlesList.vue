@@ -29,13 +29,9 @@
 <script>
 import $ from 'jquery'
 import Config from '@/lib/config'
-import Annotate from '@/components/Annotate'
 import Helper from '@/lib/helper'
 
 export default {
-  components: {
-    Annotate
-  },
   props: {
     path: {
       type: String
