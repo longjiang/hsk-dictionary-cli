@@ -1,25 +1,34 @@
 <template>
   <div class="col-sm-12" v-if="article">
-    <article>
-      <Annotate tag="h3">{{ article.title }}</Annotate>
-      <hr />
-      <div
-        v-if="article.media && article.media.oembed"
-        v-html="Helper.unescape(article.media.oembed.html)"
-      ></div>
-      <img v-if="article.post_hint === 'image'" :src="article.url" alt />
-      <Annotate
-        tag="div"
-        v-html="Helper.unescape(article.selftext_html)"
-      ></Annotate>
+    <article class="updown">
+      <div class="updown-head">
+        <font-awesome-icon icon="arrow-up" />
+        <div>{{ article.ups }}</div>
+        <font-awesome-icon icon="arrow-down" />
+      </div>
+      <div class="updown-body">
+        <Annotate tag="h3">{{ article.title }}</Annotate>
+        <div
+          v-if="article.media && article.media.oembed"
+          v-html="Helper.unescape(article.media.oembed.html)"
+        ></div>
+        <img v-if="article.post_hint === 'image'" :src="article.url" alt />
+        <Annotate
+          tag="div"
+          v-html="Helper.unescape(article.selftext_html)"
+        ></Annotate>
+      </div>
     </article>
     <div>
-      <hr class="mt-5 mb-5">
-      <h4>Comments</h4>
+      <div class="mt-5 mb-5 p-5 text-center shadow">
+        <p>To participate, go to reddit.com/<a :href="`https://www.reddit.com/${article.subreddit_name_prefixed}/comments/cpdv8t`"><b>{{ article.subreddit_name_prefixed }}</b></a> directly.</p>
+        <a :href="`https://www.reddit.com/r/ChineseLanguage/comments/cpdv8t`" class="btn btn-danger">Go to r/ChineseLanguage</a>
+      </div>
+      
       <div v-for="comment in comments">
-        <h6>{{ comment.author}} </h6>
+        <h6>{{ comment.author }}</h6>
         <Annotate v-html="Helper.unescape(comment.body_html)"></Annotate>
-        <hr>
+        <hr />
       </div>
     </div>
   </div>
@@ -42,14 +51,19 @@ export default {
   },
   methods: {},
   created() {
+    let forceRefresh = false
     $.getJSON(
-      `${Config.proxy}?https://www.reddit.com/comments/${this.articleId}/.json`,
+      `${
+        Config.jsonProxy
+      }?force_refresh=${forceRefresh}&url=https://www.reddit.com/comments/${
+        this.articleId
+      }/.json`,
       response => {
         let article = response.data[0].data.children[0].data
-        // console.log(article)
+        // console.log(article, 'article')
         this.article = article
         let comments = response.data[1].data.children.map(item => item.data)
-        // console.log(comments)
+        // console.log(comments, 'comments')
         this.comments = comments
       }
     )
@@ -57,4 +71,19 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.updown {
+  display: flex;
+}
+
+.updown-head {
+  flex: 0;
+  margin-right: 2rem;
+  text-align: center;
+}
+
+.updown-body {
+  flex: 1;
+}
+
+</style>

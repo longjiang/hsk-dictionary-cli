@@ -7,6 +7,7 @@ export default {
   server: dictionaryServer,
   sketchEngineProxy: dictionaryServer + 'sketch-engine-proxy.php',
   proxy: dictionaryServer + 'proxy.php',
+  jsonProxy: dictionaryServer + 'json-proxy.php',
   scrape: dictionaryServer + 'scrape.php',
   imageProxy: dictionaryServer + 'image.php',
   listPhotos: dictionaryServer + 'list-photos.php',
