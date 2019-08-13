@@ -9,7 +9,6 @@
 
 <script>
 import Helper from '@/lib/helper'
-import Annotator from '@/lib/annotator'
 import $ from 'jquery'
 
 export default {
@@ -37,13 +36,20 @@ export default {
     annotate() {
       if (this.annotated === false) {
         // annotate only once
-        this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-            LoadedAnnotator.annotateIteratively(this.$el, node => {
-              this.annotated = true
-              // this.augmentFunction(node)
-            })
+            LoadedHSKCEDICT.isChinese(
+              isChinese => {
+                if (isChinese) {
+                  this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
+                  LoadedAnnotator.annotateIteratively(this.$el, node => {
+                    this.annotated = true
+                    this.augmentFunction(node)
+                  })
+                }
+              },
+              [$(this.$el).text()]
+            )
           }
         )
       }
