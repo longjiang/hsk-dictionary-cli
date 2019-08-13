@@ -28,6 +28,12 @@ Vue.use(BootstrapVue)
 Vue.use(VueWorker)
 Vue.use(VueObserveVisibility)
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+ 
+library.add(fab) // fontawesome, add the 'fab-reddit' icon
+
 if (location.hash === '#/test') {
   $('#loader').remove()
   window.testApp = new Vue({
@@ -42,6 +48,7 @@ if (location.hash === '#/test') {
   Vue.component('Merge', Merge)
   Vue.component('WordList', WordList)
   Vue.component('Loader', Loader)
+  Vue.component('font-awesome-icon', FontAwesomeIcon)
 
   // https://alligator.io/vuejs/vue-router-modify-head/
   // This callback runs before every route change, including on page load.

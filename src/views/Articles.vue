@@ -76,7 +76,9 @@ export default {
   },
   methods: {
     route() {
-      $('#hsk-dictionary')[0].scrollIntoView()
+      if ($('#hsk-dictionary')[0]) {
+        $('#hsk-dictionary')[0].scrollIntoView()
+      }
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method === 'list') {
