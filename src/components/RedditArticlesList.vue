@@ -13,22 +13,14 @@
           v-if="article.post_hint === 'image'"
           :src="article.url"/>
         <div class="media-body">
-          <PinyinButton />
-          <h5 class="article-list-item-title">
+          <Annotate tag="h5" class="article-list-item-title">
             {{
               article.title
                 .split(' ')
                 .splice(0, 15)
                 .join(' ') + '...'
-            }}<a
-              v-if="edit"
-              :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
-              class="btn article-list-item-edit-btn"
-              target="_blank"
-              >Edit</a
-            >
-          </h5>
-          <PinyinButton />
+            }}
+          </Annotate>
           <div
             v-html="article.selftext_html"
             class="article-list-item-body"
@@ -40,7 +32,12 @@
 
 <script>
 import Config from '@/lib/config'
+import Annotate from '@/components/Annotate'
+
 export default {
+  components: {
+    Annotate
+  },
   props: {
     articles: {
       default: []

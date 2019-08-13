@@ -18,6 +18,7 @@ import ShowMoreButton from '@/components/ShowMoreButton'
 import StrokeOrder from '@/components/StrokeOrder.vue'
 import Merge from '@/components/Merge.vue'
 import Loader from '@/components/Loader.vue'
+// import Annotate from '@/components/Annotate'
 import store from './store'
 import $ from 'jquery'
 import VueWorker from 'vue-worker'
@@ -49,6 +50,7 @@ if (location.hash === '#/test') {
   Vue.component('Merge', Merge)
   Vue.component('WordList', WordList)
   Vue.component('Loader', Loader)
+  // Vue.component('Annotate', Annotate)
   Vue.component('font-awesome-icon', FontAwesomeIcon)
 
   // https://alligator.io/vuejs/vue-router-modify-head/
