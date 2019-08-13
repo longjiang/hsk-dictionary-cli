@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import Config from '@/lib/config'
 import Annotate from '@/components/Annotate'
 import Helper from '@/lib/helper'
@@ -36,20 +37,27 @@ export default {
     Annotate
   },
   props: {
-    articles: {
-      default: []
+    path: {
+      type: String
     },
     edit: {
       default: false
     }
   },
   created() {
-    console.log(this.articles)
+    $.getJSON(
+      `${Config.proxy}?https://www.reddit.com/${this.path}.json`,
+      response => {
+        this.articles = response.data.data.children.map(item => item.data)
+      }
+    )
+    // console.log(this.articles)
   },
   data() {
     return {
       Config,
-      Helper
+      Helper,
+      articles: []
     }
   }
 }
