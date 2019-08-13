@@ -70,18 +70,15 @@ const HSKCEDICT = {
         row => row.simplified.includes(text) || row.traditional.includes(text)
       )
     } else {
-      text = text.toLowerCase().replace(/ /g, '')
       results = this._data.filter(row => {
         return (
-          this.removeTones(row.pinyin.replace(/ /g, '')).includes(text) ||
-          row.definitions[0].text.includes(text)
+          this.removeTones(row.pinyin.replace(/ /g, '')).includes(text.replace(/ /g, '')) ||
+          row.search.includes(text)
         )
       })
     }
     if (results) {
-      results = results.sort(
-        (a, b) => a.simplified.length - b.simplified.length
-      )
+      results = results.sort((a, b) => b.weight - a.weight)
       if (limit) {
         results = results.slice(0, limit)
       }

@@ -1,11 +1,11 @@
 <template>
-  <div class="frequency-wrapper">
+  <div :class="{'frequency-wrapper': true, 'd-inline-block': true, mini: mini}">
     <div
-      class="frequency-level"
+      class="frequency-level text-center"
       v-bind:data-bg-hsk="entry.hsk"
       v-if="entry.oofc == ''"
     >
-      {{ entry.hsk === 'outside' ? 'Outside HSK' : 'HSK ' + entry.hsk }}
+      {{ entry.hsk === 'outside' ? 'Non-HSK' : 'HSK ' + entry.hsk }}
     </div>
     <div class="frequency mt-1">
       <div
@@ -14,7 +14,7 @@
         :style="`width: ${(Math.log10(1 + entry.rank * 10000) * 100) / 4}%`"
       ></div>
     </div>
-    <div class="text-center mt-1 frequency-text">
+    <div v-if="showText" class="text-center mt-1 frequency-text">
       <b>{{ Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4) }}%</b>
       as common as “的”
     </div>
@@ -26,17 +26,18 @@ export default {
   props: {
     entry: {
       type: Object
+    },
+    showText: {
+      default: true
+    },
+    mini: {
+      default: false
     }
   }
 }
 </script>
 
-<style>
-
-.frequency-wrapper {
-  display: inline-block;
-}
-
+<style scoped>
 .frequency-wrapper:not(:hover) .frequency-text {
   opacity: 0;
 }
@@ -48,8 +49,17 @@ export default {
 }
 
 .frequency-fill {
-  background:#88b1a2;
-  height:0.3rem;
+  background: #88b1a2;
+  height: 0.3rem;
+}
+
+.frequency-level {
+  font-weight: bold;
+}
+
+.frequency-wrapper.mini .frequency-level {
+  font-size: 0.8em;
+  width: 5.5em;
 }
 
 </style>

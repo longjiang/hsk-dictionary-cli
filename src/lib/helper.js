@@ -35,11 +35,12 @@ export default {
       callback($html, response, text)
     })
   },
-  highlight(text, word, level) {
+  highlight(text, word, level = false) {
+    let levelAttr = level ? ` data-hsk="${level}"` : ''
     if (text) {
       return text.replace(
         word,
-        '<span data-hsk="' + level + '">' + word + '</span>'
+        `<span ${levelAttr} class="highlight">${word}</span>`
       )
     }
   },

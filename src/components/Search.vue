@@ -15,7 +15,8 @@
         class="btn btn-secondary btn-random ml-2"
         href="#/view/cedict/random"
       >
-        <i class="glyphicon glyphicon-random"></i><span> Random</span>
+        <i class="glyphicon glyphicon-random"></i>
+        <span> Random</span>
       </a>
       <div class="input-group-append">
         <button
@@ -39,20 +40,34 @@
         v-for="suggestion in suggestions"
         :href="hrefFunc(suggestion)"
       >
+        <Frequency
+          :entry="suggestion"
+          :showText="false"
+          :mini="true"
+          class="mr-2"
+        />
         <span>
           <span
-            class="character-example-word mr-1"
+            class="suggestion-word font-weight-bold mr-1"
             :data-hsk="suggestion.hsk"
             >{{ suggestion.simplified }}</span
           >
-          <span class="character-example-pinyin mr-1">{{
-            suggestion.pinyin
-          }}</span>
+          <span class="suggestion-pinyin mr-1">
+            {{ suggestion.pinyin }}
+          </span>
           <span
-            class="character-example-english"
+            class="suggestion-english"
             v-if="suggestion.definitions && suggestion.definitions.length > 0"
-            >{{ suggestion.definitions[0].text }}</span
-          >
+            v-html="
+              Helper.highlight(
+                suggestion.definitions
+                  .slice(0, 4)
+                  .map(definition => definition.text)
+                  .join(', '),
+                text
+              )
+            "
+          ></span>
         </span>
       </a>
       <div class="suggestion" v-if="suggestions.length === 0">
@@ -82,8 +97,12 @@
 import $ from 'jquery'
 import { setTimeout } from 'timers'
 import Helper from '@/lib/helper'
+import Frequency from '@/components/Frequency'
 
 export default {
+  components: {
+    Frequency
+  },
   props: {
     hrefFunc: {
       type: Function,
@@ -102,6 +121,7 @@ export default {
   },
   data() {
     return {
+      Helper,
       suggestions: [],
       entry: undefined, // Currently selected entry
       text: undefined,
@@ -156,4 +176,51 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.suggestions {
+  position: absolute;
+  z-index: 3;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  width: 100%;
+  top: 2.9rem;
+}
+
+.suggestion,
+a.suggestion {
+  display: block;
+  background: white;
+  padding: 0.3rem 1rem;
+  border: 1px solid #f3f3f3;
+  color: #7b7b7b;
+  text-decoration: none;
+  display: flex;
+  align-items: top;
+  padding: 0.5rem 1rem;
+}
+
+.suggestion:hover,
+.suggestion:first-child:not(:hover) {
+  background: #ececec;
+}
+
+.suggestion-english {
+  font-style: italic;
+  color: #aaa;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.suggestion-word {
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.suggestion-english >>> .highlight {
+  font-weight: bold;
+  color: #999;
+}
+</style>

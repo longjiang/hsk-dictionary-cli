@@ -97,10 +97,6 @@ a:hover {
   color: white;
 }
 
-.search-wrapper {
-  position: relative;
-}
-
 .search-compare-wrapper {
   display: flex;
   position: relative;
@@ -427,30 +423,6 @@ i.speak {
   color: inherit;
 }
 
-.suggestions {
-  position: absolute;
-  z-index: 3;
-  border-radius: 0.3rem;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  width: 100%;
-  top: 2.9rem;
-}
-
-.suggestion,
-a.suggestion {
-  display: block;
-  background: white;
-  padding: 0.3rem 1rem;
-  border: 1px solid #f3f3f3;
-  color: #7b7b7b;
-  text-decoration: none;
-}
-
-.suggestion:hover,
-.suggestion:first-child:not(:hover) {
-  background: #ececec;
-}
 
 .paginate-button img {
   height: 4rem;
