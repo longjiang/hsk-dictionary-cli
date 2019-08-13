@@ -1,9 +1,11 @@
 <template>
   <ul class="articles list-unstyled">
     <li v-for="article in articles" class="article-list-item">
-      <PinyinButton />
-      <a :href="`#/articles/view/${article.id},${article.title}`"
-        ><h5 class="article-list-item-title">
+      <a :href="article.url"
+        >
+        <img v-if="article.thumbnail" :src="article.thumbnail" alt="" />
+        <PinyinButton />
+        <h5 class="article-list-item-title">
           {{ article.title
           }}<a
             :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
@@ -12,6 +14,7 @@
             >Edit</a
           >
         </h5>
+        <PinyinButton />
         <div v-html="article.body" class="article-list-item-body"></div
       ></a>
     </li>
@@ -85,4 +88,5 @@ a.article-list-item-edit-btn:hover {
   float: right;
   background: #fd4f1c;
   color: white;
-}</style>
+}
+</style>

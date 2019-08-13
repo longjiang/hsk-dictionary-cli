@@ -69,7 +69,7 @@ export default {
   },
   watch: {
     $route() {
-      if (this.$route.name === 'articles') {
+      if (this.$route.name === 'articles-wiki') {
         this.route()
       }
     }
@@ -84,7 +84,10 @@ export default {
         if (this.method === 'list') {
           this.articles = []
           $.getJSON(`${Config.wiki}items/articles`, response => {
-            this.articles = response.data
+            this.articles = response.data.map(article => {
+              article.url = `#/articles/wiki/view/${article.id},encodeURIComponent(${article.title})`
+              return article
+            })
           })
         } else if (this.method === 'view' && this.$route.params.args) {
           this.args = this.$route.params.args.split(',')
@@ -97,7 +100,7 @@ export default {
           )
         }
       } else {
-        location.hash = '#/articles/list/wiki'
+        location.hash = '#/articles/wiki/list'
       }
     }
   },
@@ -107,5 +110,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
