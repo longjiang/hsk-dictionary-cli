@@ -7,7 +7,6 @@
       v-cloak
     >
       <div class="container">
-        <div class="row">
           <div class="col-sm-12 text-center">
             <strong
               >“<span class="simplified">{{ entry.simplified }}</span
@@ -15,7 +14,6 @@
               >” IN SONG LYRICS</strong
             >
           </div>
-        </div>
       </div>
     </div>
 

@@ -96,32 +96,42 @@
       </div>
     </div>
     <div
-      class="row example-bar mb-5"
+      class="container"
       v-if="$route.name === 'entry' || $route.name === 'compare'"
     >
-      <div class="container">
-        <div class="row mt-4 mb-4">
-          <div class="col-sm-12">
-            <div class="text-center">
-              <Loader />
-            </div>
-            <div class="search-compare-wrapper" v-if="loaded">
-              <Search ref="search" random="true"></Search>
-              <Search
-                :class="{ 'ml-2': true, hidden: !compare }"
-                ref="compare"
-                placeholder="Compare with..."
-                :hrefFunc="compareHrefFunc"
-              ></Search>
-              <button class="btn btn-compare ml-2" @click="compareClick">
-                <span v-if="compare"
-                  ><i class="glyphicon glyphicon-remove-sign"></i></span
-                ><span v-if="!compare"
-                  ><i class="glyphicon glyphicon-adjust"></i>
-                  <span class="compare-btn-text ml-1">Compare</span></span
-                >
-              </button>
-            </div>
+      <div class="row mt-5 mb-4">
+        <div class="col-sm-12">
+          <h4>Dictionary</h4>
+          <p>
+            Search for any word, or compare two words. Dictionary data provided
+            by in the
+            <a
+              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+              target="_blank"
+            >
+              CC-CEDICT <i class="glyphicon glyphicon-new-window"></i></a
+            >.
+          </p>
+          <hr class="mb-5" />
+          <div class="text-center">
+            <Loader />
+          </div>
+          <div class="search-compare-wrapper" v-if="loaded">
+            <Search ref="search" random="true"></Search>
+            <Search
+              :class="{ 'ml-2': true, hidden: !compare }"
+              ref="compare"
+              placeholder="Compare with..."
+              :hrefFunc="compareHrefFunc"
+            ></Search>
+            <button class="btn btn-compare ml-2" @click="compareClick">
+              <span v-if="compare"
+                ><i class="glyphicon glyphicon-remove-sign"></i></span
+              ><span v-if="!compare"
+                ><i class="glyphicon glyphicon-adjust"></i>
+                <span class="compare-btn-text ml-1">Compare</span></span
+              >
+            </button>
           </div>
         </div>
       </div>

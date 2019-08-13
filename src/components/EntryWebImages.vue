@@ -25,6 +25,7 @@
 import WordPhotos from '@/lib/word-photos'
 import Config from '@/lib/config'
 import Vue from 'vue'
+import $ from 'jquery'
 
 export default {
   props: {
@@ -46,6 +47,10 @@ export default {
     WordPhotos.getWebImages(this.text, images => {
       WordPhotos.testImages(images.slice(0, this.limit), image => {
         this.images.push(image)
+        $('meta[property=og\\:image]').attr(
+          'content',
+          `${Config.imageProxy}?${this.images[0].img}`
+        )
         this.webImagesKey++
         this.imgKey++
       })
