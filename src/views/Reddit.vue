@@ -1,15 +1,31 @@
 <template>
   <div class="main mt-5 mb-5">
-    <div v-if="method === 'list' && articles && articles.length > 0" class="container">
+    <div
+      v-if="method === 'list' && articles && articles.length > 0"
+      class="container"
+    >
       <div class="row">
         <div class="col-sm-12 col-md-8">
-          <h3 class="mb-5">Reddit Posts Related to Chinese-Language Learning</h3>
-          <ArticlesList :articles="articles" />
+          <h3 class="mb-5">
+            Reddit Posts under
+            <a href="https://www.reddit.com/r/ChineseLanguage"
+              >r/ChineseLanguage</a
+            >
+          </h3>
+          <RedditArticlesList :articles="articles" />
         </div>
         <div class="col-sm-12 col-md-4">
           <h4 class="mb-5">About Reddit</h4>
           <hr />
-          <p>Lorem ipsum dolor amet, but pain is sometimes neccessary?</p>
+          <p>
+            This is a community for people studying or teaching Chinese - or
+            just interested in the language. Please post interesting links,
+            language learning advice, or questions about the Chinese language.
+            To participate and create new content,
+            <a href="https://www.reddit.com/r/ChineseLanguage/"
+              >visit the community on Reddit</a
+            >.
+          </p>
         </div>
       </div>
     </div>
@@ -23,13 +39,7 @@
             v-if="article.media && article.media.oembed"
             v-html="unescape(article.media.oembed.html)"
           ></div>
-          <img
-            v-if="
-              article.post_hint === 'image'
-            "
-            :src="article.redditURL"
-            alt
-          />
+          <img v-if="article.post_hint === 'image'" :src="article.url" alt />
           <PinyinButton />
           <article v-html="article.body"></article>
         </div>
@@ -41,11 +51,11 @@
 <script>
 import $ from 'jquery'
 import Config from '@/lib/config'
-import ArticlesList from '@/components/ArticlesList.vue'
+import RedditArticlesList from '@/components/RedditArticlesList.vue'
 
 export default {
   components: {
-    ArticlesList
+    RedditArticlesList
   },
   props: ['method', 'args'],
   data() {
@@ -63,12 +73,6 @@ export default {
     }
   },
   methods: {
-    normalizeRedditArticle(data) {
-      data.body = data.selftext_html
-      data.redditURL = data.url
-      data.url = `#/articles/reddit/view/${data.id},encodeURIComponent(${data.title})`
-      return data
-    },
     unescape(html) {
       return $('<div/>')
         .html(html)
@@ -82,9 +86,7 @@ export default {
           $.getJSON(
             `${Config.proxy}?https://www.reddit.com/r/ChineseLanguage/top.json`,
             response => {
-              this.articles = response.data.data.children.map(item =>
-                this.normalizeRedditArticle(item.data)
-              )
+              this.articles = response.data.data.children.map(item => item.data)
             }
           )
         } else if (this.method === 'view' && this.args) {

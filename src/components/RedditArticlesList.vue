@@ -1,15 +1,25 @@
 <template>
   <ul class="articles list-unstyled">
     <li v-for="article in articles" class="article-list-item">
-      <a :href="article.url" class="media"
+      <a
+        :href="
+          `#/articles/reddit/view/${article.id},encodeURIComponent(${
+            article.title
+          })`
+        "
+        class="media"
         ><img
-          v-if="article.thumbnail && article.thumbnail.startsWith('http')"
-          :src="article.thumbnail"
-          class="mr-2"/>
+          class="img-fluid"
+          v-if="article.post_hint === 'image'"
+          :src="article.url"/>
         <div class="media-body">
           <PinyinButton />
           <h5 class="article-list-item-title">
-            {{ article.title
+            {{
+              article.title
+                .split(' ')
+                .splice(0, 15)
+                .join(' ') + '...'
             }}<a
               v-if="edit"
               :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
@@ -19,7 +29,10 @@
             >
           </h5>
           <PinyinButton />
-          <div v-html="article.body" class="article-list-item-body"></div></div
+          <div
+            v-html="article.selftext_html"
+            class="article-list-item-body"
+          ></div></div
       ></a>
     </li>
   </ul>
@@ -36,6 +49,9 @@ export default {
       default: false
     }
   },
+  created() {
+    console.log(this.articles)
+  },
   data() {
     return {
       Config
@@ -45,17 +61,27 @@ export default {
 </script>
 
 <style scoped>
+.media {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.media-body {
+  padding: 1.5rem;
+}
+
 .article-list-item {
   list-style: none;
   margin-bottom: 1rem;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
-  padding: 1.5rem;
+  overflow: hidden;
 }
 
 .article-list-item-title {
   border-bottom: 1px solid #ececec;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   color: #fd4f1c;
 }

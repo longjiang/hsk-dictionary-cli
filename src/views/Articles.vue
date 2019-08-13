@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-sm-12 col-md-8">
           <h3 class="mb-5">Wiki Articles</h3>
-          <ArticlesList :articles="articles" />
+          <ArticlesList :articles="articles" :edit="true" />
         </div>
         <div class="col-sm-12 col-md-4">
           <h4 class="mb-5">About the Wiki</h4>

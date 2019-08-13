@@ -54,6 +54,14 @@ export default {
       return text
     }
   },
+  /* http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/ */
+  ellipsizeTextBox(el) {
+    var wordArray = el.innerHTML.split(' ')
+    while (el.scrollHeight > el.offsetHeight) {
+      wordArray.pop()
+      el.innerHTML = wordArray.join(' ') + '...'
+    }
+  },
   augmentAnnotatedBlocks(node) {
     const wordBlocks = $(node)
       .find('.word-block[data-candidates]')
