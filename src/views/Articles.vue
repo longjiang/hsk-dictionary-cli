@@ -97,7 +97,7 @@ export default {
           )
         }
       } else {
-        location.hash = '#/articles/list'
+        location.hash = '#/articles/list/wiki'
       }
     }
   },

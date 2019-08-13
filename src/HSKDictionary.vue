@@ -175,7 +175,7 @@
           class="secondary-menu-item"
           :to="{ name: 'articles-wiki' }"
         >
-          <i class="glyphicon glyphicon-file"></i>
+          <font-awesome-icon :icon="['fas', 'file-word']" />
           From Our Wiki
         </router-link>
         <router-link
