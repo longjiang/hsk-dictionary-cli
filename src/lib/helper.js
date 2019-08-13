@@ -14,6 +14,11 @@ export default {
     let loadedHanzi = await window.hanziLoads
     callback(a[0], a[1], loadedGrammar, loadedHanzi)
   },
+  unescape(html) {
+    return $('<div/>')
+      .html(html)
+      .text()
+  },
   uniqueId() {
     this.lastId += 1
     return this.lastId

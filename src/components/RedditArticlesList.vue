@@ -22,7 +22,7 @@
             }}
           </Annotate>
           <div
-            v-html="article.selftext_html"
+            v-html="Helper.unescape(article.selftext_html)"
             class="article-list-item-body"
           ></div></div
       ></a>
@@ -33,6 +33,7 @@
 <script>
 import Config from '@/lib/config'
 import Annotate from '@/components/Annotate'
+import Helper from '@/lib/helper'
 
 export default {
   components: {
@@ -51,7 +52,8 @@ export default {
   },
   data() {
     return {
-      Config
+      Config,
+      Helper
     }
   }
 }

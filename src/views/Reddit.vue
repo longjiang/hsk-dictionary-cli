@@ -73,11 +73,6 @@ export default {
     }
   },
   methods: {
-    unescape(html) {
-      return $('<div/>')
-        .html(html)
-        .text()
-    },
     route() {
       $('#hsk-dictionary')[0].scrollIntoView()
       if (this.method) {
