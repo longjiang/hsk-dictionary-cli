@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect: '/articles'
+      redirect: '/articles/wiki/list'
     },
     {
       path: '/browse',
@@ -39,8 +39,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'Learn Chinese words by HSK levels (HSK 1 to HSK 6).'
+            content: 'Learn Chinese words by HSK levels (HSK 1 to HSK 6).'
           }
         ]
       }
@@ -55,8 +54,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              ''
+            content: ''
           }
         ]
       }
@@ -70,8 +68,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'Compare two words and see how they are used differently.'
+            content: 'Compare two words and see how they are used differently.'
           }
         ]
       }
@@ -92,8 +89,13 @@ export default new Router({
       }
     },
     {
-      path: '/articles/:method?/:args?',
+      path: '/articles',
       name: 'articles',
+      redirect: '/articles/wiki/list'
+    },
+    {
+      path: '/articles/wiki/:method?/:args?',
+      name: 'articles-wiki',
       component: () => import('./views/Articles.vue'),
       meta: {
         title: 'Articles | Chinese Learning Wiki',
@@ -107,6 +109,21 @@ export default new Router({
       }
     },
     {
+      path: '/articles/reddit/:method?/:args?',
+      name: 'articles-reddit',
+      component: () => import('./views/Reddit.vue'),
+      props: true,
+      meta: {
+        title: 'Reddit Posts | Chinese Learning Wiki',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Read Reddit posts related to Chinese language.'
+          }
+        ]
+      }
+    },
+    {
       path: '/learn/:method?/:args?',
       name: 'learn',
       component: () => import('./views/Learn.vue'),
@@ -115,8 +132,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'Learn words interactively by seeing how they are used.'
+            content: 'Learn words interactively by seeing how they are used.'
           }
         ]
       }
@@ -130,8 +146,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'Study, manage, import, export the words you saved.'
+            content: 'Study, manage, import, export the words you saved.'
           }
         ]
       }
@@ -165,8 +180,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'For any given word, find words related ot it.'
+            content: 'For any given word, find words related ot it.'
           }
         ]
       }
@@ -180,8 +194,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'Explore new Chinese words by topics'
+            content: 'Explore new Chinese words by topics'
           }
         ]
       }

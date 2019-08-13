@@ -6,43 +6,17 @@
     >
       <div class="row">
         <div class="col-sm-12 col-md-8">
-          <h3 class="mb-5">Wiki Articles</h3>
+          <h3 class="mb-5">
+            Reddit Posts Related to Chinese-Language Learning
+          </h3>
           <ArticlesList :articles="articles" />
         </div>
         <div class="col-sm-12 col-md-4">
-          <h4 class="mb-5">About the Wiki</h4>
+          <h4 class="mb-5">About Reddit</h4>
           <hr />
           <p>
-            The Chinese Learning Wiki has been around since mid-2018. We are
-            breathing it with new life by merging it with the new Dictionary so
-            it can take advantage of all the features in the dictionary, such as
-            pinyin annotation, dictionary lookup, word-saving, etc.
+            Lorem ipsum dolor amet, but pain is sometimes neccessary?
           </p>
-          <p>
-            The previous version of the wiki can be viewed
-            <a href="http://wiki.chinesezerotohero.com"
-              >here <i class="glyphicon glyphicon-new-window"></i> </a
-            >.
-          </p>
-          <p>Thanks for using the Wiki and the Dictionary!</p>
-          <p class="text-right">— Jon, Chinese Zero to Hero</p>
-        </div>
-      </div>
-    </div>
-    <div v-if="method === 'view' && article" class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <PinyinButton />
-          <a
-            :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
-            class="btn article-list-item-edit-btn"
-            target="_blank"
-            >Edit</a
-          >
-          <h3>{{ article.title }}</h3>
-          <hr />
-          <PinyinButton />
-          <article v-html="article.body"></article>
         </div>
       </div>
     </div>
@@ -105,5 +79,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

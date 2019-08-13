@@ -169,6 +169,19 @@
       </nav>
     </div>
 
+    <div v-if="$route.name === 'articles'" class="mt-4">
+      <nav class="secondary-menu text-center">
+        <router-link class="secondary-menu-item" :to="{ name: 'articles-wiki' }">
+          <i class="glyphicon glyphicon-file"></i>
+          From Our Wiki
+        </router-link>
+        <router-link class="secondary-menu-item" :to="{ name: 'articles-reddit' }">
+          <i class="glyphicon glyphicon-file"></i>
+          From Reddit
+        </router-link>
+      </nav>
+    </div>
+
     <keep-alive>
       <router-view ref="routerView" />
     </keep-alive>
