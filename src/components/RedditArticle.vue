@@ -12,7 +12,7 @@
           v-if="article.media && article.media.oembed"
           v-html="Helper.unescape(article.media.oembed.html)"
         ></div>
-        <img v-if="article.post_hint === 'image'" :src="article.url" alt />
+        <img v-if="article.post_hint === 'image'" :src="article.url" class="img-fluid" />
         <Annotate
           tag="div"
           v-html="Helper.unescape(article.selftext_html)"
