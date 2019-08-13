@@ -3,7 +3,6 @@
     <div
       class="frequency-level text-center"
       v-bind:data-bg-hsk="entry.hsk"
-      v-if="entry.oofc == ''"
     >
       {{ entry.hsk === 'outside' ? 'Non-HSK' : 'HSK ' + entry.hsk }}
     </div>

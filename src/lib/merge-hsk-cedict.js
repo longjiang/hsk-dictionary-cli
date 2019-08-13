@@ -153,7 +153,8 @@ export default {
     return this._hskData.filter(function(row) {
       return (
         row.simplified === simplified &&
-        row.pinyin.toLowerCase() === pinyin.toLowerCase()
+        row.pinyin.toLowerCase() === pinyin.toLowerCase() &&
+        row.oofc === ''
       )
     })
   },
