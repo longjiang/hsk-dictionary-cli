@@ -51,11 +51,11 @@ export default {
   },
   methods: {},
   created() {
-    let forceRefresh = false
+    let cacheLife = 3600 // clear cache every hour
     $.getJSON(
       `${
         Config.jsonProxy
-      }?force_refresh=${forceRefresh}&url=https://www.reddit.com/comments/${
+      }?cache_life=${cacheLife}&url=https://www.reddit.com/comments/${
         this.articleId
       }/.json`,
       response => {

@@ -4,22 +4,29 @@
       <a
         :href="
           `#/articles/reddit/view/${article.id},${encodeURIComponent(
-            article.title)
-          }`
+            article.title
+          )}`
         "
         class="media"
       >
-        <img class="img-fluid" v-if="article.post_hint === 'image'" :src="article.url" />
+        <img
+          class="img-fluid"
+          v-if="article.post_hint === 'image'"
+          :src="article.url"
+        />
         <div class="media-body">
           <Annotate tag="h5" class="article-list-item-title">
             {{
-            article.title
-            .split(' ')
-            .splice(0, 15)
-            .join(' ') + '...'
+              article.title
+                .split(' ')
+                .splice(0, 15)
+                .join(' ') + '...'
             }}
           </Annotate>
-          <div v-html="Helper.unescape(article.selftext_html)" class="article-list-item-body"></div>
+          <div
+            v-html="Helper.unescape(article.selftext_html)"
+            class="article-list-item-body"
+          ></div>
         </div>
       </a>
     </li>
@@ -41,8 +48,11 @@ export default {
     }
   },
   created() {
+    let cacheLife = 3600 // clear cache every hour
     $.getJSON(
-      `${Config.proxy}?https://www.reddit.com/${this.path}.json`,
+      `${Config.jsonProxy}?cache_life=${cacheLife}&url=https://www.reddit.com/${
+        this.path
+      }.json`,
       response => {
         this.articles = response.data.data.children.map(item => item.data)
       }
