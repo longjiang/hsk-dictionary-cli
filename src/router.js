@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect: '/articles/wiki/list'
+      redirect: '/view'
     },
     {
       path: '/browse',

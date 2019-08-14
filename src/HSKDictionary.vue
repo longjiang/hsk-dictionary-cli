@@ -29,20 +29,6 @@
         <div class="col-sm-12">
           <nav class="tabs text-center">
             <router-link
-              class="tab"
-              :to="{ name: 'articles' }"
-              title="Articles related to Chinese learning"
-            >
-              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'resources' }"
-              title="Chinese-learning resources"
-            >
-              <i class="glyphicon glyphicon-menu-hamburger"></i> Resources
-            </router-link>
-            <router-link
               :class="{
                 tab: true,
                 'router-link-active':
@@ -81,6 +67,13 @@
               title="Learn new words"
             >
               <i class="glyphicon glyphicon-blackboard"></i> Learn
+            </router-link>
+            <router-link
+              class="tab"
+              :to="{ name: 'articles' }"
+              title="Articles related to Chinese learning"
+            >
+              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
             </router-link>
             <router-link
               class="tab tab-saved-words"
