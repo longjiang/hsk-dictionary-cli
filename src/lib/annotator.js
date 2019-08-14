@@ -68,7 +68,7 @@ export default {
       }
     } else if (typeof textOrCandidates === 'string') {
       let text = textOrCandidates
-      return `<span class="word-block"><span class="word-block-text">${text}</span></span>`
+      return `<span class="word-block-text">${text}</span>`
     }
   },
 
