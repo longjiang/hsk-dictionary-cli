@@ -71,7 +71,8 @@ export default {
       let $content = $('.instagram-content-wrapper') // In <Instagram/>
       html2canvas($content[0], {
         useCORS: true,
-        allowTaint: false
+        allowTaint: false,
+        scale: 1.5 /* scale = 1 renders regular size, scale = 2 renders retina size; if not set canvas2html automatically decides based on your display, which may result in very large images for retina displays */
       }).then(canvas => {
         this.dataURL = canvas.toDataURL()
       })
