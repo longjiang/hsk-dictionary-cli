@@ -1,38 +1,14 @@
 <template>
   <ul class="articles list-unstyled">
-    <li v-for="article in articles" class="article-list-item updown">
-      <div class="updown-head">
-        <font-awesome-icon icon="arrow-up" />
-        <div>{{ article.ups }}</div>
-        <font-awesome-icon icon="arrow-down" />
-      </div>
+    <li v-for="article in articles" class="article-list-item collapsed">
       <a
         :href="
           `#/articles/reddit/view/${article.id},${encodeURIComponent(
             article.title
           )}`
         "
-        class="media"
       >
-        <img
-          class="img-fluid"
-          v-if="article.post_hint === 'image'"
-          :src="article.url"
-        />
-        <div class="media-body">
-          <Annotate tag="h5" class="article-list-item-title">
-            {{
-              article.title
-                .split(' ')
-                .splice(0, 15)
-                .join(' ') + '...'
-            }}
-          </Annotate>
-          <div
-            v-html="Helper.unescape(article.selftext_html)"
-            class="article-list-item-body"
-          ></div>
-        </div>
+        <RedditArticleCard :article="article" />
       </a>
     </li>
   </ul>
@@ -42,8 +18,12 @@
 import $ from 'jquery'
 import Config from '@/lib/config'
 import Helper from '@/lib/helper'
+import RedditArticleCard from '@/components/RedditArticleCard'
 
 export default {
+  components: {
+    RedditArticleCard
+  },
   props: {
     path: {
       type: String
@@ -74,5 +54,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -48,7 +48,6 @@ a:hover {
   display: none;
 }
 
-
 .title {
   margin: 0;
   font-size: 1.5rem;
@@ -112,7 +111,7 @@ a:hover {
   height: 2.3rem;
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
   .compare-btn-text {
     display: none;
   }
@@ -125,7 +124,7 @@ a:hover {
 
 .btn-danger:hover {
   background-color: #f76135;
-  border-color: #fd4f1c
+  border-color: #fd4f1c;
 }
 
 .btn-random {
@@ -152,7 +151,6 @@ a:hover {
 .btn-compare:hover {
   color: white;
   background: #fd4f1c;
-
 }
 
 .example-bar {
@@ -422,7 +420,6 @@ i.speak {
 .speak:hover {
   color: inherit;
 }
-
 
 .paginate-button img {
   height: 4rem;
@@ -943,7 +940,6 @@ i.speak {
     opacity: 0.5;
   }
 }
-
 
 .logo-footer {
   height: 2rem;
@@ -1523,7 +1519,7 @@ i.speak {
   background: #fafafa;
   border-radius: 0.3rem;
   overflow: hidden;
-  box-shadow: 3px 3px 25px rgba(0,0,0,0.2);
+  box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
@@ -1546,8 +1542,7 @@ i.speak {
 }
 
 .word-list-ext-compare-btn,
-.word-list-ext-related-btn
- {
+.word-list-ext-related-btn {
   position: absolute;
   top: 10.5rem;
   width: calc(50% - 2.4rem);
@@ -1587,7 +1582,6 @@ i.speak {
   text-decoration: none;
   color: inherit;
   background-color: #f7f7f7;
-
 }
 
 .secondary-menu-item.router-link-active {
@@ -1607,14 +1601,14 @@ i.speak {
 }
 
 .word-list-ext-cycle .next {
- right: 0;
+  right: 0;
   top: 5rem;
 }
 
 .word-list-ext-item-head {
   position: relative;
   height: 15rem;
-  background-color:white;
+  background-color: white;
 }
 
 .word-list-ext-cycle .paginate-button img {
@@ -1627,7 +1621,6 @@ i.speak {
   right: 1.5rem;
   opacity: 0.5;
 }
-
 
 code {
   background: #f1f1f1;
@@ -1685,7 +1678,6 @@ code {
   font-size: 0.8em;
 }
 
-
 .word-block-related {
   padding: 0.5rem;
   margin: 0 0.2rem;
@@ -1695,11 +1687,11 @@ code {
 }
 
 .word-block-related:hover {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   z-index: 10000000 !important;
 }
 .word-block-related:hover {
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .word-block-related:not(:hover) i {
@@ -1727,7 +1719,6 @@ a.list-group-item.active:hover {
   color: white;
 }
 
-
 .updown {
   display: flex;
 }
@@ -1743,7 +1734,6 @@ a.list-group-item.active:hover {
   flex: 1;
 }
 
-
 .media {
   width: 100%;
   display: block;
@@ -1754,7 +1744,7 @@ a.list-group-item.active:hover {
   padding: 1.5rem;
 }
 
-.article-list-item {
+.article {
   list-style: none;
   margin-bottom: 1rem;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
@@ -1762,23 +1752,22 @@ a.list-group-item.active:hover {
   overflow: hidden;
 }
 
-.article-list-item-title {
+.article-title {
   border-bottom: 1px solid #ececec;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   color: #fd4f1c;
 }
 
-.article-list-item-body {
-  max-height: 10rem;
-  overflow: hidden;
+.article-list-item .article-body {
   font-size: 1rem;
-  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
-  mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
 
-.article-list-item-body * {
-  font-size: 1rem;
+.article-list-item.collapsed .article-body {
+  max-height: 10rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
 
 .article-list-item a {
@@ -1790,17 +1779,17 @@ a.list-group-item.active:hover {
   text-decoration: none;
 }
 
-.article-list-item-body img {
+.article-body img {
   display: none;
 }
 
-a.article-list-item-edit-btn {
+a.article-edit-btn {
   float: right;
   background: #cecece;
   color: white;
 }
 
-a.article-list-item-edit-btn:hover {
+a.article-edit-btn:hover {
   float: right;
   background: #fd4f1c;
   color: white;
