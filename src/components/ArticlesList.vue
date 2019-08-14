@@ -1,33 +1,22 @@
 <template>
   <ul class="articles list-unstyled">
-    <li v-for="article in articles" class="article-list-item">
-      <a :href="article.url" class="media"
-        ><img
-          v-if="article.thumbnail && article.thumbnail.startsWith('http')"
-          :src="article.thumbnail"
-          class="mr-2"/>
-        <div class="media-body">
-          <PinyinButton />
-          <h5 class="article-list-item-title">
-            {{ article.title
-            }}<a
-              v-if="edit"
-              :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
-              class="btn article-list-item-edit-btn"
-              target="_blank"
-              >Edit</a
-            >
-          </h5>
-          <PinyinButton />
-          <div v-html="article.body" class="article-list-item-body"></div></div
-      ></a>
+    <li v-for="article in articles" class="article-list-item collapsed">
+      <a :href="article.url" 
+        >
+        <ArticleCard :article="article" :edit="edit"/>
+        </a>
     </li>
   </ul>
 </template>
 
 <script>
 import Config from '@/lib/config'
+import ArticleCard from '@/components/ArticleCard'
+
 export default {
+  components: {
+    ArticleCard
+  },
   props: {
     articles: {
       default: []

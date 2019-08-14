@@ -32,17 +32,7 @@
     <div v-if="method === 'view' && article" class="container">
       <div class="row">
         <div class="col-sm-12">
-          <PinyinButton />
-          <a
-            :href="`${Config.wikiAdmin}collections/articles/${article.id}`"
-            class="btn article-list-item-edit-btn"
-            target="_blank"
-            >Edit</a
-          >
-          <h3>{{ article.title }}</h3>
-          <hr />
-          <PinyinButton />
-          <article v-html="article.body"></article>
+          <ArticleCard :article="article" />
         </div>
       </div>
     </div>
@@ -53,10 +43,12 @@
 import $ from 'jquery'
 import Config from '@/lib/config'
 import ArticlesList from '@/components/ArticlesList.vue'
+import ArticleCard from '@/components/ArticleCard.vue'
 
 export default {
   components: {
-    ArticlesList
+    ArticlesList,
+    ArticleCard
   },
   data() {
     return {
