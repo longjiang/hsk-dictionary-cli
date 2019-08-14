@@ -109,6 +109,26 @@ export default new Router({
       }
     },
     {
+      path: '/community',
+      name: 'community',
+      redirect: '/community/list'
+    },
+    {
+      path: '/community/:method?/:args?',
+      name: 'community-reddit',
+      component: () => import('./views/Community.vue'),
+      props: true,
+      meta: {
+        title: 'Community | Chinese Learning Wiki',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Connect with various Chinese-learning communities.'
+          }
+        ]
+      }
+    },
+    {
       path: '/resources/:method?/:args?',
       name: 'resources',
       component: () => import('./views/Resources.vue'),

@@ -1718,3 +1718,11 @@ code {
 .dewey-l1 > li {
   border-bottom: 1px dashed #ccc;
 }
+
+a.list-group-item.active {
+  color: white;
+}
+
+a.list-group-item.active:hover {
+  color: white;
+}

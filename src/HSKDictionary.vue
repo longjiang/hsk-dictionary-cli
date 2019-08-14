@@ -76,6 +76,13 @@
               <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
             </router-link>
             <router-link
+              class="tab"
+              :to="{ name: 'community' }"
+              title="Chinese-learning communities"
+            >
+              <i class="glyphicon glyphicon-user"></i> Communities
+            </router-link>
+            <router-link
               class="tab tab-saved-words"
               :to="{ name: 'saved-words' }"
             >
