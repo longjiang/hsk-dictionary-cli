@@ -1,30 +1,50 @@
 <template>
   <div class="col-sm-12" v-if="article">
-    <article class="updown">
+    <article class="updown article-list-item">
       <div class="updown-head">
         <font-awesome-icon icon="arrow-up" />
         <div>{{ article.ups }}</div>
         <font-awesome-icon icon="arrow-down" />
       </div>
-      <div class="updown-body">
-        <Annotate tag="h3">{{ article.title }}</Annotate>
-        <div
-          v-if="article.media && article.media.oembed"
-          v-html="Helper.unescape(article.media.oembed.html)"
-        ></div>
-        <img v-if="article.post_hint === 'image'" :src="article.url" class="img-fluid" />
-        <Annotate
-          tag="div"
-          v-html="Helper.unescape(article.selftext_html)"
-        ></Annotate>
+      <div class="updown-body media">
+        <img
+          v-if="article.post_hint === 'image'"
+          :src="article.url"
+          class="img-fluid"
+        />
+        <div class="media-body">
+          <Annotate tag="h3">{{ article.title }}</Annotate>
+          <div
+            v-if="article.media && article.media.oembed"
+            v-html="Helper.unescape(article.media.oembed.html)"
+          ></div>
+          <Annotate
+            tag="div"
+            v-html="Helper.unescape(article.selftext_html)"
+          ></Annotate>
+        </div>
       </div>
     </article>
     <div>
       <div class="mt-5 mb-5 p-5 text-center shadow">
-        <p>To participate, go to reddit.com/<a :href="`https://www.reddit.com/${article.subreddit_name_prefixed}/comments/cpdv8t`"><b>{{ article.subreddit_name_prefixed }}</b></a> directly.</p>
-        <a :href="`https://www.reddit.com/r/ChineseLanguage/comments/cpdv8t`" class="btn btn-danger">Go to r/ChineseLanguage</a>
+        <p>
+          To participate, go to reddit.com/<a
+            :href="
+              `https://www.reddit.com/${
+                article.subreddit_name_prefixed
+              }/comments/cpdv8t`
+            "
+            ><b>{{ article.subreddit_name_prefixed }}</b></a
+          >
+          directly.
+        </p>
+        <a
+          :href="`https://www.reddit.com/r/ChineseLanguage/comments/cpdv8t`"
+          class="btn btn-danger"
+          >Go to r/ChineseLanguage</a
+        >
       </div>
-      
+
       <div v-for="comment in comments">
         <h6>{{ comment.author }}</h6>
         <Annotate v-html="Helper.unescape(comment.body_html)"></Annotate>
@@ -71,19 +91,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.updown {
-  display: flex;
-}
-
-.updown-head {
-  flex: 0;
-  margin-right: 2rem;
-  text-align: center;
-}
-
-.updown-body {
-  flex: 1;
-}
-
-</style>
+<style scoped></style>
