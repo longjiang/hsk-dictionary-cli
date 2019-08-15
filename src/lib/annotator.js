@@ -93,15 +93,14 @@ export default {
   },
 
   annotate(node, callback = function() {}) {
-    let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
       this.annotateText(node.nodeValue, data => {
         const wordBlocks = data.map(textOrCandidates =>
-          annotator.wordBlockTemplate(textOrCandidates)
+          this.wordBlockTemplate(textOrCandidates)
         )
         let parent = node.parentElement
-        annotator.replaceNodeWithHTML(node, wordBlocks.join(''))
+        this.replaceNodeWithHTML(node, wordBlocks.join(''))
         callback(parent)
       })
     }
