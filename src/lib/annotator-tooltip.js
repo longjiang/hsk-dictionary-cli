@@ -53,6 +53,7 @@ export default {
     }
   },
 
+  /* Generate the content of the tooltip, then optionally transform it with a filter function */
   tooltipTemplate(templateFilterFunction = false) {
     return function() {
       let s = $(this).attr('data-candidates')

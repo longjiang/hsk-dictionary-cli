@@ -92,30 +92,32 @@ export default {
     this.worker.addEventListener('message', m)
   },
 
-  annotate(node, callback = function () { }) {
+  annotate(node, callback = function() {}) {
     let annotator = this
     if (node.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
       this.annotateText(node.nodeValue, data => {
-        var html = ''
-        data.map(textOrCandidates => {
-          html += annotator.wordBlockTemplate(textOrCandidates)
-        })
+        const wordBlocks = data.map(textOrCandidates =>
+          annotator.wordBlockTemplate(textOrCandidates)
+        )
         let parent = node.parentElement
-        annotator.replaceNodeWithHTML(node, html)
+        annotator.replaceNodeWithHTML(node, wordBlocks.join(''))
         callback(parent)
       })
     }
   },
 
-  annotateIteratively(node, callback = function () { }) {
+  annotateIteratively(node, callback = function() {}) {
     if (node.nodeType === 3) {
       // textNode
-      this.HSKCEDICT.isChinese(isChinese => {
-        if (isChinese) {
-          this.annotate(node, callback)
-        }
-      }, [node.nodeValue])
+      this.HSKCEDICT.isChinese(
+        isChinese => {
+          if (isChinese) {
+            this.annotate(node, callback)
+          }
+        },
+        [node.nodeValue]
+      )
     } else {
       let nodes = []
       for (let n of node.childNodes) {
@@ -129,7 +131,7 @@ export default {
 
   annotateBySelector(selector, callback) {
     const annotator = this
-    $(selector).each(function () {
+    $(selector).each(function() {
       annotator.annotateIteratively(this, callback)
     })
   }
