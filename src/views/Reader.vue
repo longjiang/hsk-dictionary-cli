@@ -181,11 +181,15 @@ export default {
       if (marked) {
         $('#reader-annotated').html(marked)
         // eslint-disable-next-line no-undef
-        Annotator.annotateBySelector('#reader-annotated', node => {
-          this.annotated = true
-          Helper.augmentAnnotatedBlocks(node)
-          this.$store.dispatch('updateSavedWordsDisplay')
-        })
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedAnnotator.annotateBySelector('#reader-annotated', node => {
+              this.annotated = true
+              Helper.augmentAnnotatedBlocks(node)
+              this.$store.dispatch('updateSavedWordsDisplay')
+            })
+          }
+        )
       }
     },
     route() {

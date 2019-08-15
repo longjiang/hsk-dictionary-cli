@@ -4,16 +4,19 @@
       <div class="row">
         <div class="col-sm-12">
           <div id="annotate-me" class="show-pinyin show-simplified">
-            <div class="_2FCtq-QzlfuN-SwVMUZMM3 _2v9pwVh0VUYrmhoMv1tHPm t3_cp99mw">
+            <div
+              class="_2FCtq-QzlfuN-SwVMUZMM3 _2v9pwVh0VUYrmhoMv1tHPm t3_cp99mw"
+            >
               <div class="y8HYJ-y_lTUHkQIc1mdCq _2INHSNB8V5eaWp4P0rY_mE">
                 <div
                   class="_2SdHzo12ISmrC8H86TgSCp _29WrubtjAcKqzJSPdQqQ4h"
                   theme="[object Object]"
                   style="--posttitletextcolor:#1A1A1B;"
                 >
-                  <h1
-                    class="_eYtD2XCVieq6emjKBH3m"
-                  >Where can I find the entire audio book of someone reading "Journey to the West" in Chinese?</h1>
+                  <h1 class="_eYtD2XCVieq6emjKBH3m">
+                    Where can I find the entire audio book of someone reading
+                    "Journey to the West" in Chinese?
+                  </h1>
                 </div>
               </div>
               <div class="_1hLrLjnE1G_RBCNcN9MVQf">
@@ -21,7 +24,6 @@
                   alt
                   src="https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
                   style="width: 1px; height: 1px;"
-                  onload="(__markFirstPostVisible || function(){})();"
                 />
               </div>
               <div
@@ -34,19 +36,22 @@
                   class="_292iotee39Lmt0MkQZ2hPV RichTextJSON-root"
                   style="color: rgb(26, 26, 27);"
                 >
-                  <p
-                    class="_1qeIAgB0cPwnLhDF9XSiJM"
-                  >More specifically, someone reading the text with the words in Chinese?</p>
-                  <p
-                    class="_1qeIAgB0cPwnLhDF9XSiJM"
-                  >I found a Youtube of "The Dream of the Red Chamber" as an example.</p>
+                  <p class="_1qeIAgB0cPwnLhDF9XSiJM">
+                    More specifically, someone reading the text with the words
+                    in Chinese?
+                  </p>
+                  <p class="_1qeIAgB0cPwnLhDF9XSiJM">
+                    I found a Youtube of "The Dream of the Red Chamber" as an
+                    example.
+                  </p>
                   <p class="_1qeIAgB0cPwnLhDF9XSiJM">
                     <a
                       href="https://www.youtube.com/playlist?list=PLxrrEGwTz_JoirAqymLPCMBXfsyK7iJRP"
                       class="_3t5uN8xUmg0TOwRCOGQEcU"
                       rel="noopener noreferrer"
                       target="_blank"
-                    >https://www.youtube.com/playlist?list=PLxrrEGwTz_JoirAqymLPCMBXfsyK7iJRP</a>
+                      >https://www.youtube.com/playlist?list=PLxrrEGwTz_JoirAqymLPCMBXfsyK7iJRP</a
+                    >
                   </p>
                 </div>
               </div>
@@ -59,8 +64,7 @@
               <br />伊伏在地上；车夫便也立住脚。我料定这老女人并没有伤，又没有别人看见，便很怪他多事，要自己惹出是非，也误了我的路。
               <br />我便对他说，“没有什么的。走你的罢！”
               <br />车夫毫不理会，——或者并没有听到，——却放下车子，扶那老女人慢慢起来，搀着臂膊立定，问伊说：
-              <br />“你怎么啦？”
-              <br />“我摔坏了。”
+              <br />“你怎么啦？” <br />“我摔坏了。”
               <br />我想，我眼见你慢慢倒地，怎么会摔坏呢，装腔作势罢了，这真可憎恶。车夫多事，也正是自讨苦吃，现在你自己想法去。
               <br />车夫听了这老女人的话，却毫不踌躇，仍然搀着伊的臂膊，便一步一步的向前走。我有些诧异，忙看前面，是一所巡警分驻所，大风之后，外面也不见人。这车夫扶着那老女人，便正是向那大门走去。
               <br />我这时突然感到一种异样的感觉，觉得他满身灰尘的后影，刹时高大了，而且愈走愈大，须仰视才见。而且他对于我，渐渐的又几乎变成一种威压，甚而至于要榨出皮袍下面藏着的“小”来。
@@ -96,6 +100,9 @@ import $ from 'jquery'
 export default {
   methods: {
     testAnnotator() {
+      window.annotatorLoads = Annotator.load()
+      window.hanziLoads = Hanzi.load()
+      window.grammarLoads = Grammar.load()
       Helper.loaded(
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedAnnotator.annotateIteratively($('#annotate-me')[0])
@@ -103,6 +110,9 @@ export default {
       )
     },
     testWorker() {
+      window.annotatorLoads = Annotator.load()
+      window.hanziLoads = Hanzi.load()
+      window.grammarLoads = Grammar.load()
       Helper.loaded(
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
           LoadedAnnotator.annotateIteratively($('#annotate-me')[0])
@@ -123,11 +133,8 @@ export default {
     }
   },
   mounted() {
-    window.annotatorLoads = Annotator.load()
-    window.hanziLoads = Hanzi.load()
-    window.grammarLoads = Grammar.load()
-    // this.testMerge()
-    this.testAnnotator()
+    this.testMerge()
+    // this.testAnnotator()
   }
 }
 </script>

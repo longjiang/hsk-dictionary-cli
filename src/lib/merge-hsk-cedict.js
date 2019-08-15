@@ -70,27 +70,16 @@ export default {
             }
             row.index = 0
           }
-          row.identifier = `${row.traditional},${row.pinyin.replace(/ /g, '_')},${row.index}`
+          row.identifier = `${row.traditional},${row.pinyin.replace(
+            / /g,
+            '_'
+          )},${row.index}`
           this._weightHash[row.identifier] = row.weight
           Object.freeze(row)
         }
         callback()
       }
     })
-  },
-  lookupSimplified(simplified, pinyin = false) {
-    const candidates = this._cedictData
-      .filter(row => {
-        let pinyinMatch = true
-        if (pinyin.length > 0) {
-          pinyinMatch = row.pinyin === pinyin
-        }
-        return pinyinMatch && row.simplified === simplified
-      })
-      .sort((a, b) => {
-        return b.definitions.length - a.definitions.length // More definitions = longer definition = likely more common word
-      })
-    return candidates
   },
   parsePinyin(pinyin) {
     return pinyinify(pinyin.replace(/u:/gi, 'ü')) // use the pinyinify library to parse tones
@@ -144,9 +133,6 @@ export default {
         }
       }
     }
-    this._cedictData = this._cedictData.sort(function(a, b) {
-      return b.simplified.length - a.simplified.length
-    })
     callback()
   },
   getHSK(simplified, pinyin) {
@@ -200,12 +186,21 @@ export default {
     this._merged = []
     for (let c of this._cedictData) {
       let row = Object.assign({}, c)
-      let identifier = `${row.traditional},${row.pinyin.replace(/ /g, '_')},${row.index}`
+      let identifier = `${row.traditional},${row.pinyin.replace(/ /g, '_')},${
+        row.index
+      }`
       let w = this._weightHash[identifier]
       row.weight = w ? w : 0
       this._merged.push(this.assignHSK(row))
     }
-    this._merged = this._merged.concat(this.findHSKNotInCEDICT())
+    this._merged = this._merged
+      .concat(this.findHSKNotInCEDICT())
+      .sort(function(a, b) {
+        return b.weight - a.weight
+      })
+      .sort(function(a, b) {
+        return b.simplified.length - a.simplified.length
+      })
     console.log('Merged, generating CSV...')
     window.csv = Papa.unparse(this._merged)
     console.log(
