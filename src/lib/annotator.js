@@ -49,6 +49,20 @@ export default {
     }
     return HSKCEDICT
   },
+
+  annotateText(text, callback) {
+    let id = Helper.uniqueId()
+    this.worker.postMessage([id, 'annotate', [text]])
+    let m = event => {
+      let [returnId, method, data] = event.data
+      if (method === 'annotate' && returnId == id) {
+        this.worker.removeEventListener('message', m)
+        callback(data)
+      }
+    }
+    this.worker.addEventListener('message', m)
+  },
+
   wordBlockTemplate(textOrCandidates) {
     if (Array.isArray(textOrCandidates)) {
       // Sort the candidates by HSK
@@ -77,47 +91,38 @@ export default {
     }
   },
 
-  replaceNodeWithHTML(oldNode, html) {
-    $(oldNode).after(html)
-    var newNode = oldNode.nextSibling
-    $(oldNode).remove()
-    return newNode
-  },
-
-  annotateText(text, callback) {
-    let id = Helper.uniqueId()
-    this.worker.postMessage([id, 'annotate', [text]])
-    let m = event => {
-      let [returnId, method, data] = event.data
-      if (method === 'annotate' && returnId == id) {
-        this.worker.removeEventListener('message', m)
-        callback(data)
-      }
-    }
-    this.worker.addEventListener('message', m)
-  },
-
-  annotate(node, callback = function() {}) {
-    if (node.nodeValue.replace(/\s/g, '').length > 0) {
+  annotate(
+    textNode,
+    callback = function() {},
+    wordBlockTemplateFilter = function() {}
+  ) {
+    if (textNode.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
-      this.annotateText(node.nodeValue, data => {
-        const wordBlocks = data.map(textOrCandidates =>
-          this.wordBlockTemplate(textOrCandidates)
-        )
-        let parent = node.parentElement
-        this.replaceNodeWithHTML(node, wordBlocks.join(''))
+      this.annotateText(textNode.nodeValue, data => {
+        let parent = textNode.parentElement // The parent element is, for example, a <span> or a <p>
+        $(parent).html('') // clear existing textNodes
+        for (let textOrCandidates of data) {
+          let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
+          let block = $(wordBlockHTML)
+          $(parent).append(block)
+          wordBlockTemplateFilter(block, textOrCandidates)
+        }
         callback(parent)
       })
     }
   },
 
-  annotateIteratively(node, callback = function() {}) {
+  annotateIteratively(
+    node,
+    callback = function() {},
+    wordBlockTemplateFilter = function() {}
+  ) {
     if (node.nodeType === 3) {
       // textNode
       this.HSKCEDICT.isChinese(
         isChinese => {
           if (isChinese) {
-            this.annotate(node, callback)
+            this.annotate(node, callback, wordBlockTemplateFilter)
           }
         },
         [node.nodeValue]
@@ -128,15 +133,19 @@ export default {
         nodes.push(n)
       }
       for (let n of nodes) {
-        this.annotateIteratively(n, callback) // recursive!
+        this.annotateIteratively(n, callback, wordBlockTemplateFilter) // recursive!
       }
     }
   },
 
-  annotateBySelector(selector, callback) {
+  annotateBySelector(
+    selector,
+    callback = function() {},
+    wordBlockTemplateFilter = function() {}
+  ) {
     const annotator = this
     $(selector).each(function() {
-      annotator.annotateIteratively(this, callback)
+      annotator.annotateIteratively(this, callback, wordBlockTemplateFilter)
     })
   }
 }

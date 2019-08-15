@@ -183,11 +183,14 @@ export default {
         // eslint-disable-next-line no-undef
         Helper.loaded(
           (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-            LoadedAnnotator.annotateBySelector('#reader-annotated', node => {
-              this.annotated = true
-              Helper.augmentAnnotatedBlocks(node)
-              this.$store.dispatch('updateSavedWordsDisplay')
-            })
+            LoadedAnnotator.annotateBySelector(
+              '#reader-annotated',
+              node => {
+                this.annotated = true
+                this.$store.dispatch('updateSavedWordsDisplay')
+              },
+              Helper.wordBlockTemplateFilter
+            )
           }
         )
       }

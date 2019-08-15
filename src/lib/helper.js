@@ -67,35 +67,23 @@ export default {
       el.innerHTML = wordArray.join(' ') + '...'
     }
   },
-  augmentAnnotatedBlocks(node) {
-    const wordBlocks = $(node)
-      .find('.word-block[data-candidates]')
-      .get()
-    for (let block of wordBlocks) {
-      let data = $(block).attr('data-candidates')
-      if (data) {
-        let candidates = JSON.parse(unescape(data))
-        if (candidates) {
-          for (let candidate of candidates) {
-            const saved = Helper.saved(candidate)
-            if (saved) $(block).addClass('saved')
-          }
-        }
+  wordBlockTemplateFilter(block, textOrCandidates) {
+    if (Array.isArray(textOrCandidates)) {
+      for (let candidate of textOrCandidates) {
+        const saved = Helper.saved(candidate)
+        if (saved) $(block).addClass('saved')
       }
-    }
-    $(node)
-      .find('.word-block[data-candidates]')
-      .click(function() {
-        const candidates = JSON.parse(unescape($(this).attr('data-candidates')))
-        if (candidates && candidates.length > 0) {
+      $(block).click(function() {
+        if (textOrCandidates && textOrCandidates.length > 0) {
           if ($(this).hasClass('saved')) {
-            Helper.removeSaved(candidates[0])
+            Helper.removeSaved(textOrCandidates[0])
           } else {
-            Helper.addSaved(candidates[0])
+            Helper.addSaved(textOrCandidates[0])
           }
         }
       })
-    Helper.addToolTips(node)
+      Helper.addToolTips(block)
+    }
   },
   saved(candidate) {
     return window.hskDictionaryApp.$store.getters.hasSavedWord(
@@ -114,8 +102,8 @@ export default {
       candidate.identifier
     )
   },
-  addToolTips(selectorOrNode) {
-    AnnotatorTooltip.addTooltips(selectorOrNode, function(candidates) {
+  addToolTips(block) {
+    AnnotatorTooltip.addTooltip(block, function(candidates) {
       let html = ''
       for (let candidate of candidates) {
         var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)

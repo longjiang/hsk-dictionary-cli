@@ -18,12 +18,18 @@ export default {
         .find('.word-block[data-candidates]')
         .get()
       for (let block of wordBlocks) {
-        Tipped.create(block, this.tooltipTemplate(templateFilterFunction), {
-          position: 'bottomleft', // Tooltip width and height set in annotator.css's .tpd-content selector
-          close: true
-        })
+        this.addTooltip(block, templateFilterFunction)
       }
     }
+  },
+
+
+
+  addTooltip(block, templateFilterFunction = false) {
+    Tipped.create(block, this.tooltipTemplate(templateFilterFunction), {
+      position: 'bottomleft', // Tooltip width and height set in annotator.css's .tpd-content selector
+      close: true
+    })
   },
 
   addHighlightingEventListener() {
