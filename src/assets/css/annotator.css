@@ -61,16 +61,13 @@
   display: none;
 }
 
-.tpd-content-wrapper, .tpd-content-spacer, .tpd-content, .tpd-content-wrapper * {
-  overflow: visible !important;
-}
-
 .tpd-content {
-  font-family: Helvetica, sans-serif;
   width: 15rem;
+  max-height: 15rem;
+  overflow: scroll;
+  font-family: Helvetica, sans-serif;
   background: hsla(0, 0%, 98%, 1);
   padding: 0 !important;
-  border: 1px solid #dedede;
   border-radius: 0.3rem;
   box-shadow: 3px 3px 15px #0000002b;
 }

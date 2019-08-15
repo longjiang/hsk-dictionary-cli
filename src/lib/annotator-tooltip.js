@@ -19,9 +19,7 @@ export default {
         .get()
       for (let block of wordBlocks) {
         Tipped.create(block, this.tooltipTemplate(templateFilterFunction), {
-          position: 'bottomleft',
-          maxWidth: 300,
-          minWith: 150,
+          position: 'bottomleft', // Tooltip width and height set in annotator.css's .tpd-content selector
           close: true
         })
       }
