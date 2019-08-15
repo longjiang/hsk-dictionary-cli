@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Helper from '@/lib/helper'
+import AnnotatorTooltip from '@/lib/annotator-tooltip'
 
 /* Responsible for actually annotating elements */
 export default {
@@ -94,7 +95,8 @@ export default {
   annotate(
     textNode,
     callback = function() {},
-    wordBlockTemplateFilter = function() {}
+    wordBlockTemplateFilter = function() {},
+    TooltipTemplateFilter = false
   ) {
     if (textNode.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
@@ -105,6 +107,7 @@ export default {
           let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
           let block = $(wordBlockHTML)
           $(parent).append(block)
+          AnnotatorTooltip.addTooltip(block, TooltipTemplateFilter)
           wordBlockTemplateFilter(block, textOrCandidates)
         }
         callback(parent)
@@ -115,14 +118,15 @@ export default {
   annotateIteratively(
     node,
     callback = function() {},
-    wordBlockTemplateFilter = function() {}
+    wordBlockTemplateFilter = function() {},
+    TooltipTemplateFilter = false
   ) {
     if (node.nodeType === 3) {
       // textNode
       this.HSKCEDICT.isChinese(
         isChinese => {
           if (isChinese) {
-            this.annotate(node, callback, wordBlockTemplateFilter)
+            this.annotate(node, callback, wordBlockTemplateFilter, TooltipTemplateFilter)
           }
         },
         [node.nodeValue]
@@ -133,7 +137,7 @@ export default {
         nodes.push(n)
       }
       for (let n of nodes) {
-        this.annotateIteratively(n, callback, wordBlockTemplateFilter) // recursive!
+        this.annotateIteratively(n, callback, wordBlockTemplateFilter, TooltipTemplateFilter) // recursive!
       }
     }
   },
@@ -141,11 +145,12 @@ export default {
   annotateBySelector(
     selector,
     callback = function() {},
-    wordBlockTemplateFilter = function() {}
+    wordBlockTemplateFilter = function() {},
+    TooltipTemplateFilter = false
   ) {
     const annotator = this
     $(selector).each(function() {
-      annotator.annotateIteratively(this, callback, wordBlockTemplateFilter)
+      annotator.annotateIteratively(this, callback, wordBlockTemplateFilter, TooltipTemplateFilter)
     })
   }
 }

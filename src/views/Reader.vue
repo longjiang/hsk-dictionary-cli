@@ -189,7 +189,8 @@ export default {
                 this.annotated = true
                 this.$store.dispatch('updateSavedWordsDisplay')
               },
-              Helper.wordBlockTemplateFilter
+              Helper.wordBlockTemplateFilter,
+              Helper.tooltipTemplateFilter
             )
           }
         )

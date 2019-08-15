@@ -82,7 +82,7 @@ export default {
           }
         }
       })
-      Helper.addToolTips(block)
+      // Helper.addToolTips(block)
     }
   },
   saved(candidate) {
@@ -103,35 +103,36 @@ export default {
     )
   },
   addToolTips(block) {
-    AnnotatorTooltip.addTooltip(block, function(candidates) {
-      let html = ''
-      for (let candidate of candidates) {
-        var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
-        for (let definition of candidate.definitions) {
-          $definitionsList.append(
-            `<li class="tooltip-entry-definition">${definition.text}</li>`
-          )
-        }
-        const traditionalHtml =
-          candidate.simplified != candidate.traditional
-            ? ` (${candidate.traditional})`
-            : ''
-        html += `
-        <div class="tooltip-entry">
-          <a class="tooltip-entry-character" href="#/view/cedict/${
-            candidate.identifier
-          }"><span data-hsk="${candidate.hsk}">${
-          candidate.simplified
-        }</span>${traditionalHtml}</a>
-          <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
-          <button onclick="AnnotatorTooltip.speak('${
-            candidate.simplified
-          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
-          ${$definitionsList.html()}
-        </div>`
+    AnnotatorTooltip.addTooltip(block, this.tooltipTemplateFilter)
+  },
+  tooltipTemplateFilter(candidates) {
+    let html = ''
+    for (let candidate of candidates) {
+      var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
+      for (let definition of candidate.definitions) {
+        $definitionsList.append(
+          `<li class="tooltip-entry-definition">${definition.text}</li>`
+        )
       }
-      return html
-    })
+      const traditionalHtml =
+        candidate.simplified != candidate.traditional
+          ? ` (${candidate.traditional})`
+          : ''
+      html += `
+      <div class="tooltip-entry">
+        <a class="tooltip-entry-character" href="#/view/cedict/${
+          candidate.identifier
+        }"><span data-hsk="${candidate.hsk}">${
+        candidate.simplified
+      }</span>${traditionalHtml}</a>
+        <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
+        <button onclick="AnnotatorTooltip.speak('${
+          candidate.simplified
+        }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+        ${$definitionsList.html()}
+      </div>`
+    }
+    return html
   },
   unique(names) {
     var uniqueNames = []
