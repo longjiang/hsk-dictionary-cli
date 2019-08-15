@@ -75,9 +75,7 @@ export default {
       let word = candidates[0]
       let book = candidates[0].hsk
       try {
-        return `<span class="word-block" data-candidates="${escape(
-          JSON.stringify(candidates)
-        )}" data-hover-hsk="${book}">
+        return `<span class="word-block" data-hover-hsk="${book}">
           <span class="word-block-pinyin">${word.pinyin}</span>
           <span class="word-block-simplified">${word.simplified}</span>
           <span class="word-block-traditional">${word.traditional}</span>
