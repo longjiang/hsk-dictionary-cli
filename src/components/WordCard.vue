@@ -1,6 +1,7 @@
 <template>
   <component
     :is="tag"
+    v-if="!removed"
     :class="`word-list-ext-item text-center ${compareWith ? 'compare' : ''}`"
   >
     <div class="word-list-ext-item-head">
@@ -107,6 +108,7 @@ export default {
     return {
       Config,
       Helper,
+      removed: false,
       srcs: []
     }
   },
@@ -115,7 +117,7 @@ export default {
   },
   methods: {
     remove() {
-      this.$parent.words.splice(this.index, 1)
+      this.removed = true
     },
     imgPrev() {
       this.srcs.push(this.srcs.shift())
