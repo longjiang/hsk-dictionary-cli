@@ -109,7 +109,12 @@ export default {
           $(parent).append(block)
           wordBlockTemplateFilter(block, textOrCandidates)
           if (Array.isArray(textOrCandidates)) {
-            AnnotatorTooltip.addTooltip(block, TooltipTemplateFilter)
+            const candidates = textOrCandidates
+            AnnotatorTooltip.addTooltip(
+              block,
+              candidates,
+              TooltipTemplateFilter
+            )
           }
         }
         callback(parent)

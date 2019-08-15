@@ -69,20 +69,21 @@ export default {
   },
   wordBlockTemplateFilter(block, textOrCandidates) {
     if (Array.isArray(textOrCandidates)) {
-      for (let candidate of textOrCandidates) {
+      const candidates = textOrCandidates
+      for (let candidate of candidates) {
         const saved = Helper.saved(candidate)
         if (saved) $(block).addClass('saved')
       }
       $(block).click(function() {
-        if (textOrCandidates && textOrCandidates.length > 0) {
+        if (candidates && candidates.length > 0) {
           if ($(this).hasClass('saved')) {
-            Helper.removeSaved(textOrCandidates[0])
+            Helper.removeSaved(candidates[0])
           } else {
-            Helper.addSaved(textOrCandidates[0])
+            Helper.addSaved(candidates[0])
           }
         }
       })
-      // Helper.addToolTips(block)
+      Helper.addToolTips(block, candidates)
     }
   },
   saved(candidate) {
@@ -102,8 +103,8 @@ export default {
       candidate.identifier
     )
   },
-  addToolTips(block) {
-    AnnotatorTooltip.addTooltip(block, this.tooltipTemplateFilter)
+  addToolTips(block, candidates) {
+    AnnotatorTooltip.addTooltip(block, candidates, this.tooltipTemplateFilter)
   },
   tooltipTemplateFilter(candidates) {
     let html = ''

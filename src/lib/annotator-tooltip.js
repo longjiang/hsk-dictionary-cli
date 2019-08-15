@@ -18,18 +18,24 @@ export default {
         .find('.word-block[data-candidates]')
         .get()
       for (let block of wordBlocks) {
-        this.addTooltip(block, templateFilterFunction)
+        let s = $(block).attr('data-candidates')
+        if (s) {
+          var candidates = JSON.parse(unescape(s))
+        }
+        this.addTooltip(block, candidates, templateFilterFunction)
       }
     }
   },
 
-
-
-  addTooltip(block, templateFilterFunction = false) {
-    Tipped.create(block, this.tooltipTemplate(templateFilterFunction), {
-      position: 'bottomleft', // Tooltip width and height set in annotator.css's .tpd-content selector
-      close: true
-    })
+  addTooltip(block, candidates, templateFilterFunction = false) {
+    Tipped.create(
+      block,
+      this.tooltipTemplate(candidates, templateFilterFunction),
+      {
+        position: 'bottomleft', // Tooltip width and height set in annotator.css's .tpd-content selector
+        close: true
+      }
+    )
   },
 
   addHighlightingEventListener() {
@@ -60,38 +66,32 @@ export default {
   },
 
   /* Generate the content of the tooltip, then optionally transform it with a filter function */
-  tooltipTemplate(templateFilterFunction = false) {
+  tooltipTemplate(candidates, templateFilterFunction = false) {
     return function() {
-      let s = $(this).attr('data-candidates')
-      if (s) {
-        var candidates = JSON.parse(unescape(s))
-        var html = ''
-        for (let candidate of candidates) {
-          var $definitionsList = $(
-            `<ol class="tooltip-entry-definitions"></ol>`
+      var html = ''
+      for (let candidate of candidates) {
+        var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
+        for (let definition of candidate.definitions) {
+          $definitionsList.append(
+            `<li class="tooltip-entry-definition">${definition.text}</li>`
           )
-          for (let definition of candidate.definitions) {
-            $definitionsList.append(
-              `<li class="tooltip-entry-definition">${definition.text}</li>`
-            )
-          }
-          html += `
-          <div class="tooltip-entry">
-            <span class="tooltip-entry-character">${candidate.simplified} (${
-            candidate.traditional
-          })</span>
-            <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
-            <button onclick="window.AnnotatorTooltip.speak('${
-              candidate.simplified
-            }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
-            ${$definitionsList.html()}
-          </div>`
         }
-        if (templateFilterFunction) {
-          html = templateFilterFunction(candidates, this, html)
-        }
-        return html
+        html += `
+        <div class="tooltip-entry">
+          <span class="tooltip-entry-character">${candidate.simplified} (${
+          candidate.traditional
+        })</span>
+          <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
+          <button onclick="window.AnnotatorTooltip.speak('${
+            candidate.simplified
+          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+          ${$definitionsList.html()}
+        </div>`
       }
+      if (templateFilterFunction) {
+        html = templateFilterFunction(candidates, this, html)
+      }
+      return html
     }
   }
 }
