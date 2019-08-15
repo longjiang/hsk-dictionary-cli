@@ -51,7 +51,12 @@ export default {
   },
   wordBlockTemplate(textOrCandidates) {
     if (Array.isArray(textOrCandidates)) {
-      let candidates = textOrCandidates
+      // Sort the candidates by HSK
+      let candidates = textOrCandidates.sort((a, b) => {
+        let abook = a.hsk === 'outside' ? 7 : a.hsk
+        let bbook = b.hsk === 'outside' ? 7 : b.hsk
+        return abook - bbook
+      })
       let word = candidates[0]
       let book = candidates[0].hsk
       try {

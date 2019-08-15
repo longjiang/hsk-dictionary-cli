@@ -80,14 +80,6 @@ export default {
             const saved = Helper.saved(candidate)
             if (saved) $(block).addClass('saved')
           }
-          // Sort the candidates by HSK
-          candidates = candidates.sort((a, b) => {
-            let abook = a.hsk === 'outside' ? 7 : a.hsk
-            let bbook = b.hsk === 'outside' ? 7 : b.hsk
-            return abook - bbook
-          })
-          // Set the best candidate
-          block.outerHTML = Annotator.wordBlockTemplate(candidates)
         }
       }
     }
