@@ -8,91 +8,12 @@
       }"
       data-collapse-target
     >
-      <li
-        :class="
-          `word-list-ext-item text-center ${compareWith ? 'compare' : ''}`
-        "
+      <WordCard
+        tag="li"
         v-for="(word, index) in words"
-      >
-        <div class="word-list-ext-item-head" :key="`image-${index}-${imgKey}`">
-          <div class="word-list-ext-cycle">
-            <button class="paginate-button previous" v-on:click="imgPrev(word)">
-              <img src="img/angle-left.svg" alt />
-            </button>
-            <button class="paginate-button next" v-on:click="imgNext(word)">
-              <img src="img/angle-right.svg" alt />
-            </button>
-            <button class="paginate-button close" v-on:click="remove(index)">
-              <i class="glyphicon glyphicon-remove"></i>
-            </button>
-          </div>
-          <a :href="`#/view/cedict/${word.identifier}`">
-            <img
-              v-if="word.srcs && word.srcs.length > 0"
-              :src="`${Config.imageProxy}?${word.srcs[0]}`"
-              class="word-list-ext-image"
-            />
-          </a>
-        </div>
-        <div class="word-list-ext-item-body">
-          <Frequency class="mb-1" v-if="word" :entry="word" />
-          <div class="character-example-pinyin">
-            <Star
-              class="word-list-ext-item-head-star"
-              v-if="word && star === true"
-              :word="word"
-            ></Star>
-            {{ word.pinyin }}
-            <Speak :text="word.simplified" />
-          </div>
-          <a v-if="word" :href="`#/view/cedict/${word.identifier}`">
-            <div
-              :data-hsk="word.hsk"
-              class="word-list-ext-item-word simplified"
-            >
-              {{ word.simplified }}
-            </div>
-            <div
-              :data-hsk="word.hsk"
-              class="word-list-ext-item-word traditional"
-            >
-              {{ word.traditional }}
-            </div>
-          </a>
-
-          <div v-if="word.definitions" class="character-example-english mb-2">
-            <div v-for="definition in word.definitions.slice(0, 3)">
-              <span v-if="definition.text">
-                {{ definition.text.replace(/\(.*\)/, '') }}
-              </span>
-            </div>
-          </div>
-          <PinyinButton />
-          <div
-            v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
-            class="word-list-ext-example"
-          ></div>
-          <div class="character-example-english mt-1">
-            {{ word.exampleTranslation }}
-          </div>
-          <a
-            v-if="compareWith"
-            :href="
-              `#/compare/cedict/${compareWith.identifier},${word.identifier}`
-            "
-            class="btn show-more word-list-ext-compare-btn mt-3"
-            :data-bg-hsk="word.hsk"
-            ><i class="glyphicon glyphicon-adjust"></i> Compare</a
-          >
-          <a
-            v-if="compareWith"
-            :href="`#/explore/related/${word.identifier}`"
-            class="btn show-more word-list-ext-related-btn mt-3"
-            :data-bg-hsk="word.hsk"
-            ><i class="glyphicon glyphicon-fullscreen"></i> Related</a
-          >
-        </div>
-      </li>
+        :word="word"
+        :index="index"
+      />
     </ul>
     <ShowMoreButton
       v-if="collapse > 0"
@@ -102,33 +23,15 @@
   </div>
 </template>
 <script>
-import Helper from '@/lib/helper'
-import Config from '@/lib/config'
-import WordPhotos from '@/lib/word-photos'
-import Frequency from '@/components/Frequency'
+import WordCard from '@/components/WordCard'
 
 export default {
   components: {
-    Frequency
-  },
-  watch: {
-    words() {
-      this.updateImages()
-      this.imgKey++
-    }
-  },
-  mounted() {
-    this.imgKey++
-    if (this.words && this.words.length > 0) {
-      this.updateImages()
-    }
+    WordCard
   },
   data() {
     return {
-      Helper,
-      Config,
-      listKey: 0,
-      imgKey: 0
+      listKey: 0
     }
   },
   props: {
@@ -152,48 +55,6 @@ export default {
     },
     hsk: {
       default: false
-    }
-  },
-  methods: {
-    remove(index) {
-      this.words.splice(index, 1)
-      this.listKey++
-    },
-    imgPrev(word) {
-      word.srcs.push(word.srcs.shift())
-      this.imgKey++
-    },
-    imgNext(word) {
-      word.srcs.unshift(word.srcs.pop())
-      this.imgKey++
-    },
-    getWebImages(word) {
-      WordPhotos.getWebImages(word.simplified, images => {
-        word.srcs = word.srcs.concat(images.map(image => image.img))
-        this.imgKey++
-      })
-    },
-    updateImages() {
-      for (let word of this.words) {
-        if (!word.srcs) {
-          word.srcs = []
-          if (word.hsk !== 'outside') {
-            WordPhotos.getPhoto(
-              word,
-              src => {
-                word.srcs.push(src)
-                this.imgKey++
-                this.getWebImages(word)
-              },
-              () => {
-                this.getWebImages(word)
-              }
-            )
-          } else {
-            this.getWebImages(word)
-          }
-        }
-      }
     }
   }
 }
