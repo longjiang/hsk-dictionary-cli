@@ -107,8 +107,10 @@ export default {
           let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
           let block = $(wordBlockHTML)
           $(parent).append(block)
-          AnnotatorTooltip.addTooltip(block, TooltipTemplateFilter)
           wordBlockTemplateFilter(block, textOrCandidates)
+          if (Array.isArray(textOrCandidates)) {
+            AnnotatorTooltip.addTooltip(block, TooltipTemplateFilter)
+          }
         }
         callback(parent)
       })
@@ -126,7 +128,12 @@ export default {
       this.HSKCEDICT.isChinese(
         isChinese => {
           if (isChinese) {
-            this.annotate(node, callback, wordBlockTemplateFilter, TooltipTemplateFilter)
+            this.annotate(
+              node,
+              callback,
+              wordBlockTemplateFilter,
+              TooltipTemplateFilter
+            )
           }
         },
         [node.nodeValue]
@@ -137,7 +144,12 @@ export default {
         nodes.push(n)
       }
       for (let n of nodes) {
-        this.annotateIteratively(n, callback, wordBlockTemplateFilter, TooltipTemplateFilter) // recursive!
+        this.annotateIteratively(
+          n,
+          callback,
+          wordBlockTemplateFilter,
+          TooltipTemplateFilter
+        ) // recursive!
       }
     }
   },
@@ -150,7 +162,12 @@ export default {
   ) {
     const annotator = this
     $(selector).each(function() {
-      annotator.annotateIteratively(this, callback, wordBlockTemplateFilter, TooltipTemplateFilter)
+      annotator.annotateIteratively(
+        this,
+        callback,
+        wordBlockTemplateFilter,
+        TooltipTemplateFilter
+      )
     })
   }
 }
