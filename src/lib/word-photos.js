@@ -6,16 +6,16 @@ export default {
   savePhoto(word, url, callback) {
     $.getJSON(
       `${Config.savePhoto}?id=${word.hskId}&word=${
-        word.simplified
+      word.simplified
       }&url=${encodeURIComponent(url)}`,
       callback
     )
   },
-  getPhoto(word, success, fail = () => {}) {
+  getPhoto(word, success, fail = () => { }) {
     let src = `${Config.imageUrl}${word.hskId}-${word.simplified}.jpg`
     this.testImage(src, success, fail)
   },
-  testImage(image, success, fail = () => {}) {
+  testImage(image, success, fail = () => { }) {
     let tester = new Image()
     tester.onload = () => {
       success(image)
@@ -25,13 +25,13 @@ export default {
     }
     tester.src = image.img
   },
-  testImages(images, success, fail = () => {}) {
+  testImages(images, success, fail = () => { }) {
     if (images.length === 0) return
     for (let image of images) {
       this.testImage(image, success, fail)
     }
   },
-  findFirstWorkingImage(srcs, success, fail = () => {}) {
+  findFirstWorkingImage(srcs, success, fail = () => { }) {
     if (srcs.length === 0) {
       fail()
       return
@@ -46,11 +46,11 @@ export default {
     })
   },
   // strWord = "视频"
-  getWebImages(strWord, callback) {
+  getWebImages(strWord, callback, proxy = `${Config.proxy}?`) {
     $.getJSON(
       `${
-        Config.proxy
-      }?http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
+      proxy
+      }http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
       response => {
         let images = [] // images = [{_thumb: "http://...", img: "http://..."}, {...}, {...}]
         if (response && response.data && response.data.list) {
@@ -70,13 +70,13 @@ export default {
     )
   },
   getSrcsFromUnsplash(term, callcback) {
-    Helper.scrape('https://unsplash.com/search/photos/' + term, function(
+    Helper.scrape('https://unsplash.com/search/photos/' + term, function (
       $html
     ) {
       var srcs = []
 
       var $metas = $html.filter('meta') // cannot use find
-      $metas.each(function() {
+      $metas.each(function () {
         var property = $(this).attr('property')
         if (property) {
           if (property.includes('og:image:secure_url')) {
