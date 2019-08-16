@@ -83,7 +83,6 @@ export default {
           }
         }
       })
-      Helper.addToolTips(block, candidates)
     }
   },
   saved(candidate) {
@@ -102,9 +101,6 @@ export default {
       'removeSavedWord',
       candidate.identifier
     )
-  },
-  addToolTips(block, candidates) {
-    AnnotatorTooltip.addTooltip(block, candidates, this.tooltipTemplateFilter)
   },
   tooltipTemplateFilter(candidates) {
     let html = ''

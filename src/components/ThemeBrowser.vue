@@ -127,7 +127,6 @@ export default {
             location.hash = `#/explore/related/${candidates[0].identifier}`
           })
           .prepend(`<i class="glyphicon glyphicon-fullscreen"></i>`)
-        Helper.addToolTips(block, candidates)
       }
     }
   }
