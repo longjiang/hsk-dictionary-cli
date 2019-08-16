@@ -17,38 +17,24 @@
         </button>
       </div>
       <a :href="`#/view/cedict/${word.identifier}`">
-        <img
-          v-if="srcs && srcs.length > 0"
-          :src="`${Config.imageProxy}?${srcs[0]}`"
-          class="word-list-ext-image"
-        />
+        <img v-if="srcs && srcs.length > 0" :src="srcs[0]" class="word-list-ext-image" />
       </a>
     </div>
     <div class="word-list-ext-item-body">
       <Frequency class="mb-1" v-if="word" :entry="word" />
       <div class="character-example-pinyin">
-        <Star
-          class="word-list-ext-item-head-star"
-          v-if="word && star === true"
-          :word="word"
-        ></Star>
+        <Star class="word-list-ext-item-head-star" v-if="word && star === true" :word="word"></Star>
         {{ word.pinyin }}
         <Speak :text="word.simplified" />
       </div>
       <a v-if="word" :href="`#/view/cedict/${word.identifier}`">
-        <div :data-hsk="word.hsk" class="word-list-ext-item-word simplified">
-          {{ word.simplified }}
-        </div>
-        <div :data-hsk="word.hsk" class="word-list-ext-item-word traditional">
-          {{ word.traditional }}
-        </div>
+        <div :data-hsk="word.hsk" class="word-list-ext-item-word simplified">{{ word.simplified }}</div>
+        <div :data-hsk="word.hsk" class="word-list-ext-item-word traditional">{{ word.traditional }}</div>
       </a>
 
       <div v-if="word.definitions" class="character-example-english mb-2">
         <div v-for="definition in word.definitions.slice(0, 3)">
-          <span v-if="definition.text">
-            {{ definition.text.replace(/\(.*\)/, '') }}
-          </span>
+          <span v-if="definition.text">{{ definition.text.replace(/\(.*\)/, '') }}</span>
         </div>
       </div>
       <PinyinButton />
@@ -56,23 +42,23 @@
         v-html="Helper.highlight(word.example, word.simplified, word.hsk)"
         class="word-list-ext-example"
       ></div>
-      <div class="character-example-english mt-1">
-        {{ word.exampleTranslation }}
-      </div>
+      <div class="character-example-english mt-1">{{ word.exampleTranslation }}</div>
       <a
         v-if="compareWith"
         :href="`#/compare/cedict/${compareWith.identifier},${word.identifier}`"
         class="btn show-more word-list-ext-compare-btn mt-3"
         :data-bg-hsk="word.hsk"
-        ><i class="glyphicon glyphicon-adjust"></i> Compare</a
       >
+        <i class="glyphicon glyphicon-adjust"></i> Compare
+      </a>
       <a
         v-if="compareWith"
         :href="`#/explore/related/${word.identifier}`"
         class="btn show-more word-list-ext-related-btn mt-3"
         :data-bg-hsk="word.hsk"
-        ><i class="glyphicon glyphicon-fullscreen"></i> Related</a
       >
+        <i class="glyphicon glyphicon-fullscreen"></i> Related
+      </a>
     </div>
   </component>
 </template>
