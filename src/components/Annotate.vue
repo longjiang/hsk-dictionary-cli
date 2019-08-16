@@ -16,9 +16,9 @@ export default {
     tag: {
       default: 'span'
     },
-    augmentFunction: {
+    wordBlockTemplateFilter: {
       type: Function,
-      default: Helper.augmentAnnotatedBlocks
+      default: Helper.wordBlockTemplateFilter
     }
   },
   data() {
@@ -44,8 +44,7 @@ export default {
                   this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
                   LoadedAnnotator.annotateIteratively(this.$el, node => {
                     this.annotated = true
-                    this.augmentFunction(node)
-                  })
+                  }, this.wordBlockTemplateFilter)
                 }
               },
               [$(this.$el).text()]
