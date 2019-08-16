@@ -78,9 +78,9 @@ export default {
         }
         html += `
         <div class="tooltip-entry">
-          <span class="tooltip-entry-character">${candidate.simplified} (${
-          candidate.traditional
-        })</span>
+          <span class="tooltip-entry-character" data-hsk="${candidate.hsk}">${
+          candidate.simplified
+        } (${candidate.traditional})</span>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
           <button onclick="window.AnnotatorTooltip.speak('${
             candidate.simplified
@@ -89,7 +89,7 @@ export default {
         </div>`
       }
       if (templateFilterFunction) {
-        html = templateFilterFunction(candidates, this, html)
+        html = templateFilterFunction(candidates, this, html) // this binds to the word-block node
       }
       return html
     }
