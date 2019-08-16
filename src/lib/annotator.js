@@ -103,7 +103,7 @@ export default {
         $(parent).html('') // clear existing textNodes
         for (let textOrCandidates of data) {
           let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
-          let block = $(wordBlockHTML)
+          let block = $(wordBlockHTML)[0]
           $(parent).append(block)
           wordBlockTemplateFilter(block, textOrCandidates)
           if (Array.isArray(textOrCandidates)) {

@@ -15,7 +15,12 @@
           ></i>
           <span class="dewey-code ml-3">{{ l1.code }}</span>
 
-          <Annotate tag="span" class="dewey-l1-title" :wordBlockTemplateFilter="wordBlockTemplateFilter">{{ l1.title }}</Annotate>
+          <Annotate
+            tag="span"
+            class="dewey-l1-title"
+            :wordBlockTemplateFilter="wordBlockTemplateFilter"
+            >{{ l1.title }}</Annotate
+          >
         </h4>
         <div :key="l1Key + i * 1000">
           <ul class="dewey-l2" v-if="showL1[i]">
@@ -32,16 +37,23 @@
                   v-if="showL2[i][j]"
                 ></i>
                 <span class="dewey-code ml-3">{{ l2.code }}</span>
-                <Annotate tag="span" class="dewey-l2-title" :wordBlockTemplateFilter="wordBlockTemplateFilter">{{
-                  l2.title
-                }}</Annotate>
+                <Annotate
+                  tag="span"
+                  class="dewey-l2-title"
+                  :wordBlockTemplateFilter="wordBlockTemplateFilter"
+                  >{{ l2.title }}</Annotate
+                >
               </h5>
               <div :key="l2Key + i + j * 1000">
                 <ul class="dewey-l3" v-if="showL2[i][j]">
                   <li v-for="(l3, k) of l2.children">
                     <h6>
                       <span class="dewey-code ml-3">{{ l3.code }}</span>
-                      <Annotate tag="span" class="dewey-l3-title" :wordBlockTemplateFilter="wordBlockTemplateFilter">
+                      <Annotate
+                        tag="span"
+                        class="dewey-l3-title"
+                        :wordBlockTemplateFilter="wordBlockTemplateFilter"
+                      >
                         {{ l3.title }}
                       </Annotate>
                     </h6>
@@ -61,7 +73,6 @@ import $ from 'jquery'
 import Helper from '@/lib/helper'
 import Dewey from '@/lib/dewey'
 import Annotator from '@/lib/annotator'
-import Annotate from '@/components/Annotate'
 
 export default {
   data() {
@@ -103,25 +114,20 @@ export default {
       this.l2Key++
     },
 
-    wordBlockTemplateFilter(block, candidates) {
-      $(block).attr('data-identifier', candidates[0].identifier)
-      if (candidates) {
-        // Sort the candidates by HSK
-        candidates = candidates.sort((a, b) => {
-          let abook = a.hsk === 'outside' ? 7 : a.hsk
-          let bbook = b.hsk === 'outside' ? 7 : b.hsk
-          return abook - bbook
-        })
-        // Set the best candidate
-        let $newBlock = $(Annotator.wordBlockTemplate(candidates))
-          .clone()
+    wordBlockTemplateFilter(block, textOrCandidates) {
+      if (Array.isArray(textOrCandidates)) {
+        const candidates = textOrCandidates
+        for (let candidate of candidates) {
+          const saved = Helper.saved(candidate)
+          if (saved) $(block).addClass('saved')
+        }
+        $(block)
           .addClass('word-block-related')
-        $newBlock.prepend(`<i class="glyphicon glyphicon-fullscreen"></i>`)
-        $(block).after($newBlock)
-        $(block).remove()
-        $newBlock.click(function() {
-          location.hash = `#/explore/related/${candidates[0].identifier}`
-        })
+          .click(function() {
+            location.hash = `#/explore/related/${candidates[0].identifier}`
+          })
+          .prepend(`<i class="glyphicon glyphicon-fullscreen"></i>`)
+        Helper.addToolTips(block, candidates)
       }
     }
   }

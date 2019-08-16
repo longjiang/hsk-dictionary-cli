@@ -42,9 +42,14 @@ export default {
               isChinese => {
                 if (isChinese) {
                   this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
-                  LoadedAnnotator.annotateIteratively(this.$el, node => {
-                    this.annotated = true
-                  }, this.wordBlockTemplateFilter)
+                  LoadedAnnotator.annotateIteratively(
+                    this.$el,
+                    node => {
+                      this.annotated = true
+                    },
+                    this.wordBlockTemplateFilter,
+                    Helper.tooltipTemplateFilter
+                  )
                 }
               },
               [$(this.$el).text()]

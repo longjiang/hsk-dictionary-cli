@@ -28,6 +28,7 @@ export default {
   },
 
   addTooltip(block, candidates, templateFilterFunction = false) {
+    console.log('addTooltip', block, candidates)
     Tipped.create(
       block,
       this.tooltipTemplate(candidates, templateFilterFunction),

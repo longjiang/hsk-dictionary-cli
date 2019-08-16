@@ -26,7 +26,6 @@
 
 <script>
 import Helper from '@/lib/helper'
-import Annotator from '@/lib/annotator'
 import $ from 'jquery'
 
 export default {
@@ -43,9 +42,9 @@ export default {
       type: String,
       default: 'false'
     },
-    augmentFunction: {
+    wordBlockTemplateFilter: {
       type: Function,
-      default: Helper.augmentAnnotatedBlocks
+      default: Helper.wordBlockTemplateFilter
     }
   },
   data() {
@@ -85,14 +84,17 @@ export default {
         for (let node of this.$target.get()) {
           Helper.loaded(
             (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-              LoadedAnnotator.annotateIteratively(node, node => {
-                this.state = 'idle'
-                if (this.sticky === 'false') {
-                  this.annotated = true
-                  this.shown = true
-                }
-                this.augmentFunction(node)
-              })
+              LoadedAnnotator.annotateIteratively(
+                node,
+                node => {
+                  this.state = 'idle'
+                  if (this.sticky === 'false') {
+                    this.annotated = true
+                    this.shown = true
+                  }
+                },
+                this.wordBlockTemplateFilter
+              )
             }
           )
         }
