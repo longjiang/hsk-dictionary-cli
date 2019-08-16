@@ -204,8 +204,8 @@ export default {
         } else if (method === 'simplified') {
           Helper.loaded(
             (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-              LoadedHSKCEDICT.getByHSKId(entry => (this.a = entry), [args[0]])
-              LoadedHSKCEDICT.getByHSKId(entry => (this.b = entry), [args[1]])
+              LoadedHSKCEDICT.lookupSimplified(results => (this.a = results[0]), [args[0]])
+              LoadedHSKCEDICT.lookupSimplified(results => (this.b = results[0]), [args[1]])
             }
           )
         }
