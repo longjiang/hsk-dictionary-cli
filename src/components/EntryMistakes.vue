@@ -1,31 +1,14 @@
 <template>
-  <div
-    class="mistakes"
-    :key="'mistakes-' + mistakesKey"
-    v-if="entry.mistakes && entry.mistakes.length > 0"
-  >
+  <div class="mistakes" v-if="mistakes && mistakes.length > 0">
     <div class="label song-label mistakes-label">
       Common mistakes containing “{{ entry.simplified }}”
     </div>
 
-    <div  class="text-center pt-4 pb-4 lyrics-bar">
-      <button class="btn show-more" :data-bg-hsk="entry.hsk" @click="showClick">
-        Show Mistakes
-      </button>
-    </div>
-    <div v-if="show" class="mt-4">
-      <PinyinButton
-        class="mt-1"
-        :selector="`#mistakes .character-example-word, #mistakes .mistake-l1`"
-      />
-      <ul
-        class="character-examples collapsed"
-        id="mistakes"
-        data-collapse-target
-      >
+    <div class="mt-4">
+      <ul class="character-examples collapsed" data-collapse-target>
         <li
           class="character-example mistake-item mt-4 mb-4"
-          v-for="mistake in entry.mistakes"
+          v-for="mistake in mistakes"
         >
           <span
             class="character-example-word concordance-context collapsed"
@@ -77,7 +60,7 @@
         </li>
       </ul>
       <ShowMoreButton
-        :length="entry.mistakes.length"
+        :length="mistakes.length"
         min="4"
         :data-bg-hsk="entry.hsk"
       ></ShowMoreButton>
@@ -95,7 +78,7 @@ export default {
     return {
       Helper,
       show: false,
-      mistakesKey: 0
+      mistakes: []
     }
   },
   methods: {
@@ -103,10 +86,11 @@ export default {
       this.show = true
     }
   },
-  mounted() {
+  created() {
+    console.log('getting mistakes')
     SketchEngine.mistakes(this.entry.simplified, response => {
-      this.entry.mistakes = response
-      this.mistakesKey += 1
+      this.mistakes = response
+      console.log(response)
     })
   }
 }

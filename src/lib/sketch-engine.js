@@ -277,63 +277,53 @@ export default {
         })
       },
       function(response) {
-        try {
-          const data = JSON.parse(response).data
-          let results = []
-          for (let Line of data.Lines) {
-            try {
-              const ml = Line.Left.map(function(item) {
-                return item.str || item.strc
-              })
-                .join('')
-                .match(/(.*)<s>([^<s>]*?)$/)
-              const left = ml[2]
-              const leftContext = ml[1]
-                .replace(/<s>/g, '')
-                .replace(/<\/s>/g, '')
-              let mr = Line.Right.map(function(item) {
-                return item.str || item.strc
-              })
-                .join('')
-                .match(/^([^</s>]*)<\/s>(.*)/)
-              const right = mr[1]
-              const rightContext = mr[2]
-                .replace(/<s>/g, '')
-                .replace(/<\/s>/g, '')
-              var refs = {}
-              const r = Line.ref.split(',')
-              for (let i = 0; i < r.length; i++) {
-                refs[SketchEngine.mistakeRefKeys[i]] = r[i]
-              }
-              const country = refs['=text.id'].replace(
-                /^[^_]*_[^_]*_[^_]*_[^_]*_([^_]*).*/g,
-                '$1'
-              )
-              results.push({
-                left: left,
-                right: right,
-                leftContext: leftContext,
-                rightContext: rightContext,
-                text: left + term + right,
-                country: Helper.country(country),
-                refs: refs,
-                proficiency: SketchEngine.proficiency[refs['=u.proficiency']],
-                errorType: SketchEngine.errors[refs['=err.type']],
-                errorLevel: SketchEngine.errors[refs['=err.level']],
-                l1: refs['=u.l1']
-              })
-            } catch (err) {
-              console.log(err)
-              // catch errors
+        const data = JSON.parse(response).data
+        let results = []
+        for (let Line of data.Lines) {
+          try {
+            const ml = Line.Left.map(function(item) {
+              return item.str || item.strc
+            })
+              .join('')
+              .match(/(.*)<s>([^<s>]*?)$/)
+            const left = ml[2]
+            const leftContext = ml[1].replace(/<s>/g, '').replace(/<\/s>/g, '')
+            let mr = Line.Right.map(function(item) {
+              return item.str || item.strc
+            })
+              .join('')
+              .match(/^([^</s>]*)<\/s>(.*)/)
+            const right = mr[1]
+            const rightContext = mr[2].replace(/<s>/g, '').replace(/<\/s>/g, '')
+            var refs = {}
+            for (let i in Line.Refs) {
+              refs[SketchEngine.mistakeRefKeys[i]] = Line.Refs[i]
             }
+            const country = refs['=text.id'].replace(
+              /^[^_]*_[^_]*_[^_]*_[^_]*_([^_]*).*/g,
+              '$1'
+            )
+            results.push({
+              left: left,
+              right: right,
+              leftContext: leftContext,
+              rightContext: rightContext,
+              text: left + term + right,
+              country: Helper.country(country),
+              refs: refs,
+              proficiency: SketchEngine.proficiency[refs['=u.proficiency']],
+              errorType: SketchEngine.errors[refs['=err.type']],
+              errorLevel: SketchEngine.errors[refs['=err.level']],
+              l1: refs['=u.l1']
+            })
+          } catch (err) {
+            console.log(err)
           }
-          results = results.sort(function(a, b) {
-            return a.text.length - b.text.length
-          })
-          callback(results)
-        } catch (err) {
-          throw 'Concordance (mistakes) did not return any data.'
         }
+        results = results.sort(function(a, b) {
+          return a.text.length - b.text.length
+        })
+        callback(results)
       }
     )
   }
