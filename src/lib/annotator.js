@@ -51,19 +51,6 @@ export default {
     return HSKCEDICT
   },
 
-  annotateText(text, callback) {
-    let id = Helper.uniqueId()
-    this.worker.postMessage([id, 'annotate', [text]])
-    let m = event => {
-      let [returnId, method, data] = event.data
-      if (method === 'annotate' && returnId == id) {
-        this.worker.removeEventListener('message', m)
-        callback(data)
-      }
-    }
-    this.worker.addEventListener('message', m)
-  },
-
   wordBlockTemplate(textOrCandidates) {
     if (Array.isArray(textOrCandidates)) {
       // Sort the candidates by HSK
@@ -90,21 +77,31 @@ export default {
     }
   },
 
+  annotateText(text, callback) {
+    let id = Helper.uniqueId()
+    this.worker.postMessage([id, 'annotate', [text]])
+    let m = event => {
+      let [returnId, method, data] = event.data
+      if (method === 'annotate' && returnId == id) {
+        this.worker.removeEventListener('message', m)
+        callback(data)
+      }
+    }
+    this.worker.addEventListener('message', m)
+  },
+
   annotate(
     textNode,
-    callback = function() {},
     wordBlockTemplateFilter = function() {},
     TooltipTemplateFilter = false
   ) {
     if (textNode.nodeValue.replace(/\s/g, '').length > 0) {
       // Not just spaces!
       this.annotateText(textNode.nodeValue, data => {
-        let parent = textNode.parentElement // The parent element is, for example, a <span> or a <p>
-        $(parent).html('') // clear existing textNodes
         for (let textOrCandidates of data) {
           let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
           let block = $(wordBlockHTML)[0]
-          $(parent).append(block)
+          $(textNode).before(block)
           wordBlockTemplateFilter(block, textOrCandidates)
           if (Array.isArray(textOrCandidates)) {
             const candidates = textOrCandidates
@@ -115,7 +112,7 @@ export default {
             )
           }
         }
-        callback(parent)
+        $(textNode).remove()
       })
     }
   },
@@ -131,12 +128,7 @@ export default {
       this.HSKCEDICT.isChinese(
         isChinese => {
           if (isChinese) {
-            this.annotate(
-              node,
-              callback,
-              wordBlockTemplateFilter,
-              TooltipTemplateFilter
-            )
+            this.annotate(node, wordBlockTemplateFilter, TooltipTemplateFilter)
           }
         },
         [node.nodeValue]
