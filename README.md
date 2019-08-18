@@ -1,4 +1,4 @@
-# hsk-dictionary-cli
+# chinesezerotohero-cli
 
 ## Project setup
 ```

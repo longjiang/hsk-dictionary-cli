@@ -1,6 +1,6 @@
 <template>
   <div
-    id="hsk-dictionary"
+    id="chinesezerotohero"
     :class="{
       'hide-except-focus': focus,
       'show-pinyin': !hidePinyinExceptSaved,
@@ -116,13 +116,13 @@ export default {
     toggleFocus() {
       this.focus = this.focus ? false : true
       if (this.focus) {
-        $('#hsk-dictionary *').addClass('focus-off')
+        $('#chinesezerotohero *').addClass('focus-off')
         $('.focus')
           .parents()
           .removeClass('focus-off')
         $('.focus, .focus *').removeClass('focus-off')
       } else {
-        $('#hsk-dictionary *').removeClass('focus-off')
+        $('#chinesezerotohero *').removeClass('focus-off')
       }
     },
     addAllPinyin() {

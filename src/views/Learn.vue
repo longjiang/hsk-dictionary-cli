@@ -91,7 +91,7 @@ export default {
       }
     },
     route() {
-      $('#hsk-dictionary')[0].scrollIntoView()
+      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {

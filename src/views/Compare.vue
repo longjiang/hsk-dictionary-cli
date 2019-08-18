@@ -179,7 +179,7 @@ export default {
   },
   methods: {
     route() {
-      $('#hsk-dictionary')[0].scrollIntoView()
+      $('#chinesezerotohero')[0].scrollIntoView()
       let method = this.$route.params.method
       let args = this.$route.params.args.split(',')
       if (method && args) {

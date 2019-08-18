@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     route() {
-      $('#hsk-dictionary')[0].scrollIntoView()
+      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.arg) {
         this.word = undefined
         this.related = []

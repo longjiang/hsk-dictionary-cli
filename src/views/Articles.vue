@@ -68,8 +68,8 @@ export default {
   },
   methods: {
     route() {
-      if ($('#hsk-dictionary')[0]) {
-        $('#hsk-dictionary')[0].scrollIntoView()
+      if ($('#chinesezerotohero')[0]) {
+        $('#chinesezerotohero')[0].scrollIntoView()
       }
       if (this.$route.params.method) {
         this.method = this.$route.params.method

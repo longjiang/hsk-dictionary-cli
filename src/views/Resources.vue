@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     route() {
-      $('#hsk-dictionary')[0].scrollIntoView()
+      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.method) {
         if (this.method === 'view' && this.args) {
           this.articleId = this.args.split(',')[0]

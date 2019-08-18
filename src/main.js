@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@/assets/css/annotator.css'
-import '@/assets/css/hsk-dictionary.css'
+import '@/assets/css/chinesezerotohero.css'
 import '@/vendor/css-spinners/spinner/heartbeat.css'
 import '@/vendor/css-spinners/spinner/inner-circles.css'
 import '@/vendor/glyphicons/css/glyphicons.css'
@@ -110,5 +110,5 @@ if (location.hash === '#/test') {
     router,
     store,
     render: h => h(ChineseZeroToHero)
-  }).$mount('#hsk-dictionary')
+  }).$mount('#chinesezerotohero')
 }
