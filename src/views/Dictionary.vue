@@ -1,5 +1,43 @@
 <template>
-  <div class="main focus" v-cloak :key="'entry-' + entryKey">
+  <div class="main focus mt-5 mb-5" v-cloak :key="'entry-' + entryKey">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h4>Dictionary</h4>
+          <p>
+            Search for any word, or compare two words. Dictionary data provided
+            by in the
+            <a
+              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+              target="_blank"
+            >
+              CC-CEDICT <i class="glyphicon glyphicon-new-window"></i></a
+            >.
+          </p>
+          <hr class="mb-5" />
+          <div class="text-center">
+            <Loader ref="loader" />
+          </div>
+          <div class="search-compare-wrapper" v-if="loaded">
+            <Search ref="search" random="true"></Search>
+            <Search
+              :class="{ 'ml-2': true, hidden: !compare }"
+              ref="compare"
+              placeholder="Compare with..."
+              :hrefFunc="compareHrefFunc"
+            ></Search>
+            <button class="btn btn-compare ml-2" @click="compareClick">
+              <span v-if="compare"
+                ><i class="glyphicon glyphicon-remove-sign"></i></span
+              ><span v-if="!compare"
+                ><i class="glyphicon glyphicon-adjust"></i>
+                <span class="compare-btn-text ml-1">Compare</span></span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div v-if="entry">
       <div class="text-center mt-5">
         <Loader class="mt-5" />
@@ -91,7 +129,7 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
-import Frequency from '@/components/Frequency.vue'
+import Search from '@/components/Search.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
@@ -109,7 +147,7 @@ export default {
     EntryMistakes,
     InstagramButton,
     EntryWebImages,
-    Frequency
+    Search
   },
   data() {
     return {
@@ -118,10 +156,21 @@ export default {
       character: {},
       unsplashSrcs: [],
       unsplashSearchTerm: '',
-      entryKey: 0 // used to force re-render this component
+      loaded: false,
+      compare: false,
+      entryKey: 0, // used to force re-render this component
+      compareHrefFunc: compareEntry => {
+        const entry =
+          this.$root.$children[0].$refs.search.entry ||
+          this.$root.$children[0].$refs.routerView.entry
+        return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`
+      }
     }
   },
   methods: {
+    compareClick() {
+      this.compare = this.compare ? false : true
+    },
     show(entry) {
       this.entryKey += 1
       this.entry = entry
@@ -178,6 +227,9 @@ export default {
     }
   },
   mounted() {
+    Helper.loaded(() => {
+      this.loaded = true
+    })
     if (this.$route.name === 'entry') {
       this.route()
     }

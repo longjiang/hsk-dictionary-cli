@@ -16,6 +16,21 @@ export default new Router({
       redirect: '/explore/levels'
     },
     {
+      path: '/view/:method?/:arg?',
+      name: 'entry',
+      component: () => import('./views/Dictionary.vue'),
+      props: true,
+      meta: {
+        title: 'Dictionary | Chinese Learning Wiki',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'A visual Chinese dictionary with collocations, example, web images, and character breakdown.'
+          }
+        ]
+      }
+    },
+    {
       path: '/grammar',
       name: 'grammar',
       component: () => import('./views/Grammar.vue'),
@@ -40,21 +55,6 @@ export default new Router({
           {
             name: 'description',
             content: 'Learn Chinese words by HSK levels (HSK 1 to HSK 6).'
-          }
-        ]
-      }
-    },
-    {
-      path: '/view/:method?/:arg?',
-      name: 'entry',
-      component: () => import('./views/Entry.vue'),
-      props: true,
-      meta: {
-        title: 'Dictionary | Chinese Learning Wiki',
-        metaTags: [
-          {
-            name: 'description',
-            content: ''
           }
         ]
       }

@@ -24,176 +24,14 @@
           </div>
         </div>
       </div>
-
       <div class="row mt-3" v-cloak>
         <div class="col-sm-12">
-          <nav class="tabs text-center">
-            <router-link
-              :class="{
-                tab: true,
-                'router-link-active':
-                  $route.name === 'entry' || $route.name === 'compare'
-              }"
-              :to="{ name: 'entry' }"
-              title="Lookup and compare words"
-            >
-              <i class="glyphicon glyphicon-font"></i> Dictionary
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'explore' }"
-              title="Explore words by level and topic"
-            >
-              <i class="glyphicon glyphicon-book"></i>
-              Wordbook
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'grammar' }"
-              title="Chinese grammar cheatsheet"
-            >
-              <i class="glyphicon glyphicon-list"></i> Grammar
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'reader' }"
-              title="Read your text with annotation"
-            >
-              <i class="glyphicon glyphicon-file"></i> Reader
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'learn' }"
-              title="Learn new words"
-            >
-              <i class="glyphicon glyphicon-blackboard"></i> Learn
-            </router-link>
-            <router-link
-              class="tab"
-              :to="{ name: 'articles' }"
-              title="Articles related to Chinese learning"
-            >
-              <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
-            </router-link>
-            <!-- <router-link
-              class="tab"
-              :to="{ name: 'community' }"
-              title="Chinese-learning communities"
-            >
-              <i class="glyphicon glyphicon-user"></i> Communities
-            </router-link> -->
-            <router-link
-              class="tab tab-saved-words"
-              :to="{ name: 'saved-words' }"
-            >
-              <i class="glyphicon glyphicon-star"></i> Saved
-              <span class="tab-saved-words-count" v-cloak>
-                {{ savedWordsCount() }}
-              </span>
-            </router-link>
-            <router-link
-              class="tab tab-info"
-              :to="{ name: 'settings' }"
-              title="Settings"
-            >
-              <i class="glyphicon glyphicon-cog"></i> Settings
-            </router-link>
-          </nav>
+          <Nav />
         </div>
       </div>
-    </div>
-    <div
-      class="container"
-      v-if="$route.name === 'entry' || $route.name === 'compare'"
-    >
-      <div class="row mt-5 mb-4">
-        <div class="col-sm-12">
-          <h4>Dictionary</h4>
-          <p>
-            Search for any word, or compare two words. Dictionary data provided
-            by in the
-            <a
-              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-              target="_blank"
-            >
-              CC-CEDICT <i class="glyphicon glyphicon-new-window"></i></a
-            >.
-          </p>
-          <hr class="mb-5" />
-          <div class="text-center">
-            <Loader />
-          </div>
-          <div class="search-compare-wrapper" v-if="loaded">
-            <Search ref="search" random="true"></Search>
-            <Search
-              :class="{ 'ml-2': true, hidden: !compare }"
-              ref="compare"
-              placeholder="Compare with..."
-              :hrefFunc="compareHrefFunc"
-            ></Search>
-            <button class="btn btn-compare ml-2" @click="compareClick">
-              <span v-if="compare"
-                ><i class="glyphicon glyphicon-remove-sign"></i></span
-              ><span v-if="!compare"
-                ><i class="glyphicon glyphicon-adjust"></i>
-                <span class="compare-btn-text ml-1">Compare</span></span
-              >
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="$route.path === '/browse' || $route.path.startsWith('/explore')"
-      class="mt-4"
-    >
-      <nav class="secondary-menu text-center">
-        <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
-          <i class="glyphicon glyphicon-signal"></i>
-          HSK Levels
-        </router-link>
-        <router-link
-          class="secondary-menu-item"
-          :to="{ name: 'explore-roots' }"
-        >
-          <i class="glyphicon glyphicon-grain"></i>
-          Roots
-        </router-link>
-        <router-link
-          class="secondary-menu-item"
-          :to="{ name: 'explore-topics' }"
-        >
-          <i class="glyphicon glyphicon-certificate"></i>
-          Topics
-        </router-link>
-        <router-link
-          class="secondary-menu-item"
-          :to="{ name: 'explore-related' }"
-        >
-          <i class="glyphicon glyphicon-fullscreen"></i>
-          Related
-        </router-link>
-      </nav>
     </div>
 
-    <div v-if="$route.name && $route.name.startsWith('articles')" class="mt-4">
-      <nav class="secondary-menu text-center">
-        <router-link
-          class="secondary-menu-item"
-          :to="{ name: 'articles-wiki' }"
-        >
-          <font-awesome-icon :icon="['fas', 'file-word']" />
-          From Our Wiki
-        </router-link>
-        <router-link
-          class="secondary-menu-item"
-          :to="{ name: 'articles-reddit' }"
-        >
-          <font-awesome-icon :icon="['fab', 'reddit']" />
-          From Reddit
-        </router-link>
-      </nav>
-    </div>
+    <SubNav class="pt-4" />
 
     <keep-alive>
       <router-view ref="routerView" />
@@ -252,16 +90,18 @@
 <script>
 import $ from 'jquery'
 import Helper from '@/lib/helper'
-import Search from '@/components/Search.vue'
 import Annotator from '@/lib/annotator'
 import Hanzi from '@/lib/hanzi'
 import Grammar from '@/lib/grammar'
+import Nav from '@/components/Nav'
+import SubNav from '@/components/SubNav'
 
 // eslint-disable-next-line no-unused-vars
 
 export default {
   components: {
-    Search
+    Nav,
+    SubNav
   },
   data: function() {
     return {
@@ -269,14 +109,7 @@ export default {
       loaded: false,
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
-      useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
-      compare: false,
-      compareHrefFunc: compareEntry => {
-        const entry =
-          this.$root.$children[0].$refs.search.entry ||
-          this.$root.$children[0].$refs.routerView.entry
-        return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`
-      }
+      useTraditional: localStorage.getItem('czhUseTraditional') === 'true'
     }
   },
   methods: {
@@ -300,18 +133,10 @@ export default {
         this.$refs.entry.admin = true
       }
     },
-    compareClick() {
-      this.compare = this.compare ? false : true
-    },
     toggleCollapsed(e) {
       $(e.target)
         .next('ul')
         .toggleClass('collapsed')
-    },
-    savedWordsCount() {
-      let count = this.$store.getters.savedWordCount()
-      // eslint-disable-next-line vue/no-parsing-error
-      return count < 100 ? count : '多'
     }
   },
   beforeMount() {

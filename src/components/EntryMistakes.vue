@@ -87,10 +87,8 @@ export default {
     }
   },
   created() {
-    console.log('getting mistakes')
     SketchEngine.mistakes(this.entry.simplified, response => {
       this.mistakes = response
-      console.log(response)
     })
   }
 }
