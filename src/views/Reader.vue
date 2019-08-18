@@ -75,19 +75,40 @@
         </div>
         <div class="col-sm-6">
           <h4 class="mb-4">Using Desktop Google Chrome?</h4>
+          <p>Install the <b>“Add Pinyin” Chrome extension</b> to read all Chinese webpages with pinyin annotation.</p>
           <img
             src="img/extension-screenshot-1.jpg"
             alt
             class="img-fluid mb-4 shadow rounded"
           />
-          <a
-            class="btn btn-danger mt-3 pl-3 pr-3"
-            href="files/czh-reader-extension.zip"
-            download
+          <div class="shadow rounded p-4 text-center">
+            <a
+              href="https://chrome.google.com/webstore/detail/add-pinyin-chinese-zero-t/nhhoiplgolfammoegggnjojoaljjbojg"
+              target="_blank"
+            >
+              <img
+                src="img/chrome-store.png"
+                alt="Chrome Web Store"
+                style="width: 15rem"
+              />
+            </a>
+            <a
+              class="btn btn-danger mt-3 pl-3 pr-3"
+              href="https://chrome.google.com/webstore/detail/add-pinyin-chinese-zero-t/nhhoiplgolfammoegggnjojoaljjbojg"
+              target="_blank"
+            >
+              Install “Add Pinyin” Extension
+              <font-awesome-icon icon="external-link-alt" />
+            </a>
+          </div>
+          <hr class="mt2" />
+          <p>
+            <b>In China? Can’t access Google?</b> Install the extension package
+            manually using developer mode.
+          </p>
+          <a href="files/czh-reader-extension.zip" download
+            >Download extension package for developer mode</a
           >
-            <i class="glyphicon glyphicon-download-alt mr-2"></i>Download "Add
-            Pinyin" Extension
-          </a>
           <p class="mt-3 mb-0">
             This downloads a
             <code>.zip</code> file.
@@ -108,11 +129,6 @@
             </li>
             <li>Choose the folder you just extracted *</li>
           </ul>
-          <hr class="mt2" />
-          <small>
-            * Google is in the process of reviewing this extension. Once we pass
-            it, the extension will be available in the Chrome Web Store.
-          </small>
         </div>
       </div>
     </div>
