@@ -2,19 +2,8 @@
   <div class="main focus mt-5 mb-5" v-cloak :key="'entry-' + entryKey">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12">
-          <h4>Dictionary</h4>
-          <p>
-            Search for any word, or compare two words. Dictionary data provided
-            by in the
-            <a
-              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-              target="_blank"
-            >
-              CC-CEDICT <i class="glyphicon glyphicon-new-window"></i></a
-            >.
-          </p>
-          <hr class="mb-5" />
+        <div class="col-sm-12 text-center">
+          <h2 class="mb-5">Dictionary</h2>
           <div class="text-center">
             <Loader ref="loader" />
           </div>
