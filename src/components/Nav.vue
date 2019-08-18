@@ -2,6 +2,13 @@
   <div>
     <nav class="tabs text-center">
       <router-link
+        class="tab"
+        :to="{ name: 'home' }"
+        title="Home page"
+      >
+        <i class="glyphicon glyphicon-font"></i> Home
+      </router-link>
+      <router-link
         :class="{
           tab: true,
           'router-link-active':
@@ -44,13 +51,6 @@
       >
         <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
       </router-link>
-      <!-- <router-link
-              class="tab"
-              :to="{ name: 'community' }"
-              title="Chinese-learning communities"
-            >
-              <i class="glyphicon glyphicon-user"></i> Communities
-            </router-link> -->
       <router-link class="tab tab-saved-words" :to="{ name: 'saved-words' }">
         <i class="glyphicon glyphicon-star"></i> Saved
         <span class="tab-saved-words-count" v-cloak>

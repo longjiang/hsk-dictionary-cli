@@ -8,7 +8,18 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect: '/view'
+      component: () => import('./views/Home.vue'),
+      props: true,
+      meta: {
+        title: 'Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'Following a standardized curriculum (HSK) and a practice-centered approach (with language partners), our video courses bring real learning results that equip students in the real Chinese-speaking world.'
+          }
+        ]
+      }
     },
     {
       path: '/browse',
@@ -21,11 +32,12 @@ export default new Router({
       component: () => import('./views/Dictionary.vue'),
       props: true,
       meta: {
-        title: 'Dictionary | Chinese Learning Wiki',
+        title: 'Dictionary | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
-            content: 'A visual Chinese dictionary with collocations, example, web images, and character breakdown.'
+            content:
+              'A visual Chinese dictionary with collocations, example, web images, and character breakdown.'
           }
         ]
       }
@@ -35,7 +47,7 @@ export default new Router({
       name: 'grammar',
       component: () => import('./views/Grammar.vue'),
       meta: {
-        title: 'Grammar Cheatsheet | Chinese Learning Wiki',
+        title: 'Grammar Cheatsheet | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -50,7 +62,7 @@ export default new Router({
       name: 'levels',
       component: () => import('./views/Levels.vue'),
       meta: {
-        title: 'HSK Words by Level | Chinese Learning Wiki',
+        title: 'HSK Words by Level | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -64,7 +76,7 @@ export default new Router({
       name: 'compare',
       component: () => import('./views/Compare.vue'),
       meta: {
-        title: 'Compare | Chinese Learning Wiki',
+        title: 'Compare | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -78,7 +90,7 @@ export default new Router({
       name: 'reader',
       component: () => import('./views/Reader.vue'),
       meta: {
-        title: 'Reader | Chinese Learning Wiki',
+        title: 'Reader | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -98,7 +110,7 @@ export default new Router({
       name: 'articles-wiki',
       component: () => import('./views/Articles.vue'),
       meta: {
-        title: 'Articles | Chinese Learning Wiki',
+        title: 'Chinese Learning Wiki Articles | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -119,7 +131,7 @@ export default new Router({
       component: () => import('./views/Community.vue'),
       props: true,
       meta: {
-        title: 'Community | Chinese Learning Wiki',
+        title: 'Community | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -134,7 +146,7 @@ export default new Router({
       component: () => import('./views/Resources.vue'),
       props: true,
       meta: {
-        title: 'Resources | Chinese Learning Wiki',
+        title: 'Resources | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -149,7 +161,7 @@ export default new Router({
       component: () => import('./views/Reddit.vue'),
       props: true,
       meta: {
-        title: 'Reddit Posts | Chinese Learning Wiki',
+        title: 'Reddit Posts | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -163,7 +175,7 @@ export default new Router({
       name: 'learn',
       component: () => import('./views/Learn.vue'),
       meta: {
-        title: 'Learn | Chinese Learning Wiki',
+        title: 'Learn | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -177,7 +189,7 @@ export default new Router({
       name: 'saved-words',
       component: () => import('./views/SavedWords.vue'),
       meta: {
-        title: 'Saved Words | Chinese Learning Wiki',
+        title: 'Saved Words | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -196,7 +208,7 @@ export default new Router({
       name: 'explore-roots',
       component: () => import('./views/Roots.vue'),
       meta: {
-        title: 'Roots | Chinese Learning Wiki',
+        title: 'Roots | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -211,7 +223,7 @@ export default new Router({
       name: 'explore-related',
       component: () => import('./views/Related.vue'),
       meta: {
-        title: 'Related Words | Chinese Learning Wiki',
+        title: 'Related Words | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -225,7 +237,7 @@ export default new Router({
       name: 'explore-topics',
       component: () => import('./views/Topics.vue'),
       meta: {
-        title: 'Words by Topic | Chinese Learning Wiki',
+        title: 'Words by Topic | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -239,7 +251,7 @@ export default new Router({
       name: 'pinyin',
       component: () => import('./views/PinyinList.vue'),
       meta: {
-        title: 'Pinyin List | Chinese Learning Wiki',
+        title: 'Pinyin List | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -254,7 +266,7 @@ export default new Router({
       name: 'settings',
       component: () => import('./views/Settings.vue'),
       meta: {
-        title: 'Settings | Chinese Learning Wiki',
+        title: 'Settings | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',

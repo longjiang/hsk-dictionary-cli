@@ -17,7 +17,7 @@
       <div class="container">
         <div class="row mb-3">
           <div class="col-sm-12 text-center">
-            <img src="img/logo-zh-zth-light.png" class="logo" />
+            <router-link to="/"><img src="img/logo-zh-zth-light.png" class="logo" /></router-link>
           </div>
         </div>
       </div>
