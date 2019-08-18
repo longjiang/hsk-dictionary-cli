@@ -30,29 +30,12 @@
         </div>
         <div class="col-md-6 text-center">
           <div class="youtube-versions" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
-            <div class="youtube" v-for="youtube in lrc.youtube">
-              <div
-                v-bind:style="{
-                  backgroundImage:
-                    'url(' +
-                    '//img.youtube.com/vi/' +
-                    youtube +
-                    '/hqdefault.jpg' +
-                    ')'
-                }"
-                class="youtube-screen"
-                v-on:click="
-                  loadYouTubeiFrame(
-                    youtube,
-                    lrc.content[lrc.matchedLines[0]].starttime,
-                    `${_uid}-lrc-${lrcIndex}-youtube-${youtube}`,
-                    lrc
-                  )
-                "
-              >
-                <div :id="`${_uid}-lrc-${lrcIndex}-youtube-${youtube}`"></div>
-              </div>
-            </div>
+            <YouTubeVideo
+              v-for="youtube in lrc.youtube"
+              :youtube="youtube"
+              :startTime="lrc.content[lrc.matchedLines[0]].starttime"
+              :lrc="lrc"
+            />
             <div class="mt-4">
               Showing {{ lrc.currentYoutubeIndex }} of
               {{ lrc.youtube.length }} videos of this song.
@@ -73,8 +56,12 @@
 <script>
 import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
+import YouTubeVideo from '@/components/YouTubeVideo'
 
 export default {
+  components: {
+    YouTubeVideo
+  },
   data() {
     return {
       LRC,
@@ -105,62 +92,6 @@ export default {
     }
   },
   methods: {
-    loadYouTubeiFrame(youtube, starttime, elementId, lrc) {
-      var player
-      // $('.youtube iframe').remove();
-      this.removeYouTubeAPIVars()
-      window.onYouTubePlayerAPIReady = function() {
-        // eslint-disable-next-line no-undef
-        player = new YT.Player(elementId, {
-          height: '390',
-          width: '640',
-          videoId: youtube,
-          playerVars: {
-            start: parseInt(starttime),
-            autoplay: 1,
-            controls: 1,
-            showinfo: 0,
-            playsinline: 1,
-            rel: 0
-          },
-          events: {
-            onReady: window.onPlayerReady,
-            onStateChange: function(playerStatus) {
-              if (playerStatus == 1) {
-                // Playing, update time
-                lrc.timer.setCurrentTime(lrc, player.getCurrentTime())
-                lrc.timer.play()
-              }
-              if (playerStatus == 2) {
-                // Playing, update time
-                lrc.timer.setCurrentTime(lrc, player.getCurrentTime())
-                lrc.timer.pauase()
-              }
-            }
-          }
-        })
-        lrc.youtubePlayer = player
-      }
-      $.getScript('//www.youtube.com/iframe_api')
-    },
-
-    removeYouTubeAPIVars() {
-      if (window['YT']) {
-        let vars = [
-          'YT',
-          'YTConfig',
-          'onYTReady',
-          'yt',
-          'ytDomDomGetNextId',
-          'ytEventsEventsListeners',
-          'ytEventsEventsCounter'
-        ]
-        vars.forEach(function(key) {
-          window[key] = undefined
-        })
-      }
-    },
-
     seekYouTube(lrc, starttime) {
       var player = lrc.youtubePlayer
       player.seekTo(starttime)
