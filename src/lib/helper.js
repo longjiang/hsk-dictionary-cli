@@ -86,18 +86,18 @@ export default {
     }
   },
   saved(candidate) {
-    return window.hskDictionaryApp.$store.getters.hasSavedWord(
+    return window.ChineseZeroToHeroApp.$store.getters.hasSavedWord(
       candidate.identifier
     )
   },
   addSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch(
+    window.ChineseZeroToHeroApp.$store.dispatch(
       'addSavedWord',
       candidate.identifier
     )
   },
   removeSaved(candidate) {
-    window.hskDictionaryApp.$store.dispatch(
+    window.ChineseZeroToHeroApp.$store.dispatch(
       'removeSavedWord',
       candidate.identifier
     )

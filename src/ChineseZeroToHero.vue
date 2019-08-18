@@ -147,7 +147,7 @@ export default {
   mounted() {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')
     window.entry = undefined
-    window.hskDictionaryApp = this
+    window.ChineseZeroToHeroApp = this
 
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {

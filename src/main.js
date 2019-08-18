@@ -6,7 +6,7 @@ import '@/vendor/css-spinners/spinner/heartbeat.css'
 import '@/vendor/css-spinners/spinner/inner-circles.css'
 import '@/vendor/glyphicons/css/glyphicons.css'
 import Vue from 'vue'
-import HSKDictionary from './HSKDictionary.vue'
+import ChineseZeroToHero from './ChineseZeroToHero.vue'
 import Test from './Test.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
@@ -106,9 +106,9 @@ if (location.hash === '#/test') {
     next()
   })
 
-  window.hskDictionaryApp = new Vue({
+  window.ChineseZeroToHeroApp = new Vue({
     router,
     store,
-    render: h => h(HSKDictionary)
+    render: h => h(ChineseZeroToHero)
   }).$mount('#hsk-dictionary')
 }
