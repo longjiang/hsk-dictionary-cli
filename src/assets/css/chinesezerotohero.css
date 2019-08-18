@@ -76,21 +76,6 @@ a:hover {
   float: left;
 }
 
-.logo {
-  width: 4rem;
-  border-radius: 100%;
-}
-
-@media (max-width: 768px) {
-  .title-text {
-    font-size: 1.2rem;
-    line-height: 0.7;
-  }
-  .logo {
-    max-width: 13rem;
-  }
-}
-
 .top-bar {
   background-color: #3a3a3a;
   color: white;
@@ -939,10 +924,6 @@ i.speak {
   50% {
     opacity: 0.5;
   }
-}
-
-.logo-footer {
-  height: 2rem;
 }
 
 .tile {

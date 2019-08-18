@@ -16,11 +16,8 @@
     <div class="container-fluid top-bar pt-3">
       <div class="container">
         <div class="row mb-3">
-          <div class="col-sm-12">
-            <h1 class="title">
-              <img src="img/wiki-logo.jpg" class="logo" />
-              <a class="title-text" href="#/">Chinese Learning Wiki</a>
-            </h1>
+          <div class="col-sm-12 text-center">
+            <img src="img/logo-zh-zth-light.png" class="logo" />
           </div>
         </div>
       </div>
@@ -42,6 +39,41 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
+            <div>
+              <a href="/" target="_blank" class="mr-4">
+                <img
+                  src="img/logo-zh-zth-light.png"
+                  alt="Chinese Zero to Hero"
+                  class="logo-footer"
+                />
+              </a>
+              <a href="https://yingyuyingxiong.teachable.com" class="mr-4" target="_blank">
+                <img
+                  src="img/logo-en-zth-light.png"
+                  alt="English Zero to Hero"
+                  class="logo-footer"
+                />
+              </a>
+              <a href="https://hi.zerotohero.ca" class="mr-4" target="_blank">
+                <img
+                  src="img/logo-hi-zth-light.png"
+                  alt="Hindi Zero to Hero"
+                  class="logo-footer"
+                />
+              </a>
+              <a href="https://ru.zerotohero.ca" class="mr-4">
+                <img
+                  src="img/logo-ru-zth-light.png"
+                  alt="Russian Zero to Hero"
+                  class="logo-footer"
+                />
+              </a>
+              <hr class="border-light" style="opacity: 0.5" />
+              <p>
+                <b>Zero to Hero Education, Canada.</b>
+              </p>
+            </div>
+
             <b>Credits</b>: Most dictionary data from
             <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
               >CC-CEDICT</a
@@ -73,13 +105,6 @@
               Turn {{ focus ? 'off' : 'on' }} Focus Mode
             </button>
             <hr />
-            <a href="https://www.chinesezerotohero.com">
-              <img
-                src="img/czh-logo.png"
-                class="logo-footer"
-                alt="Chinese Zero to Hero"
-              />
-            </a>
           </div>
         </div>
       </div>
@@ -158,4 +183,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.logo {
+  height: 6rem;
+}
+.logo-footer {
+  height: 4rem;
+}
+</style>
