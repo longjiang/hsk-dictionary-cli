@@ -45,11 +45,12 @@ export default {
                   LoadedAnnotator.annotateIteratively(
                     this.$el,
                     node => {
-                      this.annotated = true
+                      
                     },
                     this.wordBlockTemplateFilter,
                     Helper.tooltipTemplateFilter
                   )
+                  this.annotated = true
                 }
               },
               [$(this.$el).text()]
