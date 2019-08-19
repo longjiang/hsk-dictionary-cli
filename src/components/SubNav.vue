@@ -35,6 +35,12 @@
       <router-link class="secondary-menu-item" :to="{ name: 'courses' }">
         <font-awesome-icon icon="info" /> Courses
       </router-link>
+      <router-link
+        class="secondary-menu-item"
+        :to="{ name: 'textbooks-workbooks' }"
+      >
+        <font-awesome-icon icon="book" /> Textbooks
+      </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'video-count' }">
         <font-awesome-icon icon="list-ol" /> Video Count
       </router-link>
@@ -46,12 +52,6 @@
         :to="{ name: 'course-release-schedule' }"
       >
         <font-awesome-icon icon="clock" /> Schedule
-      </router-link>
-      <router-link
-        class="secondary-menu-item"
-        :to="{ name: 'textbooks-workbooks' }"
-      >
-        <font-awesome-icon icon="book" /> Textbooks
       </router-link>
     </nav>
 

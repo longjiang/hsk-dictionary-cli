@@ -3,39 +3,49 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5">Textbooks and Workbooks</h1>
-        <div>
-          <div>
-            <img src="img/textbooks.png" class="img-fluid" alt="HSK Standard Course Textbooks" />
-            <h3>HSK Standard Course (Author: Jiang Liping)</h3>
-            <Annotate tag="p">
-              <strong>《HSK 标准教程》 （作者：姜丽萍）</strong>
-            </Annotate>
-            <Annotate tag="p">
-              Authorized by&nbsp;
-              <a href="http://english.hanban.org/">Hanban</a> (
-              汉办), HSK Standard Course is developed under the joint efforts of
-              北京语言大学出版社 (Beijing Language and Culture University Press, or BLCUP) and 汉考国际教育科技（北京）有限公司 (Chinese Testing
-              International, or CTI). With HSK test papers as its primary source,
-              HSK Standard Course is characterized by a humorous style, familiar
-              topics and a scientific course design. Matching the HSK test in
-              all aspects, from the content, form to the levels, it is a series
-              of new-type course books embodying the idea of &ldquo;combining
-              testing and teaching, and promoting learning and teaching by
-              testing&rdquo;. It is suitable for the Confucius Institutes in
-              different countries as well as other Chinese teaching institutions
-              and self-taught learners.
-            </Annotate>
-            <p>
-              The whole series is divided into six levels matching the HSK test,
-              with one volume for each of Levels 1-3 and two volumes for each of
-              Levels 4-6, totaling nine volumes.
-            </p>
-          </div>
-          <div class="bg-warning text-dark text-center p-3 rounded mt-5">
-            <h5>A Friendly Reminder</h5>To take our online courses, you need
-            <em>separately</em> purchase the textbooks and corresponding
-            workbooks for each level.
-          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>HSK Standard Course (Author: Jiang Liping)</h3>
+        <Annotate tag="p">
+          <strong>《HSK 标准教程》 （作者：姜丽萍）</strong>
+        </Annotate>
+        <img
+          src="img/textbooks.png"
+          class="img-fluid w-50"
+          alt="HSK Standard Course Textbooks"
+          style="float: right"
+        />
+        <Annotate tag="p">
+          Authorized by&nbsp;
+          <a href="http://english.hanban.org/">Hanban</a> ( 汉办), HSK
+          Standard Course is developed under the joint efforts of
+          北京语言大学出版社 (Beijing Language and Culture University Press,
+          or BLCUP) and 汉考国际教育科技（北京）有限公司 (Chinese Testing
+          International, or CTI). With HSK test papers as its primary source,
+          HSK Standard Course is characterized by a humorous style, familiar
+          topics and a scientific course design. Matching the HSK test in all
+          aspects, from the content, form to the levels, it is a series of
+          new-type course books embodying the idea of &ldquo;combining testing
+          and teaching, and promoting learning and teaching by testing&rdquo;.
+          It is suitable for the Confucius Institutes in different countries
+          as well as other Chinese teaching institutions and self-taught
+          learners.
+        </Annotate>
+        <p>
+          The whole series is divided into six levels matching the HSK test,
+          with one volume for each of Levels 1-3 and two volumes for each of
+          Levels 4-6, totaling nine volumes.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="bg-warning text-dark text-center p-3 rounded mt-5">
+          <h5>A Friendly Reminder</h5>To take our online courses, you need
+          <em>separately</em> purchase the
+          textbooks and corresponding workbooks for each level.
         </div>
       </div>
     </div>
@@ -43,10 +53,10 @@
       <Annotate tag="div" class="col-sm-6">
         <h3>In China?</h3>
         <p>
-          There are many physical bookstores in China that sell these
-          textbooks and workbooks, but it may be more convenient to just
-          order them online and have them delivered to your door. Here are
-          some options to purchase online.
+          There are many physical bookstores in China that sell these textbooks
+          and workbooks, but it may be more convenient to just order them online
+          and have them delivered to your door. Here are some options to
+          purchase online.
         </p>
         <!-- .et_pb_text -->
         <div>
@@ -69,11 +79,11 @@
         <h3>Ouside of China?</h3>
         <p>
           The best option would be purchasing them
-          online.&nbsp;PurpleCulture.net is a Hong Kong based online
-          business dedicated in providing Chinese cultural and educational
-          products. They stock all of the HSK Standard Course textbooks and
-          workbooks, and provide worldwide shipping. Alternatively, you may
-          also purchase them from Amazon.com.&nbsp;
+          online.&nbsp;PurpleCulture.net is a Hong Kong based online business
+          dedicated in providing Chinese cultural and educational products. They
+          stock all of the HSK Standard Course textbooks and workbooks, and
+          provide worldwide shipping. Alternatively, you may also purchase them
+          from Amazon.com.&nbsp;
         </p>
         <!-- .et_pb_text -->
         <div>
