@@ -6,23 +6,7 @@
           <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
           <div class="text-center">
             <Loader ref="loader" />
-          </div>
-          <div class="search-compare-wrapper" v-if="loaded">
-            <Search ref="search" random="true"></Search>
-            <Search
-              :class="{ 'ml-2': true, hidden: !compare }"
-              ref="compare"
-              placeholder="Compare with..."
-              :hrefFunc="compareHrefFunc"
-            ></Search>
-            <button class="btn btn-compare ml-2" @click="compareClick">
-              <span v-if="compare"
-                ><i class="glyphicon glyphicon-remove-sign"></i></span
-              ><span v-if="!compare"
-                ><i class="glyphicon glyphicon-adjust"></i>
-                <span class="compare-btn-text ml-1">Compare</span></span
-              >
-            </button>
+            <SearchCompare :searchEntry="entry" />
           </div>
         </div>
       </div>
@@ -118,12 +102,13 @@ import EntryLyrics from '@/components/EntryLyrics.vue'
 import EntryMistakes from '@/components/EntryMistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
-import Search from '@/components/Search.vue'
+import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
   components: {
+    SearchCompare,
     EntryCharacters,
     EntryDisambiguation,
     EntryCollocations,
@@ -136,7 +121,6 @@ export default {
     EntryMistakes,
     InstagramButton,
     EntryWebImages,
-    Search
   },
   data() {
     return {
@@ -145,31 +129,16 @@ export default {
       character: {},
       unsplashSrcs: [],
       unsplashSearchTerm: '',
-      loaded: false,
-      compare: false,
-      entryKey: 0, // used to force re-render this component
-      compareHrefFunc: compareEntry => {
-        const entry = this.$refs.search.entry || this.entry
-        return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`
-      }
+      entryKey: 0 // used to force re-render this component
     }
   },
   methods: {
-    compareClick() {
-      this.compare = this.compare ? false : true
-    },
     show(entry) {
       this.entryKey += 1
       this.entry = entry
       document.title = `${entry.simplified} (${entry.pinyin}) ${
         entry.definitions[0].text
       } | Chinese Learning Wiki`
-      if (this.$refs.search) {
-        this.$refs.search.entry = entry
-        this.$refs.search.text = entry.simplified
-      } else {
-        throw 'Search-Entry link broken.'
-      }
     },
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()
@@ -197,13 +166,6 @@ export default {
           }
         }
       }
-    },
-    random() {
-      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
-        LoadedHSKCEDICT.random(
-          entry => (location.hash = `/view/cedict/${entry.identifier}`)
-        )
-      })
     }
   },
   watch: {
@@ -214,9 +176,6 @@ export default {
     }
   },
   mounted() {
-    Helper.loaded(() => {
-      this.loaded = true
-    })
     if (this.$route.name === 'dictionary') {
       this.route()
     }

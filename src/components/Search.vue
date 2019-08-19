@@ -104,6 +104,9 @@ export default {
     Frequency
   },
   props: {
+    entry: {
+      default: undefined
+    },
     hrefFunc: {
       type: Function,
       default: function(entry) {
@@ -123,8 +126,7 @@ export default {
     return {
       Helper,
       suggestions: [],
-      entry: undefined, // Currently selected entry
-      text: undefined,
+      text: this.entry ? this.entry.simplified : '',
       active: false,
       suggestionsKey: 0
     }
@@ -132,6 +134,11 @@ export default {
   watch: {
     $route() {
       this.active = false
+    },
+    entry() {
+      if (this.entry) {
+        this.text = this.entry.simplified
+      }
     },
     text() {
       Helper.loaded(
