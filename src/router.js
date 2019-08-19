@@ -6,6 +6,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/browse',
+      name: 'browse',
+      redirect: '/explore/levels'
+    },
+    {
       path: '/',
       name: 'home',
       component: () => import('./views/Home.vue'),
@@ -22,9 +27,20 @@ export default new Router({
       }
     },
     {
-      path: '/browse',
-      name: 'browse',
-      redirect: '/explore/levels'
+      path: '/hall-of-heroes',
+      name: 'hall-of-heroes',
+      component: () => import('./views/HallOfHeroes.vue'),
+      props: true,
+      meta: {
+        title: 'Hall of Heroes | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'In this page we showcase some of our students who have successfully passed the HSK exams after taking courses from us! Read their testimonials and reviews.'
+          }
+        ]
+      }
     },
     {
       path: '/view/:method?/:arg?',

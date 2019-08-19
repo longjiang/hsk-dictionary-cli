@@ -6,6 +6,15 @@ import Helper from '@/lib/helper'
 import Config from '@/lib/config'
 
 export default {
+  hskColors: {
+    1: '#f8b51e',
+    2: '#267f94',
+    3: '#fd4f1c',
+    4: '#bb1718',
+    5: '#1b3e76',
+    6: '#6a3669',
+    outside: '#c59f94',
+  },
   loaderMessages: [],
   lastId: 0,
   async loaded(callback) {

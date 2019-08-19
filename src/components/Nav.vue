@@ -1,12 +1,15 @@
 <template>
   <div>
     <nav class="tabs text-center">
+      <router-link class="tab" :to="{ name: 'home' }" title="Home page">
+        <i class="glyphicon glyphicon-font"></i> Home
+      </router-link>
       <router-link
         class="tab"
-        :to="{ name: 'home' }"
-        title="Home page"
+        :to="{ name: 'hall-of-heroes' }"
+        title="Hall of Heroes"
       >
-        <i class="glyphicon glyphicon-font"></i> Home
+        <i class="glyphicon glyphicon-font"></i> Hall of Heroes
       </router-link>
       <router-link
         :class="{

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'css-percentage-circle'
 import '@/assets/css/annotator.css'
 import '@/assets/css/chinesezerotohero.css'
 import '@/vendor/css-spinners/spinner/heartbeat.css'
