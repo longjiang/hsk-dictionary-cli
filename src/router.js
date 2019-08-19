@@ -27,12 +27,27 @@ export default new Router({
       }
     },
     {
-      path: '/about-hsk-online-course',
-      name: 'about',
-      component: () => import('./views/About.vue'),
+      path: '/contact-us',
+      name: 'contact',
+      component: () => import('./views/Contact.vue'),
       props: true,
       meta: {
-        title: 'About Our Courses | Chinese Zero to Hero',
+        title: 'Contact Us | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Get in touch with us.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/about-hsk-online-course',
+      name: 'courses',
+      component: () => import('./views/Courses.vue'),
+      props: true,
+      meta: {
+        title: 'Online Courses | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',
@@ -156,7 +171,7 @@ export default new Router({
     },
     {
       path: '/view/:method?/:arg?',
-      name: 'entry',
+      name: 'dictionary',
       component: () => import('./views/Dictionary.vue'),
       props: true,
       meta: {

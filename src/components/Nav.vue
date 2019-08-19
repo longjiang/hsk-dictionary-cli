@@ -1,8 +1,8 @@
 <template>
   <div>
     <nav class="tabs text-center">
-      <router-link class="tab" :to="{ name: 'about' }" title="About Us">
-        <font-awesome-icon icon="info" /> About
+      <router-link class="tab" :to="{ name: 'courses' }" title="Courses">
+        <font-awesome-icon icon="graduation-cap" /> Courses
       </router-link>
       <router-link
         class="tab"
@@ -15,9 +15,9 @@
         :class="{
           tab: true,
           'router-link-active':
-            $route.name === 'entry' || $route.name === 'compare'
+            $route.name === 'dictionary' || $route.name === 'compare'
         }"
-        :to="{ name: 'entry' }"
+        :to="{ name: 'dictionary' }"
         title="Lookup and compare words"
       >
         <i class="glyphicon glyphicon-font"></i> Vocabulary
@@ -34,7 +34,7 @@
         :to="{ name: 'reader' }"
         title="Read your text with annotation"
       >
-        <font-awesome-icon icon="book" /> Reader
+        <font-awesome-icon icon="book-open" /> Reader
       </router-link>
       <router-link
         class="tab"
@@ -42,6 +42,9 @@
         title="Articles related to Chinese learning"
       >
         <font-awesome-icon icon="copy" /> Articles
+      </router-link>
+      <router-link class="tab" :to="{ name: 'contact' }" title="Contact Us">
+        <font-awesome-icon icon="id-card" /> Contact
       </router-link>
       <router-link
         class="tab tab-info"
@@ -56,12 +59,6 @@
 
 <script>
 export default {
-  methods: {
-    savedWordsCount() {
-      let count = this.$store.getters.savedWordCount()
-      // eslint-disable-next-line vue/no-parsing-error
-      return count < 100 ? count : '多'
-    }
-  }
+  methods: {}
 }
 </script>

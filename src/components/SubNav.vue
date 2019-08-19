@@ -2,8 +2,74 @@
   <div>
     <nav
       class="secondary-menu text-center"
-      v-if="$route.path === '/browse' || $route.path.startsWith('/explore')"
+      v-if="
+        $route.name === 'contact' ||
+          $route.name === 'faq' ||
+          $route.name === 'affiliate-program'
+      "
     >
+      <router-link class="secondary-menu-item" :to="{ name: 'contact' }">
+        <font-awesome-icon icon="id-card" /> Contact Us
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'faq' }">
+        <font-awesome-icon icon="question" /> FAQ
+      </router-link>
+      <router-link
+        class="secondary-menu-item"
+        :to="{ name: 'affiliate-program' }"
+      >
+        <font-awesome-icon icon="share-alt" /> Affiliate Program
+      </router-link>
+    </nav>
+
+    <nav
+      class="secondary-menu text-center"
+      v-if="
+        $route.name === 'courses' ||
+          $route.name === 'video-count' ||
+          $route.name === 'pricing' ||
+          $route.name === 'course-release-schedule' ||
+          $route.name === 'textbooks-workbooks'
+      "
+    >
+      <router-link class="secondary-menu-item" :to="{ name: 'courses' }">
+        <font-awesome-icon icon="info" /> Courses
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'video-count' }">
+        <font-awesome-icon icon="list-ol" /> Video Count
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'pricing' }">
+        <font-awesome-icon icon="tag" /> Pricing
+      </router-link>
+      <router-link
+        class="secondary-menu-item"
+        :to="{ name: 'course-release-schedule' }"
+      >
+        <font-awesome-icon icon="clock" /> Schedule
+      </router-link>
+      <router-link
+        class="secondary-menu-item"
+        :to="{ name: 'textbooks-workbooks' }"
+      >
+        <font-awesome-icon icon="book" /> Textbooks
+      </router-link>
+    </nav>
+
+    <nav
+      class="secondary-menu text-center"
+      v-if="
+        $route.name === 'dictionary' ||
+          $route.name === 'compare' ||
+          $route.name === 'levels' ||
+          $route.name === 'learn' ||
+          $route.name === 'saved-words' ||
+          $route.name.startsWith('explore') ||
+          $route.name === 'pinyin-list'
+      "
+    >
+      <router-link class="secondary-menu-item" :to="{ name: 'dictionary' }">
+        <font-awesome-icon icon="book" />Dictionary
+      </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
         <i class="glyphicon glyphicon-signal"></i>
         HSK Levels
@@ -23,12 +89,15 @@
         <i class="glyphicon glyphicon-fullscreen"></i>
         Related
       </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'learn' }">
+        <font-awesome-icon icon="chalkboard" />Learn
+      </router-link>
 
       <router-link class="secondary-menu-item" :to="{ name: 'saved-words' }">
         <i class="glyphicon glyphicon-star"></i> Saved
-        <span class="tab-saved-words-count" v-cloak>
-          {{ savedWordsCount() }}
-        </span>
+        <span class="tab-saved-words-count" v-cloak>{{
+          savedWordsCount()
+        }}</span>
       </router-link>
     </nav>
 
@@ -37,16 +106,26 @@
       v-if="$route.name && $route.name.startsWith('articles')"
     >
       <router-link class="secondary-menu-item" :to="{ name: 'articles-wiki' }">
-        <font-awesome-icon :icon="['fas', 'file-word']" />
-        From Our Wiki
+        <font-awesome-icon :icon="['fas', 'file-word']" />From Our Wiki
       </router-link>
       <router-link
         class="secondary-menu-item"
         :to="{ name: 'articles-reddit' }"
       >
-        <font-awesome-icon :icon="['fab', 'reddit']" />
-        From Reddit
+        <font-awesome-icon :icon="['fab', 'reddit']" />From Reddit
       </router-link>
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    savedWordsCount() {
+      let count = this.$store.getters.savedWordCount()
+      // eslint-disable-next-line vue/no-parsing-error
+      return count < 100 ? count : '多'
+    }
+  }
+}
+</script>
