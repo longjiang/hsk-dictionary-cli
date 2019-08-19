@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Hero v-for="hero in heroes" :hero="hero" />
+    <div class="row">
+    <div class="col-sm-6 mb-5" v-for="hero in heroes" >
+      <Hero :hero="hero" />
+    </div>
+
+    </div>
   </div>
 </template>
 

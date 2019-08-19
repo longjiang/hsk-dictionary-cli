@@ -31,18 +31,18 @@
       </div>
     </div>
     <div>
-      <div class="name-wrapper">
+      <div class="name-wrapper shadow">
         <h5 class="mb-0 text-center">{{ hero.name }}</h5>
       </div>
 
-      <div class="p-3 text-center" :data-bg-hsk="hero.hsk">
+      <div class="p-3 text-center shadow" :data-bg-hsk="hero.hsk">
         <div>
-          HSK {{ hero.hsk }} Score: <span class="bigger"><b>{{ hero.score }}</b> /
-          {{ fullScore(hero.hsk) }}</span>
+          HSK {{ hero.hsk }} Score: <span class="bigger"><b>{{ hero.score }}</b></span> /
+          {{ fullScore(hero.hsk) }}
         </div>
         <div v-if="hero.official" class="mt-2"><font-awesome-icon icon="certificate" /> Official Test</div>
       </div>
-      <div v-html="hero.body" class="body"></div>
+      <div v-html="hero.body" class="body shadow"></div>
     </div>
   </div>
 </template>
@@ -75,8 +75,8 @@ export default {
 <style>
 .avatar {
   border-radius: 100%;
-  width: 4em;
-  height: 4em;
+  width: 6rem;
+  height: 6rem;
   object-fit: cover;
   margin-bottom: 0.4rem;
 }
@@ -93,12 +93,12 @@ export default {
 .name-wrapper {
   padding: 1rem;
   padding-top: 5rem;
-  background-color: #e4e4e4;
+  background-color: #f1f1f1;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 .body {
-  background-color: #e4e4e4;
+  background-color: #f1f1f1;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   padding: 2rem;
