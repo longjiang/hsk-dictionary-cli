@@ -12,7 +12,7 @@ export default {
     4: '#bb1718',
     5: '#1b3e76',
     6: '#6a3669',
-    outside: '#c59f94',
+    outside: '#c59f94'
   },
   loaderMessages: [],
   lastId: 0,
@@ -138,7 +138,9 @@ export default {
           <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
         point.book
       }">Grammar ${point.code}</a>
-          <span class="tooltip-entry-character">${structureHTML}</span>
+          <a class="tooltip-entry-character" href="${
+            point.url
+          }">${structureHTML}</a>
           <button onclick="window.AnnotatorTooltip.speak('${
             point.structure
           }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
