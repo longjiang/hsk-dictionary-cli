@@ -23,6 +23,13 @@
         <i class="glyphicon glyphicon-fullscreen"></i>
         Related
       </router-link>
+
+      <router-link class="secondary-menu-item" :to="{ name: 'saved-words' }">
+        <i class="glyphicon glyphicon-star"></i> Saved
+        <span class="tab-saved-words-count" v-cloak>
+          {{ savedWordsCount() }}
+        </span>
+      </router-link>
     </nav>
 
     <nav

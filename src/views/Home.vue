@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="jumbotron bg-white mb-0"
+      class="jumbotron-fluid p-5 bg-white mb-0"
       style="overflow: hidden; position: relative"
     >
       <div class="container">
@@ -29,7 +29,7 @@
       />
     </div>
     <div
-      class="jumbotron bg-dark text-light mb-0 courses"
+      class="jumbotron-fluid bg-dark p-5 text-light mb-0 courses"
       style="position: relative"
     >
       <div class="container text-center" style="z-index: 2; position: relative;">
@@ -55,7 +55,7 @@
       </div>
       <img src="/img/ultimate-bundle.jpg" alt="" class="img-background" style="opacity: 0.2"/>
     </div>
-    <div class="jumbotron mb-0 pb-0 pt-0">
+    <div class="jumbotron-fluid mb-0 pb-0 pt-0">
       <div class="container">
         <h3 class="pb-5 pt-5 text-center">Get Our Latest Content</h3>
         <div class="row">

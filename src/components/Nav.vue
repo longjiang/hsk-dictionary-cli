@@ -1,15 +1,15 @@
 <template>
   <div>
     <nav class="tabs text-center">
-      <router-link class="tab" :to="{ name: 'home' }" title="Home page">
-        <i class="glyphicon glyphicon-font"></i> Home
+      <router-link class="tab" :to="{ name: 'about' }" title="About Us">
+        <font-awesome-icon icon="info" /> About
       </router-link>
       <router-link
         class="tab"
         :to="{ name: 'hall-of-heroes' }"
         title="Hall of Heroes"
       >
-        <i class="glyphicon glyphicon-font"></i> Hall of Heroes
+        <font-awesome-icon icon="trophy" /> Heroes
       </router-link>
       <router-link
         :class="{
@@ -20,15 +20,7 @@
         :to="{ name: 'entry' }"
         title="Lookup and compare words"
       >
-        <i class="glyphicon glyphicon-font"></i> Dictionary
-      </router-link>
-      <router-link
-        class="tab"
-        :to="{ name: 'explore' }"
-        title="Explore words by level and topic"
-      >
-        <i class="glyphicon glyphicon-book"></i>
-        Wordbook
+        <i class="glyphicon glyphicon-font"></i> Vocabulary
       </router-link>
       <router-link
         class="tab"
@@ -42,23 +34,14 @@
         :to="{ name: 'reader' }"
         title="Read your text with annotation"
       >
-        <i class="glyphicon glyphicon-file"></i> Reader
-      </router-link>
-      <router-link class="tab" :to="{ name: 'learn' }" title="Learn new words">
-        <i class="glyphicon glyphicon-blackboard"></i> Learn
+        <font-awesome-icon icon="book" /> Reader
       </router-link>
       <router-link
         class="tab"
         :to="{ name: 'articles' }"
         title="Articles related to Chinese learning"
       >
-        <i class="glyphicon glyphicon-menu-hamburger"></i> Articles
-      </router-link>
-      <router-link class="tab tab-saved-words" :to="{ name: 'saved-words' }">
-        <i class="glyphicon glyphicon-star"></i> Saved
-        <span class="tab-saved-words-count" v-cloak>
-          {{ savedWordsCount() }}
-        </span>
+        <font-awesome-icon icon="copy" /> Articles
       </router-link>
       <router-link
         class="tab tab-info"
