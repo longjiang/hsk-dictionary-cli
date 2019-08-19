@@ -823,27 +823,6 @@ i.speak {
   filter: opacity(0.3);
 }
 
-.tabs {
-  white-space: nowrap;
-  overflow: scroll;
-  overflow-y: hidden;
-}
-
-.tab {
-  padding: 0.5rem 1rem;
-  border-radius: 0.3rem 0.3rem 0 0;
-  color: white;
-  display: inline-block;
-  margin-right: 0.2rem;
-}
-
-.tab.router-link-active,
-.tab:hover {
-  color: #fd4f1c;
-  background: white;
-  text-decoration: none;
-}
-
 .entry-head-wrapper {
   position: relative;
 }
@@ -878,36 +857,6 @@ i.speak {
   background: none;
   border: none;
   color: #dc3545;
-}
-
-.tab-saved-words.router-link-active,
-.tab-saved-words:hover {
-  color: #f8b61e;
-}
-
-.tab-saved-words-count {
-  background: white;
-  border-radius: 100%;
-  font-size: 0.8rem;
-  color: #3a3a3a;
-  font-weight: bold;
-  display: inline-block;
-  width: 1.3rem;
-  height: 1.3rem;
-  line-height: 1.4rem;
-  text-align: center;
-  position: relative;
-  top: -0.1rem;
-}
-
-.tab-saved-words-count[v-cloak] {
-  display: none;
-}
-
-.tab-saved-words.router-link-active .tab-saved-words-count,
-.tab-saved-words:hover .tab-saved-words-count {
-  background: #f8b61e;
-  color: white;
 }
 
 .saved-words {

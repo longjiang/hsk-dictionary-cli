@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12 text-center">
-          <h2 class="mb-5">Dictionary</h2>
+          <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
           <div class="text-center">
             <Loader ref="loader" />
           </div>

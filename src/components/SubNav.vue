@@ -9,16 +9,16 @@
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'contact' }">
-        <font-awesome-icon icon="id-card" /> Contact Us
+        <font-awesome-icon icon="id-card" />Contact Us
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'faq' }">
-        <font-awesome-icon icon="question" /> FAQ
+        <font-awesome-icon icon="question" />FAQ
       </router-link>
       <router-link
         class="secondary-menu-item"
         :to="{ name: 'affiliate-program' }"
       >
-        <font-awesome-icon icon="share-alt" /> Affiliate Program
+        <font-awesome-icon icon="share-alt" />Affiliate Program
       </router-link>
     </nav>
 
@@ -33,32 +33,32 @@
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'courses' }">
-        <font-awesome-icon icon="info" /> Courses
+        <font-awesome-icon icon="info" />Courses
       </router-link>
       <router-link
         class="secondary-menu-item"
         :to="{ name: 'textbooks-workbooks' }"
       >
-        <font-awesome-icon icon="book" /> Textbooks
+        <font-awesome-icon icon="book" />Textbooks
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'video-count' }">
-        <font-awesome-icon icon="list-ol" /> Video Count
+        <font-awesome-icon icon="list-ol" />Video Count
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'pricing' }">
-        <font-awesome-icon icon="tag" /> Pricing
+        <font-awesome-icon icon="tag" />Pricing
       </router-link>
       <router-link
         class="secondary-menu-item"
         :to="{ name: 'course-release-schedule' }"
       >
-        <font-awesome-icon icon="clock" /> Schedule
+        <font-awesome-icon icon="clock" />Schedule
       </router-link>
     </nav>
 
     <nav
       class="secondary-menu text-center"
       v-if="
-        $route.name === 'dictionary' ||
+        ($route.name && $route.name === 'dictionary') ||
           $route.name === 'compare' ||
           $route.name === 'levels' ||
           $route.name === 'learn' ||
@@ -71,33 +71,29 @@
         <font-awesome-icon icon="book" />Dictionary
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
-        <i class="glyphicon glyphicon-signal"></i>
-        HSK Levels
+        <i class="glyphicon glyphicon-signal"></i>HSK Levels
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'explore-roots' }">
-        <i class="glyphicon glyphicon-grain"></i>
-        Roots
+        <i class="glyphicon glyphicon-grain"></i>Roots
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'explore-topics' }">
-        <i class="glyphicon glyphicon-certificate"></i>
-        Topics
+        <i class="glyphicon glyphicon-certificate"></i>Topics
       </router-link>
       <router-link
         class="secondary-menu-item"
         :to="{ name: 'explore-related' }"
       >
-        <i class="glyphicon glyphicon-fullscreen"></i>
-        Related
+        <i class="glyphicon glyphicon-fullscreen"></i>Related
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'learn' }">
         <font-awesome-icon icon="chalkboard" />Learn
       </router-link>
 
       <router-link class="secondary-menu-item" :to="{ name: 'saved-words' }">
-        <i class="glyphicon glyphicon-star"></i> Saved
-        <span class="tab-saved-words-count" v-cloak>{{
-          savedWordsCount()
-        }}</span>
+        <i class="glyphicon glyphicon-star"></i>Saved
+        <span class="saved-words-count" v-cloak>
+          {{ savedWordsCount() }}
+        </span>
       </router-link>
     </nav>
 
@@ -129,3 +125,34 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+a svg,
+a i {
+  margin-right: 0.5rem;
+}
+.secondary-menu {
+  line-height: 3;
+}
+
+.saved-words-count {
+  background: #666;
+  border-radius: 100%;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  width: 1.3rem;
+  height: 1.3rem;
+  line-height: 1.4rem;
+  text-align: center;
+  position: relative;
+  top: -0.1rem;
+}
+
+.router-link-active .saved-words-count {
+  color: #fd4f1c;
+  background: white;
+
+}
+</style>
