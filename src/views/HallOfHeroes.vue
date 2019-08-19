@@ -12,7 +12,7 @@
           students that have successfully passed the HSK exams after taking
           courses from us!
         </p>
-        <div class="text-center mt-5 mb-5">
+        <div class="text-center mt-5 mb-5 filter">
           <button
             @click="filter = hero => hero.featured"
             class="btn mr-2"
@@ -50,4 +50,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.filter {
+  line-height: 3;
+}
+</style>
