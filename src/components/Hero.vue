@@ -87,9 +87,6 @@ export default {
   text-align: center;
   margin-bottom: -4rem;
 }
-.bigger {
-  font-size: 1.4em;
-}
 .name-wrapper {
   padding: 1rem;
   padding-top: 5rem;

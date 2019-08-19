@@ -96,7 +96,8 @@ export default new Router({
       component: () => import('./views/Textbooks.vue'),
       props: true,
       meta: {
-        title: 'HSK Standard Course Textbooks and Workbooks | Chinese Zero To Hero',
+        title:
+          'HSK Standard Course Textbooks and Workbooks | Chinese Zero To Hero',
         metaTags: [
           {
             name: 'description',
@@ -118,6 +119,21 @@ export default new Router({
             name: 'description',
             content:
               'We often hear these questions. Hopefully this page can answer yours.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/affiliate-program',
+      name: 'affiliate-program',
+      component: () => import('./views/Affiliate.vue'),
+      props: true,
+      meta: {
+        title: 'Affiliate Program | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Help us get the word out!'
           }
         ]
       }
