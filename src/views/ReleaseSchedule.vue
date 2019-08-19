@@ -157,13 +157,13 @@
             </tr>
             <tr>
               <td style="background-color: #1a386d;">HSK 5 Upgrade*</td>
-              <td>Sep 1, 2019</td>
-              <td>TBD</td>
+              <td>Late 2019</td>
+              <td></td>
             </tr>
             <tr>
               <td style="background-color: #6a3368;">HSK 6 Upgrade*</td>
-              <td>Sep 15, 2019</td>
-              <td>TBD</td>
+              <td>Late 2019</td>
+              <td></td>
             </tr>
           </tbody>
         </table>

@@ -91,6 +91,22 @@ export default new Router({
       }
     },
     {
+      path: '/textbooks-workbooks',
+      name: 'textbooks-workbooks',
+      component: () => import('./views/Textbooks.vue'),
+      props: true,
+      meta: {
+        title: 'HSK Standard Course Textbooks and Workbooks | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'We regularly update our courses. Here’s what we are planning on this year.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
