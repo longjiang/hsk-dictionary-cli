@@ -115,7 +115,7 @@ export default {
     for (let i in candidates) {
       let candidate = candidates[i]
       $newHtml
-        .find(`.tooltip-entry:eq(${i}) .tooltip-entry-character`)
+        .find(`.tooltip-entry:eq(${i}) span.tooltip-entry-character`)
         .wrap(
           `<a href="#/view/cedict/${
             candidate.identifier
@@ -123,31 +123,7 @@ export default {
         )
     }
     let newHTML = $newHtml.html()
-    const grammar = Grammar.listWhere(row =>
-      row.structure.includes(candidates[0].simplified)
-    )
-    let grammarHTML = ''
-    for (let point of grammar) {
-      let structureHTML = Helper.highlightMultiple(
-        point.structure,
-        point.words,
-        point.book
-      )
-      grammarHTML += `
-        <div class="tooltip-entry">
-          <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
-        point.book
-      }">Grammar ${point.code}</a>
-          <a class="tooltip-entry-character" href="${
-            point.url
-          }">${structureHTML}</a>
-          <button onclick="window.AnnotatorTooltip.speak('${
-            point.structure
-          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
-          <div class="tooltip-entry-definition">${point.english}</div>
-        </div>`
-    }
-    return grammarHTML + newHTML
+    return newHTML
   },
   unique(names) {
     var uniqueNames = []

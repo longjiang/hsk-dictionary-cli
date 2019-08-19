@@ -95,16 +95,21 @@
   color: #7b7a7a;
 }
 
-.tooltip-entry-definitions {
-  list-style: none;
-}
-
 .tooltip-entry-definition {
-  color: #353535;
+  color: #7b7a7a;
   font-size: 0.9rem;
   list-style: none;
-  margin-bottom: 0.2rem;
+  line-height: 1.5;
+  padding-left: 0.6rem;
+  position: relative;
 }
+
+.tooltip-entry-definition::before {
+  content: '‣';
+  position: absolute;
+  left: 0;
+}
+
 
 .tooltip-entry .speak {
   cursor: pointer;

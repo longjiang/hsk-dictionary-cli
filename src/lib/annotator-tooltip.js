@@ -1,4 +1,6 @@
 import $ from 'jquery'
+import Grammar from '@/lib/grammar'
+import Helper from '@/lib/helper'
 
 export default {
   /**
@@ -78,9 +80,9 @@ export default {
         }
         html += `
         <div class="tooltip-entry">
-          <span class="tooltip-entry-character" data-hsk="${candidate.hsk}">${
+          <span class="tooltip-entry-character"><b data-hsk="${candidate.hsk}">${
           candidate.simplified
-        } (${candidate.traditional})</span>
+        }</b> (${candidate.traditional})</span>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
           <button onclick="window.AnnotatorTooltip.speak('${
             candidate.simplified
@@ -88,6 +90,31 @@ export default {
           ${$definitionsList.html()}
         </div>`
       }
+      const grammar = Grammar.listWhere(row =>
+        row.words && row.words.includes(candidates[0].simplified)
+      )
+      let grammarHTML = ''
+      for (let point of grammar) {
+        let structureHTML = Helper.highlightMultiple(
+          point.structure,
+          point.words,
+          point.book
+        )
+        grammarHTML += `
+          <div class="tooltip-entry">
+            <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
+          point.book
+        }">Grammar ${point.code}</a>
+            <a class="tooltip-entry-character" href="${
+              point.url
+            }">${structureHTML}</a>
+            <button onclick="window.AnnotatorTooltip.speak('${
+              point.structure
+            }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+            <div class="tooltip-entry-definition">${point.english}</div>
+          </div>`
+      }
+      html = grammarHTML + html
       if (templateFilterFunction) {
         html = templateFilterFunction(candidates, this, html) // this binds to the word-block node
       }
