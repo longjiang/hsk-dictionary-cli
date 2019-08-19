@@ -2,15 +2,15 @@
   <div class="search-compare-wrapper" v-if="loaded">
     <Search ref="search" random="true" :entry="searchEntry"></Search>
     <Search
-      :class="{ 'ml-2': true, hidden: !compare }"
+      :class="{ 'ml-2': true, hidden: !dCompare }"
       :entry="compareEntry"
       ref="compare"
       placeholder="Compare with..."
       :hrefFunc="compareHrefFunc"
     ></Search>
     <button class="btn btn-compare ml-2" @click="compareClick">
-      <span v-if="compare"><i class="glyphicon glyphicon-remove-sign"></i></span
-      ><span v-if="!compare"
+      <span v-if="dCompare"><i class="glyphicon glyphicon-remove-sign"></i></span
+      ><span v-if="!dCompare"
         ><i class="glyphicon glyphicon-adjust"></i>
         <span class="compare-btn-text ml-1">Compare</span></span
       >
@@ -29,6 +29,9 @@ export default {
     },
     compareEntry: {
       default: undefined
+    },
+    compare: {
+      default: false
     }
   },
   components: {
@@ -38,8 +41,8 @@ export default {
     return {
       Helper,
       Search,
-      compare: false,
       loaded: false,
+      dCompare: this.compare,
       compareHrefFunc: compareEntry => {
         const entry = this.$refs.search.entry || this.entry
         return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`

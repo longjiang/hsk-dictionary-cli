@@ -1,6 +1,11 @@
 <template>
   <div class="main" v-cloak>
-    <div class="container focus">
+    <div class="container mt-4 mb-4focus">
+      <div class="row">
+        <div class="col-sm-12">
+          <SearchCompare :searchEntry="a" :compareEntry="b" :compare="true" />
+        </div>
+      </div>
       <div class="row mt-4 mb-3">
         <div class="col-sm-6">
           <div class="text-center">
@@ -151,12 +156,13 @@ import EntryWebImages from '@/components/EntryWebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
-import Frequency from '@/components/Frequency.vue'
+import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
 import $ from 'jquery'
 
 export default {
   components: {
+    SearchCompare,
     EntryConcordance,
     EntryCourseAd,
     EntryExample,
@@ -164,7 +170,6 @@ export default {
     EntryHeader,
     EntryMistakes,
     EntryLyrics,
-    Frequency,
     CompareCollocations,
     EntryWebImages,
     CompareDefs
@@ -204,8 +209,14 @@ export default {
         } else if (method === 'simplified') {
           Helper.loaded(
             (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-              LoadedHSKCEDICT.lookupSimplified(results => (this.a = results[0]), [args[0]])
-              LoadedHSKCEDICT.lookupSimplified(results => (this.b = results[0]), [args[1]])
+              LoadedHSKCEDICT.lookupSimplified(
+                results => (this.a = results[0]),
+                [args[0]]
+              )
+              LoadedHSKCEDICT.lookupSimplified(
+                results => (this.b = results[0]),
+                [args[1]]
+              )
             }
           )
         }
@@ -214,8 +225,6 @@ export default {
   },
   watch: {
     a() {
-      this.$refs.search.entry = this.a
-      this.$refs.search.text = this.a.simplified
       if (this.b)
         document.title = `${this.a.simplified} vs ${
           this.b.simplified
@@ -223,8 +232,6 @@ export default {
       this.aKey++
     },
     b() {
-      this.$refs.compare.entry = this.b
-      this.$refs.compare.text = this.b.simplified
       if (this.a)
         document.title = `${this.a.simplified} vs ${
           this.b.simplified
