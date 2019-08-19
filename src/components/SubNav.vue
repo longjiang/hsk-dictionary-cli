@@ -58,13 +58,14 @@
     <nav
       class="secondary-menu text-center"
       v-if="
-        ($route.name && $route.name === 'dictionary') ||
-          $route.name === 'compare' ||
-          $route.name === 'levels' ||
-          $route.name === 'learn' ||
-          $route.name === 'saved-words' ||
-          $route.name.startsWith('explore') ||
-          $route.name === 'pinyin-list'
+        $route.name &&
+          ($route.name === 'dictionary' ||
+            $route.name === 'compare' ||
+            $route.name === 'levels' ||
+            $route.name === 'learn' ||
+            $route.name === 'saved-words' ||
+            $route.name.startsWith('explore') ||
+            $route.name === 'pinyin-list')
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'dictionary' }">
@@ -153,6 +154,5 @@ a i {
 .router-link-active .saved-words-count {
   color: #fd4f1c;
   background: white;
-
 }
 </style>

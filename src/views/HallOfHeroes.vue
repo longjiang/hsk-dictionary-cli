@@ -12,7 +12,24 @@
           students that have successfully passed the HSK exams after taking
           courses from us!
         </p>
-        <HeroesList category="featured" class="mt-5" />
+        <div class="text-center mt-5 mb-5">
+          <button
+            @click="filter = hero => hero.featured"
+            class="btn mr-2"
+            data-bg-hsk="outside"
+          >
+            Featured
+          </button>
+          <button
+            v-for="hsk in ['1', '2', '3', '4', '5']"
+            @click="filter = hero => hero.hsk === hsk"
+            class="btn mr-2"
+            :data-bg-hsk="hsk"
+          >
+            HSK {{ hsk }}
+          </button>
+        </div>
+        <HeroesList category="featured" class="mt-5" :filter="filter" />
       </div>
     </div>
   </div>
@@ -24,6 +41,11 @@ import HeroesList from '@/components/HeroesList'
 export default {
   components: {
     HeroesList
+  },
+  data() {
+    return {
+      filter: hero => hero.featured
+    }
   }
 }
 </script>

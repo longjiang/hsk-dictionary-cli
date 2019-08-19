@@ -5,40 +5,53 @@
         :class="{
           tab: true,
           'router-link-active':
-            $route.name === 'courses'
-            || $route.name === 'textbooks-workbooks'
-            || $route.name === 'video-count'
-            || $route.name === 'pricing'
-            || $route.name === 'course-release-schedule'
+            $route.name === 'courses' ||
+            $route.name === 'textbooks-workbooks' ||
+            $route.name === 'video-count' ||
+            $route.name === 'pricing' ||
+            $route.name === 'course-release-schedule'
         }"
         :to="{ name: 'courses' }"
         title="Courses"
       >
         <font-awesome-icon icon="graduation-cap" />Courses
       </router-link>
-      <router-link class="tab" :to="{ name: 'hall-of-heroes' }" title="Hall of Heroes">
+      <router-link
+        class="tab"
+        :to="{ name: 'hall-of-heroes' }"
+        title="Hall of Heroes"
+      >
         <font-awesome-icon icon="trophy" />Heroes
       </router-link>
       <router-link
         :class="{
           tab: true,
           'router-link-active':
-            $route.name === 'dictionary'
-            || $route.name === 'levels'
-            || $route.name === 'compare'
-            || $route.name.startsWith('explore')
-            || $route.name === 'learn'
-            || $route.name === 'saved-words'
+            $route.name &&
+            ($route.name === 'dictionary' ||
+              $route.name === 'levels' ||
+              $route.name === 'compare' ||
+              $route.name.startsWith('explore') ||
+              $route.name === 'learn' ||
+              $route.name === 'saved-words')
         }"
         :to="{ name: 'dictionary' }"
         title="Lookup and compare words"
       >
         <i class="glyphicon glyphicon-font"></i>Vocabulary
       </router-link>
-      <router-link class="tab" :to="{ name: 'grammar' }" title="Chinese grammar cheatsheet">
+      <router-link
+        class="tab"
+        :to="{ name: 'grammar' }"
+        title="Chinese grammar cheatsheet"
+      >
         <i class="glyphicon glyphicon-list"></i>Grammar
       </router-link>
-      <router-link class="tab" :to="{ name: 'reader' }" title="Read your text with annotation">
+      <router-link
+        class="tab"
+        :to="{ name: 'reader' }"
+        title="Read your text with annotation"
+      >
         <font-awesome-icon icon="book-open" />Reader
       </router-link>
       <router-link
@@ -51,7 +64,11 @@
       <router-link class="tab" :to="{ name: 'contact' }" title="Contact Us">
         <font-awesome-icon icon="id-card" />Contact
       </router-link>
-      <router-link class="tab tab-info" :to="{ name: 'settings' }" title="Settings">
+      <router-link
+        class="tab tab-info"
+        :to="{ name: 'settings' }"
+        title="Settings"
+      >
         <i class="glyphicon glyphicon-cog"></i>Settings
       </router-link>
     </nav>
@@ -96,7 +113,6 @@ a i {
   color: #f8b61e;
 }
 
-
 .tab-saved-words-count[v-cloak] {
   display: none;
 }
@@ -106,5 +122,4 @@ a i {
   background: #f8b61e;
   color: white;
 }
-
 </style>

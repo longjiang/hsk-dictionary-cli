@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.hero)
+
   },
   methods: {
     fullScore(hsk) {
