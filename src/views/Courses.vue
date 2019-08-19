@@ -2,7 +2,68 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-sm-12">
-        <h1 class="mb-5">About Our Courses</h1>
+        <h1 class="mb-5 text-center">
+          Courses that take your Chinese to the next level.
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="jumbotron text-center courses">
+          <div class="container mb-3">
+            <div class="row">
+              <div
+                class="col-sm-6 col-md-4 mb-3"
+                v-for="hsk in [1, 2, 3, 4, 5, 6]"
+              >
+                <a
+                  :href="
+                    `https://courses.chinesezerotohero.com/p/hsk-${hsk}-course`
+                  "
+                  ><img
+                    :src="`/img/courses/hsk${hsk}.jpg`"
+                    :alt="`HSK ${hsk} Course`"
+                    class="img-fluid shadow rounded"
+                  />
+                  <h5 class="mt-2">HSK {{ hsk }} Course</h5></a
+                >
+              </div>
+              <div class="col-sm-6 col-md-4 mb-3">
+                <a
+                  :href="
+                    `https://chinesezerotohero.teachable.com/p/path-to-fluency`
+                  "
+                  ><img
+                    :src="`/img/courses/fluency.jpg`"
+                    alt="Path to Fluency Course"
+                    class="img-fluid shadow rounded"
+                  />
+                  <h5 class="mt-2">Path to Fluency</h5></a
+                >
+              </div>
+              <div class="col-sm-6 col-md-4 mb-3">
+                <a
+                  :href="
+                    `https://chinesezerotohero.teachable.com/p/phonetics-with-chinese-characteristics`
+                  "
+                  ><img
+                    :src="`/img/courses/phonetics.jpg`"
+                    alt="Phonetics with Chinese Chracteristics"
+                    class="img-fluid shadow rounded"
+                  />
+                  <h5 class="mt-2">Phonetics with Chinese Chracteristics</h5></a
+                >
+              </div>
+            </div>
+          </div>
+          <a
+            href="https://chinesezerotohero.teachable.com/"
+            class="btn btn-success bigger"
+            target="_blank"
+            >View All Courses
+            <font-awesome-icon icon="external-link-alt" class="small ml-1"
+          /></a>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -29,7 +90,8 @@
             target="_blank"
             >Robert M. Gagné</a
           >, as well as multimedia learning guidelines by
-          <a href="https://en.wikipedia.org/wiki/Richard_E._Mayer"
+          <a
+            href="https://en.wikipedia.org/wiki/Richard_E._Mayer"
             target="_blank"
             >Richard E. Mayer</a
           >.&nbsp; The instructional designs are so successful that we have
@@ -146,4 +208,12 @@
 export default {}
 </script>
 
-<style></style>
+<style scoped>
+.courses a:not(.btn) {
+  color: inherit;
+}
+
+.courses a:hover {
+  text-decoration: none;
+}
+</style>
