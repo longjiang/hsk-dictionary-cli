@@ -14,6 +14,17 @@ export default {
     exampleTranslation: 'Example Translation'
   },
 
+  isChinese(text) {
+    if (this.matchChinese(text)) return true
+  },
+  matchChinese(text) {
+    // console.log(text)
+    return text.match(
+      // eslint-disable-next-line no-irregular-whitespace
+      /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
+    )
+  },
+
   load() {
     return new Promise(resolve => {
       var grammar = this
@@ -33,6 +44,7 @@ export default {
             result.number = parseInt(
               result.code.replace(/^(\d)\.(\d+)\.(\d+).*/, '$3')
             )
+            result.words = this.matchChinese(result.structure)
             grammar._grammarData.push(result)
           }
           Helper.loaderMessage('Grammar library ready.')

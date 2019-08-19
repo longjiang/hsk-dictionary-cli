@@ -1,7 +1,6 @@
 import countries from './countries.js'
 import $ from 'jquery'
-import Annotator from '@/lib/annotator'
-import AnnotatorTooltip from '@/lib/annotator-tooltip'
+import Grammar from '@/lib/grammar'
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
 
@@ -123,7 +122,30 @@ export default {
           }" class="tooltip-entry-character"></a>`
         )
     }
-    return $newHtml.html()
+    let newHTML = $newHtml.html()
+    const grammar = Grammar.listWhere(row =>
+      row.structure.includes(candidates[0].simplified)
+    )
+    let grammarHTML = ''
+    for (let point of grammar) {
+      let structureHTML = Helper.highlightMultiple(
+        point.structure,
+        point.words,
+        point.book
+      )
+      grammarHTML += `
+        <div class="tooltip-entry">
+          <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
+        point.book
+      }">Grammar ${point.code}</a>
+          <span class="tooltip-entry-character">${structureHTML}</span>
+          <button onclick="window.AnnotatorTooltip.speak('${
+            point.structure
+          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+          <div class="tooltip-entry-definition">${point.english}</div>
+        </div>`
+    }
+    return grammarHTML + newHTML
   },
   unique(names) {
     var uniqueNames = []
