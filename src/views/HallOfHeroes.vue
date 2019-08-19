@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="text-center mt-5 mb-5">Hall of Heroes</h1>
-        <p class="lead">
-          Every “hero” was a “zero” at some point.
+        <p class="lead text-center">
+          <b>Every “hero” was a “zero” at some point.</b>
         </p>
         <p>
           With hard work and continuous effort learning the Mandarin language,
@@ -12,7 +12,7 @@
           students that have successfully passed the HSK exams after taking
           courses from us!
         </p>
-        <HeroesList category="featured" />
+        <HeroesList category="featured" class="mt-5" />
       </div>
     </div>
   </div>

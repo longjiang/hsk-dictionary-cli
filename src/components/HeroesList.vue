@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-    <div class="col-sm-6 mb-5" v-for="hero in heroes" >
+    <div class="col-sm-6 col-md-4 mb-5" v-for="hero in heroes" >
       <Hero :hero="hero" />
     </div>
 

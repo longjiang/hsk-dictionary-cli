@@ -27,6 +27,22 @@ export default new Router({
       }
     },
     {
+      path: '/about-hsk-online-course',
+      name: 'about',
+      component: () => import('./views/About.vue'),
+      props: true,
+      meta: {
+        title: 'About Our Courses | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'Achieve fluent communication and outstanding HSK results. Engaging, comprehensive and structured Chinese courses at all HSK levels. Learning is hard work, but it should never be boring, so we designed our courses to be concise yet fun and engaging.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
