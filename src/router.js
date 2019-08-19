@@ -43,6 +43,22 @@ export default new Router({
       }
     },
     {
+      path: '/video-count',
+      name: 'video-count',
+      component: () => import('./views/VideoCount.vue'),
+      props: true,
+      meta: {
+        title: 'Video Count | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'See the latest stats on how many videos are there in our courses.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
