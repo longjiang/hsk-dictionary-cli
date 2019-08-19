@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     compareClick() {
-      this.compare = this.compare ? false : true
+      this.dCompare = this.dCompare ? false : true
     },
     random() {
       Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {

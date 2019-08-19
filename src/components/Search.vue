@@ -126,6 +126,7 @@ export default {
     return {
       Helper,
       suggestions: [],
+      dEntry: this.entry,
       text: this.entry ? this.entry.simplified : '',
       active: false,
       suggestionsKey: 0
@@ -137,7 +138,8 @@ export default {
     },
     entry() {
       if (this.entry) {
-        this.text = this.entry.simplified
+        this.dEntry = this.entry
+        this.text = this.dEntry.simplified
       }
     },
     text() {
@@ -174,7 +176,7 @@ export default {
     },
     cancel() {
       setTimeout(() => {
-        if (this.suggestions[0]) this.entry = this.suggestions[0]
+        if (this.suggestions[0]) this.dEntry = this.suggestions[0]
         this.active = false
       }, 300) // Set time out, otherwise before click event is fired the suggestions are already gone!
     }
