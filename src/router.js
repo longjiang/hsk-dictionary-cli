@@ -75,6 +75,22 @@ export default new Router({
       }
     },
     {
+      path: '/course-release-schedule',
+      name: 'course-release-schedule',
+      component: () => import('./views/ReleaseSchedule.vue'),
+      props: true,
+      meta: {
+        title: 'Course Release Schedule | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'We regularly update our courses. Here’s what we are planning on this year.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
