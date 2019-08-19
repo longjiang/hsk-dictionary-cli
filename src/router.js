@@ -59,6 +59,22 @@ export default new Router({
       }
     },
     {
+      path: '/pricing',
+      name: 'pricing',
+      component: () => import('./views/Pricing.vue'),
+      props: true,
+      meta: {
+        title: 'Pricing | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'No subscription required. Pay once, own the courses forever. Wallet Friendly Pricing.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
