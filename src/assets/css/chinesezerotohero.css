@@ -1505,24 +1505,6 @@ i.speak {
   font-size: 1.4rem;
 }
 
-.secondary-menu-item {
-  padding: 0.5rem 1rem;
-  margin: 0.2rem;
-  border-radius: 0.3rem;
-  color: #666;
-}
-
-.secondary-menu-item:hover {
-  text-decoration: none;
-  color: inherit;
-  background-color: #f7f7f7;
-}
-
-.secondary-menu-item.router-link-active {
-  background: #fd4f1c;
-  color: white;
-}
-
 .word-list-ext-item:not(:hover) .word-list-ext-cycle,
 .word-list-ext-item:not(:hover) .word-list-ext-compare-btn,
 .word-list-ext-item:not(:hover) .word-list-ext-related-btn {

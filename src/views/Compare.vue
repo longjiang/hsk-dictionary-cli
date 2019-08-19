@@ -214,8 +214,8 @@ export default {
   },
   watch: {
     a() {
-      this.$parent.$refs.search.entry = this.a
-      this.$parent.$refs.search.text = this.a.simplified
+      this.$refs.search.entry = this.a
+      this.$refs.search.text = this.a.simplified
       if (this.b)
         document.title = `${this.a.simplified} vs ${
           this.b.simplified
@@ -223,8 +223,8 @@ export default {
       this.aKey++
     },
     b() {
-      this.$parent.$refs.compare.entry = this.b
-      this.$parent.$refs.compare.text = this.b.simplified
+      this.$refs.compare.entry = this.b
+      this.$refs.compare.text = this.b.simplified
       if (this.a)
         document.title = `${this.a.simplified} vs ${
           this.b.simplified

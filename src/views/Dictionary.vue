@@ -149,9 +149,7 @@ export default {
       compare: false,
       entryKey: 0, // used to force re-render this component
       compareHrefFunc: compareEntry => {
-        const entry =
-          this.$root.$children[0].$refs.search.entry ||
-          this.$root.$children[0].$refs.routerView.entry
+        const entry = this.$refs.search.entry || this.entry
         return `#/compare/cedict/${entry.identifier},${compareEntry.identifier}`
       }
     }
@@ -166,9 +164,9 @@ export default {
       document.title = `${entry.simplified} (${entry.pinyin}) ${
         entry.definitions[0].text
       } | Chinese Learning Wiki`
-      if (this.$parent.$refs.search) {
-        this.$parent.$refs.search.entry = entry
-        this.$parent.$refs.search.text = entry.simplified
+      if (this.$refs.search) {
+        this.$refs.search.entry = entry
+        this.$refs.search.text = entry.simplified
       } else {
         throw 'Search-Entry link broken.'
       }
@@ -210,7 +208,7 @@ export default {
   },
   watch: {
     $route() {
-      if (this.$route.name === 'entry') {
+      if (this.$route.name === 'dictionary') {
         this.route()
       }
     }
@@ -219,7 +217,7 @@ export default {
     Helper.loaded(() => {
       this.loaded = true
     })
-    if (this.$route.name === 'entry') {
+    if (this.$route.name === 'dictionary') {
       this.route()
     }
   }

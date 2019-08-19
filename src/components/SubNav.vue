@@ -133,7 +133,7 @@ a i {
   margin-right: 0.5rem;
 }
 .secondary-menu {
-  line-height: 3;
+
 }
 
 .saved-words-count {
@@ -154,5 +154,24 @@ a i {
 .router-link-active .saved-words-count {
   color: #fd4f1c;
   background: white;
+}
+
+.secondary-menu-item {
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border-radius: 0.3rem;
+  color: #666;
+  display: inline-block;
+}
+
+.secondary-menu-item:hover {
+  text-decoration: none;
+  color: inherit;
+  background-color: #f7f7f7;
+}
+
+.secondary-menu-item.router-link-active {
+  background: #fd4f1c;
+  color: white;
 }
 </style>
