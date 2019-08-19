@@ -107,6 +107,22 @@ export default new Router({
       }
     },
     {
+      path: '/faq',
+      name: 'faq',
+      component: () => import('./views/FAQ.vue'),
+      props: true,
+      meta: {
+        title: 'Frequently Asked Questions | Chinese Zero To Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'We often hear these questions. Hopefully this page can answer yours.'
+          }
+        ]
+      }
+    },
+    {
       path: '/hall-of-heroes',
       name: 'hall-of-heroes',
       component: () => import('./views/HallOfHeroes.vue'),
