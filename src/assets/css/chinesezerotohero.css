@@ -682,7 +682,12 @@ i.speak {
   display: none;
 }
 
-.lyrics.collapsed .lyrics-line.matched-context {
+.lyrics.collapsed.matched .lyrics-line.matched-context {
+  display: block;
+}
+
+
+.lyrics.collapsed:not(.matched) .lyrics-line:nth-child(-n+6) {
   display: block;
 }
 

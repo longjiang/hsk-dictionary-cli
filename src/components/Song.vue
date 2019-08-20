@@ -5,7 +5,11 @@
         <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
           <PinyinButton class="mb-3" />
           <div
-            class="lyrics collapsed"
+            :class="{
+              lyrics: true,
+              collapsed: collapse,
+              matched: lrc.matchedLines && lrc.matchedLines.length > 0
+            }"
             :id="'lyrics-' + lrcIndex"
             data-collapse-target
           >
@@ -15,11 +19,12 @@
             ></div>
             <hr />
             <div
-              class="lyrics-line"
               v-for="(line, lineIndex) in lrc.content"
               v-if="!LRC.rejectLine(line.line)"
-              v-bind:class="{
-                matched: lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
+              :class="{
+                'lyrics-line': true,
+                matched:
+                  lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
                 'matched-context': LRC.inContext(lineIndex, 2, lrc)
               }"
               v-on:click="seekYouTube(lrc, line.starttime)"
@@ -30,14 +35,22 @@
               "
             ></div>
           </div>
-          <ShowMoreButton :data-bg-hsk="entry ? entry.hsk : 'outside'" class="mt-4" />
+          <ShowMoreButton
+            v-if="collapse"
+            :data-bg-hsk="entry ? entry.hsk : 'outside'"
+            class="mt-4"
+          />
         </div>
         <div class="col-md-6 text-center">
           <div class="youtube-versions" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
             <YouTubeVideo
               v-for="youtube in lrc.youtube"
               :youtube="youtube"
-              :startTime="lrc.matchedLines ? lrc.content[lrc.matchedLines[0]].starttime : 0"
+              :startTime="
+                lrc.matchedLines
+                  ? lrc.content[lrc.matchedLines[0]].starttime
+                  : 0
+              "
               :lrc="lrc"
             />
             <div class="mt-4">
@@ -81,6 +94,9 @@ export default {
     },
     lrcIndex: {
       type: Number
+    },
+    collapse: {
+      default: true
     }
   },
   mounted() {

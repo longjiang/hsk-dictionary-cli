@@ -14,6 +14,7 @@
             v-for="(lrc, lrcIndex) in lrcs"
             :lrc="lrc"
             :lrcIndex="lrcIndex"
+            :collapse="false"
           />
         </div>
       </div>
@@ -58,6 +59,7 @@ export default {
             lrcs => (this.lrcs = lrcs)
           )
         } else {
+          this.lrcs = []
         }
       }
     }
