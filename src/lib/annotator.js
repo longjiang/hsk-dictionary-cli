@@ -63,12 +63,12 @@ export default {
       let word = candidates[0]
       let book = candidates[0].hsk
       try {
-        let grammar = Grammar.listWhere(row =>
-          row.words && row.words.includes(word.simplified)
+        let grammar = Grammar.listWhere(
+          row => row.words && row.words.includes(word.simplified)
         )
         let grammarAttr = ''
         for (let point of grammar) {
-          grammarAttr += ` data-grammar-id-${point.id}`
+          grammarAttr += ` data-grammar-${point.book}-${point.id}`
         }
         return `<span class="word-block" data-hover-hsk="${book}" ${grammarAttr}>
           <span class="word-block-pinyin">${word.pinyin}</span>
@@ -112,6 +112,20 @@ export default {
           let block = $(wordBlockHTML)[0]
           $(textNode).before(block)
           block = wordBlockTemplateFilter(block, textOrCandidates)
+          $(block).hover(() => {
+            $(block)
+              .parent()
+              .find('.word-block')
+              .removeClass('grammar-highlight')
+            for (let attr of block.attributes) {
+              if (attr.name.startsWith('data-grammar-')) {
+                $(block)
+                  .parent()
+                  .find(`[${attr.name}]`)
+                  .addClass(`grammar-highlight`)
+              }
+            }
+          })
           if (Array.isArray(textOrCandidates)) {
             const candidates = textOrCandidates
             AnnotatorTooltip.addTooltip(

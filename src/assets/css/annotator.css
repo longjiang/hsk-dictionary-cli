@@ -121,3 +121,8 @@
 .tooltip-entry .speak:hover {
   color: #ccc;
 }
+
+
+.grammar-highlight {
+  border-bottom: 4px dotted #28a745;
+}
