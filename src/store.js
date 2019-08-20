@@ -56,11 +56,11 @@ export default new Vuex.Store({
       }, 500)
     },
     updateSavedWordsDisplay({ dispatch, getters }) {
-      $('.word-block[data-candidates]').each(function() {
-        let candidates = JSON.parse(unescape($(this).attr('data-candidates')))
+      $('.word-block[data-identifiers]').each(function() {
+        let identifiers = JSON.parse(unescape($(this).attr('data-identifiers')))
         $(this).removeClass('saved')
-        for (let candidate of candidates) {
-          if (getters.hasSavedWord(candidate.identifier)) {
+        for (let identifier of identifiers) {
+          if (getters.hasSavedWord(identifier)) {
             $(this).addClass('saved')
           }
         }

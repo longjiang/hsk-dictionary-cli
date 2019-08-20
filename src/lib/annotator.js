@@ -70,7 +70,10 @@ export default {
         for (let point of grammar) {
           grammarAttr += ` data-grammar-${point.book}-${point.id}`
         }
-        return `<span class="word-block" data-hover-hsk="${book}" ${grammarAttr}>
+        let identifiers = candidates.map(candidate => candidate.identifier)
+        return `<span class="word-block" data-hover-hsk="${book}" ${grammarAttr} data-identifiers="${escape(JSON.stringify(
+          identifiers
+        ))}">
           <span class="word-block-pinyin">${word.pinyin}</span>
           <span class="word-block-simplified">${word.simplified}</span>
           <span class="word-block-traditional">${word.traditional}</span>
