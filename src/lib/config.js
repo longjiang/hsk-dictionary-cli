@@ -1,8 +1,8 @@
 // const dictionaryServer = 'http://hsk-server.local:8888/'
 const dictionaryServer = 'https://server.chinesezerotohero.com/'
 
-const lrcServer = 'http://lyrics-search.local:8888/'
-// const lrcServer = 'https://lyrics-search.chinesezerotohero.com/'
+// const lrcServer = 'http://lyrics-search.local:8888/'
+const lrcServer = 'https://lyrics-search.chinesezerotohero.com/'
 
 export default {
   server: dictionaryServer,

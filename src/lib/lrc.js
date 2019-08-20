@@ -24,7 +24,7 @@ export default {
   getLrcsByArtistOrTitle(artistOrTitle) {
     return new Promise(resolve => {
       $.getJSON(
-        `${Config.lrcServer}lrc/artist_or_title_full/${artistOrTitle}/20`, // Limit to only 20 songs
+        `${Config.lrcServer}lrc/artistortitlefull/${artistOrTitle}/20`, // Limit to only 20 songs
         function(results) {
           resolve(results)
         }

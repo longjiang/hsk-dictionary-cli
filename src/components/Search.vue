@@ -70,31 +70,35 @@
           ></span>
         </span>
       </a>
-      <div class="suggestion" v-if="suggestions.length === 0">
-        <div v-if="type === 'dictionary'">
-          <span class="suggestion-not-found">
-            <b>&ldquo;{{ text }}&rdquo;</b> is not in CEDICT. Try looking it up
-            in
-            <a
-              :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
-              target="blank"
-              >Wiktionary</a
-            >,
-            <a
-              :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
-              target="blank"
-              >Wikipedia</a
-            >, or
-            <a :href="`https://www.google.com/search?q=${text}`" target="blank"
-              >Google.</a
-            >
-          </span>
-        </div>
-        <div v-if="type === 'generic'">
-          <span class="suggestion-not-found">
-            Search for <b>“{{ text }}”</b>...
-          </span>
-        </div>
+      <div
+        class="suggestion"
+        v-if="suggestions.length === 0 && type === 'dictionary'"
+      >
+        <span class="suggestion-not-found">
+          <b>&ldquo;{{ text }}&rdquo;</b> is not in CEDICT. Try looking it up in
+          <a
+            :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
+            target="blank"
+            >Wiktionary</a
+          >,
+          <a
+            :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
+            target="blank"
+            >Wikipedia</a
+          >, or
+          <a :href="`https://www.google.com/search?q=${text}`" target="blank"
+            >Google.</a
+          >
+        </span>
+      </div>
+      <div
+        class="suggestion"
+        v-if="suggestions.length === 0 && type === 'generic'"
+        @click="defaultClick"
+      >
+        <span class="suggestion-not-found">
+          Search for <b>“{{ text }}”</b>...
+        </span>
       </div>
     </div>
   </div>
@@ -175,9 +179,12 @@ export default {
     }
   },
   methods: {
-    // ANCHOR img/anchors/saved-words-button.png
+    defaultClick() {
+      window.location = this.defaultURL(this.text)
+    },
     lookupKeyupEnter() {
-      const url = $('.suggestion:first-child').attr('href') || this.defaultURL(this.text)
+      const url =
+        $('.suggestion:first-child').attr('href') || this.defaultURL(this.text)
       if (url) window.location = url
     },
     lookupButtonClick() {
@@ -191,10 +198,10 @@ export default {
       }
     },
     cancel() {
-      setTimeout(() => {
-        if (this.suggestions[0]) this.dEntry = this.suggestions[0]
-        this.active = false
-      }, 300) // Set time out, otherwise before click event is fired the suggestions are already gone!
+      // setTimeout(() => {
+      //   if (this.suggestions[0]) this.dEntry = this.suggestions[0]
+      //   this.active = false
+      // }, 300) // Set time out, otherwise before click event is fired the suggestions are already gone!
     }
   }
 }

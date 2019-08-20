@@ -10,12 +10,12 @@ import Helper from '@/lib/helper'
 export default {
   props: {
     sticky: {
-      default: 'false'
+      default: false
     }
   },
   methods: {
     test() {
-      if (this.sticky === 'true') {
+      if (this.sticky) {
         return true
       } else {
         return (

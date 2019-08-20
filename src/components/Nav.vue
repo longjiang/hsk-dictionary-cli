@@ -49,6 +49,13 @@
       </router-link>
       <router-link
         class="tab"
+        :to="{ name: 'music' }"
+        title="Listen to Chinese songs and study the lyrics."
+      >
+        <font-awesome-icon icon="music" />Music
+      </router-link>
+      <router-link
+        class="tab"
         :to="{ name: 'reader' }"
         title="Read your text with annotation"
       >
