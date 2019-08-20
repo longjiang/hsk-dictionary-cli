@@ -27,6 +27,21 @@ export default new Router({
       }
     },
     {
+      path: '/music/:method?/:args?',
+      name: 'music',
+      component: () => import('./views/Music.vue'),
+      props: true,
+      meta: {
+        title: 'Music | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Learn Chinese through music.'
+          }
+        ]
+      }
+    },
+    {
       path: '/contact-us',
       name: 'contact',
       component: () => import('./views/Contact.vue'),

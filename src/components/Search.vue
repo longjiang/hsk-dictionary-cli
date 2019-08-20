@@ -71,23 +71,30 @@
         </span>
       </a>
       <div class="suggestion" v-if="suggestions.length === 0">
-        <span class="suggestion-not-found">
-          <b>&ldquo;{{ this.text }}&rdquo;</b> is not in CEDICT. Try looking it
-          up in
-          <a
-            :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
-            target="blank"
-            >Wiktionary</a
-          >,
-          <a
-            :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
-            target="blank"
-            >Wikipedia</a
-          >, or
-          <a :href="`https://www.google.com/search?q=${text}`" target="blank"
-            >Google.</a
-          >
-        </span>
+        <div v-if="type === 'dictionary'">
+          <span class="suggestion-not-found">
+            <b>&ldquo;{{ text }}&rdquo;</b> is not in CEDICT. Try looking it up
+            in
+            <a
+              :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
+              target="blank"
+              >Wiktionary</a
+            >,
+            <a
+              :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
+              target="blank"
+              >Wikipedia</a
+            >, or
+            <a :href="`https://www.google.com/search?q=${text}`" target="blank"
+              >Google.</a
+            >
+          </span>
+        </div>
+        <div v-if="type === 'generic'">
+          <span class="suggestion-not-found">
+            Search for <b>“{{ text }}”</b>...
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -104,6 +111,9 @@ export default {
     Frequency
   },
   props: {
+    type: {
+      default: 'dictionary' // can also be 'generic'
+    },
     entry: {
       default: undefined
     },
@@ -114,6 +124,10 @@ export default {
           return `#/view/cedict/${entry.identifier}`
         }
       }
+    },
+    defaultURL: {
+      type: Function,
+      default: text => `#/view`
     },
     placeholder: {
       default: 'Look up words here...'
@@ -143,26 +157,25 @@ export default {
       }
     },
     text() {
-      Helper.loaded(
-        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-          LoadedHSKCEDICT.lookupFuzzy(
-            rows => {
-              this.suggestions = rows
-            },
-            [this.text, 20]
-          )
-        }
-      )
+      if (this.type === 'dictionary') {
+        Helper.loaded(
+          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+            LoadedHSKCEDICT.lookupFuzzy(
+              rows => {
+                this.suggestions = rows
+              },
+              [this.text, 20]
+            )
+          }
+        )
+      }
     }
   },
   methods: {
     // ANCHOR img/anchors/saved-words-button.png
     lookupKeyupEnter() {
-      const url = $('.suggestion:first-child').attr('href')
-      window.location = url
-    },
-    wiktionaryUrl() {
-      return 'https://en.wiktionary.org/w/index.php?search=' + this.text
+      const url = $('.suggestion:first-child').attr('href') || this.defaultURL(this.text)
+      if (url) window.location = url
     },
     lookupButtonClick() {
       const url = $('.suggestion:first-child').attr('href')

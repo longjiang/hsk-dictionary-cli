@@ -111,6 +111,7 @@ export default {
     )
   },
   tooltipTemplateFilter(candidates, block, html) {
+    console.log('am i called?')
     let $newHtml = $('<div />').html(html)
     for (let i in candidates) {
       let candidate = candidates[i]
