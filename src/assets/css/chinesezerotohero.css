@@ -265,14 +265,23 @@ a:hover {
   display: none;
 }
 
-.show-more {
-  display: block;
-  background: #efefef;
+.show-more,
+.btn-medium {
+  display: inline-block;
   border: none;
   padding: 0.2rem 0.5rem;
-  color: #8e8e8e;
-  display: inline-block;
   border-radius: 0.3rem;
+}
+
+.show-more {
+  background: #efefef;
+  color: #8e8e8e;
+}
+
+.show-more:hover {
+  color: white;
+  text-decoration: none;
+  background: #989898;
 }
 
 .collapsed > .label-collapse,
@@ -1065,12 +1074,6 @@ i.speak {
 
 .concordance-context.collapsed {
   display: none;
-}
-
-.show-more:hover {
-  color: white;
-  text-decoration: none;
-  background: #989898;
 }
 
 .grammar-notes-item {

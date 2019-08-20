@@ -1,5 +1,5 @@
 <template>
-  <div class="row song">
+  <div class="row song" :data-lrc-id="lrc.id">
     <div class="container">
       <div class="row">
         <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
@@ -7,6 +7,7 @@
           <div
             :class="{
               lyrics: true,
+              'mb-4': true,
               collapsed: collapse,
               matched: lrc.matchedLines && lrc.matchedLines.length > 0
             }"
@@ -38,14 +39,19 @@
           <ShowMoreButton
             v-if="collapse"
             :data-bg-hsk="entry ? entry.hsk : 'outside'"
-            class="mt-4"
           />
+          <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
+            <font-awesome-icon icon="trash" /> Delete
+          </button>
+          <span v-if="removed">
+            <font-awesome-icon icon="check" class="ml-2 text-success" /> Removed
+          </span>
         </div>
         <div class="col-md-6 text-center">
           <div class="youtube-versions" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
             <YouTubeVideo
               v-for="youtube in lrc.youtube"
-              :youtube="youtube"
+              :youtube="lrc.youtube[currentYoutubeIndex]"
               :startTime="
                 lrc.matchedLines
                   ? lrc.content[lrc.matchedLines[0]].starttime
@@ -54,13 +60,13 @@
               :lrc="lrc"
             />
             <div class="mt-4">
-              Showing {{ lrc.currentYoutubeIndex }} of
-              {{ lrc.youtube.length }} videos of this song.
-              <button
-                v-on:click="cycleYouTube(lrc, lrcIndex)"
-                class="youtube-version-button btn-small"
-              >
-                Show Next
+              <button class="btn-small" @click="youtubePrev">
+                <font-awesome-icon icon="chevron-left" />
+              </button>
+              <b> {{ currentYoutubeIndex + 1 }}</b> of
+              {{ lrc.youtube.length }}
+              <button class="btn-small" @click="youtubeNext">
+                <font-awesome-icon icon="chevron-right" />
               </button>
             </div>
           </div>
@@ -82,7 +88,9 @@ export default {
   data() {
     return {
       LRC,
-      Helper
+      Helper,
+      removed: false,
+      currentYoutubeIndex: 0
     }
   },
   props: {
@@ -112,20 +120,26 @@ export default {
     }
   },
   methods: {
+    remove() {
+      let c = confirm('Delete this song for everyone?')
+      if (c) {
+        LRC.delete(this.lrc.id).then(() => {
+          this.removed = true
+        })
+      }
+    },
     seekYouTube(lrc, starttime) {
       var player = lrc.youtubePlayer
       player.seekTo(starttime)
     },
-
-    cycleYouTube(lrc, index) {
-      var $versions = $('#lrc-' + index + '-youtube')
-      $versions.find('.youtube:first-child').appendTo($versions)
-      lrc.currentYoutubeIndex += 1
-      if (lrc.currentYoutubeIndex > lrc.youtube.length) {
-        lrc.currentYoutubeIndex = lrc.currentYoutubeIndex - lrc.youtube.length
-      }
-      var $youtube = $versions.find('.youtube:first-child .youtube-screen')
-      $youtube.click() // Load the iframe
+    youtubePrev() {
+      this.currentYoutubeIndex = Math.max(this.currentYoutubeIndex - 1, 0)
+    },
+    youtubeNext() {
+      this.currentYoutubeIndex = Math.min(
+        this.currentYoutubeIndex + 1,
+        this.lrc.youtube.length - 1
+      )
     }
   }
 }

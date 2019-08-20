@@ -1,5 +1,5 @@
 <template>
-  <div class="youtube">
+  <div class="youtube" :key="youtube">
     <div
       v-bind:style="{
         backgroundImage:

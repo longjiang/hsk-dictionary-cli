@@ -10,6 +10,17 @@ export default {
       }
     )
   },
+  delete(lrcID) {
+    console.log(lrcID)
+    return new Promise(resolve => {
+      $.getJSON(
+        `${Config.lrcServer}lrc/delete/${lrcID}`, // Limit to only 20 songs
+        function(results) {
+          resolve(results)
+        }
+      )
+    })
+  },
   getLrcsByArtistOrTitle(artistOrTitle) {
     return new Promise(resolve => {
       $.getJSON(

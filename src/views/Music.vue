@@ -14,8 +14,13 @@
             v-for="(lrc, lrcIndex) in lrcs"
             :lrc="lrc"
             :lrcIndex="lrcIndex"
-            :collapse="false"
+            :collapse="true"
           />
+          <div v-if="notFound" class="mt-5 text-center rounded p-4 bg-light">
+            Sorry, we could not find a artist or song that includes “{{
+              args
+            }}”.
+          </div>
         </div>
       </div>
     </div>
@@ -44,7 +49,8 @@ export default {
   },
   data() {
     return {
-      lrcs: []
+      lrcs: [],
+      notFound: false
     }
   },
   methods: {
@@ -55,10 +61,12 @@ export default {
         let args = this.args.split(',')
         if (method === 'search') {
           let artistOrTitle = args[0]
-          LRC.getLrcsByArtistOrTitle(artistOrTitle).then(
-            lrcs => (this.lrcs = lrcs)
-          )
+          LRC.getLrcsByArtistOrTitle(artistOrTitle).then(lrcs => {
+            this.lrcs = lrcs
+            this.notFound = lrcs.length === 0
+          })
         } else {
+          this.notFound = false
           this.lrcs = []
         }
       }
