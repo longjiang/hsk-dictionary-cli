@@ -60,28 +60,22 @@
         <h3 class="pb-5 pt-5 text-center">Get Our Latest Content</h3>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-5">
-            <h5 class="mb-4 text-center">YouTube</h5>
+            <h5 class="mb-4 text-center">Instagram</h5>
             <a
-              href="https://www.youtube.com/chinesezerotohero"
+              href="https://www.instagram.com/chinesezerotohero/"
               class="text-center"
             >
               <span class="media">
                 <img src="img/logo-zh-zth-circle.png" style="width: 4rem" />
                 <div class="media-body">
-                  youtube.com/<b>chinesezerotohero</b>
+                  instagram.com/<b>chinesezerotohero</b>
                 </div>
               </span>
             </a>
             <p>
-              We regularly post Chinese-learning videos to YouTube. We also
-              provide frequent announcements regarding new course feature,
-              promotional events, and such. In the comment area, you can also
-              connect with other learners.
-            </p>
-            <p>
-              Because we post a lot of content that is not found in our courses,
-              we recommend that you follow us even if you've already bought all
-              of our courses.
+              We regularly post "word of the day" images and grammar poster
+              images. Get your daily dose of Chinese by following our Instagram
+              account. We regularly upload grammar and vocabulary videos on IGTV as well.
             </p>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
@@ -118,22 +112,28 @@
             </p>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <h5 class="mb-4 text-center">Instagram</h5>
+            <h5 class="mb-4 text-center">YouTube</h5>
             <a
-              href="https://www.instagram.com/chinesezerotohero/"
+              href="https://www.youtube.com/chinesezerotohero"
               class="text-center"
             >
               <span class="media">
                 <img src="img/logo-zh-zth-circle.png" style="width: 4rem" />
                 <div class="media-body">
-                  instagram.com/<b>chinesezerotohero</b>
+                  youtube.com/<b>chinesezerotohero</b>
                 </div>
               </span>
             </a>
             <p>
-              We regularly post "word of the day" images and grammar poster
-              images. Get your daily dose of Chinese by following our Instagram
-              account.
+              We regularly post Chinese-learning videos to YouTube. We also
+              provide frequent announcements regarding new course feature,
+              promotional events, and such. In the comment area, you can also
+              connect with other learners.
+            </p>
+            <p>
+              Because we post a lot of content that is not found in our courses,
+              we recommend that you follow us even if you've already bought all
+              of our courses.
             </p>
           </div>
         </div>

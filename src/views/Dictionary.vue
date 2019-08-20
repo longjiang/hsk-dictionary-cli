@@ -2,12 +2,12 @@
   <div class="main focus mt-5 mb-5" v-cloak :key="'entry-' + entryKey">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 text-center">
-          <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
+        <div class="col-sm-12">
           <div class="text-center">
+            <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
             <Loader ref="loader" />
-            <SearchCompare :searchEntry="entry" />
           </div>
+          <SearchCompare :searchEntry="entry" />
         </div>
       </div>
     </div>
@@ -120,7 +120,7 @@ export default {
     EntryLyrics,
     EntryMistakes,
     InstagramButton,
-    EntryWebImages,
+    EntryWebImages
   },
   data() {
     return {
