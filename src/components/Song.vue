@@ -40,7 +40,11 @@
             v-if="collapse"
             :data-bg-hsk="entry ? entry.hsk : 'outside'"
           />
-          <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
+          <button
+            v-if="!removed"
+            class="ml-2 btn-medium btn-danger"
+            @click="remove"
+          >
             <font-awesome-icon icon="trash" /> Delete
           </button>
           <span v-if="removed">
@@ -59,7 +63,7 @@
               "
               :lrc="lrc"
             />
-            <div class="mt-4">
+            <div class="mt-4" v-if="lrc.youtube.length > 0">
               <button class="btn-small" @click="youtubePrev">
                 <font-awesome-icon icon="chevron-left" />
               </button>
@@ -67,6 +71,13 @@
               {{ lrc.youtube.length }}
               <button class="btn-small" @click="youtubeNext">
                 <font-awesome-icon icon="chevron-right" />
+              </button>
+            </div>
+          </div>
+          <div v-if="lrc.youtube.length === 0" class="bg-light p-4 text-center">
+            <div>
+              <button class="btn btn-danger" @click="addYouTube">
+                Add YouTube Videos
               </button>
             </div>
           </div>
@@ -80,6 +91,8 @@
 import LRC from '@/lib/lrc'
 import Helper from '@/lib/helper'
 import YouTubeVideo from '@/components/YouTubeVideo'
+import YouTube from '@/lib/youtube'
+import Config from '@/lib/config'
 
 export default {
   components: {
@@ -140,6 +153,36 @@ export default {
         this.currentYoutubeIndex + 1,
         this.lrc.youtube.length - 1
       )
+    },
+
+    addYouTube(e) {
+      var lrc = this.lrc
+      YouTube.searchYouTubeByProxy(lrc.artist + ' ' + lrc.title + '', function(
+        videoIds
+      ) {
+        $.post(
+          Config.lrcServer + 'lrc/createlrcyoutube',
+          {
+            lrc_id: lrc.id,
+            youtube_ids: videoIds
+          },
+          result => {
+            if (result.status === 'success') {
+              this.youtube = result.youtube
+            }
+          }
+        )
+      })
+    },
+    deleteClick: function(e) {
+      var lrc = this.lrc
+      $.getJSON(Config.lrcServer + 'lrc/delete/' + lrc.id, function(result) {
+        if (result.status === 'success') {
+          // lrc.deleted = true; // Too slow to render in long lists!
+          $(e.target).after('Success')
+          $(e.target).remove()
+        }
+      })
     }
   }
 }
