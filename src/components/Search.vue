@@ -111,6 +111,9 @@ export default {
     Frequency
   },
   props: {
+    term: {
+      default: ''
+    },
     type: {
       default: 'dictionary' // can also be 'generic'
     },
@@ -141,7 +144,7 @@ export default {
       Helper,
       suggestions: [],
       dEntry: this.entry,
-      text: this.entry ? this.entry.simplified : '',
+      text: this.entry ? this.entry.simplified : this.term,
       active: false,
       suggestionsKey: 0
     }

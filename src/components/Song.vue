@@ -6,7 +6,7 @@
           <PinyinButton class="mb-3" />
           <div
             class="lyrics collapsed"
-            :id="'lyrics-' + entry.id + '-' + lrcIndex"
+            :id="'lyrics-' + lrcIndex"
             data-collapse-target
           >
             <div
@@ -19,21 +19,25 @@
               v-for="(line, lineIndex) in lrc.content"
               v-if="!LRC.rejectLine(line.line)"
               v-bind:class="{
-                matched: lrc.matchedLines.includes(lineIndex),
+                matched: lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
                 'matched-context': LRC.inContext(lineIndex, 2, lrc)
               }"
               v-on:click="seekYouTube(lrc, line.starttime)"
-              v-html="Helper.highlight(line.line, entry.simplified, entry.hsk)"
+              v-html="
+                entry
+                  ? Helper.highlight(line.line, entry.simplified, entry.hsk)
+                  : line.line
+              "
             ></div>
           </div>
-          <ShowMoreButton :data-bg-hsk="entry.hsk" class="mt-4" />
+          <ShowMoreButton :data-bg-hsk="entry ? entry.hsk : 'outside'" class="mt-4" />
         </div>
         <div class="col-md-6 text-center">
           <div class="youtube-versions" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
             <YouTubeVideo
               v-for="youtube in lrc.youtube"
               :youtube="youtube"
-              :startTime="lrc.content[lrc.matchedLines[0]].starttime"
+              :startTime="lrc.matchedLines ? lrc.content[lrc.matchedLines[0]].starttime : 0"
               :lrc="lrc"
             />
             <div class="mt-4">

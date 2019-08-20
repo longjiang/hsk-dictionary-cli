@@ -7,7 +7,13 @@
           <Search
             placeholder="Lookup a song or artist"
             type="generic"
+            :term="args"
             :defaultURL="text => `#/music/search/${text}`"
+          />
+          <Song
+            v-for="(lrc, lrcIndex) in lrcs"
+            :lrc="lrc"
+            :lrcIndex="lrcIndex"
           />
         </div>
       </div>
@@ -17,30 +23,40 @@
 
 <script>
 import Helper from '@/lib/helper'
+import LRC from '@/lib/lrc'
 import Search from '@/components/Search'
+import Song from '@/components/Song'
 import $ from 'jquery'
 
 export default {
   components: {
-    Search
+    Search,
+    Song
+  },
+  props: {
+    method: {
+      type: String
+    },
+    args: {
+      type: String
+    }
   },
   data() {
     return {
-      entry: undefined,
-      characters: [],
-      character: {},
-      unsplashSrcs: [],
-      unsplashSearchTerm: '',
-      entryKey: 0 // used to force re-render this component
+      lrcs: []
     }
   },
   methods: {
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()
-      if (this.$route.params.method && this.$route.params.arg) {
-        const method = this.$route.params.method
-        const arg = this.$route.params.arg
-        if (method === 'hsk') {
+      if (this.method && this.args) {
+        let method = this.method
+        let args = this.args.split(',')
+        if (method === 'search') {
+          let artistOrTitle = args[0]
+          LRC.getLrcsByArtistOrTitle(artistOrTitle).then(
+            lrcs => (this.lrcs = lrcs)
+          )
         } else {
         }
       }
@@ -48,15 +64,13 @@ export default {
   },
   watch: {
     $route() {
-      if (this.$route.name === 'dictionary') {
+      if (this.$route.name === 'music') {
         this.route()
       }
     }
   },
   mounted() {
-    if (this.$route.name === 'dictionary') {
-      this.route()
-    }
+    this.route()
   }
 }
 </script>

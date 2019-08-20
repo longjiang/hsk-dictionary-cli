@@ -10,6 +10,16 @@ export default {
       }
     )
   },
+  getLrcsByArtistOrTitle(artistOrTitle) {
+    return new Promise(resolve => {
+      $.getJSON(
+        `${Config.lrcServer}lrc/artist_or_title_full/${artistOrTitle}/20`, // Limit to only 20 songs
+        function(results) {
+          resolve(results)
+        }
+      )
+    })
+  },
   rejectLine(line) {
     var bannedPatterns = [
       'www',
@@ -36,6 +46,7 @@ export default {
    * @param {*} lrc the lrc object
    */
   inContext(index, margin, lrc) {
+    if (!lrc.matchedLines) return false
     var min = lrc.matchedLines[0] - margin
     var max = lrc.matchedLines[0] + margin
     return index >= min && index <= max
