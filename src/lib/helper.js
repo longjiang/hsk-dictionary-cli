@@ -1,6 +1,5 @@
 import countries from './countries.js'
 import $ from 'jquery'
-import Grammar from '@/lib/grammar'
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
 
@@ -92,6 +91,7 @@ export default {
         }
       })
     }
+    return block
   },
   saved(candidate) {
     return window.ChineseZeroToHeroApp.$store.getters.hasSavedWord(

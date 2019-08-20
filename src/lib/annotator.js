@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import Helper from '@/lib/helper'
 import AnnotatorTooltip from '@/lib/annotator-tooltip'
+import Grammar from '@/lib/grammar'
 
 /* Responsible for actually annotating elements */
 export default {
@@ -62,13 +63,21 @@ export default {
       let word = candidates[0]
       let book = candidates[0].hsk
       try {
-        return `<span class="word-block" data-hover-hsk="${book}">
+        let grammar = Grammar.listWhere(row =>
+          row.words && row.words.includes(word.simplified)
+        )
+        let grammarAttr = ''
+        for (let point of grammar) {
+          grammarAttr += ` data-grammar-id-${point.id}`
+        }
+        return `<span class="word-block" data-hover-hsk="${book}" ${grammarAttr}>
           <span class="word-block-pinyin">${word.pinyin}</span>
           <span class="word-block-simplified">${word.simplified}</span>
           <span class="word-block-traditional">${word.traditional}</span>
           <span class="word-block-definition">${word.definitions[0].text}</span>
         </span>`
-      } catch {
+      } catch (err) {
+        throw err
         // catch errors
       }
     } else if (typeof textOrCandidates === 'string') {
@@ -102,7 +111,7 @@ export default {
           let wordBlockHTML = this.wordBlockTemplate(textOrCandidates)
           let block = $(wordBlockHTML)[0]
           $(textNode).before(block)
-          wordBlockTemplateFilter(block, textOrCandidates)
+          block = wordBlockTemplateFilter(block, textOrCandidates)
           if (Array.isArray(textOrCandidates)) {
             const candidates = textOrCandidates
             AnnotatorTooltip.addTooltip(
