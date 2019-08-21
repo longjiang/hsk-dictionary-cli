@@ -85,8 +85,8 @@ export default {
             <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
           point.book
         }">Grammar ${point.code}</a>
-            <a class="tooltip-entry-character" href="${
-              point.url
+            <a class="tooltip-entry-character" href="#/grammar/view/${
+              point.id
             }">${structureHTML}</a>
             <button onclick="window.AnnotatorTooltip.speak('${
               point.structure
