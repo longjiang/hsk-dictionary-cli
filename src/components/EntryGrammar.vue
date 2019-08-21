@@ -7,11 +7,7 @@
       <div class="label song-label mb-2">Grammar notes</div>
       <div class="grammar-notes" id="grammar">
         <div v-for="grammar in entry.grammarPoints" class="grammar-notes-item">
-          <PinyinButton
-            class="mb-4"
-            :selector="`#grammar .grammar-structure, #grammar .grammar-example`"
-          />
-          <div class="character-example-header-word grammar-structure">
+          <Annotate tag="div" class="character-example-header-word grammar-structure">
             <b
               v-html="
                 Helper.highlight(
@@ -21,16 +17,16 @@
                 )
               "
             ></b>
-          </div>
+          </Annotate>
           <div class="example-sentence-english grammar-english">
             {{ grammar.english }}
           </div>
-          <div
+          <Annotate tag="div"
             class="example-sentence-word grammar-example"
             v-html="
               Helper.highlight(grammar.example, entry.simplified, grammar.book)
             "
-          ></div>
+          ></Annotate>
           <div class="character-example-english grammar-example-english">
             {{ grammar.exampleTranslation }}
           </div>
