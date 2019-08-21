@@ -74,12 +74,12 @@ export default {
     DefinitionsList
   },
   mounted() {
-    
+    this.getExamples()
   },
   methods: {
-    lookupByCharacter(character) {
+    getExamples() {
       Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
-        LoadedHSKCEDICT.lookupByCharacter(words => (this.examples = words), [
+        LoadedHSKCEDICT.lookupByCharacter(words => (this.examples = words.filter(word => word.hsk !== 'outside')), [
           this.character.character
         ])
       })

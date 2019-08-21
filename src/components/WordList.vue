@@ -58,6 +58,11 @@
 <script>
 import Helper from '@/lib/helper'
 export default {
+  data() {
+    return {
+      Helper
+    }
+  },
   props: {
     words: {
       type: Array
