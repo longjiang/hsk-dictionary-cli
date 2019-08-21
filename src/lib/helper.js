@@ -123,7 +123,7 @@ export default {
     for (let i in candidates) {
       let candidate = candidates[i]
       $newHtml
-        .find(`.tooltip-entry:eq(${i}) span.tooltip-entry-character`)
+        .find(`.tooltip-entries .tooltip-entry:eq(${i}) span.tooltip-entry-character`)
         .wrap(
           `<a href="#/view/cedict/${
             candidate.identifier

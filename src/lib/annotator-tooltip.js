@@ -70,30 +70,10 @@ export default {
   /* Generate the content of the tooltip, then optionally transform it with a filter function */
   tooltipTemplate(candidates, templateFilterFunction = false) {
     return function() {
-      var html = ''
-      for (let candidate of candidates) {
-        var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
-        for (let definition of candidate.definitions) {
-          $definitionsList.append(
-            `<li class="tooltip-entry-definition">${definition.text}</li>`
-          )
-        }
-        html += `
-        <div class="tooltip-entry">
-          <span class="tooltip-entry-character"><b data-hsk="${candidate.hsk}">${
-          candidate.simplified
-        }</b> (${candidate.traditional})</span>
-          <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
-          <button onclick="window.AnnotatorTooltip.speak('${
-            candidate.simplified
-          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
-          ${$definitionsList.html()}
-        </div>`
-      }
-      const grammar = Grammar.listWhere(row =>
-        row.words && row.words.includes(candidates[0].simplified)
+      const grammar = Grammar.listWhere(
+        row => row.words && row.words.includes(candidates[0].simplified)
       )
-      let grammarHTML = ''
+      let grammarHTML = '<div class="tooltip-grammar">'
       for (let point of grammar) {
         let structureHTML = Helper.highlightMultiple(
           point.structure,
@@ -114,11 +94,33 @@ export default {
             <div class="tooltip-entry-definition">${point.english}</div>
           </div>`
       }
-      html = grammarHTML + html
-      if (templateFilterFunction) {
-        html = templateFilterFunction(candidates, this, html) // this binds to the word-block node
+      grammarHTML += '</div>'
+      var entriesHTML = '<div class="tooltip-entries">'
+      for (let candidate of candidates) {
+        var $definitionsList = $(`<ol class="tooltip-entry-definitions"></ol>`)
+        for (let definition of candidate.definitions) {
+          $definitionsList.append(
+            `<li class="tooltip-entry-definition">${definition.text}</li>`
+          )
+        }
+        entriesHTML += `
+        <div class="tooltip-entry">
+          <span class="tooltip-entry-character"><b data-hsk="${
+            candidate.hsk
+          }">${candidate.simplified}</b> (${candidate.traditional})</span>
+          <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
+          <button onclick="window.AnnotatorTooltip.speak('${
+            candidate.simplified
+          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+          ${$definitionsList.html()}
+        </div>`
       }
-      return html
+      entriesHTML += '</div>'
+      let tooltipHTML = grammarHTML + entriesHTML
+      if (templateFilterFunction) {
+        tooltipHTML = templateFilterFunction(candidates, this, tooltipHTML) // this binds to the word-block node
+      }
+      return tooltipHTML
     }
   }
 }
