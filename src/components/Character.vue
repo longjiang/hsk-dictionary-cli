@@ -3,7 +3,7 @@
     <!-- ANCHOR img/anchors/parts.png -->
     <div class="text-center">
       <div class="pinyin mb-2" v-if="pinyin">
-        {{ pinyin ? pinyin.split(' ')[index] : '' }}
+        {{ pinyin }}
       </div>
       <StrokeOrder :char="character.character" />
     </div>
@@ -46,32 +46,44 @@
         </span>
       </div>
     </div>
-    <div v-for="examples in []">
-      <WordList
-        :words="examples"
-        :highlight="character.character"
-        collapse="4"
-      />
-    </div>
+    <WordList :words="examples" :highlight="character.character" collapse="4" />
   </div>
 </template>
 
 <script>
-
 import Decomposition from '@/components/Decomposition.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
+import Helper from '@/lib/helper'
 
 export default {
   props: {
     character: {
       stype: Object
+    },
+    pinyin: {
+      default: ''
+    }
+  },
+  data() {
+    return {
+      examples: []
     }
   },
   components: {
     Decomposition,
     DefinitionsList
   },
+  mounted() {
+    
+  },
   methods: {
+    lookupByCharacter(character) {
+      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
+        LoadedHSKCEDICT.lookupByCharacter(words => (this.examples = words), [
+          this.character.character
+        ])
+      })
+    },
     highlightCharacter(text, character, hsk) {
       if (text) {
         return text.replace(

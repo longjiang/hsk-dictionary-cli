@@ -8,7 +8,10 @@
         :class="`col-md-${Math.max(4, Math.floor(12 / text.length))}`"
         v-for="(character, index) in characters"
       >
-        <Character :character="character" />
+        <Character
+          :character="character"
+          :pinyin="pinyinArr.length > 0 ? pinyinArr[index] : ''"
+        />
       </div>
     </div>
   </div>
@@ -31,6 +34,11 @@ export default {
   components: {
     Character
   },
+  computed: {
+    pinyinArr() {
+      return this.pinyin.split(' ')
+    }
+  },
   data() {
     return {
       characters: []
@@ -40,20 +48,10 @@ export default {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
         this.characters = LoadedHanzi.getCharactersInWord(this.text)
-        for (let character of this.characters) {
-          this.lookupByCharacter(character)
-        }
       }
     )
   },
   methods: {
-    lookupByCharacter(character) {
-      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
-        LoadedHSKCEDICT.lookupByCharacter(words => (character.words = words), [
-          character.character
-        ])
-      })
-    },
     recalculateExampleColumns() {
       if (this.text) {
         let $div = $('.character-example-wrapper > div')
