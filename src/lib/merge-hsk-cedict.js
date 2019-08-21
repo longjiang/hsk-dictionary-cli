@@ -35,13 +35,17 @@ export default {
           for (var index in this._hskFields) {
             result[index] = row[this._hskFields[index]]
           }
-          result.index = 0
+          // result.index = 0
           Object.freeze(result)
           this._hskData.push(result)
         }
         callback()
       }
     })
+  },
+  parsePinyin(pinyin) {
+    return pinyinify(pinyin.replace(/u:/gi, 'ü')) // use the pinyinify library to parse tones
+      .replace(/\d/g, '') // pinyinify does not handle 'r5', we remove all digits
   },
   loadCEDICTWeights(callback) {
     Papa.parse(this._cedictWeightsCSV, {
@@ -55,13 +59,16 @@ export default {
         }
         this._cedictWeightsData = results.data
         for (let row of this._cedictWeightsData) {
+          // if(row.simplified === '向') {
+          //   console.log(row)
+          // }
           row.pinyin = row.pinyin ? this.parsePinyin(row.pinyin) : ''
           if (
             row.traditional === same.traditional &&
             row.pinyin === same.pinyin
           ) {
-            row.index = same.count
             same.count++
+            row.index = same.count
           } else {
             same = {
               traditional: row.traditional,
@@ -80,10 +87,6 @@ export default {
         callback()
       }
     })
-  },
-  parsePinyin(pinyin) {
-    return pinyinify(pinyin.replace(/u:/gi, 'ü')) // use the pinyinify library to parse tones
-      .replace(/\d/g, '') // pinyinify does not handle 'r5', we remove all digits
   },
   loadCEDICT(callback) {
     let xhttp = new XMLHttpRequest()
@@ -119,8 +122,8 @@ export default {
             row.traditional === same.traditional &&
             row.pinyin === same.pinyin
           ) {
-            row.index = same.count
             same.count++
+            row.index = same.count
           } else {
             same = {
               traditional: row.traditional,
@@ -195,6 +198,9 @@ export default {
     }
     this._merged = this._merged
       .concat(this.findHSKNotInCEDICT())
+      .sort(function(a, b) {
+        return b.definitions.length - a.definitions.length
+      })
       .sort(function(a, b) {
         return b.weight - a.weight
       })
