@@ -37,12 +37,14 @@
         <tr
           v-for="row in grammar"
           :class="{
+            'grammar-table-row': true,
             hidden: !(
               !search ||
               row.structure.includes(search) ||
               row.english.includes(search)
             )
           }"
+          @click="grammarRowClick(row)"
         >
           <td class="text-center align-middle">
             <span
@@ -91,6 +93,11 @@ export default {
       grammar: []
     }
   },
+  methods: {
+    grammarRowClick(row) {
+      location.hash = `#/grammar/view/${row.id}`
+    }
+  },
   created() {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
@@ -113,9 +120,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .grammar-table {
   color: #666;
+
+  .grammar-table-row:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
 }
 
 .grammar-table [data-hsk] {
