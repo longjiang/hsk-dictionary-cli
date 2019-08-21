@@ -48,7 +48,7 @@
                   "
                   ><img
                     :src="`/img/courses/phonetics.jpg`"
-                    alt="Phonetics with Chinese Chracteristics"
+                    alt="Phonetics with Chinese Characteristics"
                     class="img-fluid shadow rounded"
                   />
                   <h5 class="mt-2">Phonetics with Chinese Chracteristics</h5></a

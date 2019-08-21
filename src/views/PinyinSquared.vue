@@ -11,7 +11,7 @@
           blocks.
         </h5>
         <hr class="mt-5 mb-5" />
-        <p>You know how Korean characters look like, right? Like this: <code>한국어 예문</code>.</p>
+        <p>You know what Korean characters look like, right? Like this: <code>한국어 예문</code>.</p>
         <p>They look like blocks, but in reality they only represent sound. For example, <code>한</code>
         is made up of <code>ㅎ</code> (h) <code>ㅏ</code> (a) <code>ㄴ</code> (n), and together they sound like "han."</p>
         <p>What if we write Chinese following the same philosophy, yet retain the visual characteristics of the ideographs?</p>
