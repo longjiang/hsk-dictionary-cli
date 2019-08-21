@@ -1,7 +1,7 @@
 <template>
   <div class="block">
-    <div class="pinyin"></div>
-    <div class="character">
+    <div class="pinyin">{{ pinyinParsed }}</div>
+    <div class="character" v-if="block">
       <simple-svg
         :filepath="`/img/pinyin-squared/${block.initial}.svg`"
         class="initial"
@@ -31,6 +31,11 @@ export default {
   data() {
     return {
       block: undefined
+    }
+  },
+  computed: {
+    pinyinParsed() {
+      return pinyinify(this.pinyin)
     }
   },
   mounted() {

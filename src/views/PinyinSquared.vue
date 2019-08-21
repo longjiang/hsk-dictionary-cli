@@ -78,9 +78,13 @@ export default {
 
 .block .pinyin {
   text-align: center;
-  display: none;
-  font-size: 0.5em;
+  opacity: 0;
+  font-size: 1rem;
   font-family: serif;
+}
+
+.block:hover .pinyin {
+  opacity: 1;
 }
 
 .block {
