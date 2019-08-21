@@ -232,6 +232,21 @@ export default new Router({
       }
     },
     {
+      path: '/grammar/view/:id',
+      name: 'grammar',
+      props: true,
+      component: () => import('./views/GrammarView.vue'),
+      meta: {
+        title: 'Grammar Note | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Check out this grammar point.'
+          }
+        ]
+      }
+    },
+    {
       path: '/explore/levels',
       name: 'levels',
       component: () => import('./views/Levels.vue'),

@@ -101,19 +101,7 @@ export default {
   created() {
     Helper.loaded(
       (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-        let grammar = []
-        loadedGrammar._grammarData.map(row => {
-          LoadedHSKCEDICT.matchChinese(
-            matches => {
-              row.words = matches
-              grammar.push(row)
-              if (grammar.length === loadedGrammar._grammarData.length) {
-                this.grammar = grammar // prevent constant refreshing of the table.
-              }
-            },
-            [row.structure]
-          )
-        })
+        this.grammar = loadedGrammar._grammarData
       }
     )
   }
