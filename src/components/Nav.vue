@@ -88,10 +88,12 @@ export default {
 }
 </script>
 
-<style scoped>
-a svg,
-a i {
-  margin-right: 0.5rem;
+<style lang="scss">
+.tabs {
+  a svg,
+  a i {
+    margin-right: 0.5rem;
+  }
 }
 
 .tabs {
@@ -106,6 +108,7 @@ a i {
   color: white;
   display: inline-block;
   margin-right: 0.2rem;
+  border: none;
 }
 
 .tab.router-link-active,

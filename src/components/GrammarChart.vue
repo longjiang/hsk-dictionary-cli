@@ -24,9 +24,27 @@
       </div>
       <a
         href="/data/grammar.csv.txt"
-        class="ml-2 btn btn-primary" download="Chinese Zero to Hero Grammar Chart.csv"
+        class="ml-2 btn btn-primary"
+        download="Chinese Zero to Hero Grammar Chart.csv"
         ><font-awesome-icon icon="download" class="mr-1" />Download CSV</a
       >
+    </div>
+    <div class="tabs">
+      <button @click="level = undefined" class="tab text-light bg-dark">
+        All 🤦
+      </button>
+      <button
+        v-for="n in 6"
+        class="tab text-dark"
+        :data-bg-hsk="n"
+        @click="level = n"
+      >
+        HSK {{ n }}
+      </button>
+      <div
+        style="height: 0.5rem"
+        :class="level ? `bg-hsk${level}` : `bg-dark`"
+      ></div>
     </div>
     <table
       v-if="grammar && grammar.length > 0"
@@ -44,12 +62,15 @@
       <tbody>
         <tr
           v-for="row in grammar"
+          key="ho"
           :class="{
             'grammar-table-row': true,
             hidden: !(
-              !search ||
-              row.structure.includes(search) ||
-              row.english.includes(search)
+              (!search ||
+                row.structure.includes(search) ||
+                row.english.includes(search)) &&
+              (level === undefined ||
+                row.book === level)
             )
           }"
           @click="grammarRowClick(row)"
@@ -98,6 +119,7 @@ export default {
     return {
       Helper,
       search: '',
+      level: undefined,
       grammar: []
     }
   },
