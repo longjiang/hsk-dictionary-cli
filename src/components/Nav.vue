@@ -38,7 +38,7 @@
         :to="{ name: 'dictionary' }"
         title="Lookup and compare words"
       >
-        <i class="glyphicon glyphicon-font"></i>Vocabulary
+        <i class="glyphicon glyphicon-font"></i>Dictionary
       </router-link>
       <router-link
         class="tab"

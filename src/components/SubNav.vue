@@ -69,7 +69,7 @@
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'dictionary' }">
-        <font-awesome-icon icon="book" />Dictionary
+        <font-awesome-icon icon="book" />Look Up
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
         <i class="glyphicon glyphicon-signal"></i>HSK Levels
