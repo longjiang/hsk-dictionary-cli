@@ -289,9 +289,6 @@ a:hover {
   display: none;
 }
 
-.lyrics {
-  min-height: 9.5rem;
-}
 
 .example-sentence p,
 .lyrics p {
@@ -613,6 +610,7 @@ i.speak {
   height: 100px;
 }
 
+
 @media (max-width: 768px) {
   .lyrics {
     padding-left: 0;
@@ -638,34 +636,6 @@ i.speak {
   color: white !important;
 }
 
-.song-caroussel {
-  position: relative;
-  padding: 0 2rem;
-}
-
-.song-caroussel .paginate-button {
-  position: absolute;
-  z-index: 1;
-  height: 4rem;
-  top: 3rem;
-}
-
-.song-caroussel .paginate-button.next {
-  margin-right: -2.5rem;
-}
-
-.song-caroussel .paginate-button.previous {
-  margin-left: -2.5rem;
-}
-
-@media (max-width: 768px) {
-  .song-caroussel .paginate-button.next {
-    margin-right: -1.5rem;
-  }
-  .song-caroussel .paginate-button.previous {
-    margin-left: -1.5rem;
-  }
-}
 
 .youtube:not(:first-child) {
   display: none;
@@ -675,29 +645,6 @@ i.speak {
   .text-sm-center {
     text-align: center !important;
   }
-}
-
-.lyrics-line {
-  color: #ababab;
-  font-size: 1.2rem;
-}
-
-.lyrics-line.matched {
-  color: #616161;
-  font-weight: bold;
-}
-
-.lyrics.collapsed .lyrics-line {
-  display: none;
-}
-
-.lyrics.collapsed.matched .lyrics-line.matched-context {
-  display: block;
-}
-
-
-.lyrics.collapsed:not(.matched) .lyrics-line:nth-child(-n+6) {
-  display: block;
 }
 
 .unsplash-sources {
@@ -906,42 +853,6 @@ i.speak {
 .part-examples {
   list-style: none;
   padding-left: 1.2rem;
-}
-
-.song {
-  padding: 2rem 0;
-  margin: 0;
-}
-
-.song:nth-child(2n) {
-  background: #fbfbfb;
-}
-
-.lyrics-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.lyrics-line {
-  cursor: pointer;
-  position: relative;
-}
-
-.lyrics-line:hover {
-  background: #e6e6e6;
-}
-
-.lyrics-line:hover::before {
-  content: 'PLAY HERE';
-  font-size: 0.8rem;
-  width: 4rem;
-  line-height: 0.8rem;
-  display: block;
-  color: #bbbbbb;
-  position: absolute;
-  left: -3.5rem;
-  top: 0.2rem;
-  font-weight: bold;
 }
 
 .etymology {

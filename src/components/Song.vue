@@ -2,9 +2,48 @@
   <div class="row song" :data-lrc-id="lrc.id">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
-          <PinyinButton class="mb-3" />
+        <div class="col-md-6 text-center youtube-versions-wrapper">
           <div
+            class="youtube-versions shadow p-3 rounded"
+            :id="`${_uid}-lrc-${lrcIndex}-youtube`"
+          >
+            <YouTubeVideo
+              v-for="youtube in lrc.youtube"
+              :youtube="lrc.youtube[currentYoutubeIndex]"
+              :startTime="
+                lrc.matchedLines
+                  ? lrc.content[lrc.matchedLines[0]].starttime
+                  : 0
+              "
+              :lrc="lrc"
+            />
+            <div class="mt-3 mb-0" v-if="lrc.youtube.length > 0">
+              <button class="btn-small" @click="youtubePrev">
+                <font-awesome-icon icon="chevron-left" />
+              </button>
+              <b> {{ currentYoutubeIndex + 1 }}</b> of
+              {{ lrc.youtube.length }}
+              <button class="btn-small" @click="youtubeNext">
+                <font-awesome-icon icon="chevron-right" />
+              </button>
+            </div>
+          </div>
+          <div v-if="lrc.youtube.length === 0" class="bg-light p-4 text-center">
+            <div>
+              <button
+                class="btn btn-danger"
+                @click="addYouTube"
+                v-if="!gettingYouTube"
+              >
+                Get YouTube Videos
+              </button>
+              <Loader v-if="gettingYouTube" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
+          <Annotate
+            tag="div"
             :class="{
               lyrics: true,
               'mb-4': true,
@@ -35,11 +74,11 @@
                   : line.line
               "
             ></div>
-          </div>
+          </Annotate>
           <ShowMoreButton
             v-if="collapse"
             :data-bg-hsk="entry ? entry.hsk : 'outside'"
-          />
+          >Show More</ShowMoreButton>
           <button
             v-if="!removed"
             class="ml-2 btn-medium btn-danger"
@@ -50,42 +89,6 @@
           <span v-if="removed">
             <font-awesome-icon icon="check" class="ml-2 text-success" /> Removed
           </span>
-        </div>
-        <div class="col-md-6 text-center">
-          <div class="youtube-versions" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
-            <YouTubeVideo
-              v-for="youtube in lrc.youtube"
-              :youtube="lrc.youtube[currentYoutubeIndex]"
-              :startTime="
-                lrc.matchedLines
-                  ? lrc.content[lrc.matchedLines[0]].starttime
-                  : 0
-              "
-              :lrc="lrc"
-            />
-            <div class="mt-4" v-if="lrc.youtube.length > 0">
-              <button class="btn-small" @click="youtubePrev">
-                <font-awesome-icon icon="chevron-left" />
-              </button>
-              <b> {{ currentYoutubeIndex + 1 }}</b> of
-              {{ lrc.youtube.length }}
-              <button class="btn-small" @click="youtubeNext">
-                <font-awesome-icon icon="chevron-right" />
-              </button>
-            </div>
-          </div>
-          <div v-if="lrc.youtube.length === 0" class="bg-light p-4 text-center">
-            <div>
-              <button
-                class="btn btn-danger"
-                @click="addYouTube"
-                v-if="!gettingYouTube"
-              >
-                Get YouTube Videos
-              </button>
-              <Loader v-if="gettingYouTube" />
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -200,4 +203,110 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.song {
+  padding: 2rem 0;
+  margin: 0;
+}
+
+.lyrics-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.lyrics-line {
+  cursor: pointer;
+  position: relative;
+}
+
+.lyrics-line:hover {
+  background: #e6e6e6;
+}
+
+.lyrics-line:hover::before {
+  content: 'PLAY HERE';
+  font-size: 0.8rem;
+  width: 4rem;
+  line-height: 0.8rem;
+  display: block;
+  color: #bbbbbb;
+  position: absolute;
+  right: -3.5rem;
+  top: 0.2rem;
+  font-weight: bold;
+}
+
+.lyrics {
+  min-height: 9.5rem;
+}
+
+.lyrics-line {
+  color: #ababab;
+  font-size: 1.2rem;
+}
+
+.lyrics-line.matched {
+  color: #616161;
+  font-weight: bold;
+}
+
+.lyrics.collapsed .lyrics-line {
+  display: none;
+}
+
+.lyrics.collapsed.matched .lyrics-line.matched-context {
+  display: block;
+}
+
+.lyrics.collapsed:not(.matched) .lyrics-line:nth-child(-n + 6) {
+  display: block;
+}
+
+.youtube-versions-wrapper,
+.youtube-versions {
+  position: sticky;
+  z-index: 2;
+  top: 1rem;
+}
+
+.youtube-versions {
+  background: white;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .youtube-versions-wrapper,
+  .youtube-versions {
+    top: 0;
+  }
+}
+
+.song-caroussel {
+  position: relative;
+  padding: 0 2rem;
+}
+
+.song-caroussel .paginate-button {
+  position: absolute;
+  z-index: 1;
+  height: 4rem;
+  top: 3rem;
+}
+
+.song-caroussel .paginate-button.next {
+  margin-right: -2.5rem;
+}
+
+.song-caroussel .paginate-button.previous {
+  margin-left: -2.5rem;
+}
+
+@media (max-width: 768px) {
+  .song-caroussel .paginate-button.next {
+    margin-right: -1.5rem;
+  }
+  .song-caroussel .paginate-button.previous {
+    margin-left: -1.5rem;
+  }
+}
+</style>
