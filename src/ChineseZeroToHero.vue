@@ -188,5 +188,6 @@ export default {
 }
 .logo-footer {
   height: 4rem;
+  margin-bottom: 1rem;
 }
 </style>

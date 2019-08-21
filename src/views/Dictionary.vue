@@ -1,5 +1,5 @@
 <template>
-  <div class="main focus mt-5 mb-5" v-cloak :key="'entry-' + entryKey">
+  <div class="main focus mt-5" v-cloak :key="'entry-' + entryKey">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
