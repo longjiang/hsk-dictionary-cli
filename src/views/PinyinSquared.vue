@@ -13,7 +13,7 @@
         </p>
         
         <div id="output" class="p-4 rounded shadow">
-          <PinyinSquaredCharacter pinyin="wo3"/>
+          <PinyinSquaredCharacter pinyin="ai4"/>
         </div>
         <textarea
           v-model="text"

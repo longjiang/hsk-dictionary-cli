@@ -133,7 +133,7 @@ export default {
     character = character.replace(/([aeiouü]+)/, 'SPLITDELIMITER$1', 1)
     character = character.replace(/([0-9])/, 'SPLITDELIMITER$1', 1)
     character = character.split('SPLITDELIMITER')
-    var initial = character[0]
+    var initial = character[0] || '`'
     var final = character[1]
     var tone = character[2]
     return { initial: initial, final: final, tone: tone }
