@@ -11,7 +11,7 @@ export default {
   </div>`,
 
   preprocess(text) {
-    let result = []
+    let blocksOrStrings = []
     text = text.toLowerCase()
     text = text.replace(/([^a-zü`0-9]+)/g, 'SPLITDELIMITER$1SPLITDELIMITER')
     var words = text.split('SPLITDELIMITER')
@@ -25,54 +25,30 @@ export default {
       }
       if (word.length > 0 && /^[a-zü`]/.test(word[0])) {
         for (var j = 0; j < word.length; j++) {
-          var character = this.separateInitialFromFinal(word[j])
-          result.push(
-            this.separateInitialFromFinal(
-              character.initial,
-              character.final,
-              character.tone
-            )
-          )
+          blocksOrStrings.push(this.separateInitialFromFinal(word[j]))
         }
       } else {
         if (word[0] !== undefined) {
-          result.push(word[0].replace('\n', '<br>'))
+          blocksOrStrings.push(word[0].replace('\n', '<br>'))
         }
       }
-      words[i] = word
     }
+    return blocksOrStrings
   },
 
   convert(text, outputElement) {
     $(outputElement).html('')
-    text = text.toLowerCase()
-    text = text.replace(/([^a-zü`0-9]+)/g, 'SPLITDELIMITER$1SPLITDELIMITER')
-    var words = text.split('SPLITDELIMITER')
-    for (var i = 0; i < words.length; i++) {
-      var word = words[i]
-      word = word.replace(/([aeiouü`])([^aeiouü`n0-9])/g, '$1SPLITDELIMITER$2')
-      word = word.replace(/(\d+)/g, '$1SPLITDELIMITER')
-      word = word.split('SPLITDELIMITER')
-      if (word[word.length - 1] == '') {
-        word.pop()
-      }
-      if (word.length > 0 && /^[a-zü`]/.test(word[0])) {
-        for (var j = 0; j < word.length; j++) {
-          var character = this.separateInitialFromFinal(word[j])
-          $(outputElement).append(
-            this.makeCharacter(
-              character.initial,
-              character.final,
-              character.tone
-            )
-          )
-        }
+    let blocksOrStrings = this.preprocess(text)
+    for (let blockOrString of blocksOrStrings) {
+      if (typeof blockOrString === 'object') {
+        let block = blockOrString
+        $(outputElement).append(
+          this.makeCharacter(block.initial, block.final, block.tone)
+        )
       } else {
-        if (word[0] !== undefined) {
-          $(outputElement).append(word[0].replace('\n', '<br>'))
-        }
+        let string = blockOrString
+        $(outputElement).append(string)
       }
-      words[i] = word
     }
   },
 

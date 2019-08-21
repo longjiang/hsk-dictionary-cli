@@ -76,20 +76,22 @@ export default {
   left: 0;
 }
 
+.block {
+  display: inline-block;
+  margin: 0 0.1em;
+  position: relative;
+}
+
 .block .pinyin {
-  text-align: center;
   opacity: 0;
   font-size: 1rem;
   font-family: serif;
+  position: absolute;
+  top: -1.5rem;
 }
 
 .block:hover .pinyin {
   opacity: 1;
-}
-
-.block {
-  display: inline-block;
-  margin: 0 0.1em;
 }
 
 .hidden {
