@@ -42,6 +42,22 @@ export default new Router({
       }
     },
     {
+      path: '/pinyin-squared/:method?/:args?',
+      name: 'pinyin-squared',
+      component: () => import('./views/PinyinSquared.vue'),
+      props: true,
+      meta: {
+        title: 'Pinyin² | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'A new, experimental way of writing Chinese phonetics with character-like blocks.'
+          }
+        ]
+      }
+    },
+    {
       path: '/contact-us',
       name: 'contact',
       component: () => import('./views/Contact.vue'),
