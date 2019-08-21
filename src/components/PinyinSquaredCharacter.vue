@@ -1,17 +1,20 @@
 <template>
   <div class="block">
-    <div class="pinyin">{{ pinyinParsed }}</div>
-    <div class="character" v-if="block">
+    <div class="pinyin" v-if="pinyinParsed">{{ pinyinParsed }}</div>
+    <div class="character" v-if="initial">
       <simple-svg
-        :filepath="`/img/pinyin-squared/${block.initial}.svg`"
+        v-if="initial"
+        :filepath="`/img/pinyin-squared/${initial}.svg`"
         class="initial"
       />
       <simple-svg
-        :filepath="`/img/pinyin-squared/${block.final}.svg`"
+        v-if="final"
+        :filepath="`/img/pinyin-squared/${final}.svg`"
         class="final"
       />
       <simple-svg
-        :filepath="`/img/pinyin-squared/tone-${block.tone}.svg`"
+        v-if="tone"
+        :filepath="`/img/pinyin-squared/tone-${tone}.svg`"
         fill="#28a745"
         class="tone"
       />
@@ -24,24 +27,57 @@ import PinyinSquared from '@/lib/pinyin-squared'
 
 export default {
   props: {
-    pinyin: {
+    blockOrString: {
       default: undefined
     }
   },
   data() {
     return {
-      block: undefined
+      
     }
   },
   computed: {
     pinyinParsed() {
-      return pinyinify(this.pinyin)
+      return this.block ? pinyinify(this.block.pinyin) : false
+    },
+    initial() {
+      if (typeof this.blockOrString === 'object') {
+        return this.blockOrString.initial
+      } else {
+        return undefined
+      }
+    },
+    final() {
+      if (typeof this.blockOrString === 'object') {
+        return this.blockOrString.final
+      } else {
+        return undefined
+      }
+    },
+    tone() {
+      if (typeof this.blockOrString === 'object') {
+        return this.blockOrString.tone
+      } else {
+        return undefined
+      }
+    },
+    string() {
+      if (typeof this.blockOrString === 'string') {
+        return this.blockOrString
+      } else {
+        return undefined
+      }
     }
   },
-  mounted() {
-    this.block = PinyinSquared.separateInitialFromFinal(this.pinyin)
-  },
-  methods: {}
+  methods: {
+    construct() {
+      if (typeof this.blockOrString === 'string') {
+        this.string = this.blockOrString
+      } else if (typeof this.blockOrString === 'object') {
+        this.block = this.blockOrString
+      }
+    }
+  }
 }
 </script>
 

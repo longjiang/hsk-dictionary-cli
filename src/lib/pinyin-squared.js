@@ -112,7 +112,7 @@ export default {
     var initial = character[0] || '`'
     var final = character[1]
     var tone = character[2]
-    return { initial: initial, final: final, tone: tone }
+    return { initial: initial, final: final, tone: tone, pinyin: character }
   },
 
   makeCharacter(initial, final, tone) {

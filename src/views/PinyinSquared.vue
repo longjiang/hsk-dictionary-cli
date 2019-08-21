@@ -13,7 +13,7 @@
         </p>
         
         <div id="output" class="p-4 rounded shadow">
-          <PinyinSquaredCharacter pinyin="ai4"/>
+          <PinyinSquaredCharacter v-for="blockOrString in blocksOrStrings" :blockOrString="blockOrString"/>
         </div>
         <textarea
           v-model="text"
@@ -37,6 +37,11 @@ export default {
   components: {
     PinyinSquaredCharacter
   },
+  computed: {
+    blocksOrStrings() {
+      return PinyinSquared.preprocess(this.text)
+    }
+  },
   data() {
     return {
       text: ''
@@ -44,7 +49,7 @@ export default {
   },
   methods: {
     convertClick() {
-      PinyinSquared.convert(this.text, $('#output')[0])
+      
     }
   }
 }
