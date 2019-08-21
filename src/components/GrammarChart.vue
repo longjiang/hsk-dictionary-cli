@@ -56,21 +56,21 @@
             </span>
           </td>
           <td class="align-middle">
-            <PinyinButton /><span
+            <Annotate
               v-html="
                 Helper.highlightMultiple(row.structure, row.words, row.book)
               "
-            ></span>
+            ></Annotate>
           </td>
           <td class="align-middle">
             <span>{{ row.english }}</span>
           </td>
           <td class="align-middle">
-            <PinyinButton /><span
+            <Annotate
               v-html="
                 Helper.highlightMultiple(row.example, row.words, row.book)
               "
-            ></span>
+            ></Annotate>
           </td>
           <td class="align-middle">
             <span>{{ row.exampleTranslation }}</span>
