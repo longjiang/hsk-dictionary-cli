@@ -13,7 +13,6 @@
               class="form-check-input"
               id="show-pinyin"
               v-model="showPinyin"
-              checked
             />
             <label for="show-pinyin">Show Pinyin</label>
           </div>
@@ -49,7 +48,7 @@
 export default {
   data() {
     return {
-      showPinyin: localStorage.getItem('czhHidePinyinExceptSaved') === 'false',
+      showPinyin: localStorage.getItem('czhHidePinyinExceptSaved') === 'true' ? false : true,
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true'
     }
   },
