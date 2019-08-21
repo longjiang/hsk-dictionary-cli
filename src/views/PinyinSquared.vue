@@ -11,7 +11,10 @@
           Type some pinyin (with <em>numeric</em> tone-marks) here and click
           "Convert".
         </p>
-        <div id="output" class="p-4 rounded shadow"></div>
+        
+        <div id="output" class="p-4 rounded shadow">
+          <PinyinSquaredCharacter pinyin="wo3"/>
+        </div>
         <textarea
           v-model="text"
           class="form-control mt-4"
@@ -28,8 +31,12 @@
 
 <script>
 import PinyinSquared from '@/lib/pinyin-squared'
+import PinyinSquaredCharacter from '@/components/PinyinSquaredCharacter'
 
 export default {
+  components: {
+    PinyinSquaredCharacter
+  },
   data() {
     return {
       text: ''
@@ -67,7 +74,6 @@ export default {
 
 .tone {
   left: 0;
-  color: #28a745;
 }
 
 .block .pinyin {

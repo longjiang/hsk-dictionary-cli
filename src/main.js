@@ -35,7 +35,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
- 
+import { SimpleSVG } from 'vue-simple-svg'
+
 library.add(fab, fas) // fontawesome, add the 'fab-reddit' icon
 
 if (location.hash === '#/test') {
@@ -53,8 +54,8 @@ if (location.hash === '#/test') {
   Vue.component('WordList', WordList)
   Vue.component('Loader', Loader)
   Vue.component('Annotate', Annotate)
-  // Vue.component('Annotate', Annotate)
   Vue.component('font-awesome-icon', FontAwesomeIcon)
+  Vue.component('simple-svg', SimpleSVG)
 
   // https://alligator.io/vuejs/vue-router-modify-head/
   // This callback runs before every route change, including on page load.
