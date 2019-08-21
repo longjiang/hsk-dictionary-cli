@@ -76,9 +76,14 @@
           </div>
           <div v-if="lrc.youtube.length === 0" class="bg-light p-4 text-center">
             <div>
-              <button class="btn btn-danger" @click="addYouTube">
+              <button
+                class="btn btn-danger"
+                @click="addYouTube"
+                v-if="!gettingYouTube"
+              >
                 Get YouTube Videos
               </button>
+              <Loader v-if="gettingYouTube" />
             </div>
           </div>
         </div>
@@ -93,7 +98,7 @@ import Helper from '@/lib/helper'
 import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
-import Vue from 'vue'
+import Loader from '@/components/Loader'
 
 export default {
   components: {
@@ -104,7 +109,8 @@ export default {
       LRC,
       Helper,
       removed: false,
-      currentYoutubeIndex: 0
+      currentYoutubeIndex: 0,
+      gettingYouTube: false
     }
   },
   props: {
@@ -158,6 +164,7 @@ export default {
 
     addYouTube(e) {
       var lrc = this.lrc
+      this.gettingYouTube = true
       YouTube.searchYouTubeByProxy(
         lrc.artist + ' ' + lrc.title + '',
         videoIds => {
@@ -168,6 +175,7 @@ export default {
               youtube_ids: videoIds
             },
             result => {
+              this.gettingYouTube = false
               if (result.status === 'success') {
                 this.lrc.youtube = result.youtube.map(
                   youtube => youtube.youtube_id
