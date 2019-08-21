@@ -4,21 +4,29 @@
       <Loader />
     </div>
     <div
-      class="input-group w-50 mb-5"
+      class="d-flex"
+      style="margin: 0 auto 3rem auto"
       v-if="grammar && grammar.length > 0"
       v-cloak
     >
-      <input
-        v-model="search"
-        type="text"
-        class="form-control lookup"
-        placeholder="Filter by keywords"
-      />
-      <div class="input-group-append">
-        <button class="btn btn-danger lookup-button" type="button">
-          <i class="glyphicon glyphicon-filter"></i> Filter
-        </button>
+      <div class="input-group" style="flex: 1">
+        <input
+          v-model="search"
+          type="text"
+          class="form-control lookup"
+          placeholder="Filter by keywords"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-danger lookup-button" type="button">
+            <i class="glyphicon glyphicon-filter"></i> Filter
+          </button>
+        </div>
       </div>
+      <a
+        href="/data/grammar.csv.txt"
+        class="ml-2 btn btn-primary" download="Chinese Zero to Hero Grammar Chart.csv"
+        ><font-awesome-icon icon="download" class="mr-1" />Download CSV</a
+      >
     </div>
     <table
       v-if="grammar && grammar.length > 0"
