@@ -27,15 +27,6 @@ export default {
       annotated: false
     }
   },
-  watch: {
-    $slots() {
-      console.log('slot changed!')
-      this.annotate()
-    }
-  },
-  mounted() {
-    console.log(this)
-  },
   methods: {
     visibilityChanged(isVisible) {
       if (isVisible && !this.annotated) {
