@@ -5,11 +5,13 @@
       <simple-svg
         v-if="initial"
         :filepath="`/img/pinyin-squared/${initial}.svg`"
+        fill="#717171"
         class="initial"
       />
       <simple-svg
         v-if="final"
         :filepath="`/img/pinyin-squared/${final}.svg`"
+        fill="#717171"
         class="final"
       />
       <simple-svg
@@ -19,6 +21,7 @@
         class="tone"
       />
     </div>
+    <div class="string" v-if="string">{{ string }}</div>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
   },
   data() {
     return {
-      
+
     }
   },
   computed: {

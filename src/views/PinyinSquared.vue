@@ -56,6 +56,10 @@ export default {
 </script>
 
 <style>
+#output {
+  font-family: minion-pro, source-han-serif-sc, "KaiTi", serif;
+}
+
 .character {
   width: 1.5rem;
   height: 1.5rem;
@@ -79,6 +83,12 @@ export default {
 
 .tone {
   left: 0;
+}
+
+.string {
+  font-size: 1.5rem;
+  position: relative;
+  bottom: 0.15rem;
 }
 
 .block {
