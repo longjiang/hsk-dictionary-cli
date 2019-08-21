@@ -13,6 +13,14 @@ export default {
     6: '#6a3669',
     outside: '#c59f94'
   },
+  hskWordCount: {
+    1: 150,
+    2: 150,
+    3: 300,
+    4: 600,
+    5: 1300,
+    6: 2500
+  },
   loaderMessages: [],
   lastId: 0,
   async loaded(callback) {
