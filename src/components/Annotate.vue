@@ -27,6 +27,15 @@ export default {
       annotated: false
     }
   },
+  watch: {
+    $slots() {
+      console.log('slot changed!')
+      this.annotate()
+    }
+  },
+  mounted() {
+    console.log(this)
+  },
   methods: {
     visibilityChanged(isVisible) {
       if (isVisible && !this.annotated) {
@@ -44,9 +53,7 @@ export default {
                   this.started = true // Soo we'll add the 'add-pinyin' class, so it will have the pinyin looks
                   LoadedAnnotator.annotateIteratively(
                     this.$el,
-                    node => {
-                      
-                    },
+                    node => {},
                     this.wordBlockTemplateFilter,
                     Helper.tooltipTemplateFilter
                   )
