@@ -77,7 +77,7 @@
           <div v-if="lrc.youtube.length === 0" class="bg-light p-4 text-center">
             <div>
               <button class="btn btn-danger" @click="addYouTube">
-                Add YouTube Videos
+                Get YouTube Videos
               </button>
             </div>
           </div>
@@ -93,6 +93,7 @@ import Helper from '@/lib/helper'
 import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -157,22 +158,25 @@ export default {
 
     addYouTube(e) {
       var lrc = this.lrc
-      YouTube.searchYouTubeByProxy(lrc.artist + ' ' + lrc.title + '', function(
-        videoIds
-      ) {
-        $.post(
-          Config.lrcServer + 'lrc/createlrcyoutube',
-          {
-            lrc_id: lrc.id,
-            youtube_ids: videoIds
-          },
-          result => {
-            if (result.status === 'success') {
-              this.youtube = result.youtube
+      YouTube.searchYouTubeByProxy(
+        lrc.artist + ' ' + lrc.title + '',
+        videoIds => {
+          $.post(
+            Config.lrcServer + 'lrc/createlrcyoutube',
+            {
+              lrc_id: lrc.id,
+              youtube_ids: videoIds
+            },
+            result => {
+              if (result.status === 'success') {
+                this.lrc.youtube = result.youtube.map(
+                  youtube => youtube.youtube_id
+                )
+              }
             }
-          }
-        )
-      })
+          )
+        }
+      )
     },
     deleteClick: function(e) {
       var lrc = this.lrc
