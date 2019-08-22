@@ -19,6 +19,15 @@
           </div>
           <div class="form-check">
             <input
+              type="checkbox"
+              class="form-check-input"
+              id="show-definition"
+              v-model="showDefinition"
+            />
+            <label for="show-definition">Always show definition</label>
+          </div>
+          <div class="form-check">
+            <input
               type="radio"
               id="use-traditional"
               class="form-check-input"
@@ -65,6 +74,7 @@
 export default {
   data() {
     return {
+      showDefinition: localStorage.getItem('czhShowDefinition') === 'true',
       showPinyin:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true'
           ? false
@@ -73,6 +83,10 @@ export default {
     }
   },
   watch: {
+    showDefinition() {
+      localStorage.setItem('czhShowDefinition', this.showDefinition)
+      this.$parent.showDefinition = this.showDefinition
+    },
     showPinyin() {
       localStorage.setItem('czhHidePinyinExceptSaved', !this.showPinyin)
       this.$parent.hidePinyinExceptSaved = !this.showPinyin

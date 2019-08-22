@@ -6,7 +6,8 @@
       'show-pinyin': !hidePinyinExceptSaved,
       'show-pinyin-for-saved': hidePinyinExceptSaved,
       'show-simplified': !useTraditional,
-      'show-traditional': useTraditional
+      'show-traditional': useTraditional,
+      'show-definition': showDefinition
     }"
   >
     <!-- ANCHOR img/anchors/top-bar.png -->
@@ -17,7 +18,9 @@
       <div class="container">
         <div class="row mb-3">
           <div class="col-sm-12 text-center">
-            <router-link to="/"><img src="img/logo-zh-zth-light.png" class="logo" /></router-link>
+            <router-link to="/"
+              ><img src="img/logo-zh-zth-light.png" class="logo"
+            /></router-link>
           </div>
         </div>
       </div>
@@ -46,7 +49,11 @@
                   class="logo-footer"
                 />
               </a>
-              <a href="https://yingyuyingxiong.teachable.com" class="mr-4" target="_blank">
+              <a
+                href="https://yingyuyingxiong.teachable.com"
+                class="mr-4"
+                target="_blank"
+              >
                 <img
                   src="img/logo-en-zth-light.png"
                   alt="English Zero to Hero"
@@ -131,6 +138,7 @@ export default {
     return {
       focus: false,
       loaded: false,
+      showDefinition: localStorage.getItem('czhShowDefinition') === 'true',
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true'
