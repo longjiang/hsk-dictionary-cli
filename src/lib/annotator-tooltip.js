@@ -85,7 +85,9 @@ export default {
     }
     return function() {
       let id = `tooltip-images-${Helper.uniqueId()}`
-      let tooltipImagesHTML = `<div class="tooltip-images" id="${id}"></div><script>window.czhTooltipPhotos("${candidates[0].simplified}", "#${id}")</script>`
+      let tooltipImagesHTML = `<div class="tooltip-images" id="${id}"></div><script>window.czhTooltipPhotos("${
+        candidates[0].simplified
+      }", "#${id}")</script>`
       const grammar = Grammar.listWhere(
         row => row.words && row.words.includes(candidates[0].simplified)
       )
