@@ -1,5 +1,5 @@
 <template>
-  <div class="music">
+  <div class="phrase">
     <div class="container main mt-5 mb-5">
       <div class="row">
         <div class="col-sm-12">

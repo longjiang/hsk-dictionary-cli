@@ -4,12 +4,14 @@
       <div class="row">
         <div class="col-sm-12">
           <h2 class="text-center mb-5">Listen to songs and learn the lyrics</h2>
-          <Search
-            placeholder="Lookup a song or artist (in Chinese characters)"
-            type="generic"
-            :term="args"
-            :defaultURL="text => `#/music/search/${text}`"
-          />
+          <div class="search-compare-wrapper">
+            <Search
+              placeholder="Lookup a song or artist (in Chinese characters)"
+              type="generic"
+              :term="args"
+              :defaultURL="text => `#/music/search/${text}`"
+            />
+          </div>
           <Song
             v-for="(lrc, lrcIndex) in lrcs"
             :lrc="lrc"
