@@ -111,7 +111,7 @@
       </div>
     </div>
 
-    <div class="container focus">
+    <div class="container focus mt-5">
       <div class="row">
         <div class="col-sm-6">
           <Grammar v-if="a" :text="a.simplified" :key="aKey"></Grammar>

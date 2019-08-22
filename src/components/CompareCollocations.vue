@@ -69,8 +69,7 @@ export default {
   },
   methods: {
     getGramrelsByName(gramrels, name) {
-      let gramrel = gramrels.find(gram => gram.name === name)
-      return gramrel
+      return gramrels.find(gram => gram.name === name && gram.Words && gram.Words.length > 0)
     }
   },
   mounted() {

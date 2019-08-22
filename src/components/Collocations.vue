@@ -25,7 +25,7 @@
           ></Collocation>
         </div>
       </div>
-      <div v-if="sketch === false">Sorry, we could not find any collocations with “{{ text }}”</div>
+      <div v-if="sketch !== undefined && (sketch === false || !sketch.Gramrels)">Sorry, we could not find any collocations with “{{ text }}”</div>
 
       <div class="mt-2">
         Collocations provided by
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     getGramrelsByName(gramrels, name) {
-      return gramrels.find(gram => gram.name === name)
+      return gramrels.find(gram => gram.name === name && gram.Words && gram.Words.length > 0)
     }
   },
   data() {
