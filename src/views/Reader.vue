@@ -4,8 +4,13 @@
       <div class="row">
         <div class="col-sm-12">
           <h4>Reader</h4>
-          <p>Write or paste in some Chinese text (in simplified or traditional characters), and pinyin-annotated text will show up below the textbox.</p>
-          <p>You can also use Markdown or HTML.</p>
+          <p>
+            Write or paste in some Chinese text (in simplified or traditional
+            characters), and pinyin-annotated text will show up below the
+            textbox. You can also use <b>Markdown or HTML tags</b>. Everything
+            is autosaved to your browser’s <code>localStorage</code>, so even if
+            you refresh your browser everything you entered is still here.
+          </p>
           <div class="mt-4 mb-5">
             <textarea
               id="reader-textarea"
@@ -27,9 +32,19 @@
             ><div id="reader-annotated" class="focus" v-html="marked"></div
           ></Annotate>
           <ul class="list mt-2">
-            <li>Use <font-awesome-icon icon="copy" class="ml-1 mr-1" /> to get copiable text.</li>
-            <li>Use <font-awesome-icon icon="language" class="ml-1 mr-1" /> to show definitions above.</li>
-            <li>If you always want to see definitions, go to <a href="#/settings">Settings</a> and check “Always show definition.”</li>
+            <li>
+              Use <font-awesome-icon icon="copy" class="ml-1 mr-1" /> to get
+              copiable text.
+            </li>
+            <li>
+              Use <font-awesome-icon icon="language" class="ml-1 mr-1" /> to
+              show definitions above.
+            </li>
+            <li>
+              If you always want to see definitions, go to
+              <a href="#/settings">Settings</a> and check “Always show
+              definition.”
+            </li>
           </ul>
           <hr class="mt-5" />
         </div>
@@ -210,6 +225,7 @@ export default {
     },
     text() {
       this.readerKey++
+      Reader.save(this.text)
     }
   },
   mounted() {
