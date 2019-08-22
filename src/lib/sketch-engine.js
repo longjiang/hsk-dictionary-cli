@@ -195,7 +195,7 @@ export default {
               ),
               '$1'
             )
-            line = line.replace(/[”]$/, '').replace(/^[。，]*/, '')
+            line = line.replace(/[”]$/, '').replace(/^[。，）]*/, '')
             if (
               line.length > term.length + 4 &&
               line.match(/[。！？]$/) &&

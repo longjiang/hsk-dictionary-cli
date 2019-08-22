@@ -68,16 +68,18 @@
 
             <EntryGrammar :entry="entry" class="mt-5"></EntryGrammar>
 
-            <EntryCollocations
+            <Collocations
               class="mt-5 mb-5"
-              :entry="entry"
-            ></EntryCollocations>
-            <EntryConcordance
+              :text="entry.simplified"
+              :level="entry.hsk"
+            ></Collocations>
+            <Concordance
               class="mt-5 mb-5"
-              :entry="entry"
-            ></EntryConcordance>
+              :text="entry.simplified"
+              :level="entry.hsk"
+            ></Concordance>
 
-            <EntryMistakes class="mt-5 mb-5" :entry="entry"></EntryMistakes>
+            <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
           </div>
         </div>
       </div>
@@ -92,14 +94,14 @@
 <script>
 import EntryCharacters from '@/components/EntryCharacters.vue'
 import EntryDisambiguation from '@/components/EntryDisambiguation.vue'
-import EntryConcordance from '@/components/EntryConcordance.vue'
-import EntryCollocations from '@/components/EntryCollocations.vue'
+import Concordance from '@/components/Concordance.vue'
+import Collocations from '@/components/Collocations.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
 import EntryGrammar from '@/components/EntryGrammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
-import EntryMistakes from '@/components/EntryMistakes.vue'
+import Mistakes from '@/components/Mistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
@@ -111,14 +113,14 @@ export default {
     SearchCompare,
     EntryCharacters,
     EntryDisambiguation,
-    EntryCollocations,
-    EntryConcordance,
+    Collocations,
+    Concordance,
     EntryCourseAd,
     EntryExample,
     EntryGrammar,
     EntryHeader,
     EntryLyrics,
-    EntryMistakes,
+    Mistakes,
     InstagramButton,
     EntryWebImages
   },

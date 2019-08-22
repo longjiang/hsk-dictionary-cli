@@ -103,10 +103,10 @@
     <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
-          <EntryConcordance v-if="a" :entry="a" :key="aKey"></EntryConcordance>
+          <Concordance v-if="a" :text="a.simplified" :level="a.hsk" :key="aKey"></Concordance>
         </div>
         <div class="col-sm-6">
-          <EntryConcordance v-if="b" :entry="b" :key="bKey"></EntryConcordance>
+          <Concordance v-if="b" :text="b.simplified" :level="b.hsk" :key="bKey"></Concordance>
         </div>
       </div>
     </div>
@@ -125,10 +125,10 @@
     <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
-          <EntryMistakes v-if="a" :entry="a" :key="aKey"></EntryMistakes>
+          <Mistakes v-if="a" :text="a.simplified" :key="aKey"></Mistakes>
         </div>
         <div class="col-sm-6">
-          <EntryMistakes v-if="b" :entry="b" :key="bKey"></EntryMistakes>
+          <Mistakes v-if="b" :text="b.simplified" :key="bKey"></Mistakes>
         </div>
       </div>
     </div>
@@ -146,12 +146,12 @@
 </template>
 
 <script>
-import EntryConcordance from '@/components/EntryConcordance.vue'
+import Concordance from '@/components/Concordance.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
 import EntryGrammar from '@/components/EntryGrammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
-import EntryMistakes from '@/components/EntryMistakes.vue'
+import Mistakes from '@/components/Mistakes.vue'
 import EntryWebImages from '@/components/EntryWebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
@@ -163,12 +163,12 @@ import $ from 'jquery'
 export default {
   components: {
     SearchCompare,
-    EntryConcordance,
+    Concordance,
     EntryCourseAd,
     EntryExample,
     EntryGrammar,
     EntryHeader,
-    EntryMistakes,
+    Mistakes,
     EntryLyrics,
     CompareCollocations,
     EntryWebImages,

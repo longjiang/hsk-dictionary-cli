@@ -16,7 +16,7 @@
             v-if="sketch && sketch.Gramrels"
             class="mb-4"
             :word="text"
-            level="outside"
+            :level="level"
             :title="colDesc[name]"
             :type="name"
             :id="`collocation-${name}`"
@@ -33,7 +33,14 @@ import Collocation from '@/components/Collocation.vue'
 import SketchEngine from '@/lib/sketch-engine'
 
 export default {
-  props: ['text'],
+  props: {
+    text: {
+      type: String
+    },
+    level: {
+      default: 'outside'
+    }
+  },
   components: {
     Collocation
   },
