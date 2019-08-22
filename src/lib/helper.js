@@ -41,7 +41,7 @@ export default {
   // json or plain text only, and returns object
   proxy(url, callback) {
     $.ajax(Config.proxy + '?' + url).done(function(response) {
-      callback(JSON.parse(response).data)
+      callback(response.data)
     })
   },
   // html only, and returns html
