@@ -11,6 +11,7 @@
             :term="args"
             :defaultURL="text => `#/phrase/search/${text}`"
           />
+          <Collocations v-if="args" :text="args" class="mt-5" />
           <Concordance v-if="args" :text="args" class="mt-5" />
           <Mistakes v-if="args" :text="args" class="mt-5" />
         </div>
@@ -22,12 +23,14 @@
 <script>
 import Concordance from '@/components/Concordance'
 import Mistakes from '@/components/Mistakes'
+import Collocations from '@/components/Collocations'
 import Search from '@/components/Search'
 
 export default {
   components: {
     Search,
     Mistakes,
+    Collocations,
     Concordance
   },
   props: {

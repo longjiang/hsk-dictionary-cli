@@ -32,7 +32,7 @@
           "
           v-bind:key="'collocation-' + name"
         >
-          <Collocations
+          <Collocation
             v-if="entry.sketch && entry.sketch.Gramrels"
             class="mb-4"
             :word="entry.simplified"
@@ -41,7 +41,7 @@
             :type="name"
             :id="`collocation-${name}`"
             :collocation="getGramrelsByName(entry.sketch.Gramrels, name)"
-          ></Collocations>
+          ></Collocation>
         </div>
       </div>
     </div>
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-import Collocations from '@/components/Collocations.vue'
+import Collocation from '@/components/Collocation.vue'
 import SketchEngine from '@/lib/sketch-engine'
 
 export default {
   props: ['entry'],
   components: {
-    Collocations
+    Collocation
   },
   methods: {
     getGramrelsByName(gramrels, name) {

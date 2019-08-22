@@ -1,67 +1,60 @@
 <template>
-  <div :id="id || `collocation-${type}`">
-    <div class="label song-label mb-5">{{ title }}</div>
-    <div v-if="collocation">
-      <PinyinButton class="mt-3 mb-3" />
-      <ul class="character-examples collapsed gramrel" data-collapse-target>
-        <li
-          v-for="Word in collocation.Words"
-          v-if="Word.cm"
-          class="character-example gramrel-item"
+  <div :key="'collocations-' + collocationsKey" v-if="colDesc">
+    <div>
+      <div class="row">
+        <div
+          class="col-sm-12 col-md-6 col-lg-4"
+          v-for="(description, name) in colDesc"
+          v-if="
+            sketch &&
+              sketch.Gramrels &&
+              getGramrelsByName(sketch.Gramrels, name)
+          "
+          v-bind:key="'collocation-' + name"
         >
-          <span
-            v-html="Helper.highlight(Word.cm.replace(/ /gi, ''), word, level)"
-            class="character-example-word"
-          ></span>
-        </li>
-      </ul>
-      <ShowMoreButton
-        :data-bg-hsk="level"
-        :length="collocation.Words.length"
-        :min="4"
-      />
+          <Collocation
+            v-if="sketch && sketch.Gramrels"
+            class="mb-4"
+            :word="text"
+            :level="outside"
+            :title="colDesc[name]"
+            :type="name"
+            :id="`collocation-${name}`"
+            :collocation="getGramrelsByName(sketch.Gramrels, name)"
+          ></Collocation>
+        </div>
+      </div>
     </div>
-    <div v-else>No collocation.</div>
   </div>
 </template>
 
 <script>
-import Helper from '@/lib/helper'
+import Collocation from '@/components/Collocation.vue'
+import SketchEngine from '@/lib/sketch-engine'
 
 export default {
-  props: {
-    word: {
-      type: String
-    },
-    level: {
-      type: String
-    },
-    type: {
-      type: String
-    },
-    title: {
-      type: String
-    },
-    collocation: {
-      type: Object
-    },
-    id: {
-      default: undefined
-    }
+  props: ['text'],
+  components: {
+    Collocation
   },
-  beforeMount() {
-    if (this.collocation && this.collocation.Words) {
-      this.collocation.Words = this.collocation.Words.sort(
-        (a, b) => a.cm.length - b.cm.length
-      )
-        .filter(Word => !Word.cm.match(/(。|？)/))
-        .slice(0, 12)
+  methods: {
+    getGramrelsByName(gramrels, name) {
+      return gramrels.find(gram => gram.name === name)
     }
   },
   data() {
     return {
-      Helper
+      colDesc: undefined,
+      sketch: undefined,
+      collocationsKey: 0
     }
+  },
+  mounted() {
+    SketchEngine.wsketch(this.text, response => {
+      this.sketch = response
+      this.collocationsKey += 1
+    })
+    this.colDesc = SketchEngine.collocationDescription(this.text)
   }
 }
 </script>

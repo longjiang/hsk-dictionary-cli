@@ -88,7 +88,6 @@ export default {
   },
   created() {
     SketchEngine.mistakes(this.text, response => {
-      console.log(response)
       this.mistakes = response
     })
   }

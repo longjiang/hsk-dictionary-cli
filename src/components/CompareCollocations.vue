@@ -18,7 +18,7 @@
       "
     >
       <div class="col-sm-6">
-        <Collocations
+        <Collocation
           v-if="a.sketch && a.sketch.Gramrels"
           :word="a.simplified"
           :level="a.hsk"
@@ -26,10 +26,10 @@
           :type="name"
           :id="`collocation-a-${name}`"
           :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
-        ></Collocations>
+        ></Collocation>
       </div>
       <div class="col-sm-6">
-        <Collocations
+        <Collocation
           v-if="b.sketch && b.sketch.Gramrels"
           :word="b.simplified"
           :level="b.hsk"
@@ -37,20 +37,20 @@
           :type="name"
           :id="`collocation-a-${name}`"
           :collocation="getGramrelsByName(b.sketch.Gramrels, name)"
-        ></Collocations>
+        ></Collocation>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Collocations from '@/components/Collocations.vue'
+import Collocation from '@/components/Collocation.vue'
 import SketchEngine from '@/lib/sketch-engine'
 
 export default {
   props: ['a', 'b'],
   components: {
-    Collocations
+    Collocation
   },
   data() {
     return {
