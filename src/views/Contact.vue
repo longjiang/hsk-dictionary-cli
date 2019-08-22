@@ -55,10 +55,10 @@
         <div class="rounded shadow bg-light p-4 container">
           <h3>Join our WeChat discussion group</h3>
           <p>
-            Download the WeChat app, scan Jon’s QR code below, leave him a
+            Download the WeChat app, scan Ken’s QR code below, leave him a
             message, and he will invite you into the group.
           </p>
-          <img src="/img/jon-wechat-qr.jpg" class="img-fluid" style="max-width: 15rem">
+          <img src="/img/ken-wechat-qr.jpg" class="img-fluid" style="max-width: 15rem">
         </div>
       </div>
     </div>
