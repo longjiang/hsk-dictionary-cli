@@ -1,19 +1,19 @@
 <template>
   <div :id="id || `collocation-${type}`">
     <h6>{{ title }}</h6>
-    <hr>
+    <hr class="mt-0 mb-2">
     <div v-if="collocation">
-      <PinyinButton class="mt-3 mb-3" />
       <ul class="collapsed gramrel pl-0" data-collapse-target>
-        <li
+        <Annotate
           v-for="Word in collocation.Words"
           v-if="Word.cm"
           class="gramrel-item list-unstyled"
+          tag="li"
         >
           <span
             v-html="Helper.highlight(Word.cm.replace(/ /gi, ''), word, level)"
           ></span>
-        </li>
+        </Annotate>
       </ul>
       <ShowMoreButton
         :data-bg-hsk="level"
