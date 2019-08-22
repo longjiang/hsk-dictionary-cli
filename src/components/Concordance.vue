@@ -4,7 +4,7 @@
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="examples && examples.length > 0">
         <ul v-if="examples" class="collapsed list-unstyled" data-collapse-target>
-          <Annotate tag="li" v-for="example in examples">
+          <Annotate tag="li" v-for="example in examples" class="pt-2 pb-2" style="border-bottom: 1px solid #ccc">
             <span v-html="Helper.highlight(example, text, level)"></span>
           </Annotate>
         </ul>
