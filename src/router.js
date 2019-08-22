@@ -217,6 +217,22 @@ export default new Router({
       }
     },
     {
+      path: '/phrase/:method?/:args?',
+      name: 'phrase',
+      component: () => import('./views/Phrase.vue'),
+      props: true,
+      meta: {
+        title: 'Phrase | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'See how Chinese phrases are used in real context..'
+          }
+        ]
+      }
+    },
+    {
       path: '/grammar',
       name: 'grammar',
       component: () => import('./views/Grammar.vue'),

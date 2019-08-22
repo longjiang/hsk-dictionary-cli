@@ -6,6 +6,11 @@ body {
   display: none;
 }
 
+
+.highlight {
+  font-weight: bold;
+}
+
 a {
   color: #fd4f1c;
 }
