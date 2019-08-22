@@ -44,20 +44,20 @@
 
       <div class="row mt-4">
         <div class="col-sm-6">
-          <EntryWebImages
+          <WebImages
             v-if="a"
             :text="a.simplified"
             limit="10"
             :key="aKey"
-          ></EntryWebImages>
+          ></WebImages>
         </div>
         <div class="col-sm-6">
-          <EntryWebImages
+          <WebImages
             v-if="b"
             :text="b.simplified"
             limit="10"
             :key="bKey"
-          ></EntryWebImages>
+          ></WebImages>
         </div>
       </div>
     </div>
@@ -114,10 +114,10 @@
     <div class="container focus">
       <div class="row">
         <div class="col-sm-6">
-          <EntryGrammar v-if="a" :entry="a" :key="aKey"></EntryGrammar>
+          <Grammar v-if="a" :text="a.simplified" :key="aKey"></Grammar>
         </div>
         <div class="col-sm-6">
-          <EntryGrammar v-if="b" :entry="b" :key="bKey"></EntryGrammar>
+          <Grammar v-if="b" text="b.simplified" :key="bKey"></Grammar>
         </div>
       </div>
     </div>
@@ -149,10 +149,10 @@
 import Concordance from '@/components/Concordance.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
-import EntryGrammar from '@/components/EntryGrammar.vue'
+import Grammar from '@/components/Grammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
 import Mistakes from '@/components/Mistakes.vue'
-import EntryWebImages from '@/components/EntryWebImages.vue'
+import WebImages from '@/components/WebImages.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
@@ -166,12 +166,12 @@ export default {
     Concordance,
     EntryCourseAd,
     EntryExample,
-    EntryGrammar,
+    Grammar,
     EntryHeader,
     Mistakes,
     EntryLyrics,
     CompareCollocations,
-    EntryWebImages,
+    WebImages,
     CompareDefs
   },
   data() {

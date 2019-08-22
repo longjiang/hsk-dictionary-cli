@@ -59,14 +59,14 @@
               :pinyin="entry.pinyin"
             ></EntryCharacters>
 
-            <EntryWebImages
+            <WebImages
               class="mt-5"
               :text="entry.simplified"
               :entry="entry"
               limit="10"
-            ></EntryWebImages>
+            ></WebImages>
 
-            <EntryGrammar :entry="entry" class="mt-5"></EntryGrammar>
+            <Grammar :text="entry.simplified" class="mt-5"></Grammar>
 
             <Collocations
               class="mt-5 mb-5"
@@ -98,11 +98,11 @@ import Concordance from '@/components/Concordance.vue'
 import Collocations from '@/components/Collocations.vue'
 import EntryCourseAd from '@/components/EntryCourseAd.vue'
 import EntryExample from '@/components/EntryExample.vue'
-import EntryGrammar from '@/components/EntryGrammar.vue'
+import Grammar from '@/components/Grammar.vue'
 import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import Mistakes from '@/components/Mistakes.vue'
-import EntryWebImages from '@/components/EntryWebImages.vue'
+import WebImages from '@/components/WebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
@@ -117,12 +117,12 @@ export default {
     Concordance,
     EntryCourseAd,
     EntryExample,
-    EntryGrammar,
+    Grammar,
     EntryHeader,
     EntryLyrics,
     Mistakes,
     InstagramButton,
-    EntryWebImages
+    WebImages
   },
   data() {
     return {

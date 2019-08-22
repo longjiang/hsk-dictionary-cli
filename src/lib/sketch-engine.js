@@ -4,7 +4,7 @@ import Config from './config'
 import SketchEngine from './sketch-engine'
 
 export default {
-  corpname: 'preloaded/zhtenten17_simplified_stf2',
+  corpname: 'preloaded/zhtenten_lenoch',
   proficiency: {
     初级: 'beginner',
     中级: 'intermediate',
@@ -204,9 +204,9 @@ export default {
               result.push(line)
             }
           })
-          // result = result.sort(function(a, b) {
-          //   return a.length - b.length
-          // })
+          result = result.sort(function(a, b) {
+            return a.length - b.length
+          })
           callback(Helper.unique(result))
         } catch (err) {
           throw 'Concordance did not return any data.'

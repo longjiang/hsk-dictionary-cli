@@ -14,6 +14,8 @@
             />
           </div>
           <div :key="args">
+            <WebImages v-if="args" :text="args" limit="10" class="mt-5" />
+            <Grammar v-if="args" :text="args" limit="10" class="mt-5" />
             <Collocations v-if="args" :text="args" class="mt-5" />
             <Concordance v-if="args" :text="args" class="mt-5" />
             <Mistakes v-if="args" :text="args" class="mt-5" />
@@ -26,15 +28,19 @@
 
 <script>
 import Concordance from '@/components/Concordance'
+import Grammar from '@/components/Grammar'
 import Mistakes from '@/components/Mistakes'
 import Collocations from '@/components/Collocations'
 import Search from '@/components/Search'
+import WebImages from '@/components/WebImages'
 
 export default {
   components: {
+    Grammar,
     Search,
     Mistakes,
     Collocations,
+    WebImages,
     Concordance
   },
   props: {
