@@ -88,7 +88,7 @@ export default {
 
 <style>
 #output {
-  font-family: minion-pro, source-han-serif-sc, 'KaiTi', serif;
+  font-family: minion-pro, source-han-serif-sc, serif;
 }
 
 .character {
