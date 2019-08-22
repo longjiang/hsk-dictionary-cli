@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center">
-      <Loader />
+      <Loader class="mb-5" />
     </div>
     <div
       class="d-flex"

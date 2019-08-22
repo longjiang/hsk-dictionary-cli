@@ -100,9 +100,9 @@ export default {
         )
         grammarHTML += `
           <div class="tooltip-entry">
-            <a class="label d-block mb-2" href="${point.url}" data-bg-hsk="${
+            <a class="d-block mb-2" href="#/grammar/view/${point.id}" data-hsk="${
           point.book
-        }">Grammar ${point.code}</a>
+        }"><strong>Grammar ${point.code}</strong></a>
             <a class="tooltip-entry-character" href="#/grammar/view/${
               point.id
             }">${structureHTML}</a>
