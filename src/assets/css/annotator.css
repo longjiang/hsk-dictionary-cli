@@ -36,6 +36,10 @@
   display: block;
 }
 
+.show-definition .word-block {
+  position: relative;
+}
+
 /* Line style */
 
 .word-block-pinyin {
@@ -44,11 +48,16 @@
 }
 
 .word-block-definition {
+  display: none;
   color: #aaa;
-  font-size: 0.85em;
+  font-size: 0.7em;
   font-style: italic;
   margin-top: 0.5em;
-  display: none;
+  max-width: 6rem;
+  margin: 0 0.5em 0.2em 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

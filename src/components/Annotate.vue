@@ -2,11 +2,22 @@
   <component
     :is="tag"
     v-observe-visibility="visibilityChanged"
-    :class="{ 'add-pinyin': started }"
+    :class="{ 'add-pinyin': started, 'show-definition': showDefOn }"
   >
     <slot></slot>
-    <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
+    <span
+      class="annotator-copy ml-1 focus-exclude"
+      @click="copyClick"
+      v-if="copy"
+    >
       <font-awesome-icon icon="copy" />
+    </span>
+    <span
+      class="annotator-copy ml-2 focus-exclude"
+      @click="showDefClick"
+      v-if="showDef"
+    >
+      <font-awesome-icon icon="language" />
     </span>
     <textarea class="form-control mb-2" rows="3" v-if="pinyin.length > 0">{{
       `${pinyin.trim()}\n${simplified}\n${traditional}`
@@ -26,6 +37,9 @@ export default {
     copy: {
       default: true
     },
+    showDef: {
+      default: true
+    },
     wordBlockTemplateFilter: {
       type: Function,
       default: Helper.wordBlockTemplateFilter
@@ -35,12 +49,16 @@ export default {
     return {
       started: false,
       annotated: false,
+      showDefOn: false,
       pinyin: '',
       simplified: '',
       traditional: ''
     }
   },
   methods: {
+    showDefClick() {
+      this.showDefOn = !this.showDefOn
+    },
     copyClick() {
       if (this.pinyin === '') {
         let that = this

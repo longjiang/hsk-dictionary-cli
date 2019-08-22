@@ -74,10 +74,10 @@ export default {
         return `<span class="word-block" data-hover-hsk="${book}" ${grammarAttr} data-identifiers="${escape(JSON.stringify(
           identifiers
         ))}">
+          <span class="word-block-definition">${word.definitions[0].text}</span>
           <span class="word-block-pinyin">${word.pinyin}</span>
           <span class="word-block-simplified">${word.simplified}</span>
           <span class="word-block-traditional">${word.traditional}</span>
-          <span class="word-block-definition">${word.definitions[0].text}</span>
         </span>`
       } catch (err) {
         throw err
