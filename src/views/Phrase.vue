@@ -11,9 +11,11 @@
             :term="args"
             :defaultURL="text => `#/phrase/search/${text}`"
           />
-          <Collocations v-if="args" :text="args" class="mt-5" />
-          <Concordance v-if="args" :text="args" class="mt-5" />
-          <Mistakes v-if="args" :text="args" class="mt-5" />
+          <div :key="args">
+            <Collocations v-if="args" :text="args" class="mt-5" />
+            <Concordance v-if="args" :text="args" class="mt-5" />
+            <Mistakes v-if="args" :text="args" class="mt-5" />
+          </div>
         </div>
       </div>
     </div>
@@ -45,11 +47,21 @@ export default {
     return {}
   },
   methods: {
+    route() {
+      $('#chinesezerotohero')[0].scrollIntoView()
+    }
   },
   watch: {
+    args() {
+      if (this.$route.name === 'dictionary') {
+        this.route()
+      }
+    }
   },
   mounted() {
-
+    if (this.$route.name === 'phrase') {
+      this.route()
+    }
   }
 }
 </script>

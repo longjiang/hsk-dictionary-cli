@@ -16,7 +16,7 @@
             v-if="sketch && sketch.Gramrels"
             class="mb-4"
             :word="text"
-            :level="outside"
+            level="outside"
             :title="colDesc[name]"
             :type="name"
             :id="`collocation-${name}`"

@@ -195,7 +195,7 @@ export default {
               ),
               '$1'
             )
-            line = line.replace(/[”]$/, '')
+            line = line.replace(/[”]$/, '').replace(/^[。，]*/, '')
             if (
               line.length > term.length + 4 &&
               line.match(/[。！？]$/) &&
@@ -204,9 +204,9 @@ export default {
               result.push(line)
             }
           })
-          result = result.sort(function(a, b) {
-            return a.length - b.length
-          })
+          // result = result.sort(function(a, b) {
+          //   return a.length - b.length
+          // })
           callback(Helper.unique(result))
         } catch (err) {
           throw 'Concordance did not return any data.'
@@ -287,7 +287,9 @@ export default {
               .join('')
               .match(/(.*)<s>([^<s>]*?)$/)
             const left = ml[2]
-            const leftContext = ml[1].replace(/<s>/g, '').replace(/<\/s>/g, '')
+            const leftContext = ml[1]
+              .replace(/<s>/g, '')
+              .replace(/<\/s>/g, '')
             let mr = Line.Right.map(function(item) {
               return item.str || item.strc
             })

@@ -19,6 +19,10 @@ a:hover {
   color: #f76135;
 }
 
+.collapsed li:nth-child(n + 5) {
+  display: none;
+}
+
 .bigger {
   font-size: 1.4em;
 }
