@@ -60,10 +60,8 @@ export default {
       }/.json`,
       response => {
         let article = response.data[0].data.children[0].data
-        console.log(article, 'article')
         this.article = article
         let comments = response.data[1].data.children.map(item => item.data)
-        // console.log(comments, 'comments')
         this.comments = comments
       }
     )

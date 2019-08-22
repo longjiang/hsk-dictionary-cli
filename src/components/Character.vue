@@ -110,14 +110,10 @@ export default {
       Helper.loaded(
         (LoadedAnnotator, LoadedHSKCEDICT, LoadedGrammar, LoadedHanzi) => {
           part.characters = LoadedHanzi.searchByRadical(part.character)
-          console.log(
-            `${part.characters.length} characters found, looking for words...`
-          )
           for (let character of part.characters.slice(0, 1)) {
             character.examples = []
             LoadedHSKCEDICT.lookupByCharacter(
               words => {
-                console.log(`found ${words.length} words!`)
                 part.getting = false
                 character.examples = words.filter(
                   word => word.hsk !== 'outside'

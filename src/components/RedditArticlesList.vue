@@ -42,7 +42,6 @@ export default {
         this.articles = response.data.data.children.map(item => item.data)
       }
     )
-    // console.log(this.articles)
   },
   data() {
     return {

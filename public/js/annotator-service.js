@@ -28,7 +28,11 @@ const AnnotatorService = {
       var newArr = []
       result.forEach(function(item) {
         if (typeof item === 'string') {
-          for (let an of annotatorService._annotateIteratively(item, subdict)) {
+          for (let an of annotatorService._annotateIteratively(
+            item,
+            subdict,
+            traditional
+          )) {
             newArr.push(an)
           }
         } else {

@@ -17,6 +17,13 @@ const HSKCEDICT = {
       })
     })
   },
+  unique(array) {
+    var uniqueArray = []
+    for (let i in array) {
+      if (!uniqueArray.includes(array[i])) uniqueArray.push(array[i])
+    }
+    return uniqueArray
+  },
   getByHSKId(hskId) {
     return this._data.find(row => row.hskId === hskId)
   },
@@ -54,7 +61,6 @@ const HSKCEDICT = {
     if (this.matchChinese(text)) return true
   },
   matchChinese(text) {
-    // console.log(text)
     return text.match(
       // eslint-disable-next-line no-irregular-whitespace
       /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B‌​\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]+/g
@@ -72,8 +78,9 @@ const HSKCEDICT = {
     } else {
       results = this._data.filter(row => {
         return (
-          this.removeTones(row.pinyin.replace(/ /g, '')).includes(text.replace(/ /g, '')) ||
-          row.search.includes(text)
+          this.removeTones(row.pinyin.replace(/ /g, '')).includes(
+            text.replace(/ /g, '')
+          ) || row.search.includes(text)
         )
       })
     }
@@ -245,13 +252,16 @@ const HSKCEDICT = {
     return Object.assign(newDict, { _data: data })
   },
   isTraditional(text) {
-    let matchedSimplified = 0
-    let matchedTraditional = 0
+    let matchedSimplified = []
+    let matchedTraditional = []
     for (let row of this._data) {
-      if (text.includes(row.simplified)) matchedSimplified++
-      if (text.includes(row.traditional)) matchedTraditional++
+      if (text.includes(row.simplified)) matchedSimplified.push(row.simplified)
+      if (text.includes(row.traditional))
+        matchedTraditional.push(row.traditional)
     }
-    return matchedTraditional > matchedSimplified
+    const trad = this.unique(matchedTraditional).length
+    const simp = this.unique(matchedSimplified).length
+    return trad > simp
   },
   subdictFromText(text) {
     return this.subdict(
