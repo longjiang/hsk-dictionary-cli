@@ -40,7 +40,10 @@
       </div>
       <div class="mt-2">
         Collocations provided by
-        <a :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${a.simplified}&showresults=1`">
+        <a
+          target="_blank"
+          :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${a.simplified}&showresults=1`"
+        >
           <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
         </a>
       </div>
