@@ -1,29 +1,31 @@
 <template>
-  <div class="main mt-4" v-cloak :key="readerKey">
+  <div class="main mt-4" v-cloak>
     <div class="container mt2 mb2">
       <div class="row">
         <div class="col-sm-12">
           <h4>Reader</h4>
           <p>This tool helps you read Chinese text.</p>
-          <hr />
-          <div id="reader-annotated" class="focus"></div>
-          <Loader />
-          <div class="mt-4">
+          <div class="mt-4 mb-5">
             <textarea
               id="reader-textarea"
               class="form-control"
               cols="30"
-              rows="10"
+              rows="5"
               placeholder="Enter your Chinese text here. Markdown and HTML also supported."
               v-model="text"
             ></textarea>
-            <button
+            <!-- <button
               class="btn btn-success btn-block mt-4"
               v-on:click="startClick"
-            >
-              Start Reading
-            </button>
+            > 
+              Add Pinyin
+            </button>-->
           </div>
+          <Loader class="mt-5 mb-5" />
+          <Annotate v-if="text.length > 0" :key="readerKey"
+            ><div id="reader-annotated" class="focus" v-html="marked"></div
+          ></Annotate>
+          <hr class="mt-5" />
         </div>
       </div>
       <div class="row mt-5">
@@ -75,7 +77,10 @@
         </div>
         <div class="col-sm-6">
           <h4 class="mb-4">Using Desktop Google Chrome?</h4>
-          <p>Install the <b>“Add Pinyin” Chrome extension</b> to read all Chinese webpages with pinyin annotation.</p>
+          <p>
+            Install the <b>“Add Pinyin” Chrome extension</b> to read all Chinese
+            webpages with pinyin annotation.
+          </p>
           <img
             src="img/extension-screenshot-1.jpg"
             alt
@@ -185,11 +190,33 @@ export default {
       savedWordsKey: 0
     }
   },
+  computed: {
+    marked() {
+      return Marked(this.text) || this.text
+    }
+  },
+  watch: {
+    $route() {
+      if (this.$route.name === 'reader') {
+        this.$store.dispatch('updateSavedWordsDisplay')
+        this.route()
+      }
+    },
+    text() {
+      this.readerKey++
+    }
+  },
+  mounted() {
+    if (this.$route.name === 'reader') {
+      this.$store.dispatch('updateSavedWordsDisplay')
+      this.route()
+    }
+  },
   methods: {
     startClick() {
       if (this.text) {
         Reader.save(this.text)
-        this.show()
+        this.readerKey++
       }
     },
     show() {
@@ -250,20 +277,6 @@ export default {
           }
         }
       }
-    }
-  },
-  watch: {
-    $route() {
-      if (this.$route.name === 'reader') {
-        this.$store.dispatch('updateSavedWordsDisplay')
-        this.route()
-      }
-    }
-  },
-  mounted() {
-    if (this.$route.name === 'reader') {
-      this.$store.dispatch('updateSavedWordsDisplay')
-      this.route()
     }
   }
 }
