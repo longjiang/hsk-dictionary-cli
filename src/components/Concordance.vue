@@ -21,6 +21,15 @@
           <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
         </a>
       </div>
+      <hr>
+      <div>
+        <p>Search for more sentences at</p>
+        <p>
+          <a :href="`http://www.jukuu.com/search.php?q=${text}`" class="mr-4"><img src="img/logo-jukuu.gif" alt="Jukuu (句酷)" class="logo-small" /></a>
+          <a :href="`https://www.linguee.com/english-chinese/search?source=auto&query=${text}`"><img src="img/logo-linguee.png" alt="Linguee" class="logo-small" /></a>
+          
+          </p>
+      </div>
     </div>
   </div>
 </template>
