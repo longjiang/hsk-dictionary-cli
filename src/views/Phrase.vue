@@ -13,7 +13,7 @@
               :defaultURL="text => `#/phrase/search/${text}`"
             />
           </div>
-          <div :key="args">
+          <div :key="args" class="focus">
             <WebImages v-if="args" :text="args" limit="10" class="mt-5" />
             <Grammar v-if="args" :text="args" limit="10" class="mt-5" />
             <Collocations v-if="args" :text="args" class="mt-5" />

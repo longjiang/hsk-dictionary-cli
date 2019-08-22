@@ -1,6 +1,6 @@
 <template>
   <div class="main focus mt-5" v-cloak :key="'entry-' + entryKey">
-    <div class="container">
+    <div class="container focus-exclude">
       <div class="row">
         <div class="col-sm-12">
           <div class="text-center">

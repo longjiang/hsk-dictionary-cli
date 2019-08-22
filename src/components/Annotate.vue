@@ -5,7 +5,7 @@
     :class="{ 'add-pinyin': started }"
   >
     <slot></slot>
-    <span class="annotator-copy ml-1" @click="copyClick" v-if="copy">
+    <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
       <font-awesome-icon icon="copy" />
     </span>
     <textarea class="form-control mb-2" rows="3" v-if="pinyin.length > 0">{{
