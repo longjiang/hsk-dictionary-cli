@@ -221,10 +221,6 @@ a:hover {
   text-decoration: none;
 }
 
-.character-example:not(:first-child) {
-  margin: 0.5rem 0;
-}
-
 .character-example a {
   text-decoration: none;
   color: inherit;

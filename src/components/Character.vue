@@ -27,12 +27,27 @@
           v-if="part.definition"
           >{{ part.definition }}</span
         >
-        <ul
-          class="part-examples"
-          v-if="part.showExamples && part.hskCharacters"
+        <!-- component example lookup works but can't seem to get the list to update -->
+        <!-- <button
+          v-if="!part.characters"
+          class="btn btn-small"
+          @click="getPartExamples(part)"
         >
-          <li>{{ part.hskCharacters.length }} characters:</li>
-        </ul>
+          Characters
+        </button>
+        <span v-if="part.getting">Looking up characters...</span>
+        {{ character.examples ? character.examples.length : '' }}
+        <div
+          v-for="character in part.characters"
+          :key="`${character.character}-${charKey}`"
+        >
+          {{ character.examples }}
+          <WordList
+            v-if="character.examples"
+            :words="character.examples"
+            :highlight="character.character"
+          />
+        </div> -->
       </div>
       <div class="etymology mt-4 mb-4" v-if="character.etymology">
         <span v-if="character.etymology.type">
@@ -53,6 +68,7 @@
 <script>
 import Decomposition from '@/components/Decomposition.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
+import Vue from 'vue'
 import Helper from '@/lib/helper'
 
 export default {
@@ -66,7 +82,8 @@ export default {
   },
   data() {
     return {
-      examples: []
+      examples: [],
+      charKey: 0
     }
   },
   components: {
@@ -78,11 +95,40 @@ export default {
   },
   methods: {
     getExamples() {
-      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
-        LoadedHSKCEDICT.lookupByCharacter(words => (this.examples = words.filter(word => word.hsk !== 'outside')), [
-          this.character.character
-        ])
-      })
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, LoadedGrammar, LoadedHanzi) => {
+          LoadedHSKCEDICT.lookupByCharacter(
+            words =>
+              (this.examples = words.filter(word => word.hsk !== 'outside')),
+            [this.character.character]
+          )
+        }
+      )
+    },
+    getPartExamples(part) {
+      part.getting = true
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, LoadedGrammar, LoadedHanzi) => {
+          part.characters = LoadedHanzi.searchByRadical(part.character)
+          console.log(
+            `${part.characters.length} characters found, looking for words...`
+          )
+          for (let character of part.characters.slice(0, 1)) {
+            character.examples = []
+            LoadedHSKCEDICT.lookupByCharacter(
+              words => {
+                console.log(`found ${words.length} words!`)
+                part.getting = false
+                character.examples = words.filter(
+                  word => word.hsk !== 'outside'
+                )
+                this.charKey++
+              },
+              [character.character]
+            )
+          }
+        }
+      )
     },
     highlightCharacter(text, character, hsk) {
       if (text) {
