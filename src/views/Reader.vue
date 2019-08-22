@@ -21,7 +21,7 @@
               Add Pinyin
             </button>-->
           </div>
-          <Loader class="mt-5 mb-5" />
+          <Loader class="mb-5" />
           <Annotate v-if="text.length > 0" :key="readerKey"
             ><div id="reader-annotated" class="focus" v-html="marked"></div
           ></Annotate>
@@ -247,33 +247,33 @@ export default {
         if (method === 'md-url') {
           Helper.proxy(arg, md => {
             this.text = md
-            this.show()
+            // this.show()
           })
         }
         if (method === 'html-url') {
           Helper.scrape(arg, (html, response, text) => {
             this.text = text
-            this.show()
+            // this.show()
           })
         }
         if (method === 'md') {
           this.text = arg
-          this.show()
+          // this.show()
         }
         if (method === 'html') {
           this.text = arg
-          this.show()
+          // this.show()
         }
         if (method === 'txt') {
           this.text = arg.replace(/\n/g, '<br>')
-          this.show()
+          // this.show()
         }
       } else {
         if (!this.text) {
           const text = Reader.get()
           if (text) {
             this.text = text
-            this.show()
+            // this.show()
           }
         }
       }
