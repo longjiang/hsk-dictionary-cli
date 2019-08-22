@@ -188,13 +188,10 @@ export default {
       if (url) window.location = url
     },
     lookupButtonClick() {
-      const url = $('.suggestion:first-child').attr('href')
+      const url = $('.suggestion:first-child').attr('href') || this.defaultURL(this.text)
       if (url) {
         this.suggestions = []
         window.location = url
-        $('.suggestion:first-child')
-          .get(0)
-          .click()
       }
     },
     cancel() {
