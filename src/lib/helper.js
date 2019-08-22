@@ -118,22 +118,24 @@ export default {
       candidate.identifier
     )
   },
-  tooltipTemplateFilter(candidates, block, html) {
-    let $newHtml = $('<div />').html(html)
-    for (let i in candidates) {
-      let candidate = candidates[i]
-      $newHtml
-        .find(
-          `.tooltip-entries .tooltip-entry:eq(${i}) span.tooltip-entry-character`
-        )
-        .wrap(
-          `<a href="#/view/cedict/${
-            candidate.identifier
-          }" class="tooltip-entry-character"></a>`
-        )
+  tooltipTemplateFilter() {
+    return (candidates, block, html) => {
+      let $newHtml = $('<div />').html(html)
+      for (let i in candidates) {
+        let candidate = candidates[i]
+        $newHtml
+          .find(
+            `.tooltip-entries .tooltip-entry:eq(${i}) span.tooltip-entry-character`
+          )
+          .wrap(
+            `<a href="#/view/cedict/${
+              candidate.identifier
+            }" class="tooltip-entry-character"></a>`
+          )
+      }
+      let newHTML = $newHtml.html()
+      return newHTML
     }
-    let newHTML = $newHtml.html()
-    return newHTML
   },
   unique(names) {
     var uniqueNames = []

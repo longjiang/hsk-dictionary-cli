@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import Grammar from '@/lib/grammar'
 import Helper from '@/lib/helper'
+import WordPhotos from '@/lib/word-photos'
+import Config from '@/lib/config'
 
 export default {
   /**
@@ -69,7 +71,21 @@ export default {
 
   /* Generate the content of the tooltip, then optionally transform it with a filter function */
   tooltipTemplate(candidates, templateFilterFunction = false) {
+    window.wordPhotos = WordPhotos
+    window.czhTooltipPhotos = (term, selector) => {
+      window.wordPhotos.getWebImages(term, images => {
+        window.wordPhotos.testImages(images.slice(0, 5), image => {
+          $(selector).append(
+            `<a href="${image.link}" class="tooltip-image-wrapper"><img src="${
+              Config.imageProxy
+            }?${image.img}" class="tooltip-image" /></a>`
+          )
+        })
+      })
+    }
     return function() {
+      let id = `tooltip-images-${Helper.uniqueId()}`
+      let tooltipImagesHTML = `<div class="tooltip-images" id="${id}"></div><script>window.czhTooltipPhotos("${candidates[0].simplified}", "#${id}")</script>`
       const grammar = Grammar.listWhere(
         row => row.words && row.words.includes(candidates[0].simplified)
       )
@@ -116,7 +132,7 @@ export default {
         </div>`
       }
       entriesHTML += '</div>'
-      let tooltipHTML = grammarHTML + entriesHTML
+      let tooltipHTML = tooltipImagesHTML + grammarHTML + entriesHTML
       if (templateFilterFunction) {
         tooltipHTML = templateFilterFunction(candidates, this, tooltipHTML) // this binds to the word-block node
       }

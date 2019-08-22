@@ -135,3 +135,15 @@
 .grammar-highlight {
   border-bottom: 4px dotted #28a745;
 }
+
+.tooltip-image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  margin: 0.1rem;
+  display: block;
+}
+
+.tooltip-images {
+  float: right;
+}

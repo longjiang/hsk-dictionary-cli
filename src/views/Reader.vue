@@ -255,7 +255,7 @@ export default {
                 this.$store.dispatch('updateSavedWordsDisplay')
               },
               Helper.wordBlockTemplateFilter,
-              Helper.tooltipTemplateFilter
+              Helper.tooltipTemplateFilter()
             )
           }
         )

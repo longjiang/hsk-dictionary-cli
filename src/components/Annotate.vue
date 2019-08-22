@@ -103,7 +103,7 @@ export default {
                     this.$el,
                     node => {},
                     this.wordBlockTemplateFilter,
-                    Helper.tooltipTemplateFilter
+                    Helper.tooltipTemplateFilter()
                   )
                   this.annotated = true
                 }
