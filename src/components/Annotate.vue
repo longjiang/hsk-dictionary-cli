@@ -1,10 +1,16 @@
 <template>
-  <component :is="tag" v-observe-visibility="visibilityChanged" :class="{ 'add-pinyin': started }">
+  <component
+    :is="tag"
+    v-observe-visibility="visibilityChanged"
+    :class="{ 'add-pinyin': started }"
+  >
     <slot></slot>
-    <span class="annotator-copy ml-1" @click="copyClick">
+    <span class="annotator-copy ml-1" @click="copyClick" v-if="copy">
       <font-awesome-icon icon="copy" />
     </span>
-    <textarea class="form-control mb-2" rows="2" v-if="pinyin.length > 0">{{ `${pinyin.trim()}\n${simplified}` }}</textarea>
+    <textarea class="form-control mb-2" rows="3" v-if="pinyin.length > 0">{{
+      `${pinyin.trim()}\n${simplified}\n${traditional}`
+    }}</textarea>
   </component>
 </template>
 
@@ -17,6 +23,9 @@ export default {
     tag: {
       default: 'span'
     },
+    copy: {
+      default: true
+    },
     wordBlockTemplateFilter: {
       type: Function,
       default: Helper.wordBlockTemplateFilter
@@ -27,24 +36,36 @@ export default {
       started: false,
       annotated: false,
       pinyin: '',
-      simplified: ''
+      simplified: '',
+      traditional: ''
     }
   },
   methods: {
     copyClick() {
-      let that = this
-      $(this.$el)
-        .find('.word-block')
-        .each(function() {
-          that.simplified += $(this)
-            .find('.word-block-simplified')
-            .text()
-          that.pinyin +=
-            ' ' +
-            $(this)
-              .find('.word-block-pinyin')
+      if (this.pinyin === '') {
+        let that = this
+        $(this.$el)
+          .find('.word-block, .word-block-text')
+          .each(function() {
+            if ($(this).is('.word-block-text')) {
+              that.simplified += $(this).text()
+              that.traditional += $(this).text()
+            }
+            that.simplified += $(this)
+              .find('.word-block-simplified')
               .text()
-        })
+            that.traditional += $(this)
+              .find('.word-block-traditional')
+              .text()
+            that.pinyin +=
+              ' ' +
+              $(this)
+                .find('.word-block-pinyin')
+                .text()
+          })
+      } else {
+        this.pinyin = ''
+      }
     },
     visibilityChanged(isVisible) {
       if (isVisible && !this.annotated) {

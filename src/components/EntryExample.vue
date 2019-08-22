@@ -6,12 +6,18 @@
         <div :class="`col-lg-${6 / scale}`">
           <div class="image-wrapper">
             <img
-              v-bind:src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg`"
+              v-bind:src="
+                `${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg`
+              "
               class="example-image"
               v-if="hasImage && !admin"
             />
             <img
-              v-bind:src="`${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg?v=${Date.now()}`"
+              v-bind:src="
+                `${Config.imageUrl}${entry.hskId}-${
+                  entry.simplified
+                }.jpg?v=${Date.now()}`
+              "
               class="example-image"
               v-if="hasImage && admin"
             />
@@ -21,13 +27,13 @@
           <div class="example-sentence mt-4">
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
 
-            <PinyinButton class="mb-3" />
-            <p
-              class="example-sentence-word"
-              v-html="
-                Helper.highlight(entry.example, entry.simplified, entry.hsk)
-              "
-            ></p>
+            <Annotate tag="p" class="example-sentence-word">
+              <span
+                v-html="
+                  Helper.highlight(entry.example, entry.simplified, entry.hsk)
+                "
+              ></span>
+            </Annotate>
             <p class="example-sentence-english">
               {{ entry.exampleTranslation }}
             </p>

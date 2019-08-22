@@ -1,6 +1,6 @@
 <template>
   <div class="grammar-notes-item">
-    <Annotate tag="div" class="character-example-header-word grammar-structure">
+    <Annotate tag="div" :copy="false" class="character-example-header-word grammar-structure">
       <b
         v-html="
           Helper.highlightMultiple(
@@ -11,19 +11,15 @@
         "
       ></b>
     </Annotate>
-    <div class="example-sentence-english grammar-english">
-      {{ grammar.english }}
-    </div>
-    <Annotate
-      tag="div"
-      class="example-sentence-word grammar-example"
-      v-html="
+    <div class="example-sentence-english grammar-english">{{ grammar.english }}</div>
+    <Annotate tag="div" class="example-sentence-word grammar-example">
+      <span
+        v-html="
         Helper.highlightMultiple(grammar.example, grammar.words, grammar.book)
       "
-    ></Annotate>
-    <div class="character-example-english grammar-example-english">
-      {{ grammar.exampleTranslation }}
-    </div>
+      ></span>
+    </Annotate>
+    <div class="character-example-english grammar-example-english">{{ grammar.exampleTranslation }}</div>
     <a
       v-if="grammar.url !== ''"
       :href="grammar.url"
