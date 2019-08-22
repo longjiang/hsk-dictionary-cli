@@ -62,7 +62,6 @@
       <tbody>
         <tr
           v-for="row in grammar"
-          key="ho"
           :class="{
             'grammar-table-row': true,
             hidden: !(

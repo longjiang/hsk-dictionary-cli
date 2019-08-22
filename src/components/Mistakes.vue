@@ -1,10 +1,15 @@
 <template>
-  <div class="mistakes" v-if="mistakes && mistakes.length > 0">
+  <div class="mistakes">
     <div class="label song-label mistakes-label">
       Common mistakes containing “{{ text }}”
     </div>
-
-    <div class="mt-4">
+    <div
+      v-if="mistakes && mistakes.length === 0"
+      class="jumbotron-fluid bg-light text-center p-4"
+    >
+      Sorry, we could not find any mistakes with “{{ text }}”
+    </div>
+    <div class="mt-4" v-if="mistakes && mistakes.length > 0">
       <ul class="collapsed pl-0" data-collapse-target>
         <li
           class="list-unstyled mistake-item mt-4 mb-4"
@@ -78,7 +83,7 @@ export default {
     return {
       Helper,
       show: false,
-      mistakes: []
+      mistakes: undefined
     }
   },
   methods: {

@@ -1,14 +1,18 @@
 <template>
   <div :key="'concordance-' + concordanceKey">
-    <div class="label song-label">Sentences with “{{ text }}”</div>
+    <div class="label song-label">
+      Sentences with “{{ text }}”
+    </div>
     <div v-if="examples && examples.length > 0" class="mt-4">
-      <PinyinButton class="mt-3" />
-      <ul class="collapsed" data-collapse-target>
-        <li v-for="example in examples">
+      <ul v-if="examples" class="collapsed" data-collapse-target>
+        <Annotate tag="li" v-for="example in examples">
           <span v-html="Helper.highlight(example, text, level)"></span>
-        </li>
+        </Annotate>
       </ul>
       <ShowMoreButton :length="examples.length" :min="4" :data-bg-hsk="level" />
+    </div>
+    <div v-if="examples && examples.length === 0" class="jumbotron-fluid bg-light text-center p-4">
+      Sorry, we could not find any examples of “{{ text }}”
     </div>
   </div>
 </template>
@@ -29,7 +33,7 @@ export default {
   data() {
     return {
       Helper,
-      examples: [],
+      examples: undefined,
       // show: false,
       concordanceKey: 0
     }

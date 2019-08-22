@@ -57,13 +57,6 @@ export default {
   methods: {
     compareClick() {
       this.dCompare = this.dCompare ? false : true
-    },
-    random() {
-      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
-        LoadedHSKCEDICT.random(
-          entry => (location.hash = `/view/cedict/${entry.identifier}`)
-        )
-      })
     }
   }
 }

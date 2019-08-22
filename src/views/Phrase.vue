@@ -5,12 +5,14 @@
         <div class="col-sm-12">
           <h2 class="text-center mb-3">Lookup phrases not in the dictionary</h2>
           <p class="text-center mb-5">and see how they are used in real contexts.</p>
-          <Search
-            placeholder="Lookup a word or phrase"
-            type="generic"
-            :term="args"
-            :defaultURL="text => `#/phrase/search/${text}`"
-          />
+          <div class="search-compare-wrapper">
+            <Search
+              placeholder="Lookup a word or phrase"
+              type="generic"
+              :term="args"
+              :defaultURL="text => `#/phrase/search/${text}`"
+            />
+          </div>
           <div :key="args">
             <Collocations v-if="args" :text="args" class="mt-5" />
             <Concordance v-if="args" :text="args" class="mt-5" />

@@ -168,6 +168,13 @@ export default {
           }
         }
       }
+    },
+    random() {
+      Helper.loaded((LoadedAnnotator, LoadedHSKCEDICT) => {
+        LoadedHSKCEDICT.random(
+          entry => (location.hash = `/view/cedict/${entry.identifier}`)
+        )
+      })
     }
   },
   watch: {

@@ -1,5 +1,5 @@
 <template>
-  <div :key="'collocations-' + collocationsKey" v-if="colDesc">
+  <div :key="'collocations-' + collocationsKey">
     <div>
       <div class="row">
         <div
@@ -24,6 +24,12 @@
           ></Collocation>
         </div>
       </div>
+    </div>
+    <div v-if="sketch === false" class="label song-label">
+      Collocations with “{{ text }}”
+    </div>
+    <div v-if="sketch === false" class="jumbotron-fluid bg-light text-center p-4">
+      Sorry, we could not find any collocations with “{{ text }}”
     </div>
   </div>
 </template>
