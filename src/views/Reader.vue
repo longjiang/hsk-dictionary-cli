@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-sm-12">
           <h4>Reader</h4>
-          <p>This tool helps you read Chinese text.</p>
+          <p>Write or paste in some Chinese text (in simplified or traditional characters), and pinyin-annotated text will show up below the textbox.</p>
+          <p>You can also use Markdown or HTML.</p>
           <div class="mt-4 mb-5">
             <textarea
               id="reader-textarea"
@@ -25,6 +26,11 @@
           <Annotate v-if="text.length > 0" :key="readerKey"
             ><div id="reader-annotated" class="focus" v-html="marked"></div
           ></Annotate>
+          <ul class="list mt-2">
+            <li>Use <font-awesome-icon icon="copy" class="ml-1 mr-1" /> to get copiable text.</li>
+            <li>Use <font-awesome-icon icon="language" class="ml-1 mr-1" /> to show definitions above.</li>
+            <li>If you always want to see definitions, go to <a href="#/settings">Settings</a> and check “Always show definition.”</li>
+          </ul>
           <hr class="mt-5" />
         </div>
       </div>
