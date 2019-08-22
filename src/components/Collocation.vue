@@ -1,6 +1,7 @@
 <template>
   <div :id="id || `collocation-${type}`">
-    <div class="label song-label mb-3">{{ title }}</div>
+    <h6>{{ title }}</h6>
+    <hr>
     <div v-if="collocation">
       <PinyinButton class="mt-3 mb-3" />
       <ul class="collapsed gramrel pl-0" data-collapse-target>

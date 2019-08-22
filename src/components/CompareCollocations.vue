@@ -1,14 +1,12 @@
 <template>
-  <div
-    class="container"
-    :key="'collocations-' + collocationsKey"
-    v-if="colDesc"
-  >
-    <div
-      class="row mb-5"
-      v-for="(description, name) in colDesc.a"
-      v-bind:key="'collocation-' + name"
-      v-if="
+  <div class="container" :key="'collocations-' + collocationsKey">
+    <div class="label song-label">Collocations with “{{ a.simplified }}” and “{{ b.simplified }}”</div>
+    <div class="jumbotron-fluid bg-light p-4">
+      <div
+        class="row mb-5"
+        v-for="(description, name) in colDesc.a"
+        v-bind:key="'collocation-' + name"
+        v-if="
         (a.sketch &&
           getGramrelsByName(a.sketch.Gramrels, name) &&
           getGramrelsByName(a.sketch.Gramrels, name).Words.length > 0) ||
@@ -16,28 +14,35 @@
             getGramrelsByName(b.sketch.Gramrels, name) &&
             getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
       "
-    >
-      <div class="col-sm-6">
-        <Collocation
-          v-if="a.sketch && a.sketch.Gramrels"
-          :word="a.simplified"
-          :level="a.hsk"
-          :title="colDesc.a[name]"
-          :type="name"
-          :id="`collocation-a-${name}`"
-          :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
-        ></Collocation>
+      >
+        <div class="col-sm-6">
+          <Collocation
+            v-if="a.sketch && a.sketch.Gramrels"
+            :word="a.simplified"
+            :level="a.hsk"
+            :title="colDesc.a[name]"
+            :type="name"
+            :id="`collocation-a-${name}`"
+            :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
+          ></Collocation>
+        </div>
+        <div class="col-sm-6">
+          <Collocation
+            v-if="b.sketch && b.sketch.Gramrels"
+            :word="b.simplified"
+            :level="b.hsk"
+            :title="colDesc.b[name]"
+            :type="name"
+            :id="`collocation-a-${name}`"
+            :collocation="getGramrelsByName(b.sketch.Gramrels, name)"
+          ></Collocation>
+        </div>
       </div>
-      <div class="col-sm-6">
-        <Collocation
-          v-if="b.sketch && b.sketch.Gramrels"
-          :word="b.simplified"
-          :level="b.hsk"
-          :title="colDesc.b[name]"
-          :type="name"
-          :id="`collocation-a-${name}`"
-          :collocation="getGramrelsByName(b.sketch.Gramrels, name)"
-        ></Collocation>
+      <div class="mt-2">
+        Collocations provided by
+        <a :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${a.simplified}&showresults=1`">
+          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
+        </a>
       </div>
     </div>
   </div>
@@ -54,6 +59,7 @@ export default {
   },
   data() {
     return {
+      SketchEngine,
       colDesc: undefined,
       collocationsKey: 0
     }

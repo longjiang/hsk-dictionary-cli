@@ -6,6 +6,11 @@ body {
   display: none;
 }
 
+.logo-small {
+  max-width: 8rem;
+  max-height: 8rem;
+}
+
 
 .highlight {
   font-weight: bold;
@@ -880,30 +885,6 @@ i.speak {
   display: none;
 }
 
-.image-wall {
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-}
-
-.image-wall-image-wrapper {
-  height: 10rem;
-  width: calc(50% - 1rem);
-  max-width: 10rem;
-  flex: 1 0 auto;
-  display: block;
-  margin: 0 0.5rem 0.5rem 0;
-}
-
-.image-wall-image {
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
 
 .measure-word {
   font-weight: normal;

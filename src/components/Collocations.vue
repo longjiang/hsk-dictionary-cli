@@ -1,6 +1,7 @@
 <template>
   <div :key="'collocations-' + collocationsKey">
-    <div>
+    <div class="label song-label">Collocations with “{{ text }}”</div>
+    <div class="jumbotron-fluid bg-light p-4">
       <div class="row">
         <div
           class="col-sm-12 col-md-6 col-lg-4"
@@ -24,12 +25,16 @@
           ></Collocation>
         </div>
       </div>
-    </div>
-    <div v-if="sketch === false" class="label song-label">
-      Collocations with “{{ text }}”
-    </div>
-    <div v-if="sketch === false" class="jumbotron-fluid bg-light text-center p-4">
-      Sorry, we could not find any collocations with “{{ text }}”
+      <div
+        v-if="sketch === false"
+      >Sorry, we could not find any collocations with “{{ text }}”</div>
+
+      <div class="mt-2">
+        Collocations provided by
+        <a :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${text}&showresults=1`">
+          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +64,8 @@ export default {
     return {
       colDesc: undefined,
       sketch: undefined,
-      collocationsKey: 0
+      collocationsKey: 0,
+      SketchEngine
     }
   },
   mounted() {

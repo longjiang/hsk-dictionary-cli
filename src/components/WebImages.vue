@@ -1,23 +1,26 @@
 <template>
-  <div
-    class="image-wall"
-    :key="webImagesKey"
-    v-cloak
-    v-if="images && images.length > 0"
-  >
-    <a
-      v-for="(image, index) in images.slice(0, limit)"
-      class="image-wall-image-wrapper"
-      :href="image.link"
-      target="_blank"
-    >
-      <img
-        alt
-        class="image-wall-image"
-        v-bind:key="'image-' + index"
-        :src="`${Config.imageProxy}?${image.img}`"
-      />
-    </a>
+  <div class="web-images">
+    <div class="image-wall" :key="webImagesKey" v-cloak v-if="images && images.length > 0">
+      <a
+        v-for="(image, index) in images.slice(0, limit)"
+        class="image-wall-image-wrapper"
+        :href="image.link"
+        target="_blank"
+      >
+        <img
+          alt
+          class="image-wall-image"
+          v-bind:key="'image-' + index"
+          :src="`${Config.imageProxy}?${image.img}`"
+        />
+      </a>
+    </div>
+    <div class="mt-2">
+      Image search by
+      <a :href="`https://image.so.com/i?q=${text}&src=srp`">
+        <img src="img/logo-360-image-search.png" alt="360 Image Search" class="ml-2" />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -65,3 +68,28 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.image-wall {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.image-wall-image-wrapper {
+  height: 10rem;
+  width: calc(50% - 1rem);
+  max-width: 10rem;
+  flex: 1 0 auto;
+  display: block;
+  margin: 0 0.5rem 0.5rem 0;
+}
+
+.image-wall-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+</style>
