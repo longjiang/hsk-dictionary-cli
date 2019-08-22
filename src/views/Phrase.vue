@@ -12,6 +12,7 @@
             :defaultURL="text => `#/phrase/search/${text}`"
           />
           <Concordance v-if="args" :text="args" class="mt-5" />
+          <Mistakes v-if="args" :text="args" class="mt-5" />
         </div>
       </div>
     </div>
@@ -20,13 +21,13 @@
 
 <script>
 import Concordance from '@/components/Concordance'
-import LRC from '@/lib/lrc'
+import Mistakes from '@/components/Mistakes'
 import Search from '@/components/Search'
-import $ from 'jquery'
 
 export default {
   components: {
     Search,
+    Mistakes,
     Concordance
   },
   props: {
