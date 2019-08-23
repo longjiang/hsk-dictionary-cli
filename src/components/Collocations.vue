@@ -25,16 +25,32 @@
           ></Collocation>
         </div>
       </div>
-      <div v-if="sketch !== undefined && (sketch === false || !sketch.Gramrels)">Sorry, we could not find any collocations with “{{ text }}”</div>
-
+      <div
+        v-if="sketch !== undefined && (sketch === false || !sketch.Gramrels)"
+      >
+        Sorry, we could not find any “{{ text }}” collocations in this corpus
+        (dataset). You can set a different corpus in <a href="#/settings">Settings</a>.
+      </div>
+      <hr />
       <div class="mt-2">
         Collocations provided by
         <a
           target="_blank"
-          :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${text}&showresults=1`"
+          :href="
+            `https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(
+              SketchEngine.corpname
+            )}&tab=basic&lemma=${text}&showresults=1`
+          "
         >
-          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
+          <img
+            src="img/logo-sketch-engine.png"
+            alt="Sketch Engine"
+            class="ml-2 logo-small"
+          />
         </a>
+        <br />
+        Don't like the collocations? Choose a different corpus (dataset) in
+        <a href="#/settings">Settings</a>.
       </div>
     </div>
   </div>
@@ -58,7 +74,9 @@ export default {
   },
   methods: {
     getGramrelsByName(gramrels, name) {
-      return gramrels.find(gram => gram.name === name && gram.Words && gram.Words.length > 0)
+      return gramrels.find(
+        gram => gram.name === name && gram.Words && gram.Words.length > 0
+      )
     }
   },
   data() {

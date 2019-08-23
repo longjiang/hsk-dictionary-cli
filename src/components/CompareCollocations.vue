@@ -1,19 +1,23 @@
 <template>
   <div class="container" :key="'collocations-' + collocationsKey">
-    <div class="label song-label">Collocations with “{{ a.simplified }}” and “{{ b.simplified }}”</div>
+    <div class="label song-label">
+      Collocations with “{{ a.simplified }}” and “{{ b.simplified }}”
+    </div>
     <div class="jumbotron-fluid bg-light p-4">
       <div
         class="row mb-5"
         v-for="(description, name) in colDesc.a"
         v-bind:key="'collocation-' + name"
         v-if="
-        (a.sketch &&
-          getGramrelsByName(a.sketch.Gramrels, name) &&
-          getGramrelsByName(a.sketch.Gramrels, name).Words.length > 0) ||
-          (b.sketch &&
-            getGramrelsByName(b.sketch.Gramrels, name) &&
-            getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
-      "
+          (a.sketch &&
+            a.sketch.Gramrels &&
+            getGramrelsByName(a.sketch.Gramrels, name) &&
+            getGramrelsByName(a.sketch.Gramrels, name).Words.length > 0) ||
+            (b.sketch &&
+              b.sketch.Gramrels &&
+              getGramrelsByName(b.sketch.Gramrels, name) &&
+              getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
+        "
       >
         <div class="col-sm-6">
           <Collocation
@@ -38,14 +42,35 @@
           ></Collocation>
         </div>
       </div>
+      <div
+        v-if="
+          !a.sketch || !b.sketch || !a.sketch.Gramrels || !b.sketch.Gramrels
+        "
+      >
+        Sorry, we could not find matching collocations for both words in this
+        corpus (dataset). You can set a different corpus in
+        <a href="#/settings">Settings</a>.
+      </div>
+      <hr />
       <div class="mt-2">
         Collocations provided by
         <a
           target="_blank"
-          :href="`https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(SketchEngine.corpname)}&tab=basic&lemma=${a.simplified}&showresults=1`"
+          :href="
+            `https://app.sketchengine.eu/#wordsketch?corpname=${encodeURIComponent(
+              SketchEngine.corpname
+            )}&tab=basic&lemma=${a.simplified}&showresults=1`
+          "
         >
-          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
+          <img
+            src="img/logo-sketch-engine.png"
+            alt="Sketch Engine"
+            class="ml-2 logo-small"
+          />
         </a>
+        <br />
+        Don't like the collocations? Choose a different corpus (dataset) in
+        <a href="#/settings">Settings</a>.
       </div>
     </div>
   </div>
@@ -63,13 +88,18 @@ export default {
   data() {
     return {
       SketchEngine,
-      colDesc: undefined,
+      colDesc: {
+        a: SketchEngine.collocationDescription(this.a.simplified),
+        b: SketchEngine.collocationDescription(this.b.simplified)
+      },
       collocationsKey: 0
     }
   },
   methods: {
     getGramrelsByName(gramrels, name) {
-      return gramrels.find(gram => gram.name === name && gram.Words && gram.Words.length > 0)
+      return gramrels.find(
+        gram => gram.name === name && gram.Words && gram.Words.length > 0
+      )
     }
   },
   mounted() {
@@ -81,10 +111,6 @@ export default {
       this.b.sketch = response
       this.collocationsKey += 1
     })
-    this.colDesc = {
-      a: SketchEngine.collocationDescription(this.a.simplified),
-      b: SketchEngine.collocationDescription(this.b.simplified)
-    }
   }
 }
 </script>

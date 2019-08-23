@@ -13,7 +13,7 @@
       <font-awesome-icon icon="copy" />
     </span>
     <span
-      class="annotator-copy ml-2 focus-exclude"
+      class="annotator-show-def ml-2 focus-exclude"
       @click="showDefClick"
       v-if="showDef"
     >
@@ -119,7 +119,11 @@ export default {
 </script>
 
 <style lang="scss">
-.annotator-copy {
+.show-definition .annotator-show-def {
+  display: none;
+}
+.annotator-copy,
+.annotator-show-def {
   cursor: pointer;
   opacity: 0.5;
 
