@@ -88,6 +88,7 @@
           </div>
         </div>
       </div>
+      <!-- <InstagramButton :entry="entry" class="mb-5"></InstagramButton> -->
 
       <EntryCourseAd :entry="entry" class="focus-exclude"></EntryCourseAd>
 
