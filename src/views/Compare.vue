@@ -14,7 +14,7 @@
           <EntryHeader
             v-if="a"
             :entry="a"
-            minimal="true"
+            class="text-center"
             :key="aKey"
           ></EntryHeader>
         </div>
@@ -25,7 +25,7 @@
           <EntryHeader
             v-if="b"
             :entry="b"
-            minimal="true"
+            class="text-center"
             :key="aKey"
           ></EntryHeader>
         </div>

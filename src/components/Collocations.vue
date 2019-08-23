@@ -33,7 +33,7 @@
       </div>
       <hr />
       <div class="mt-2">
-        Collocations provided by
+        <p>Collocations provided by</p>
         <a
           target="_blank"
           :href="
@@ -48,9 +48,6 @@
             class="ml-2 logo-small"
           />
         </a>
-        <br />
-        Don't like the collocations? Choose a different corpus (dataset) in
-        <a href="#/settings">Settings</a>.
       </div>
     </div>
   </div>

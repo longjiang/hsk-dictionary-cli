@@ -2,14 +2,6 @@
   <div :key="'concordance-' + concordanceKey">
     <div class="label song-label">Sentences with “{{ text }}”</div>
     <div class="jumbotron-fluid bg-light p-4">
-      <div
-        v-if="!SketchEngine.corpname().startsWith('opus')"
-        class="focus-exclude"
-      >
-        Want to see <b>translations</b>? Set the corpus to <code>OPUS2</code> in
-        the <a href="#/settings">Settings</a> page.
-        <hr />
-      </div>
       <div v-if="examples && examples.length > 0">
         <ul
           v-if="examples"
@@ -37,8 +29,8 @@
         different corpus in <a href="#/settings">Settings</a>.
       </div>
       <hr v-if="examples && examples.length === 0" />
-      <div class="mt-2">
-        Sentences provided by
+      <div class="mt-4">
+        <p>Sentences provided by</p>
         <a
           :href="
             `https://app.sketchengine.eu/#concordance?corpname=${encodeURIComponent(
@@ -53,36 +45,29 @@
             class="ml-2 logo-small"
           />
         </a>
-        <br />Don't like the collocations? Choose a different corpus (dataset)
-        in <a href="#/settings">Settings</a>.
       </div>
       <hr />
       <div>
         <p>Search for more sentences at</p>
-        <p>
-          <a
-            :href="
-              `http://www.jukuu.com/search.php?q=${encodeURIComponent(text)}`
-            "
-            class="mr-4"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              src="img/logo-jukuu.gif"
-              alt="Jukuu (句酷)"
-              class="logo-small"
-            />
-          </a>
-          <a
-            :href="
-              `https://www.linguee.com/english-chinese/search?source=auto&query=${text}`
-            "
-            target="_blank"
-          >
-            <img src="img/logo-linguee.png" alt="Linguee" class="logo-small" />
-          </a>
-        </p>
+
+        <a
+          :href="
+            `http://www.jukuu.com/search.php?q=${encodeURIComponent(text)}`
+          "
+          class="mr-4"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src="img/logo-jukuu.gif" alt="Jukuu (句酷)" class="logo-small" />
+        </a>
+        <a
+          :href="
+            `https://www.linguee.com/english-chinese/search?source=auto&query=${text}`
+          "
+          target="_blank"
+        >
+          <img src="img/logo-linguee.png" alt="Linguee" class="logo-small" />
+        </a>
       </div>
     </div>
   </div>

@@ -1,25 +1,38 @@
 <template>
   <div class="web-images">
-    <div class="image-wall" :key="webImagesKey" v-cloak v-if="images && images.length > 0">
-      <a
-        v-for="(image, index) in images.slice(0, limit)"
-        class="image-wall-image-wrapper"
-        :href="image.link"
-        target="_blank"
+    <div class="label song-label">Images of “{{ text }}” on the Web</div>
+    <div class="jumbotron-fluid bg-light p-4">
+      <div
+        class="image-wall"
+        :key="webImagesKey"
+        v-cloak
+        v-if="images && images.length > 0"
       >
-        <img
-          alt
-          class="image-wall-image"
-          v-bind:key="'image-' + index"
-          :src="`${Config.imageProxy}?${image.img}`"
-        />
-      </a>
-    </div>
-    <div class="mt-2">
-      Image search by
-      <a :href="`https://image.so.com/i?q=${text}&src=srp`">
-        <img src="img/logo-360-image-search.png" alt="360 Image Search" class="ml-2" />
-      </a>
+        <a
+          v-for="(image, index) in images.slice(0, limit)"
+          class="image-wall-image-wrapper"
+          :href="image.link"
+          target="_blank"
+        >
+          <img
+            alt
+            class="image-wall-image"
+            v-bind:key="'image-' + index"
+            :src="`${Config.imageProxy}?${image.img}`"
+          />
+        </a>
+      </div>
+      <hr/>
+      <div class="mt-2">
+        Image search by
+        <a :href="`https://image.so.com/i?q=${text}&src=srp`">
+          <img
+            src="img/logo-360-image-search.png"
+            alt="360 Image Search"
+            class="ml-2"
+          />
+        </a>
+      </div>
     </div>
   </div>
 </template>
