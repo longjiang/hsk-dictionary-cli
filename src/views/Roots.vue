@@ -51,13 +51,16 @@
             >
               <img src="img/angle-right.svg" alt />
             </button>
-            <div class="text-center" :key="rootsKey">
-              <div class="big-word">
-                <PinyinButton />
-                <span>{{ arg }}</span> Words
+            <div :key="rootsKey">
+              <div class="big-word text-center">
+                <Annotate>{{ arg }}</Annotate> Words
               </div>
-              <EntryCharacters :text="arg.replace(/～/g, '')"></EntryCharacters>
-              <Loader class="mt-5" />
+              <Loader class="mt-5 text-center" />
+              <div style="max-width: 30rem; margin: 0 auto;">
+                <EntryCharacters
+                  :text="arg.replace(/～/g, '')"
+                ></EntryCharacters>
+              </div>
             </div>
             <WordListExtended v-if="rootWords" :words="rootWords" />
           </div>

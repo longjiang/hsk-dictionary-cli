@@ -969,3 +969,8 @@ a.list-group-item.active:hover {
 .media-body {
   padding: 1.5rem;
 }
+
+.big-word {
+  font-size: 3rem;
+  font-weight: bold;
+}

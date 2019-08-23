@@ -154,11 +154,6 @@ export default {
   margin-bottom: 1rem;
 }
 
-.big-word {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
 .question-blank {
   border-bottom: 1px solid #999;
   min-width: 1em;
