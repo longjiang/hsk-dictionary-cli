@@ -27,21 +27,15 @@
               v-model="corpname"
             />
           </td>
-          <td>
-            {{ corpus.name }}
-          </td>
+          <td>{{ corpus.name }}</td>
           <td>
             <code>{{ corpus.code }}</code>
           </td>
-          <td>
-            {{ corpus.language }}
-          </td>
+          <td>{{ corpus.language }}</td>
           <td class="text-right">
             {{ Intl.NumberFormat('en-US').format(corpus.words) }}
           </td>
-          <td>
-            {{ corpus.note }}
-          </td>
+          <td v-html="corpus.note"></td>
         </tr>
       </tbody>
     </table>
@@ -60,6 +54,7 @@ export default {
   watch: {
     corpname() {
       localStorage.setItem('czhCorpname', this.corpname)
+      location.reload() // Otherwise users won't see the new collocations and example sentences, leaving them confused.
     }
   }
 }

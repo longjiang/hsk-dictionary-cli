@@ -52,7 +52,8 @@ export default {
       name: 'OPUS2 Chinese Simplified',
       words: 243427123,
       language: 'Chinese Simplified',
-      note: 'Parallel. That means English translation is available.'
+      note:
+        'Parallel. That means English <b>translation</b> is available. However, the text is mostly from UN / public domain sources, with less colloquial examples.'
     },
     {
       code: 'cgw2_tc',

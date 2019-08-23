@@ -2,24 +2,39 @@
   <div :key="'concordance-' + concordanceKey">
     <div class="label song-label">Sentences with “{{ text }}”</div>
     <div class="jumbotron-fluid bg-light p-4">
+      <div
+        v-if="!SketchEngine.corpname().startsWith('opus')"
+        class="focus-exclude"
+      >
+        Want to see <b>translations</b>? Set the corpus to <code>OPUS2</code> in
+        the <a href="#/settings">Settings</a> page.
+        <hr />
+      </div>
       <div v-if="examples && examples.length > 0">
-        <ul v-if="examples" class="collapsed list-unstyled" data-collapse-target>
+        <ul
+          v-if="examples"
+          class="collapsed list-unstyled"
+          data-collapse-target
+        >
           <li v-for="example in examples">
             <Annotate tag="div" class="pt-2 pb-2">
-              <span v-html="Helper.highlight(example.chinese, text, level)"></span>
+              <span
+                v-html="Helper.highlight(example.chinese, text, level)"
+              ></span>
             </Annotate>
             <div v-if="example.english">{{ example.english }}</div>
             <hr />
           </li>
         </ul>
-        <ShowMoreButton :length="examples.length" :min="4" :data-bg-hsk="level" />
+        <ShowMoreButton
+          :length="examples.length"
+          :min="4"
+          :data-bg-hsk="level"
+        />
       </div>
       <div v-if="examples && examples.length === 0">
         Sorry, we could not find any “{{ text }}” examples. You can set a
-        different corpus in
-        <a
-          href="#/settings"
-        >Settings</a>.
+        different corpus in <a href="#/settings">Settings</a>.
       </div>
       <hr v-if="examples && examples.length === 0" />
       <div class="mt-2">
@@ -32,12 +47,14 @@
           "
           target="_blank"
         >
-          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
+          <img
+            src="img/logo-sketch-engine.png"
+            alt="Sketch Engine"
+            class="ml-2 logo-small"
+          />
         </a>
-        <br />Don't like the collocations? Choose a different corpus (dataset) in
-        <a
-          href="#/settings"
-        >Settings</a>.
+        <br />Don't like the collocations? Choose a different corpus (dataset)
+        in <a href="#/settings">Settings</a>.
       </div>
       <hr />
       <div>
@@ -51,7 +68,11 @@
             target="_blank"
             rel="noreferrer"
           >
-            <img src="img/logo-jukuu.gif" alt="Jukuu (句酷)" class="logo-small" />
+            <img
+              src="img/logo-jukuu.gif"
+              alt="Jukuu (句酷)"
+              class="logo-small"
+            />
           </a>
           <a
             :href="

@@ -3,13 +3,17 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h4 class="page-title mb-4">
+          <h1 class="page-title mb-4">
             Settings
-          </h4>
+          </h1>
+          <div class="jumbotron p-4 bg-warning text-dark">
+            Settings are <b>automatically saved</b> as soon as you make the
+            change.
+          </div>
+          <h4>1. Pinyin Annotation Settings</h4>
           <p>
             Set how pinyin-annotated text is displayed throughtout the site.
           </p>
-          <hr />
           <div class="mt-3">
             <div class="form-check">
               <input
@@ -68,7 +72,7 @@
             </Annotate>
           </div>
           <div>
-            <h4>Set corpus</h4>
+            <h4>2. Text Corpus Settings</h4>
             <p>
               A
               <a
@@ -89,6 +93,16 @@
     </div>
     <div class="container-fluid">
       <CorpusSelect />
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="jumbotron mt-5 p-4 bg-warning text-dark">
+            Settings are <b>automatically saved</b> as soon as you make the
+            change.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
