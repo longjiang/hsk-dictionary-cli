@@ -132,3 +132,108 @@ export default {
   }
 }
 </script>
+
+<style>
+.question-slide {
+  padding: 1rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.question-slide-aspect {
+  padding-bottom: calc(100vh);
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.big-word {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.question-blank {
+  border-bottom: 1px solid #999;
+  min-width: 1em;
+  display: inline-block;
+}
+
+.question-blank-sentence {
+  display: block;
+  border-bottom: 1px solid #999;
+  max-width: 70%;
+  height: 2rem;
+  width: 70%;
+}
+
+.big-word-pinyin {
+  font-weight: bold;
+  color: #999;
+}
+
+.trophy {
+  width: 5rem;
+}
+
+.scroll-down-arrow {
+  color: #ccc;
+  font-size: 3rem;
+  margin-top: 2rem;
+}
+
+#questions-wrapper {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+}
+
+.questions-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem;
+  text-align: center;
+}
+
+
+.part.hide {
+  background: #343a4082;
+}
+
+.show-answer .part.hide {
+  background: inherit;
+}
+
+.part.hide > * {
+  display: none;
+}
+
+.show-answer .part.hide > * {
+  display: inherit;
+}
+
+.part.hide::after {
+  content: 'What is missing here?';
+  font-size: 0.8rem;
+  color: white;
+}
+
+.show-answer .part.hide:after {
+  content: '';
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 40vh;
+  transform: rotate(-2deg);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+  border: 0.5rem solid white;
+}
+</style>

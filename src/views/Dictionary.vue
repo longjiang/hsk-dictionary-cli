@@ -12,24 +12,25 @@
       </div>
     </div>
     <div v-if="entry">
-      <div class="text-center mt-5">
+      <div class="text-center">
         <Loader class="mt-5" />
       </div>
-      <div class="container mt-4 mb-4">
+      <div class="container">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12 text-center">
             <EntryHeader :entry="entry"></EntryHeader>
             <DefinitionsList
               class="mt-4"
               :definitions="entry.definitions"
             ></DefinitionsList>
           </div>
+        </div>
+        <div class="row mt-5">
           <div class="col-sm-6">
-            <Frequency class="mb-2" :entry="entry" />
-            <EntryDisambiguation
-              class="mt-5 mb-5"
-              :entry="entry"
-            ></EntryDisambiguation>
+            <EntryDifficulty :entry="entry" />
+          </div>
+          <div class="col-sm-6">
+            <EntryDisambiguation :entry="entry"></EntryDisambiguation>
           </div>
         </div>
       </div>
@@ -109,7 +110,7 @@ import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
 import DefinitionsList from '@/components/DefinitionsList'
-import Frequency from '@/components/Frequency'
+import EntryDifficulty from '@/components/EntryDifficulty'
 import $ from 'jquery'
 
 export default {
@@ -127,7 +128,7 @@ export default {
     Mistakes,
     DefinitionsList,
     InstagramButton,
-    Frequency,
+    EntryDifficulty,
     WebImages
   },
   data() {

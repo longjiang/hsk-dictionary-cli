@@ -1,17 +1,20 @@
 <template>
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
-  <div class="container-fluid" v-if="text" v-cloak>
+  <div class="entry-character" v-if="text" v-cloak>
     <div class="row character-example-wrapper mt-4" v-if="characters">
       <!-- ANCHOR img/anchors/character.png -->
       <div
         :class="`col-md-${Math.max(4, Math.floor(12 / text.length))}`"
         v-for="(character, index) in characters"
       >
-        <Character
-          :character="character"
-          :pinyin="pinyinArr.length > 0 ? pinyinArr[index] : ''"
-        />
+        <div class="label song-label">Character</div>
+        <div class="jumbotron-fluid bg-light p-4">
+          <Character
+            :character="character"
+            :pinyin="pinyinArr.length > 0 ? pinyinArr[index] : ''"
+          />
+        </div>
       </div>
     </div>
   </div>

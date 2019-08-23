@@ -132,3 +132,87 @@ export default {
   }
 }
 </script>
+
+<style>
+.dewey-l1.collapsed,
+.dewey-l2.collapsed,
+.dewey-l3.collapsed {
+  display: none;
+}
+
+.dewey h4,
+.dewey h5,
+.dewey h6 {
+  margin-bottom: 0;
+}
+
+.dewey-l1,
+.dewey-l2,
+.dewey-l3 {
+  padding: 0;
+  list-style: none;
+}
+
+.dewey-l2 {
+  padding-left: 0.8rem;
+}
+
+.dewey-l3 {
+  padding-left: 1.8rem;
+}
+
+.collapse-btn,
+.expand-btn {
+  color: white;
+  background: #fd4f1c;
+  width: 1.2em;
+  height: 1.2em;
+  text-align: center;
+  border-radius: 0.23em;
+  line-height: 1em !important;
+}
+
+.collapse-btn:hover,
+.expand-btn:hover {
+  background: #ff7f5a;
+  cursor: pointer;
+}
+
+.dewey-code {
+  color: #ccc;
+  font-size: 0.8em;
+}
+
+.word-block-related {
+  padding: 0.5rem;
+  margin: 0 0.2rem;
+  border-radius: 0.3rem;
+  padding-top: 1.2em;
+  margin-top: -0.5em;
+}
+
+.word-block-related:hover {
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 10000000 !important;
+}
+.word-block-related:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.word-block-related:not(:hover) i {
+  opacity: 0;
+}
+
+.word-block-related i {
+  font-size: 0.7em;
+  color: #ccc;
+  position: absolute;
+  top: 0.5rem;
+  width: 2rem;
+  left: calc(50% - 1rem);
+}
+
+.dewey-l1 > li {
+  border-bottom: 1px dashed #ccc;
+}
+</style>

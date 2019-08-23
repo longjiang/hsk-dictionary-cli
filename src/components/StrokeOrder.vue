@@ -36,4 +36,9 @@ export default {
   width: 10rem;
   margin: 0 auto;
 }
+
+.animated-svg {
+  width: 10rem;
+  height: 10rem;
+}
 </style>

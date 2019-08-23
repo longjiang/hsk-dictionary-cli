@@ -29,8 +29,8 @@ export default {
       $button.toggleClass('collapsed')
     },
     count() {
-      if (length) {
-        return length - this.min
+      if (this.length) {
+        return this.length - this.min
       } else {
         return ''
       }

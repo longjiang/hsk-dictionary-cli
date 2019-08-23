@@ -2,24 +2,25 @@
   <div>
     <div v-if="similarWords.length > 0">
       <div class="label song-label">Compare with</div>
-
-      <WordList
-        class="mt-2"
-        collapse="10"
-        :words="similarWords"
-        :compareWith="entry"
-        :key="wordsKey"
-        :traditional="entry.simplified.length === 1"
-      ></WordList>
-    </div>
-
-    <div class="text-center mt-3 mb-3">
-      <a
-        class="btn show-more focus-exclude"
-        :href="`#/explore/related/${entry.identifier}`"
-      >
-        <i class="glyphicon glyphicon-fullscreen"></i> Explore Related Words
-      </a>
+      <div class="jumbotron-fluid bg-light p-4">
+        <WordList
+          collapse="10"
+          :words="similarWords"
+          :compareWith="entry"
+          :key="wordsKey"
+          :traditional="entry.simplified.length === 1"
+        ></WordList>
+        <hr/>
+        <div class="text-center">
+          <a
+            class="btn show-more focus-exclude"
+            :href="`#/explore/related/${entry.identifier}`"
+            :data-bg-hsk="entry.hsk"
+          >
+            <i class="glyphicon glyphicon-fullscreen"></i> Explore Related Words
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
