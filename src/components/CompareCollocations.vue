@@ -5,7 +5,7 @@
     </div>
     <div class="jumbotron-fluid bg-light p-4">
       <div
-        class="row mb-5"
+        class="row"
         v-for="(description, name) in colDesc.a"
         v-bind:key="'collocation-' + name"
         v-if="
@@ -19,7 +19,7 @@
               getGramrelsByName(b.sketch.Gramrels, name).Words.length > 0)
         "
       >
-        <div class="col-sm-6">
+        <div class="col-sm-6 mb-5">
           <Collocation
             v-if="a.sketch && a.sketch.Gramrels"
             :word="a.simplified"
@@ -30,7 +30,7 @@
             :collocation="getGramrelsByName(a.sketch.Gramrels, name)"
           ></Collocation>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 mb-5">
           <Collocation
             v-if="b.sketch && b.sketch.Gramrels"
             :word="b.simplified"

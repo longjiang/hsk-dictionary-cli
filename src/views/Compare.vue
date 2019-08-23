@@ -2,12 +2,12 @@
   <div class="main" v-cloak>
     <div class="container mt-4 mb-4focus">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-12">
           <SearchCompare :searchEntry="a" :compareEntry="b" :compare="true" />
         </div>
       </div>
       <div class="row mt-4 mb-3">
-        <div class="col-sm-6">
+        <div class="col-6">
           <div class="text-center">
             <Loader v-if="!a" class="mt-5" />
           </div>
@@ -18,7 +18,7 @@
             :key="aKey"
           ></EntryHeader>
         </div>
-        <div class="col-sm-6">
+        <div class="col-6">
           <div class="text-center">
             <Loader v-if="!b" class="mt-5" />
           </div>
@@ -41,29 +41,9 @@
           ></CompareDefs>
         </div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-sm-6">
-          <WebImages
-            v-if="a"
-            :text="a.simplified"
-            limit="10"
-            :key="aKey"
-          ></WebImages>
-        </div>
-        <div class="col-sm-6">
-          <WebImages
-            v-if="b"
-            :text="b.simplified"
-            limit="10"
-            :key="bKey"
-          ></WebImages>
-        </div>
-      </div>
     </div>
-
     <div
-      class="container-fluid mt-5 focus compare-example-bar"
+      class="jumbotron-fluid bg-light mt-5 focus"
       v-if="a && b && a.example && b.example"
     >
       <div class="container">
@@ -89,6 +69,26 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col-sm-6">
+          <WebImages
+            v-if="a"
+            :text="a.simplified"
+            limit="10"
+            :key="aKey"
+          ></WebImages>
+        </div>
+        <div class="col-sm-6">
+          <WebImages
+            v-if="b"
+            :text="b.simplified"
+            limit="10"
+            :key="bKey"
+          ></WebImages>
+        </div>
+      </div>
+    </div>
 
     <!-- <EntryRelated :entry="entry"></EntryRelated> -->
 
@@ -103,10 +103,20 @@
     <div class="container mt-5 focus">
       <div class="row">
         <div class="col-sm-6">
-          <Concordance v-if="a" :text="a.simplified" :level="a.hsk" :key="aKey"></Concordance>
+          <Concordance
+            v-if="a"
+            :text="a.simplified"
+            :level="a.hsk"
+            :key="aKey"
+          ></Concordance>
         </div>
         <div class="col-sm-6">
-          <Concordance v-if="b" :text="b.simplified" :level="b.hsk" :key="bKey"></Concordance>
+          <Concordance
+            v-if="b"
+            :text="b.simplified"
+            :level="b.hsk"
+            :key="bKey"
+          ></Concordance>
         </div>
       </div>
     </div>

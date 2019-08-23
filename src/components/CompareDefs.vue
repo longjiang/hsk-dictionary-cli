@@ -2,16 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center definitions">
-        <Merge direction="top" class="h-half" />
-        <DefinitionsList :definitions="defCommon" nodef="VS"></DefinitionsList>
-        <Merge direction="bottom" class="h-half" />
+        <Merge direction="top" class="h-half d-none d-sm-block" />
+        <DefinitionsList :definitions="defCommon" nodef="(no common definitions)" class="mt-2 mb-2"></DefinitionsList>
+        <Merge direction="bottom" class="h-half d-none d-sm-block" />
       </div>
     </div>
     <div class="row mt-3">
-      <div class="col-sm-6 text-center">
+      <div class="col-6 text-center">
         <DefinitionsList :definitions="defDistinct.a"></DefinitionsList>
       </div>
-      <div class="col-sm-6 text-center">
+      <div class="col-6 text-center">
         <DefinitionsList :definitions="defDistinct.b"></DefinitionsList>
       </div>
     </div>

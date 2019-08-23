@@ -25,21 +25,23 @@
             ></DefinitionsList>
           </div>
         </div>
+      </div>
+      <div class="jumbotron-fluid p-0 bg-light mt-4 mb-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <EntryExample class="mt5" :entry="entry"></EntryExample>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
         <div class="row mt-5">
           <div class="col-sm-6">
             <EntryDifficulty :entry="entry" />
           </div>
           <div class="col-sm-6">
             <EntryDisambiguation :entry="entry"></EntryDisambiguation>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid example-bar mt-4 mb-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <EntryExample class="mt5" :entry="entry"></EntryExample>
-            </div>
           </div>
         </div>
       </div>
