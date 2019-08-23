@@ -1,25 +1,6 @@
 <template>
   <!-- ANCHOR img/anchors/entry.png  -->
   <div class="entry-head-wrapper text-center" v-if="entry">
-    <button
-      class="paginate-button previous"
-      v-on:click="previousClick"
-      title="Previous word"
-      v-if="!minimal && hasPrevious"
-    >
-      <img src="img/angle-left.svg" alt />
-    </button>
-    <button
-      class="paginate-button next"
-      v-on:click="nextClick"
-      title="Next word"
-      v-if="!minimal && hasNext"
-    >
-      <img src="img/angle-right.svg" alt />
-    </button>
-
-            <Frequency class="mb-2" :entry="entry" />
-
     <div>
       <div v-if="entry.measureWords" style="display:inline-block">
         <div class="pinyin measure-word-pinyin">
@@ -51,17 +32,11 @@
         </div>
       </div>
     </div>
-    <DefinitionsList
-      class="mt-4"
-      v-if="!minimal"
-      :definitions="entry.definitions"
-    ></DefinitionsList>
   </div>
 </template>
 
 <script>
 import Helper from '@/lib/helper'
-import List from '@/lib/list'
 import DefinitionsList from '@/components/DefinitionsList.vue'
 import Frequency from '@/components/Frequency.vue'
 
@@ -82,59 +57,6 @@ export default {
   data() {
     return {
       Helper
-    }
-  },
-  computed: {
-    hasPrevious: function() {
-      const list = this.list()
-      if (list) {
-        return list.hasPrevious()
-      } else {
-        return false
-      }
-    },
-    hasNext: function() {
-      const list = this.list()
-      if (list) {
-        return list.hasNext()
-      } else {
-        return false
-      }
-    }
-  },
-  methods: {
-    findCurrentFunction(entry) {
-      return function(item) {
-        return item.join(',').replace(/ /g, '_') === entry.identifier
-      }
-    },
-    list() {
-      const savedWords = this.$store.state.savedWords
-      if (savedWords.length > 0) {
-        const list = new List(savedWords)
-        list.setCurrent(this.findCurrentFunction(this.entry))
-        return list
-      }
-    },
-    previousClick() {
-      let list = this.list()
-      if (list.hasPrevious()) {
-        const identifier = list
-          .previous()
-          .join(',')
-          .replace(/ /g, '_')
-        location.hash = `/view/cedict/${identifier}`
-      }
-    },
-    nextClick() {
-      let list = this.list()
-      if (list.hasNext()) {
-        const identifier = list
-          .next()
-          .join(',')
-          .replace(/ /g, '_')
-        location.hash = `/view/cedict/${identifier}`
-      }
     }
   }
 }

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="text-center">
-            <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
+            <h2 class="mb-5">For the love of Chinese words.</h2>
             <Loader ref="loader" class="mb-5" />
           </div>
           <SearchCompare :searchEntry="entry" class="mb-5" />
@@ -17,13 +17,15 @@
       </div>
       <div class="container mt-4 mb-4">
         <div class="row">
-          <div class="col-sm-12">
-            <div>
-              <InstagramButton :entry="entry" class="mb-5"></InstagramButton>
-            </div>
-
+          <div class="col-sm-6">
             <EntryHeader :entry="entry"></EntryHeader>
-
+            <DefinitionsList
+              class="mt-4"
+              :definitions="entry.definitions"
+            ></DefinitionsList>
+          </div>
+          <div class="col-sm-6">
+            <Frequency class="mb-2" :entry="entry" />
             <EntryDisambiguation
               class="mt-5 mb-5"
               :entry="entry"
@@ -106,6 +108,8 @@ import WebImages from '@/components/WebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
+import DefinitionsList from '@/components/DefinitionsList'
+import Frequency from '@/components/Frequency'
 import $ from 'jquery'
 
 export default {
@@ -121,7 +125,9 @@ export default {
     EntryHeader,
     EntryLyrics,
     Mistakes,
+    DefinitionsList,
     InstagramButton,
+    Frequency,
     WebImages
   },
   data() {
@@ -140,7 +146,7 @@ export default {
       this.entry = entry
       document.title = `${entry.simplified} (${entry.pinyin}) ${
         entry.definitions[0].text
-      } | Chinese Learning Wiki`
+      } | Chinese Zero to Hero`
     },
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()
