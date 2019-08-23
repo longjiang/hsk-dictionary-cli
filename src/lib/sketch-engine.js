@@ -4,86 +4,99 @@ import Config from './config'
 import SketchEngine from './sketch-engine'
 
 export default {
-  corpname: 'preloaded/zhtenten_lenoch',
   proficiency: {
     初级: 'beginner',
     中级: 'intermediate',
     高级: 'advanced'
   },
-  corpra: {
-    zhtenten_lenoch: {
-      Corpus: 'Chinese Web 2011 (zhTenTen11, Stanford tagger)',
-      Words: '1,729,867,455',
-      Language: 'Chinese Simplified',
-      Note: 'Featured'
+  corpra: [
+    {
+      code: 'zhtenten_lenoch',
+      name: 'Chinese Web 2011 (zhTenTen11, Stanford tagger)',
+      words: 1729867455,
+      language: 'Chinese Simplified',
+      note:
+        'Featured. This is the default. Although having fewer words than Chinese Web 2017, the data is much cleaner.'
     },
-    cgw2_sc: {
-      Corpus: 'Chinese GigaWord 2 Corpus: Mainland, simplified',
-      Words: '205,031,379',
-      Language: 'Chinese Simplified',
-      Note: 'Non-Web'
+    {
+      code: 'cgw2_sc',
+      name: 'Chinese GigaWord 2 Corpus: Mainland, simplified',
+      words: 205031379,
+      language: 'Chinese Simplified',
+      note:
+        'Non-Web. That means the text is from sources other than the Internet.'
     },
-    i_zh: {
-      Corpus: 'Chinese Web (Internet-ZH, NEUCSP tagger)',
-      Words: '198,205,344',
-      Language: 'Chinese Simplified',
-      Note: 'Web'
+    {
+      code: 'i_zh',
+      name: 'Chinese Web (Internet-ZH, NEUCSP tagger)',
+      words: 198205344,
+      language: 'Chinese Simplified',
+      note: 'Web. That means the text source is from the Internet.'
     },
-    zhtenten_10M: {
-      Corpus: 'Chinese Web 2011 (zhTenTen11, sample 10M)',
-      Words: '9,012,125',
-      Language: 'Chinese Simplified',
-      Note: 'Web'
+    {
+      code: 'zhtenten_10M',
+      name: 'Chinese Web 2011 (zhTenTen11, sample 10M)',
+      words: 9012125,
+      language: 'Chinese Simplified',
+      note: 'Web'
     },
-    zhtenten17_simplified_stf2: {
-      Corpus: 'Chinese Web 2017 (zhTenTen17) Simplified',
-      Words: '13,531,331,169',
-      Language: 'Chinese Simplified',
-      Note: 'Web'
+    {
+      code: 'zhtenten17_simplified_stf2',
+      name: 'Chinese Web 2017 (zhTenTen17) Simplified',
+      words: 13531331169,
+      language: 'Chinese Simplified',
+      note: 'Web'
     },
-    opus2_zh: {
-      Corpus: 'OPUS2 Chinese Simplified',
-      Words: '243,427,123',
-      Language: 'Chinese Traditional',
-      Note: 'Parallel'
+    {
+      code: 'opus2_zh',
+      name: 'OPUS2 Chinese Simplified',
+      words: 243427123,
+      language: 'Chinese Simplified',
+      note: 'Parallel. That means English translation is available.'
     },
-    cgw2_tc: {
-      Corpus: 'Chinese GigaWord 2 Corpus: Taiwan, traditional',
-      Words: '382,600,557',
-      Language: 'Chinese Traditional',
-      Note: 'Non-Web'
+    {
+      code: 'cgw2_tc',
+      name: 'Chinese GigaWord 2 Corpus: Taiwan, traditional',
+      words: 382600557,
+      language: 'Chinese Traditional',
+      note: 'Non-Web'
     },
-    chinese_taiwan_usg: {
-      Corpus: 'Chinese Traditional Web (TaiwanWaC, Universal Sketch Grammar)',
-      Words: '259,156,002',
-      Language: 'Chinese Traditional',
-      Note: 'Web'
+    {
+      code: 'chinese_taiwan_usg',
+      name: 'Chinese Traditional Web (TaiwanWaC, Universal Sketch Grammar)',
+      words: 259156002,
+      language: 'Chinese Traditional',
+      note: 'Web'
     },
-    chinese_taiwan: {
-      Corpus: 'Chinese Traditional Web (TaiwanWaC)',
-      Words: '259,156,002',
-      Language: 'Chinese Traditional',
-      Note: 'Web'
+    {
+      code: 'chinese_taiwan',
+      name: 'Chinese Traditional Web (TaiwanWaC)',
+      words: 259156002,
+      language: 'Chinese Traditional',
+      note: 'Web'
     },
-    zhtenten17_traditional_stf2: {
-      Corpus: 'Chinese Web 2017 (zhTenTen17) Traditional',
-      Words: '2,400,405,372',
-      Language: 'Chinese Traditional',
-      Note: 'Web'
+    {
+      code: 'zhtenten17_traditional_stf2',
+      name: 'Chinese Web 2017 (zhTenTen17) Traditional',
+      words: 2400405372,
+      language: 'Chinese Traditional',
+      note: 'Web'
     },
-    opus2_zh_TW: {
-      Corpus: 'OPUS2 Chinese Traditional',
-      Words: '380,245',
-      Language: 'Chinese Simplified',
-      Note: 'Parallel'
+    {
+      code: 'opus2_zh_TW',
+      name: 'OPUS2 Chinese Traditional',
+      words: 380245,
+      language: 'Chinese Traditional',
+      note: 'Parallel'
     },
-    guangwai: {
-      Corpus: 'Guangwai - Lancaster Chinese Learner Corpus',
-      Words: '1,289,060',
-      Language: 'Chinese Simplified',
-      Note: 'Learner'
+    {
+      code: 'guangwai',
+      name: 'Guangwai - Lancaster Chinese Learner Corpus',
+      words: 1289060,
+      language: 'Chinese Simplified',
+      note: 'Learner'
     }
-  },
+  ],
   mistakeRefKeys: [
     '=text.id',
     '=err.type',
@@ -116,6 +129,9 @@ export default {
     anom: 'anomaly',
     omit: 'omission of word(s)'
   },
+  corpname() {
+    return localStorage.getItem('czhCorpname') || 'zhtenten_lenoch'
+  },
   collocationDescription(word) {
     return {
       // Common for all
@@ -146,9 +162,7 @@ export default {
     $.getJSON(
       `${
         Config.sketchEngineProxy
-      }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=${
-        this.corpname
-      }&lemma=${term}`,
+      }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=preloaded/${this.corpname()}&lemma=${term}`,
       function(response) {
         if (response.data.Gramrels && response.data.Gramrels.length > 0) {
           response.data.Gramrels.forEach(function(Gramrel) {
@@ -168,9 +182,7 @@ export default {
     $.post(
       `${
         Config.sketchEngineProxy
-      }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=${
-        this.corpname
-      }`,
+      }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/${this.corpname()}`,
       {
         json: `{"lpos":"","wpos":"","default_attr":"word","attrs":"word","refs":"=doc.website","ctxattrs":"word","attr_allpos":"all","usesubcorp":"","viewmode":"kwic","cup_hl":"q","cup_err":"true","cup_corr":"","cup_err_code":"true","structs":"s,g","gdex_enabled":0,"fromp":1,"pagesize":50,"concordance_query":[{"queryselector":"iqueryrow","iquery":"${term}"}],"kwicleftctx":"100#","kwicrightctx":"100#"}`
       },
@@ -218,9 +230,7 @@ export default {
     $.post(
       `${
         Config.sketchEngineProxy
-      }?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=${
-        this.corpname
-      }`,
+      }?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=preloaded/${this.corpname()}`,
       {
         lemma: term,
         lpos: '',
@@ -287,9 +297,7 @@ export default {
               .join('')
               .match(/(.*)<s>([^<s>]*?)$/)
             const left = ml[2]
-            const leftContext = ml[1]
-              .replace(/<s>/g, '')
-              .replace(/<\/s>/g, '')
+            const leftContext = ml[1].replace(/<s>/g, '').replace(/<\/s>/g, '')
             let mr = Line.Right.map(function(item) {
               return item.str || item.strc
             })
