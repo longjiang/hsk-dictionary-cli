@@ -179,12 +179,16 @@ export default {
     )
   },
   concordance(term, callback) {
+    let parallel = this.corpname().startsWith('opus')
+    let requestJSON = parallel
+      ? `{"attrs":"word","structs":"s,g","refs":"=doc.subcorpus","ctxattrs":"word","viewmode":"align","usesubcorp":"","freqml":[{"attr":"word","ctx":"0","base":"kwic"}],"fromp":1,"pagesize":1000,"concordance_query":[{"queryselector":"iqueryrow","sel_aligned":["opus2_en"],"cql":"","iquery":"${term}","queryselector_opus2_en":"iqueryrow","iquery_opus2_en":"","pcq_pos_neg_opus2_en":"pos","filter_nonempty_opus2_en":"on"}]}`
+      : `{"lpos":"","wpos":"","default_attr":"word","attrs":"word","refs":"=doc.website","ctxattrs":"word","attr_allpos":"all","usesubcorp":"","viewmode":"kwic","cup_hl":"q","cup_err":"true","cup_corr":"","cup_err_code":"true","structs":"s,g","gdex_enabled":0,"fromp":1,"pagesize":50,"concordance_query":[{"queryselector":"iqueryrow","iquery":"${term}"}],"kwicleftctx":"100#","kwicrightctx":"100#"}`
     $.post(
       `${
         Config.sketchEngineProxy
       }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/${this.corpname()}`,
       {
-        json: `{"lpos":"","wpos":"","default_attr":"word","attrs":"word","refs":"=doc.website","ctxattrs":"word","attr_allpos":"all","usesubcorp":"","viewmode":"kwic","cup_hl":"q","cup_err":"true","cup_corr":"","cup_err_code":"true","structs":"s,g","gdex_enabled":0,"fromp":1,"pagesize":50,"concordance_query":[{"queryselector":"iqueryrow","iquery":"${term}"}],"kwicleftctx":"100#","kwicrightctx":"100#"}`
+        json: requestJSON
       },
       function(response) {
         try {
@@ -213,11 +217,19 @@ export default {
               line.match(/[。！？]$/) &&
               !line.match(/，。$/)
             ) {
-              result.push(line)
+              let parallelLine = {
+                chinese: line
+              }
+              if (Line.Align && Line.Align[0].Kwic) {
+                parallelLine.english = Line.Align[0].Kwic.map(
+                  kwic => kwic.str
+                ).reduce((english, kwic) => english + ' ' + kwic)
+              }
+              result.push(parallelLine)
             }
           })
           result = result.sort(function(a, b) {
-            return a.length - b.length
+            return a.chinese.length - b.chinese.length
           })
           callback(Helper.unique(result))
         } catch (err) {

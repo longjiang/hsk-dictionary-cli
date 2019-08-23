@@ -7,7 +7,7 @@
             <h2 class="mb-5">A dictionary for Chinese word lovers.</h2>
             <Loader ref="loader" class="mb-5" />
           </div>
-          <SearchCompare :searchEntry="entry" />
+          <SearchCompare :searchEntry="entry" class="mb-5" />
         </div>
       </div>
     </div>
