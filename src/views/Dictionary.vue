@@ -85,10 +85,14 @@
             ></Concordance>
 
             <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
-
-            <Korean class="mt-5 mb-5" :text="entry.traditional" />
-
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
             <Japanese class="mt-5 mb-5" :text="entry.traditional" />
+          </div>
+          <div class="col-sm-6">
+            <Korean class="mt-5 mb-5" :text="entry.traditional" />
           </div>
         </div>
       </div>
