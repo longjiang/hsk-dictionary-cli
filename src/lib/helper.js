@@ -27,7 +27,8 @@ export default {
     let a = await window.annotatorLoads
     let loadedGrammar = await window.grammarLoads
     let loadedHanzi = await window.hanziLoads
-    callback(a[0], a[1], loadedGrammar, loadedHanzi)
+    let loadedUnihan = await window.unihanLoads
+    callback(a[0], a[1], loadedGrammar, loadedHanzi, loadedUnihan)
   },
   unescape(html) {
     return $('<div/>')

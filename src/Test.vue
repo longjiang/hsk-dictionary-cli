@@ -95,6 +95,8 @@ import Hanzi from '@/lib/hanzi'
 import Grammar from '@/lib/grammar'
 import Helper from '@/lib/helper'
 import Merge from '@/lib/merge-hsk-cedict'
+import Unihan from '@/lib/unihan'
+import Papa from 'papaparse'
 import $ from 'jquery'
 
 export default {
@@ -129,6 +131,11 @@ export default {
             console.log('Merge ready.')
           })
         })
+      })
+    },
+    testUnihan() {
+      Unihan.load().then(() => {
+        console.log(Unihan.variants('检查'))
       })
     }
   },

@@ -127,6 +127,7 @@ import Helper from '@/lib/helper'
 import Annotator from '@/lib/annotator'
 import Hanzi from '@/lib/hanzi'
 import Grammar from '@/lib/grammar'
+import Unihan from '@/lib/unihan'
 import Nav from '@/components/Nav'
 import SubNav from '@/components/SubNav'
 
@@ -178,6 +179,7 @@ export default {
     window.annotatorLoads = Annotator.load()
     window.hanziLoads = Hanzi.load()
     window.grammarLoads = Grammar.load()
+    window.unihanLoads = Unihan.load()
   },
   mounted() {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')

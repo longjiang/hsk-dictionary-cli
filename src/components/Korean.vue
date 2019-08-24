@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div v-if="words && words.length === 0">
+      <div v-if="words.length === 0">
         We could not find any Korean words with the <em>hanja</em> “{{ text }}.”
       </div>
     </div>
@@ -22,6 +22,7 @@
 
 <script>
 import Config from '@/lib/config'
+import Helper from '@/lib/helper'
 
 export default {
   props: {
@@ -34,14 +35,27 @@ export default {
   },
   data() {
     return {
-      words: undefined
+      words: []
     }
   },
   created() {
-    $.getJSON(
-      `${Config.wiki}items/hanjas?filter[hanja][eq]=${this.text}`,
-      response => {
-        this.words = response.data
+    Helper.loaded(
+      (
+        LoadedAnnotator,
+        LoadedHSKCEDICT,
+        loadedGrammar,
+        LoadedHanzi,
+        LoadedUnihan
+      ) => {
+        let variants = LoadedUnihan.variants(this.text)
+        for (let variant of variants) {
+          $.getJSON(
+            `${Config.wiki}items/hanjas?filter[hanja][eq]=${variant}`,
+            response => {
+              this.words = this.words.concat(response.data)
+            }
+          )
+        }
       }
     )
   }

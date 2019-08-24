@@ -24,6 +24,7 @@
 
 <script>
 import Config from '@/lib/config'
+import Helper from '@/lib/helper'
 
 export default {
   props: {
@@ -36,22 +37,35 @@ export default {
   },
   data() {
     return {
-      words: undefined,
+      words: [],
       shinjitai: undefined
     }
   },
   created() {
-    let kyujitai = new Kyujitai(error => {
-      this.shinjitai = kyujitai.decode(this.text)
-      if (this.shinjitai) {
-        $.getJSON(
-          `${Config.wiki}items/edict?filter[kanji][eq]=${this.shinjitai}`,
-          response => {
-            this.words = response.data
-          }
-        )
+    Helper.loaded(
+      (
+        LoadedAnnotator,
+        LoadedHSKCEDICT,
+        loadedGrammar,
+        LoadedHanzi,
+        LoadedUnihan
+      ) => {
+        let variants = LoadedUnihan.variants(this.text)
+        for (let variant of variants) {
+          let kyujitai = new Kyujitai(error => {
+            this.shinjitai = kyujitai.decode(variant)
+            if (this.shinjitai) {
+              $.getJSON(
+                `${Config.wiki}items/edict?filter[kanji][eq]=${this.shinjitai}`,
+                response => {
+                  this.words = this.words.concat(response.data)
+                }
+              )
+            }
+          })
+        }
       }
-    })
+    )
   }
 }
 </script>
