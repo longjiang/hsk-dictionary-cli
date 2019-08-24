@@ -77,7 +77,9 @@ export default {
           this.articles = []
           $.getJSON(`${Config.wiki}items/articles`, response => {
             this.articles = response.data.map(article => {
-              article.url = `#/articles/wiki/view/${article.id},encodeURIComponent(${article.title})`
+              article.url = `#/articles/wiki/view/${
+                article.id
+              },encodeURIComponent(${article.title})`
               return article
             })
           })
@@ -103,7 +105,6 @@ export default {
 </script>
 
 <style>
-
 .article {
   list-style: none;
   margin-bottom: 1rem;
@@ -154,5 +155,4 @@ a.article-edit-btn:hover {
   background: #fd4f1c;
   color: white;
 }
-
 </style>
