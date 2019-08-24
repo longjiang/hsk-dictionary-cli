@@ -49,8 +49,14 @@ export default {
       ) => {
         let variants = LoadedUnihan.variants(this.text)
         for (let variant of variants) {
+          // $.getJSON(
+          //   `${Config.wiki}items/hanjas?filter[hanja][eq]=${variant}`,
+          //   response => {
+          //     this.words = this.words.concat(response.data)
+          //   }
+          // )
           $.getJSON(
-            `${Config.wiki}items/hanjas?filter[hanja][eq]=${variant}`,
+            `${Config.wiki}items/kengdic?filter[hanja][eq]=${variant}`,
             response => {
               this.words = this.words.concat(response.data)
             }
