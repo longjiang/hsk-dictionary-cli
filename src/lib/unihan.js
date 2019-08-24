@@ -30,9 +30,13 @@ export default {
     let chars = text.split('') // ['检', '查']
     let word = [] // [['检', ''检'], ['查','查','查']]
     for (let char of chars) {
-      let result = this._data.find(row => row.glyph === char)
+      let result = this._data.find(row => {
+        return row && row.glyph === char
+      })
       if (result) {
         word.push(result.variants.concat(char))
+      } else {
+        word.push([char])
       }
     }
     let wordVariants = word.reduce((aggregator, item) => {

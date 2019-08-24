@@ -135,13 +135,18 @@ export default {
     },
     testUnihan() {
       Unihan.load().then(() => {
-        console.log(Unihan.variants('检查'))
+        console.log(Unihan.variants('檢查'))
+        console.log(Unihan.variants('衛生'))
+        console.log(Unihan.variants('出發'))
+        console.log(Unihan.variants('來臨'))
+        console.log(Unihan.variants('恐懼'))
       })
     }
   },
   mounted() {
-    this.testMerge()
+    // this.testMerge()
     // this.testAnnotator()
+    this.testUnihan()
   }
 }
 </script>

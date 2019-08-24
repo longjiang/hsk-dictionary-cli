@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-cloak>
-    <div class="container mt-4 mb-4focus">
+    <div class="container mt-4 mb-4 focus">
       <div class="row">
         <div class="col-12">
           <SearchCompare :searchEntry="a" :compareEntry="b" :compare="true" />
@@ -141,6 +141,22 @@
           <Mistakes v-if="b" :text="b.simplified" :key="bKey"></Mistakes>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <Korean v-if="a" class="mt-5 mb-5" :text="a.traditional" />
+        </div>
+        <div class="col-sm-6">
+          <Korean v-if="b" class="mt-5 mb-5" :text="b.traditional" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <Japanese v-if="a" class="mb-5" :text="a.traditional" />
+        </div>
+        <div class="col-sm-6">
+          <Japanese v-if="b" class="mb-5" :text="b.traditional" />
+        </div>
+      </div>
     </div>
 
     <EntryCourseAd
@@ -168,6 +184,8 @@ import CompareCollocations from '@/components/CompareCollocations.vue'
 import CompareDefs from '@/components/CompareDefs.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
+import Korean from '@/components/Korean'
+import Japanese from '@/components/Japanese'
 import $ from 'jquery'
 
 export default {
@@ -182,6 +200,8 @@ export default {
     EntryLyrics,
     CompareCollocations,
     WebImages,
+    Korean,
+    Japanese,
     CompareDefs
   },
   data() {

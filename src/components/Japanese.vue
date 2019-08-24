@@ -22,7 +22,7 @@
       </div>
       <div v-if="!words || words.length === 0">
         We could not find any Japanese words with the <em>kanji</em> “{{
-          shinjitai
+          shinjitai ? shinjitai : text
         }}.”
       </div>
     </div>
@@ -65,7 +65,12 @@ export default {
               $.getJSON(
                 `${Config.wiki}items/edict?filter[kanji][eq]=${this.shinjitai}`,
                 response => {
-                  this.words = this.words.concat(response.data)
+                  if (response.data.length > 0) {
+                    let data = response.data.filter(row => {
+                      return !this.words.find(word => word.kanji === row.kanji) // Make sure it's unique (2 kyujitai variants might turn out to be the same shinjitai)
+                    })
+                    this.words = this.words.concat(data)
+                  }
                 }
               )
             }
