@@ -32,7 +32,7 @@
           :pinyin="word.pinyin"
           :hsk="word.hsk"
           :definitions="word.definitions"
-          class="simplified"
+          class="traditional"
           :id="`word-${index}-decomposition-1`"
         ></DecompositionQuestion>
         <FillInTheBlankQuestion

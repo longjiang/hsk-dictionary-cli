@@ -1,5 +1,5 @@
 <template>
-  <div class="question-decomposition" v-if="word" :id="id">
+  <div class="question-decomposition" v-if="text" :id="id">
     <div class="question-slide-aspect" v-for="rc in [randomChar(text)]">
       <div class="question-slide" :id="`question-${id}-slide-1`">
         <div :data-hsk="hsk" class="text-center big-word-pinyin mb-4">
@@ -34,7 +34,7 @@ import Config from '@/lib/config'
 import $ from 'jquery'
 
 export default {
-  props: ['id', 'word', 'type'],
+  props: ['id', 'text', 'type', 'definitions', 'hsk', 'pinyin'],
   components: {
     decomposition: Decomposition
   },
@@ -45,23 +45,25 @@ export default {
     }
   },
   mounted() {
-    $(`#${this.id} .decomposition`).each(function() {
-      let $characters = $(this).find('.part-character')
-      let character =
-        $characters[Math.floor(Math.random() * $characters.length)]
-      $(character)
-        .parent()
-        .addClass('hide')
-      $(this).click(function() {
-        if ($(this).is('.decomposition')) {
-          $(this).toggleClass('show-answer')
-        } else {
-          $(this)
-            .parents('.decomposition')
-            .toggleClass('show-answer')
-        }
+    $(this.$el)
+      .find('.decomposition')
+      .each(function() {
+        let $characters = $(this).find('.part-character')
+        let character =
+          $characters[Math.floor(Math.random() * $characters.length)]
+        $(character)
+          .parent()
+          .addClass('hide')
+        $(this).click(function() {
+          if ($(this).is('.decomposition')) {
+            $(this).toggleClass('show-answer')
+          } else {
+            $(this)
+              .parents('.decomposition')
+              .toggleClass('show-answer')
+          }
+        })
       })
-    })
   },
   methods: {
     randomChar(word) {
