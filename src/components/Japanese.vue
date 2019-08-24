@@ -6,7 +6,16 @@
         <div v-for="word in words">
           <div>
             The Japanese word
-            <b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{ word.kana }}) means <em>{{ word.english }}</em
+            <b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{
+              word.kana
+            }}) means
+            <em>{{
+              word.english
+                .replace(/\(.*?\)/g, '')
+                .replace(/\//g, ', ')
+                .trim()
+                .replace(/,$/, '')
+            }}</em
             >.
           </div>
         </div>
