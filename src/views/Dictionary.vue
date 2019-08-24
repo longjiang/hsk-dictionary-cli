@@ -85,6 +85,8 @@
             ></Concordance>
 
             <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
+
+            <Korean class="mt-5 mb-5" :text="entry.traditional" />
           </div>
         </div>
       </div>
@@ -114,6 +116,7 @@ import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
 import DefinitionsList from '@/components/DefinitionsList'
 import EntryDifficulty from '@/components/EntryDifficulty'
+import Korean from '@/components/Korean'
 import $ from 'jquery'
 
 export default {
@@ -131,6 +134,7 @@ export default {
     Mistakes,
     DefinitionsList,
     InstagramButton,
+    Korean,
     EntryDifficulty,
     WebImages
   },
