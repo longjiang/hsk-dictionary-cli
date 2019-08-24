@@ -137,7 +137,11 @@ a i {
   margin-right: 0.5rem;
 }
 .secondary-menu {
-
+  white-space: nowrap;
+  overflow: scroll;
+  overflow-y: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .saved-words-count {
