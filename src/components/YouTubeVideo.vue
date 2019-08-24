@@ -19,7 +19,8 @@ import Helper from '@/lib/helper'
 export default {
   data() {
     return {
-      youtubeIframeID: 'youtube-' + Helper.uniqueId()
+      youtubeIframeID: 'youtube-' + Helper.uniqueId(),
+      time: this.starttime
     }
   },
   props: {
@@ -36,6 +37,7 @@ export default {
   methods: {
     loadYouTubeiFrame(youtube, starttime, lrc = false) {
       var player
+      let that = this
       // $('.youtube iframe').remove();
       this.removeYouTubeAPIVars()
       window.onYouTubePlayerAPIReady = () => {
@@ -50,20 +52,14 @@ export default {
             controls: 1,
             showinfo: 0,
             playsinline: 1,
-            rel: 0
+            rel: 0,
           },
           events: {
-            onReady: window.onPlayerReady,
-            onStateChange: function(playerStatus) {
-              if (playerStatus == 1) {
-                // Playing, update time
-                // console.log(player.getCurrentTime())
-              }
-              if (playerStatus == 2) {
-                // Playing, update time
-                // console.log(player.getCurrentTime())
-              }
-            }
+            onReady() {
+              setInterval(() => {
+                console.log(player.getCurrentTime())
+              }, 1000)
+            },
           }
         })
         if (lrc) {
