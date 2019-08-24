@@ -5,7 +5,7 @@
       <div v-if="words">
         <div v-for="word in words">
           <div>
-            The Korean word <b>{{ word.hangul }}</b> [<b :data-hsk="hsk">{{
+            The Korean word <b>{{ word.hangul }}</b> [<b :data-hsk="hsk" class="bigger">{{
               word.hanja
             }}</b
             >] means <em>{{ word.english }}</em

@@ -6,9 +6,7 @@
         <div v-for="word in words">
           <div>
             The Japanese word
-            <b :data-hsk="hsk">{{ word.kanji }}</b> (read as
-            <b>{{ word.kana }}</b
-            >) means <em>{{ word.english }}</em
+            <b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{ word.kana }}) means <em>{{ word.english }}</em
             >.
           </div>
         </div>
