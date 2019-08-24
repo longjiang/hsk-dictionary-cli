@@ -1,43 +1,43 @@
 <template>
-  <div class="question" v-if="word" :id="id">
+  <div class="question" v-if="text" :id="id">
     <div class="question-fill-in-the-blank">
       <div class="question-slide-aspect">
         <div class="question-slide" :id="`${id}-slide-1`">
           <div class="question-prompt mb-4">
             How do you write this character?
           </div>
-          <div class="text-center big-word-pinyin" :data-hsk="word.hsk">
-            {{ word.pinyin }}
-            <Speak :text="word.simplified"></Speak>
+          <div class="text-center big-word-pinyin" :data-hsk="hsk">
+            {{ pinyin }}
+            <Speak :text="text"></Speak>
           </div>
           <div
             class="text-center big-word"
-            :data-hsk="word.hsk"
+            :data-hsk="hsk"
             v-if="split"
             v-html="fillInTheBlankHTML()"
           ></div>
           <div class="text-center character-example-english mt-4">
-            {{ word.definitions[0].text }}
+            {{ definitions[0].text }}
           </div>
         </div>
       </div>
       <div class="question-slide-aspect">
         <div class="question-slide answer" :id="`${id}-slide-2`">
-          <div class="text-center big-word-pinyin" :data-hsk="word.hsk">
-            {{ word.pinyin }}
-            <Speak :text="word.simplified"></Speak>
+          <div class="text-center big-word-pinyin" :data-hsk="hsk">
+            {{ pinyin }}
+            <Speak :text="text"></Speak>
           </div>
           <div class="decomposition-word">
             <span
               v-if="split && split.before"
               class="decomposition-before"
-              v-html="Helper.highlight(split.before, split.before, word.hsk)"
+              v-html="Helper.highlight(split.before, split.before, hsk)"
             ></span>
             <StrokeOrder v-if="split" :char="split.char" />
             <span
               v-if="split && split.after"
               class="decomposition-after"
-              v-html="Helper.highlight(split.after, split.after, word.hsk)"
+              v-html="Helper.highlight(split.after, split.after, hsk)"
             ></span>
           </div>
         </div>
@@ -52,7 +52,7 @@ import Config from '@/lib/config'
 import $ from 'jquery'
 
 export default {
-  props: ['id', 'word', 'type'],
+  props: ['id', 'text', 'pinyin', 'hsk', 'definitions'],
   components: {},
   data() {
     return {
@@ -62,8 +62,8 @@ export default {
     }
   },
   beforeMount() {
-    if (this.word) {
-      this.split = this.randomChar(this.word.simplified)
+    if (this.text) {
+      this.split = this.randomChar(this.text)
     }
   },
   methods: {
@@ -74,12 +74,12 @@ export default {
         this.split.after
       }`
     },
-    randomChar(word) {
-      const index = Math.floor(Math.random() * word.length)
+    randomChar(text) {
+      const index = Math.floor(Math.random() * text.length)
       return {
-        before: word.slice(0, index),
-        char: word[index],
-        after: word.slice(index + 1)
+        before: text.slice(0, index),
+        char: text[index],
+        after: text.slice(index + 1)
       }
     },
     replaceAtIndex(string, index, replacement) {
