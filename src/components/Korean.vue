@@ -13,6 +13,9 @@
           </div>
         </div>
       </div>
+      <div v-if="words && words.length === 0">
+        We could not find any Korean <em>hanja</em> words matching “{{ text }}.”
+      </div>
     </div>
   </div>
 </template>

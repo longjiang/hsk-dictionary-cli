@@ -104,6 +104,9 @@
             dictionary made freely available from
             <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
               >MDBG</a
+            >. Korean hanja readings and definitions uses
+            <a href="https://github.com/dbravender/hanja-dictionary"
+              >hanja-dictionary</a
             >. Over 7,000 time-synced lyrics (LRCs) from
             <a href="http://www.22lrc.com/" class="add-pinyin">爱歌词</a> and
             <a href="http://www.gecimi.com/" class="add-pinyin">歌词迷</a>.
