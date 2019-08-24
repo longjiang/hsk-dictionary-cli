@@ -52,14 +52,14 @@ export default {
             controls: 1,
             showinfo: 0,
             playsinline: 1,
-            rel: 0,
+            rel: 0
           },
           events: {
             onReady() {
               setInterval(() => {
-                console.log(player.getCurrentTime())
+                that.time = player.getCurrentTime()
               }, 1000)
-            },
+            }
           }
         })
         if (lrc) {
