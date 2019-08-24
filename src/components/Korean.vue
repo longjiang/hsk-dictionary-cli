@@ -5,16 +5,16 @@
       <div v-if="words">
         <div v-for="word in words">
           <div>
-            The <em>hanja</em>
-            <b class="ml-2" :data-hsk="hsk">{{ word.hanja }}</b> is read as
-            <b>{{ word.hangul }}</b> in Korean, meaning
-            <em>{{ word.english }}</em
+            The Korean word <b>{{ word.hangul }}</b> [<b :data-hsk="hsk">{{
+              word.hanja
+            }}</b
+            >] means <em>{{ word.english }}</em
             >.
           </div>
         </div>
       </div>
       <div v-if="words && words.length === 0">
-        We could not find any Korean <em>hanja</em> words matching “{{ text }}.”
+        We could not find any Korean words with the <em>hanja</em> “{{ text }}.”
       </div>
     </div>
   </div>

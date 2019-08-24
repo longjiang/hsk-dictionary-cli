@@ -87,6 +87,8 @@
             <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
 
             <Korean class="mt-5 mb-5" :text="entry.traditional" />
+
+            <Japanese class="mt-5 mb-5" :text="entry.traditional" />
           </div>
         </div>
       </div>
@@ -117,6 +119,7 @@ import Helper from '@/lib/helper'
 import DefinitionsList from '@/components/DefinitionsList'
 import EntryDifficulty from '@/components/EntryDifficulty'
 import Korean from '@/components/Korean'
+import Japanese from '@/components/Japanese'
 import $ from 'jquery'
 
 export default {
@@ -136,6 +139,7 @@ export default {
     InstagramButton,
     Korean,
     EntryDifficulty,
+    Japanese,
     WebImages
   },
   data() {
