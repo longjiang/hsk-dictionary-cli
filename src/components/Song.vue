@@ -103,6 +103,7 @@ import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
 import Loader from '@/components/Loader'
+import { setInterval } from 'timers';
 
 export default {
   components: {
@@ -115,6 +116,11 @@ export default {
       removed: false,
       currentYoutubeIndex: 0,
       gettingYouTube: false
+    }
+  },
+  computed: {
+    currentTime() {
+      return this.$refs.youtube.currentTime
     }
   },
   props: {
@@ -131,6 +137,11 @@ export default {
       default: true
     }
   },
+  // mounted() {
+  //   setInterval(() => {
+  //     this.currentTime = this.$refs.youtube.currentTime
+  //   }, 500)
+  // },
   methods: {
     seekYouTube(starttime) {
       this.$refs.youtube.seek(starttime)

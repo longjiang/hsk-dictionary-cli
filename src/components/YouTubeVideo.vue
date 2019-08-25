@@ -6,7 +6,7 @@
           'url(' + '//img.youtube.com/vi/' + youtube + '/hqdefault.jpg' + ')'
       }"
       class="youtube-screen"
-      v-on:click="loadYouTubeiFrame(youtube, starttime, lrc)"
+      v-on:click="loadYouTubeiFrame()"
     >
       <div :id="youtubeIframeID"></div>
     </div>
@@ -26,15 +26,12 @@ export default {
   },
   computed: {
     currentTime() {
-      return this.player.getCurrentTime()
+      return this.player ? this.player.getCurrentTime() : 0
     }
   },
   props: {
     youtube: {
       type: String
-    },
-    lrc: {
-      default: false
     },
     starttime: {
       default: 0
@@ -53,7 +50,7 @@ export default {
     }
   },
   methods: {
-    loadYouTubeiFrame(youtube, starttime, lrc = false) {
+    loadYouTubeiFrame() {
       // $('.youtube iframe').remove();
       this.removeYouTubeAPIVars()
       window.onYouTubePlayerAPIReady = () => {
@@ -61,15 +58,16 @@ export default {
         this.player = new YT.Player(this.youtubeIframeID, {
           height: '390',
           width: '640',
-          videoId: youtube,
+          videoId: this.youtube,
           playerVars: {
-            start: parseInt(starttime),
+            start: parseInt(this.starttime),
             autoplay: 1,
             controls: 1,
             showinfo: 0,
             playsinline: 1,
             rel: 0
-          }
+          },
+          onReady() {}
         })
       }
       $.getScript('//www.youtube.com/iframe_api')
@@ -91,8 +89,10 @@ export default {
       }
     },
     seek(starttime) {
-      this.player.seekTo(starttime)
-    },
+      if (this.player) {
+        this.player.seekTo(starttime)
+      }
+    }
   }
 }
 </script>
