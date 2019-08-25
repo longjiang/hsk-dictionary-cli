@@ -53,7 +53,6 @@
                 :options="csvOptions"
               ></b-form-checkbox-group>
             </b-form-group>
-            <h5>Full CSV</h5>
             <textarea
               id="export-textarea"
               class="mt1 mb1 form-control"

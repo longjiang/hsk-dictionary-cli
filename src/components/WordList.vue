@@ -3,6 +3,7 @@
     <ul
       :class="{
         wordlist: true,
+        'list-unstyled': true,
         collapsed: collapse > 0
       }"
       data-collapse-target

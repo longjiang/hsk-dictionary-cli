@@ -113,7 +113,7 @@
             <button @click="toggleFocus" class="btn btn-small focus-hover">
               Turn {{ focus ? 'off' : 'on' }} Focus Mode
             </button>
-            <hr />
+            <hr class="border-light" style="opacity: 0.5" />
             <p>
               Interesetd in contributing and making the tools available even better? This site is a fully open sourced and 
               available to be viewed at <a href="https://github.com/longjiang/hsk-dictionary-cli" target="_blank">this github reprository.</a>
