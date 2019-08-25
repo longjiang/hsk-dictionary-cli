@@ -8,7 +8,6 @@
             :id="`${_uid}-lrc-${lrcIndex}-youtube`"
           >
             <YouTubeVideo
-              v-for="youtube in lrc.youtube"
               :youtube="lrc.youtube[currentYoutubeIndex]"
               :startTime="
                 lrc.matchedLines
@@ -16,6 +15,7 @@
                   : 0
               "
               :lrc="lrc"
+              ref="youtube"
             />
             <div class="mt-3 mb-0" v-if="lrc.youtube.length > 0">
               <button class="btn-small" @click="youtubePrev">
@@ -67,7 +67,7 @@
                   lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
                 'matched-context': LRC.inContext(lineIndex, 2, lrc)
               }"
-              v-on:click="seekYouTube(lrc, line.starttime)"
+              v-on:click="seekYouTube(line.starttime)"
               v-html="
                 entry
                   ? Helper.highlight(line.line, entry.simplified, entry.hsk)
@@ -78,7 +78,8 @@
           <ShowMoreButton
             v-if="collapse"
             :data-bg-hsk="entry ? entry.hsk : 'outside'"
-          >Show More</ShowMoreButton>
+            >Show More</ShowMoreButton
+          >
           <button
             v-if="!removed"
             class="ml-2 btn-medium btn-danger"
@@ -130,19 +131,10 @@ export default {
       default: true
     }
   },
-  mounted() {
-    // eslint-disable-next-line no-unused-vars
-    window.onYouTubePlayerAPIReady = function() {
-      // This needs to be in global scope as YouTube api will call it
-      // This function is overwridden from the app.loadYouTubeiFrame() function
-    }
-
-    // eslint-disable-next-line no-unused-vars
-    window.onPlayerReady = function(evt) {
-      // Required by YouTube API
-    }
-  },
   methods: {
+    seekYouTube(starttime) {
+      this.$refs.youtube.seek(starttime)
+    },
     remove() {
       let c = confirm('Delete this song for everyone?')
       if (c) {
@@ -150,10 +142,6 @@ export default {
           this.removed = true
         })
       }
-    },
-    seekYouTube(lrc, starttime) {
-      var player = lrc.youtubePlayer
-      player.seekTo(starttime)
     },
     youtubePrev() {
       this.currentYoutubeIndex = Math.max(this.currentYoutubeIndex - 1, 0)

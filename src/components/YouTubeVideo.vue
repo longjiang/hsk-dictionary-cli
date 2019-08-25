@@ -20,7 +20,13 @@ export default {
   data() {
     return {
       youtubeIframeID: 'youtube-' + Helper.uniqueId(),
-      time: this.starttime
+      time: this.starttime,
+      player: undefined
+    }
+  },
+  computed: {
+    currentTime() {
+      return this.player.getCurrentTime()
     }
   },
   props: {
@@ -34,15 +40,25 @@ export default {
       default: 0
     }
   },
+  mounted() {
+    // eslint-disable-next-line no-unused-vars
+    window.onYouTubePlayerAPIReady = function() {
+      // This needs to be in global scope as YouTube api will call it
+      // This function is overwridden from the app.loadYouTubeiFrame() function
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    window.onPlayerReady = function(evt) {
+      // Required by YouTube API
+    }
+  },
   methods: {
     loadYouTubeiFrame(youtube, starttime, lrc = false) {
-      var player
-      let that = this
       // $('.youtube iframe').remove();
       this.removeYouTubeAPIVars()
       window.onYouTubePlayerAPIReady = () => {
         // eslint-disable-next-line no-undef
-        player = new YT.Player(this.youtubeIframeID, {
+        this.player = new YT.Player(this.youtubeIframeID, {
           height: '390',
           width: '640',
           videoId: youtube,
@@ -53,22 +69,11 @@ export default {
             showinfo: 0,
             playsinline: 1,
             rel: 0
-          },
-          events: {
-            onReady() {
-              setInterval(() => {
-                that.time = player.getCurrentTime()
-              }, 1000)
-            }
           }
         })
-        if (lrc) {
-          lrc.youtubePlayer = player
-        }
       }
       $.getScript('//www.youtube.com/iframe_api')
     },
-
     removeYouTubeAPIVars() {
       if (window['YT']) {
         let vars = [
@@ -84,7 +89,10 @@ export default {
           window[key] = undefined
         })
       }
-    }
+    },
+    seek(starttime) {
+      this.player.seekTo(starttime)
+    },
   }
 }
 </script>
