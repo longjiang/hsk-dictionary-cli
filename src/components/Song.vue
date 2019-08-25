@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-6 text-center youtube-versions-wrapper">
           <div
-            class="youtube-versions shadow p-3 rounded"
+            class="youtube-versions p-3 rounded"
             :id="`${_uid}-lrc-${lrcIndex}-youtube`"
           >
             <YouTubeVideo
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 text-center lyrics-wrapper sm-mb2">
+        <div class="col-md-6 lyrics-wrapper sm-mb2">
           <Annotate
             tag="div"
             :class="{
@@ -134,7 +134,7 @@ export default {
       this.currentTime = this.$refs.youtube
         ? this.$refs.youtube.currentTime()
         : 0
-    }, 100)
+    }, 200)
   },
   props: {
     entry: {
@@ -150,11 +150,6 @@ export default {
       default: true
     }
   },
-  // mounted() {
-  //   setInterval(() => {
-  //     this.currentTime = this.$refs.youtube.currentTime
-  //   }, 500)
-  // },
   methods: {
     seekYouTube(starttime) {
       this.$refs.youtube.seek(starttime)
@@ -221,45 +216,44 @@ export default {
   margin: 0;
 }
 
-.lyrics-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.lyrics-line {
-  cursor: pointer;
-  position: relative;
-}
-
-.lyrics-line-current,
-.lyrics-line:hover {
-  background: #e6e6e6;
-}
-
-.lyrics-line:hover::before {
-  content: 'PLAY HERE';
-  font-size: 0.8rem;
-  width: 4rem;
-  line-height: 0.8rem;
-  display: block;
-  color: #bbbbbb;
-  position: absolute;
-  right: -3.5rem;
-  top: 0.2rem;
-  font-weight: bold;
-}
-
 .lyrics {
   min-height: 9.5rem;
 }
 
 .lyrics-line {
-  color: #ababab;
+  cursor: pointer;
+  position: relative;
+  color: #666;
   font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.lyrics-line-current,
+.lyrics-line:hover {
+  box-shadow: 0 0 10px rgba(255, 95, 32, 0.301);
+  border-radius: 0.25rem;
 }
 
 .lyrics-line.matched {
   color: #616161;
+  font-weight: bold;
+}
+
+.lyrics-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.lyrics-line:hover::before {
+  content: '▶︎';
+  font-size: 1.5rem;
+  width: 4rem;
+  line-height: 0.8rem;
+  display: block;
+  color: #f7613540;
+  position: absolute;
+  right: -2rem;
+  bottom: 1rem;
   font-weight: bold;
 }
 
@@ -291,6 +285,8 @@ export default {
   .youtube-versions-wrapper,
   .youtube-versions {
     top: 0;
+    margin-left: calc((100vw - 100%) / -2);
+    width: 100vw;
   }
 }
 
