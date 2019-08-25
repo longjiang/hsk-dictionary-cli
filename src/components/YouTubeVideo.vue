@@ -24,11 +24,6 @@ export default {
       player: undefined
     }
   },
-  computed: {
-    currentTime() {
-      return this.player ? this.player.getCurrentTime() : 0
-    }
-  },
   props: {
     youtube: {
       type: String
@@ -50,12 +45,16 @@ export default {
     }
   },
   methods: {
+    currentTime() {
+      return this.player ? this.player.getCurrentTime() : 0
+    },
     loadYouTubeiFrame() {
+      let that = this
       // $('.youtube iframe').remove();
       this.removeYouTubeAPIVars()
       window.onYouTubePlayerAPIReady = () => {
         // eslint-disable-next-line no-undef
-        this.player = new YT.Player(this.youtubeIframeID, {
+        that.player = new YT.Player(this.youtubeIframeID, {
           height: '390',
           width: '640',
           videoId: this.youtube,

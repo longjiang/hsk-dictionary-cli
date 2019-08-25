@@ -59,13 +59,23 @@
             ></div>
             <hr />
             <div
-              v-for="(line, lineIndex) in lrc.content"
-              v-if="!LRC.rejectLine(line.line)"
+              v-for="(line, lineIndex) in lrc.content.filter(
+                line => !LRC.rejectLine(line.line)
+              )"
+              :key="lineIndex"
               :class="{
                 'lyrics-line': true,
                 matched:
                   lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
-                'matched-context': LRC.inContext(lineIndex, 2, lrc)
+                'matched-context': LRC.inContext(lineIndex, 2, lrc),
+                'lyrics-line-current':
+                  parseFloat(line.starttime) < currentTime &&
+                  currentTime <
+                    parseFloat(
+                      lrc.content[
+                        Math.min(lrc.content.length - 1, lineIndex + 1)
+                      ].starttime
+                    )
               }"
               v-on:click="seekYouTube(line.starttime)"
               v-html="
@@ -103,7 +113,7 @@ import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
 import Loader from '@/components/Loader'
-import { setInterval } from 'timers';
+import { setInterval } from 'timers'
 
 export default {
   components: {
@@ -115,13 +125,16 @@ export default {
       Helper,
       removed: false,
       currentYoutubeIndex: 0,
-      gettingYouTube: false
+      gettingYouTube: false,
+      currentTime: 0
     }
   },
-  computed: {
-    currentTime() {
-      return this.$refs.youtube.currentTime
-    }
+  mounted() {
+    setInterval(() => {
+      this.currentTime = this.$refs.youtube
+        ? this.$refs.youtube.currentTime()
+        : 0
+    }, 100)
   },
   props: {
     entry: {
@@ -218,6 +231,7 @@ export default {
   position: relative;
 }
 
+.lyrics-line-current,
 .lyrics-line:hover {
   background: #e6e6e6;
 }
