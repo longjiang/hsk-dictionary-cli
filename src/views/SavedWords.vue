@@ -206,7 +206,9 @@ export default {
         'Are you sure you want to remove all your saved words?'
       )
       if (confirmed) {
-        this.$store.dispatch('removeAllSavedWords')
+        this.$store.dispatch('removeAllSavedWords');
+        $('.export-wrapper').toggleClass('hidden', true);
+
       }
     },
     importClick() {
