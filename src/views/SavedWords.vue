@@ -18,10 +18,15 @@
           <button
             class="upload-list btn btn-primary"
             v-on:click="showExportClick"
+            :disabled="this.savedWords.length <= 0"
           >
             <i class="glyphicon glyphicon-cloud-download"></i> Export CSV</button
           >&nbsp;
-          <button class="remove-all btn btn-danger" v-on:click="removeAllClick">
+          <button 
+            class="remove-all btn btn-danger" 
+            v-on:click="removeAllClick"
+            :disabled="this.savedWords.length <= 0"
+          >
             <i class="glyphicon glyphicon-trash"></i>
             Clear
           </button>
@@ -42,16 +47,15 @@
               <b>Copy</b> the text below and <b>paste</b> into your spreadsheet
               program, or a flashcard app like Anki or Quizlet.
             </p>
+            <b-form-group label="Inlcude:">
+              <b-form-checkbox-group
+                v-model="selectedCsvOptions"
+                :options="csvOptions"
+              ></b-form-checkbox-group>
+            </b-form-group>
             <h5>Full CSV</h5>
             <textarea
               id="export-textarea"
-              class="mt1 mb1 form-control"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <h5 class="mt-4">Simple CSV (for Quizlet)</h5>
-            <textarea
-              id="export-simple-textarea"
               class="mt1 mb1 form-control"
               cols="30"
               rows="10"
@@ -64,7 +68,7 @@
     <div class="row">
       <div class="col-sm-12">
         <p
-          v-if="loaded && savedWords.length === 0"
+          v-if="loaded && savedWords.length <= 0"
           class="alert alert-warning no-saved-words"
         >
           You don't have any words saved yet. Save words by clicking on the
@@ -102,7 +106,15 @@ export default {
   data() {
     return {
       loaded: false,
-      savedWords: []
+      savedWords: [],
+      selectedCsvOptions: ['simplified', 'traditional', 'pinyin', 'definitions', 'measureWords'],
+      csvOptions: [
+          { text: 'Simplified', value: 'simplified' },
+          { text: 'Traditional', value: 'traditional' },
+          { text: 'Pinyin', value: 'pinyin' },
+          { text: 'Definitions', value: 'definitions' },
+          { text: 'Measure Words', value: 'measureWords' }
+      ]
     }
   },
   computed: mapState({
@@ -111,76 +123,82 @@ export default {
   watch: {
     savedWordIds() {
       this.updateWords()
-    }
+    },
+    selectedCsvOptions() {
+      $('#export-textarea').val(this.csv());
+    },
   },
   mounted() {
-    this.updateWords()
+    this.updateWords();
   },
   methods: {
     updateWords() {
-      this.savedWords = []
+      this.savedWords = [];
 
-      for (let item of this.savedWordIds) {
-        let identifier = item.join(',').replace(/ /g, '_')
-        Helper.loaded(
-          (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-            this.loaded = true
+      Helper.loaded(
+        (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
+          this.loaded = true;
+          this.savedWordIds.forEach((word) => {
+            const identifier = word.join(',').replace(/ /g, '_');
             LoadedHSKCEDICT.getByIdentifier(
-              entry => {
-                this.savedWords.push(entry)
-              },
-              [identifier]
-            )
-          }
-        )
-      }
+              entry => this.savedWords.push(entry),
+              [identifier],
+            );
+          });
+        }
+      );
     },
     csv() {
-      let SavedWordsVue = this
+      if (this.savedWords.length <= 0) {
+        return '';
+      }
+
       return (
-        'Simplified\tTraditional\tPinyin\tDefinitions\tMeasure Words\n' +
-        SavedWordsVue.savedWords
-          .map(function(word) {
-            if (word) {
-              const definitions = word.definitions.map(function(definition) {
-                return definition.text
-              })
-              const measureWords =
-                word.measureWords && word.measureWords.length > 0
-                  ? word.measureWords
-                      .map(function(measureWord) {
-                        return `${
-                          measureWord.simplified
-                        } (${measureWord.traditional}, ${measureWord.pinyin})`
-                      })
-                      .join(', ')
-                  : ''
-              return `${word.simplified}\t${word.traditional}\t${
-                word.pinyin
-              }\t${definitions.join(', ')}\t${measureWords}`
-            }
-          })
-          .join('\n')
-      )
-    },
-    csvSimple() {
-      return this.savedWords
-        .map(function(word) {
-          if (word) {
+        this.savedWords.map((word) => {
+          let textToDisplay = '';
+
+          if (this.selectedCsvOptions.includes('simplified')) {
+            textToDisplay += `${word.simplified}\t`;
+          }  
+          
+          if (this.selectedCsvOptions.includes('traditional')) {
+            textToDisplay += `${word.traditional}\t`;
+          }    
+          
+          if (this.selectedCsvOptions.includes('pinyin')) {
+            textToDisplay += `${word.pinyin}\t`;
+          }       
+          
+          if (this.selectedCsvOptions.includes('definitions')) {
             const definitions = word.definitions.map(function(definition) {
               return definition.text
-            })
-            return `${word.simplified}\t${definitions.join(', ')}`
+            }).join(', ');
+
+            textToDisplay += `${definitions}\t`;
           }
-        })
-        .join('\n')
+
+          if (this.selectedCsvOptions.includes('measureWords')) {
+            const hasMeasureWords = word.measureWords && word.measureWords.length > 0;
+            let measureWords = '';
+            
+            if (hasMeasureWords) {
+              measureWords = word.measureWords.map((measureWord) => {
+                return `${measureWord.simplified} (${measureWord.traditional}, ${measureWord.pinyin})`
+              }).join(', ');
+            }
+
+            textToDisplay += `${measureWords}\t`
+          }
+
+          return textToDisplay;
+        }).join('\n')
+      );
     },
     showImportClick() {
       $('.import-wrapper').toggleClass('hidden')
     },
     showExportClick() {
       $('#export-textarea').val(this.csv())
-      $('#export-simple-textarea').val(this.csvSimple())
       $('.export-wrapper').toggleClass('hidden')
     },
     removeAllClick() {
@@ -188,7 +206,9 @@ export default {
         'Are you sure you want to remove all your saved words?'
       )
       if (confirmed) {
-        this.$store.dispatch('removeAllSavedWords')
+        this.$store.dispatch('removeAllSavedWords');
+        $('.export-wrapper').toggleClass('hidden', true);
+
       }
     },
     importClick() {
@@ -203,7 +223,7 @@ export default {
               for (let candidates of annotated) {
                 for (let candidate of candidates) {
                   if (candidate.pinyin) {
-                    this.$store.dispatch('addSavedWord', candidate.identifier)
+                    this.$store.dispatch('addSavedWord', candidate.identifier);
                   }
                 }
               }

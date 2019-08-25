@@ -114,6 +114,10 @@
               Turn {{ focus ? 'off' : 'on' }} Focus Mode
             </button>
             <hr />
+            <p>
+              Interesetd in contributing and making the tools available even better? This site is a fully open sourced and 
+              available to be viewed at <a href="https://github.com/longjiang/hsk-dictionary-cli" target="_blank">this github reprository.</a>
+            </p>
           </div>
         </div>
       </div>
