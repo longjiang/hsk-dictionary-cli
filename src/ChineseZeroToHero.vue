@@ -74,6 +74,13 @@
                   class="logo-footer"
                 />
               </a>
+              <a href="https://tlh.zerotohero.ca" class="mr-4">
+                <img
+                  src="/img/logo-tlh-zth-light.png"
+                  alt="Klingon Zero to Hero"
+                  class="logo-footer"
+                />
+              </a>
               <hr class="border-light" style="opacity: 0.5" />
               <p>
                 <b>Zero to Hero Education, Canada.</b>
