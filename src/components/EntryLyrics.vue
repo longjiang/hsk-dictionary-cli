@@ -1,18 +1,14 @@
 <template>
   <div v-if="lrcs && lrcs.length > 0">
     <!-- ANCHOR img/anchors/lyrics-bar.png -->
-    <div
-      class="container-fluid song-lyrics-bar"
-      :data-bg-hsk="entry.hsk"
-      v-cloak
-    >
+    <div class="container-fluid song-lyrics-bar" :data-bg-hsk="entry.hsk" v-cloak>
       <div class="container">
         <div class="col-sm-12 text-center">
-          <strong
-            >“<span class="simplified">{{ entry.simplified }}</span
-            ><span class="traditional">{{ entry.traditional }}</span
-            >” IN SONG LYRICS</strong
-          >
+          <strong>
+            “
+            <span class="simplified">{{ entry.simplified }}</span>
+            <span class="traditional">{{ entry.traditional }}</span>” IN SONG LYRICS
+          </strong>
         </div>
       </div>
     </div>
@@ -86,3 +82,11 @@ export default {
   }
 }
 </script>
+<style>
+.lyrics-bar {
+  background: #dedede;
+}
+.song-lyrics-bar {
+  padding: 1.5rem 0;
+}
+</style>

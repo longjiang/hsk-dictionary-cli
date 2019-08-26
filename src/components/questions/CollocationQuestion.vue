@@ -60,7 +60,7 @@
                 "
               ></div>
               <button
-                class="show-more mt-3"
+                class="btn-medium btn-gray mt-3"
                 v-on:click="choosePhrase()"
                 :data-bg-hsk="word.hsk"
                 :data-target-selector="`#Gramrels-${type}`"

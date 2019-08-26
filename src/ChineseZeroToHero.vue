@@ -194,7 +194,6 @@ export default {
   },
   mounted() {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')
-    window.entry = undefined
     window.ChineseZeroToHeroApp = this
 
     Helper.loaded(
@@ -213,5 +212,23 @@ export default {
 .logo-footer {
   height: 4rem;
   margin-bottom: 1rem;
+}
+.top-bar {
+  background-color: #3a3a3a;
+  color: white;
+}
+
+footer {
+  padding: 2rem 0;
+  background: #3e3e3e;
+  color: #ccc;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: white;
 }
 </style>

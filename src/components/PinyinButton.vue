@@ -3,19 +3,19 @@
     class="pinyin-button-wrapper concealed"
     v-observe-visibility="visibilityChanged"
   >
-    <button class="show-more pinyin-button add-pinyin" v-on:click="annotate">
+    <button class="btn-medium btn-gray pinyin-button add-pinyin" v-on:click="annotate">
       <span v-if="state == 'idle'">{{ this.buttonText }}</span>
       <span v-if="state == 'annotating'">Adding...</span>
     </button>
     <button
-      class="show-more show-pinyin"
+      class="btn-medium btn-gray show-pinyin"
       v-if="annotated && !shown"
       v-on:click="showPinyin()"
     >
       Show Pinyin
     </button>
     <button
-      class="show-more hide-pinyin"
+      class="btn-medium btn-gray hide-pinyin"
       v-if="annotated && shown"
       v-on:click="hidePinyin()"
     >

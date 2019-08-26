@@ -1,6 +1,6 @@
 <template>
   <div class="container" :key="'collocations-' + collocationsKey">
-    <div class="label song-label">
+    <div class="widget-title">
       Collocations with “{{ a.simplified }}” and “{{ b.simplified }}”
     </div>
     <div class="jumbotron-fluid bg-light p-4">

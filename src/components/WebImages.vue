@@ -1,6 +1,6 @@
 <template>
   <div class="web-images">
-    <div class="label song-label">Images of “{{ text }}” on the Web</div>
+    <div class="widget-title">Images of “{{ text }}” on the Web</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div
         class="image-wall"

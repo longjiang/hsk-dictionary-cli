@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="similarWords.length > 0">
-      <div class="label song-label">Compare with</div>
+      <div class="widget-title">Compare with</div>
       <div class="jumbotron-fluid bg-light p-4">
         <WordList
           collapse="10"

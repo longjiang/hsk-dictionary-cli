@@ -29,6 +29,15 @@ export default {
 </script>
 
 <style lang="scss">
+
+.definitions {
+  padding: 0;
+  list-style: none;
+}
+
+.definitions.collapsed li:nth-child(n + 4) {
+  display: none;
+}
 .definition-list-item {
   font-size: 1.1rem;
   font-style: italic;

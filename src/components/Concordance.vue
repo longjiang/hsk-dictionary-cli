@@ -1,32 +1,25 @@
 <template>
   <div :key="'concordance-' + concordanceKey">
-    <div class="label song-label">Sentences with “{{ text }}”</div>
+    <div class="widget-title">Sentences with “{{ text }}”</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="examples && examples.length > 0">
-        <ul
-          v-if="examples"
-          class="collapsed list-unstyled"
-          data-collapse-target
-        >
+        <ul v-if="examples" class="collapsed list-unstyled" data-collapse-target>
           <li v-for="example in examples">
             <Annotate tag="div" class="pt-2 pb-2">
-              <span
-                v-html="Helper.highlight(example.chinese, text, level)"
-              ></span>
+              <span v-html="Helper.highlight(example.chinese, text, level)"></span>
             </Annotate>
             <div v-if="example.english">{{ example.english }}</div>
             <hr />
           </li>
         </ul>
-        <ShowMoreButton
-          :length="examples.length"
-          :min="4"
-          :data-bg-hsk="level"
-        />
+        <ShowMoreButton :length="examples.length" :min="4" :data-bg-hsk="level" />
       </div>
       <div v-if="examples && examples.length === 0">
         Sorry, we could not find any “{{ text }}” examples. You can set a
-        different corpus in <a href="#/settings">Settings</a>.
+        different corpus in
+        <a
+          href="#/settings"
+        >Settings</a>.
       </div>
       <hr v-if="examples && examples.length === 0" />
       <div class="mt-4">
@@ -39,11 +32,7 @@
           "
           target="_blank"
         >
-          <img
-            src="img/logo-sketch-engine.png"
-            alt="Sketch Engine"
-            class="ml-2 logo-small"
-          />
+          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
         </a>
       </div>
       <hr />
@@ -102,3 +91,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

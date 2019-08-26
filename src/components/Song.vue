@@ -3,10 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 text-center youtube-versions-wrapper">
-          <div
-            class="youtube-versions p-3 rounded"
-            :id="`${_uid}-lrc-${lrcIndex}-youtube`"
-          >
+          <div class="youtube-versions p-3 rounded" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
             <YouTubeVideo
               :youtube="lrc.youtube[currentYoutubeIndex]"
               :startTime="
@@ -21,9 +18,13 @@
               <button class="btn-small" @click="youtubePrev">
                 <font-awesome-icon icon="chevron-left" />
               </button>
-              <b> {{ currentYoutubeIndex + 1 }}</b> of
+              <b>{{ currentYoutubeIndex + 1 }}</b>
+              of
               {{ lrc.youtube.length }}
-              <button class="btn-small" @click="youtubeNext">
+              <button
+                class="btn-small"
+                @click="youtubeNext"
+              >
                 <font-awesome-icon icon="chevron-right" />
               </button>
             </div>
@@ -34,71 +35,18 @@
                 class="btn btn-danger"
                 @click="addYouTube"
                 v-if="!gettingYouTube"
-              >
-                Get YouTube Videos
-              </button>
+              >Get YouTube Videos</button>
               <Loader v-if="gettingYouTube" />
             </div>
           </div>
         </div>
         <div class="col-md-6 lyrics-wrapper sm-mb2">
-          <Annotate
-            tag="div"
-            :class="{
-              lyrics: true,
-              'mb-4': true,
-              collapsed: collapse,
-              matched: lrc.matchedLines && lrc.matchedLines.length > 0
-            }"
-            :id="'lyrics-' + lrcIndex"
-            data-collapse-target
-          >
-            <div
-              class="lyrics-title"
-              v-html="lrc.artist + '《' + lrc.title + '》'"
-            ></div>
-            <hr />
-            <div
-              v-for="(line, lineIndex) in lrc.content.filter(
-                line => !LRC.rejectLine(line.line)
-              )"
-              :key="lineIndex"
-              :class="{
-                'lyrics-line': true,
-                matched:
-                  lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
-                'matched-context': LRC.inContext(lineIndex, 2, lrc),
-                'lyrics-line-current':
-                  parseFloat(line.starttime) < currentTime &&
-                  currentTime <
-                    parseFloat(
-                      lrc.content[
-                        Math.min(lrc.content.length - 1, lineIndex + 1)
-                      ].starttime
-                    )
-              }"
-              v-on:click="seekYouTube(line.starttime)"
-              v-html="
-                entry
-                  ? Helper.highlight(line.line, entry.simplified, entry.hsk)
-                  : line.line
-              "
-            ></div>
-          </Annotate>
-          <ShowMoreButton
-            v-if="collapse"
-            :data-bg-hsk="entry ? entry.hsk : 'outside'"
-            >Show More</ShowMoreButton
-          >
-          <button
-            v-if="!removed"
-            class="ml-2 btn-medium btn-danger"
-            @click="remove"
-          >
-            <font-awesome-icon icon="trash" /> Delete
+          <SyncedTranscript />
+          <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
+            <font-awesome-icon icon="trash" />Delete
           </button>
           <span v-if="removed">
-            <font-awesome-icon icon="check" class="ml-2 text-success" /> Removed
+            <font-awesome-icon icon="check" class="ml-2 text-success" />Removed
           </span>
         </div>
       </div>
@@ -279,6 +227,10 @@ export default {
 .youtube-versions {
   background: white;
   margin-bottom: 2rem;
+}
+
+.youtube-versions .youtube:not(:first-child) {
+  display: none;
 }
 
 @media (max-width: 768px) {

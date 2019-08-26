@@ -1,6 +1,6 @@
 <template>
   <div class="korean">
-    <div class="label song-label">Learning Korean?</div>
+    <div class="widget-title">Learning Korean?</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="words">
         <div v-for="word in words">

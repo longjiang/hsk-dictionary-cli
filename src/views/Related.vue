@@ -13,24 +13,20 @@
             <div v-if="related && related.length > 1">
               <PinyinButton />
               <h4 class="text-center mt-5">
-                Words related to “<span class="simplified">{{
+                Words related to “
+                <span class="simplified">
+                  {{
                   word.simplified
-                }}</span
-                ><span class="traditional">{{ word.traditional }}</span
-                >”
+                  }}
+                </span>
+                <span class="traditional">{{ word.traditional }}</span>”
               </h4>
               <Merge direction="bottom" class="h-half mt-5 mb-5" />
               <Loader class="mt-5" />
               <div>
-                <WordListExtended
-                  class="focus"
-                  :words="related.slice(0, 30)"
-                  :compareWith="word"
-                />
+                <WordListExtended class="focus" :words="related.slice(0, 30)" :compareWith="word" />
               </div>
-              <h4 v-if="related.length > 30" class="text-center mb-5">
-                More Related Words
-              </h4>
+              <h4 v-if="related.length > 30" class="text-center mb-5">More Related Words</h4>
               <WordList
                 v-if="related.length > 30"
                 :compareWith="word"

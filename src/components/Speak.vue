@@ -19,3 +19,16 @@ export default {
   }
 }
 </script>
+
+<style>
+i.speak {
+  cursor: pointer;
+  color: #ccc;
+  position: relative;
+  top: 0.2em;
+}
+
+.speak:hover {
+  color: inherit;
+}
+</style>

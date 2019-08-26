@@ -24,7 +24,7 @@
       v-if="grammar.url !== ''"
       :href="grammar.url"
       :data-bg-hsk="grammar.book"
-      class="show-more mt-3 pl-3 pr-3"
+      class="btn-medium btn-gray mt-3 pl-3 pr-3"
       target="_blank"
     >
       <i class="glyphicon glyphicon-facetime-video mr-2"></i>
@@ -50,4 +50,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.grammar-notes-item {
+  padding: 2rem 0;
+}
+
+.grammar-english {
+  margin-bottom: 1rem;
+}
+</style>

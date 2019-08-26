@@ -1,25 +1,5 @@
 <template>
   <div :key="'collocations-' + collocationsKey" v-if="colDesc">
-    <!-- <div class="row" v-if="!show">
-      <div class="col-sm-12 text-center">
-        <div class="label song-label">
-          Collocations with “<span class="simplified">{{
-            entry.simplified
-          }}</span
-          ><span class="traditional">{{ entry.traditional }}</span
-          >”
-        </div>
-        <div class=" pt-4 pb-4 lyrics-bar">
-          <button
-            class="btn show-more"
-            :data-bg-hsk="entry.hsk"
-            @click="showClick"
-          >
-            Show Collocations
-          </button>
-        </div>
-      </div>
-    </div> -->
     <div>
       <div class="row">
         <div

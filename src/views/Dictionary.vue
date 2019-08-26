@@ -13,10 +13,9 @@
         </div>
       </div>
     </div>
-    <div class="jumbotron jumbotron-fluid pt-3 pb-3 bg-secondary">
+    <div v-if="saved()" class="jumbotron jumbotron-fluid pt-3 pb-3 mb-0 bg-secondary">
       <div class="container focus-exclude text-center text-light">
         <Paginator
-          v-if="saved()"
           :items="$store.state.savedWords"
           :findCurrent="
             item => item.join(',').replace(/ /g, '_') === entry.identifier
@@ -32,12 +31,9 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 text-center">
+          <div class="col-sm-12 text-center mt-5">
             <EntryHeader :entry="entry"></EntryHeader>
-            <DefinitionsList
-              class="mt-4"
-              :definitions="entry.definitions"
-            ></DefinitionsList>
+            <DefinitionsList class="mt-4" :definitions="entry.definitions"></DefinitionsList>
           </div>
         </div>
       </div>
@@ -79,25 +75,12 @@
               :pinyin="entry.pinyin"
             ></EntryCharacters>
 
-            <WebImages
-              class="mt-5"
-              :text="entry.simplified"
-              :entry="entry"
-              limit="10"
-            ></WebImages>
+            <WebImages class="mt-5" :text="entry.simplified" :entry="entry" limit="10"></WebImages>
 
             <Grammar :text="entry.simplified" class="mt-5"></Grammar>
 
-            <Collocations
-              class="mt-5 mb-5"
-              :text="entry.simplified"
-              :level="entry.hsk"
-            ></Collocations>
-            <Concordance
-              class="mt-5 mb-5"
-              :text="entry.simplified"
-              :level="entry.hsk"
-            ></Concordance>
+            <Collocations class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Collocations>
+            <Concordance class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Concordance>
 
             <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
           </div>
@@ -182,9 +165,7 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
-      document.title = `${entry.simplified} (${entry.pinyin}) ${
-        entry.definitions[0].text
-      } | Chinese Zero to Hero`
+      document.title = `${entry.simplified} (${entry.pinyin}) ${entry.definitions[0].text} | Chinese Zero to Hero`
     },
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()

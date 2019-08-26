@@ -8,7 +8,7 @@
           unless you clear your browsing data.
         </p>
         <hr />
-        <div class="my-words-tools mt1 mb1 text-right">
+        <div class="my-words-tools mt-2 mb-2 text-right">
           <button
             class="upload-list btn btn-primary"
             v-on:click="showImportClick"
@@ -33,7 +33,7 @@
           <div class="import-wrapper hidden">
             <textarea
               id="import-textarea"
-              class="mt1 mb1 form-control"
+              class="mt-2 mb-2 form-control"
               cols="30"
               rows="10"
               placeholder="Paste your list or text here to add all words to your 'saved words'"
@@ -55,7 +55,7 @@
             </b-form-group>
             <textarea
               id="export-textarea"
-              class="mt1 mb1 form-control"
+              class="mt-2 mb-2 form-control"
               cols="30"
               rows="10"
             ></textarea>

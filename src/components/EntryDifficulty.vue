@@ -1,6 +1,6 @@
 <template>
   <div class="entry-difficulty">
-    <div class="label song-label">Difficulty</div>
+    <div class="widget-title">Difficulty</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div class="frequency-level text-center" v-bind:data-bg-hsk="entry.hsk">
         {{ entry.hsk === 'outside' ? 'Non-HSK' : 'HSK ' + entry.hsk }}
