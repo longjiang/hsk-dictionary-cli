@@ -1,7 +1,7 @@
 <template>
   <div class="paginator">
     <a
-      class="paginator-previous mr-3 btn btn-light"
+      class="paginator-previous mr-3 btn btn-dark"
       :href="url(previous)"
       title="Previous word"
       v-if="previous"
@@ -10,7 +10,7 @@
     </a>
     {{ title }} <b>{{ currentIndex + 1 }}</b> of {{ items.length }}
     <a
-      class="paginator-next ml-3 btn btn-light"
+      class="paginator-next ml-3 btn btn-dark"
       :href="url(next)"
       title="Next word"
       v-if="next"

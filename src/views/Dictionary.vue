@@ -1,6 +1,6 @@
 <template>
   <div class="main focus mt-5" v-cloak :key="'entry-' + entryKey">
-    <div class="jumbotron jumbotron-fluid pt-5 pb-3">
+    <div class="jumbotron jumbotron-fluid pt-5 pb-3 mb-0">
       <div class="container focus-exclude">
         <div class="row">
           <div class="col-sm-12">
@@ -13,6 +13,19 @@
         </div>
       </div>
     </div>
+    <div class="jumbotron jumbotron-fluid pt-3 pb-3 bg-secondary">
+      <div class="container focus-exclude text-center text-light">
+        <Paginator
+          v-if="saved()"
+          :items="$store.state.savedWords"
+          :findCurrent="
+            item => item.join(',').replace(/ /g, '_') === entry.identifier
+          "
+          :url="item => `#/view/cedict/${item.join(',').replace(/ /g, '_')}`"
+          title="Saved Words"
+        />
+      </div>
+    </div>
     <div v-if="entry">
       <div class="text-center">
         <Loader class="mt-5" />
@@ -20,18 +33,6 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
-            <Paginator
-              v-if="saved()"
-              :items="$store.state.savedWords"
-              :findCurrent="
-                item => item.join(',').replace(/ /g, '_') === entry.identifier
-              "
-              :url="
-                item => `#/view/cedict/${item.join(',').replace(/ /g, '_')}`
-              "
-              title="Saved Words"
-              class="mb-4"
-            />
             <EntryHeader :entry="entry"></EntryHeader>
             <DefinitionsList
               class="mt-4"
