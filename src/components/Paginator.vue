@@ -1,85 +1,61 @@
 <template>
-  <div>
-    <button
-      class="paginate-button previous"
-      v-on:click="previousClick"
+  <div class="paginator">
+    <a
+      class="paginator-previous mr-3 btn btn-light"
+      :href="url(previous)"
       title="Previous word"
-      v-if="!minimal && hasPrevious"
+      v-if="previous"
     >
-      <img src="img/angle-left.svg" alt />
-    </button>
-    <button
-      class="paginate-button next"
-      v-on:click="nextClick"
+      <font-awesome-icon icon="chevron-left" />
+    </a>
+    {{ title }} <b>{{ currentIndex + 1 }}</b> of {{ items.length }}
+    <a
+      class="paginator-next ml-3 btn btn-light"
+      :href="url(next)"
       title="Next word"
-      v-if="!minimal && hasNext"
+      v-if="next"
     >
-      <img src="img/angle-right.svg" alt />
-    </button>
+      <font-awesome-icon icon="chevron-right" />
+    </a>
   </div>
 </template>
 
 <script>
-import List from '@/lib/list'
 export default {
   props: {
-    entry: {
-      type: Object
+    title: {
+      default: 'Item'
+    },
+    items: {
+      type: Array
+    },
+    findCurrent: {
+      type: Function
+    },
+    url: {
+      type: Function
     }
   },
   computed: {
-    hasPrevious: function() {
-      const list = this.list()
-      if (list) {
-        return list.hasPrevious()
+    currentIndex() {
+      return this.items.findIndex(this.findCurrent)
+    },
+    previous() {
+      if (this.currentIndex - 1 >= 0) {
+        return this.items[this.currentIndex - 1]
       } else {
         return false
       }
     },
-    hasNext: function() {
-      const list = this.list()
-      if (list) {
-        return list.hasNext()
+    next() {
+      if (this.currentIndex + 1 < this.items.length) {
+        return this.items[this.currentIndex + 1]
       } else {
         return false
       }
     }
   },
-  methods: {
-    findCurrentFunction(entry) {
-      return function(item) {
-        return item.join(',').replace(/ /g, '_') === entry.identifier
-      }
-    },
-    list() {
-      const savedWords = this.$store.state.savedWords
-      if (savedWords.length > 0) {
-        const list = new List(savedWords)
-        list.setCurrent(this.findCurrentFunction(this.entry))
-        return list
-      }
-    },
-    previousClick() {
-      let list = this.list()
-      if (list.hasPrevious()) {
-        const identifier = list
-          .previous()
-          .join(',')
-          .replace(/ /g, '_')
-        location.hash = `/view/cedict/${identifier}`
-      }
-    },
-    nextClick() {
-      let list = this.list()
-      if (list.hasNext()) {
-        const identifier = list
-          .next()
-          .join(',')
-          .replace(/ /g, '_')
-        location.hash = `/view/cedict/${identifier}`
-      }
-    }
-  }
+  mounted() {}
 }
 </script>
 

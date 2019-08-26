@@ -1,13 +1,15 @@
 <template>
   <div class="main focus mt-5" v-cloak :key="'entry-' + entryKey">
-    <div class="container focus-exclude">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="text-center">
-            <h2 class="mb-5">For the love of Chinese words.</h2>
-            <Loader ref="loader" class="mb-5" />
+    <div class="jumbotron jumbotron-fluid pt-5 pb-3">
+      <div class="container focus-exclude">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-center">
+              <h2 class="mb-4">For the love of Chinese words.</h2>
+              <Loader ref="loader" class="mb-5" />
+            </div>
+            <SearchCompare :searchEntry="entry" class="mb-5" />
           </div>
-          <SearchCompare :searchEntry="entry" class="mb-5" />
         </div>
       </div>
     </div>
@@ -18,6 +20,18 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
+            <Paginator
+              v-if="saved()"
+              :items="$store.state.savedWords"
+              :findCurrent="
+                item => item.join(',').replace(/ /g, '_') === entry.identifier
+              "
+              :url="
+                item => `#/view/cedict/${item.join(',').replace(/ /g, '_')}`
+              "
+              title="Saved Words"
+              class="mb-4"
+            />
             <EntryHeader :entry="entry"></EntryHeader>
             <DefinitionsList
               class="mt-4"
@@ -124,6 +138,7 @@ import DefinitionsList from '@/components/DefinitionsList'
 import EntryDifficulty from '@/components/EntryDifficulty'
 import Korean from '@/components/Korean'
 import Japanese from '@/components/Japanese'
+import Paginator from '@/components/Paginator'
 import $ from 'jquery'
 
 export default {
@@ -140,6 +155,7 @@ export default {
     EntryLyrics,
     Mistakes,
     DefinitionsList,
+    Paginator,
     InstagramButton,
     Korean,
     EntryDifficulty,
@@ -157,6 +173,11 @@ export default {
     }
   },
   methods: {
+    saved() {
+      return (
+        this.entry && this.$store.getters.hasSavedWord(this.entry.identifier)
+      )
+    },
     show(entry) {
       this.entryKey += 1
       this.entry = entry
