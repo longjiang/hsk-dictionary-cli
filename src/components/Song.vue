@@ -43,18 +43,19 @@
           </div>
         </div>
         <div class="col-md-6 lyrics-wrapper sm-mb2">
+          <button
+            v-if="!removed"
+            class="btn-medium btn-gray"
+            style="float:right"
+            @click="remove"
+          >
+            <font-awesome-icon icon="trash" class="mr-2" />Delete
+          </button>
           <Annotate
             tag="div"
             class="transcript-title"
             v-html="lrc.artist + '《' + lrc.title + '》'"
           ></Annotate>
-          <button
-            v-if="!removed"
-            class="btn-medium btn-danger"
-            @click="remove"
-          >
-            <font-awesome-icon icon="trash" class="mr-2" />Delete
-          </button>
           <hr />
           <SyncedTranscript
             ref="transcript"
