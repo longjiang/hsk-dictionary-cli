@@ -1,54 +1,102 @@
 <template>
-  <div>
+  <div class="synced-transcript">
     <Annotate
       tag="div"
       :class="{
-        lyrics: true,
+        transcript: true,
         'mb-4': true,
-        collapsed: collapse,
-        matched: lrc.matchedLines && lrc.matchedLines.length > 0
+        collapsed: collapse
       }"
-      :id="'lyrics-' + lrcIndex"
       data-collapse-target
     >
       <div
-        class="lyrics-title"
-        v-html="lrc.artist + '《' + lrc.title + '》'"
-      ></div>
-      <hr />
-      <div
-        v-for="(line, lineIndex) in lrc.content.filter(
-          line => !LRC.rejectLine(line.line)
-        )"
+        v-for="(line, lineIndex) in lines"
         :key="lineIndex"
         :class="{
-          'lyrics-line': true,
-          matched: lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
-          'matched-context': LRC.inContext(lineIndex, 2, lrc),
-          'lyrics-line-current':
+          'transcript-line': true,
+          'transcript-line-current':
             parseFloat(line.starttime) < currentTime &&
             currentTime <
               parseFloat(
-                lrc.content[Math.min(lrc.content.length - 1, lineIndex + 1)]
+                lines[Math.min(lines.length - 1, lineIndex + 1)]
                   .starttime
               )
         }"
-        v-on:click="seekYouTube(line.starttime)"
-        v-html="
-          entry
-            ? Helper.highlight(line.line, entry.simplified, entry.hsk)
-            : line.line
-        "
-      ></div>
+        v-on:click="currentTime = line.starttime"
+      >{{ line.line }}</div>
     </Annotate>
-    <ShowMoreButton v-if="collapse" :data-bg-hsk="entry ? entry.hsk : 'outside'"
-      >Show More</ShowMoreButton
-    >
+    <ShowMoreButton v-if="collapse" :data-bg-hsk="entry ? entry.hsk : 'outside'">Show More</ShowMoreButton>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    lines: {
+      type: Array
+    }
+  },
+  data() {
+    return {
+      currentTime: {
+        default: 0
+      }
+    }
+  }
+}
 </script>
 
-<style></style>
+<style>
+.transcript {
+  min-height: 9.5rem;
+}
+
+.transcript-line {
+  cursor: pointer;
+  position: relative;
+  color: #666;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.transcript-line-current,
+.transcript-line:hover {
+  box-shadow: 0 0 10px rgba(255, 95, 32, 0.301);
+  border-radius: 0.25rem;
+}
+
+.transcript-line.matched {
+  color: #616161;
+  font-weight: bold;
+}
+
+.transcript-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.transcript-line:hover::before {
+  content: '▶︎';
+  font-size: 1.5rem;
+  width: 4rem;
+  line-height: 0.8rem;
+  display: block;
+  color: #f7613540;
+  position: absolute;
+  right: -2rem;
+  bottom: 1rem;
+  font-weight: bold;
+}
+
+.transcript.collapsed .transcript-line {
+  display: none;
+}
+
+.transcript.collapsed.matched .transcript-line.matched-context {
+  display: block;
+}
+
+.transcript.collapsed:not(.matched) .transcript-line:nth-child(-n + 6) {
+  display: block;
+}
+</style>

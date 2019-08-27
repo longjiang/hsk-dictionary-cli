@@ -41,7 +41,16 @@
           </div>
         </div>
         <div class="col-md-6 lyrics-wrapper sm-mb2">
-          <SyncedTranscript />
+          <div class="transcript">
+            <Annotate tag="div" class="transcript-title" v-html="lrc.artist + '《' + lrc.title + '》'"></Annotate>
+            <hr />
+          </div>
+          <SyncedTranscript
+            ref="transcript"
+            :lines="lrc.content.filter(
+          line => !LRC.rejectLine(line.line)
+          )"
+          />
           <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
             <font-awesome-icon icon="trash" />Delete
           </button>
@@ -61,11 +70,13 @@ import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
 import Loader from '@/components/Loader'
+import SyncedTranscript from '@/components/SyncedTranscript'
 import { setInterval } from 'timers'
 
 export default {
   components: {
-    YouTubeVideo
+    YouTubeVideo,
+    SyncedTranscript
   },
   data() {
     return {
@@ -73,13 +84,12 @@ export default {
       Helper,
       removed: false,
       currentYoutubeIndex: 0,
-      gettingYouTube: false,
-      currentTime: 0
+      gettingYouTube: false
     }
   },
   mounted() {
     setInterval(() => {
-      this.currentTime = this.$refs.youtube
+      this.$refs.transcript.currentTime = this.$refs.youtube
         ? this.$refs.youtube.currentTime()
         : 0
     }, 200)
@@ -162,59 +172,6 @@ export default {
 .song {
   padding: 2rem 0;
   margin: 0;
-}
-
-.lyrics {
-  min-height: 9.5rem;
-}
-
-.lyrics-line {
-  cursor: pointer;
-  position: relative;
-  color: #666;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-}
-
-.lyrics-line-current,
-.lyrics-line:hover {
-  box-shadow: 0 0 10px rgba(255, 95, 32, 0.301);
-  border-radius: 0.25rem;
-}
-
-.lyrics-line.matched {
-  color: #616161;
-  font-weight: bold;
-}
-
-.lyrics-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.lyrics-line:hover::before {
-  content: '▶︎';
-  font-size: 1.5rem;
-  width: 4rem;
-  line-height: 0.8rem;
-  display: block;
-  color: #f7613540;
-  position: absolute;
-  right: -2rem;
-  bottom: 1rem;
-  font-weight: bold;
-}
-
-.lyrics.collapsed .lyrics-line {
-  display: none;
-}
-
-.lyrics.collapsed.matched .lyrics-line.matched-context {
-  display: block;
-}
-
-.lyrics.collapsed:not(.matched) .lyrics-line:nth-child(-n + 6) {
-  display: block;
 }
 
 .youtube-versions-wrapper,
