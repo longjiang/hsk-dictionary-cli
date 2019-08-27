@@ -50,6 +50,7 @@
             :lines="lrc.content.filter(
           line => !LRC.rejectLine(line.line)
           )"
+            :onSeek="seekYouTube"
           />
           <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
             <font-awesome-icon icon="trash" />Delete

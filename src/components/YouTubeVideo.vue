@@ -46,7 +46,9 @@ export default {
   },
   methods: {
     currentTime() {
-      return this.player ? this.player.getCurrentTime() : 0
+      return this.player && this.player.getCurrentTime
+        ? this.player.getCurrentTime()
+        : 0
     },
     loadYouTubeiFrame() {
       let that = this

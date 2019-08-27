@@ -22,7 +22,7 @@
                   .starttime
               )
         }"
-        v-on:click="currentTime = line.starttime"
+        v-on:click="onSeek(line.starttime)"
       >{{ line.line }}</div>
     </Annotate>
     <ShowMoreButton v-if="collapse" :data-bg-hsk="entry ? entry.hsk : 'outside'">Show More</ShowMoreButton>
@@ -34,6 +34,12 @@ export default {
   props: {
     lines: {
       type: Array
+    },
+    collapse: {
+      default: false
+    },
+    onSeek: {
+      default: function(starttime) {}
     }
   },
   data() {
