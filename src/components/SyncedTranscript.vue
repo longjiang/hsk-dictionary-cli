@@ -14,22 +14,29 @@
         :key="lineIndex"
         :class="{
           'transcript-line': true,
+          matched: highlight && line.line.includes(highlight),
           'transcript-line-current':
             parseFloat(line.starttime) < currentTime &&
             currentTime <
               parseFloat(
-                lines[Math.min(lines.length - 1, lineIndex + 1)]
-                  .starttime
+                lines[Math.min(lines.length - 1, lineIndex + 1)].starttime
               )
         }"
         v-on:click="onSeek(line.starttime)"
-      >{{ line.line }}</div>
+        v-html="
+          highlight ? Helper.highlight(line.line, highlight, hsk) : line.line
+        "
+      ></div>
     </Annotate>
-    <ShowMoreButton v-if="collapse" :data-bg-hsk="entry ? entry.hsk : 'outside'">Show More</ShowMoreButton>
+    <ShowMoreButton v-if="collapse" :data-bg-hsk="hsk ? hsk : 'outside'"
+      >Show More</ShowMoreButton
+    >
   </div>
 </template>
 
 <script>
+import Helper from '@/lib/helper'
+
 export default {
   props: {
     lines: {
@@ -40,21 +47,26 @@ export default {
     },
     onSeek: {
       default: function(starttime) {}
+    },
+    highlight: {
+      default: false
+    },
+    hsk: {
+      default: 'outside'
     }
   },
   data() {
     return {
-      currentTime: {
-        default: 0
-      }
+      Helper,
+      currentTime: 0
     }
   }
 }
 </script>
 
 <style>
-.transcript {
-  min-height: 9.5rem;
+.transcript.collapsed .transcript-line:nth-child(n + 6) {
+  display: none;
 }
 
 .transcript-line {
@@ -92,17 +104,5 @@ export default {
   right: -2rem;
   bottom: 1rem;
   font-weight: bold;
-}
-
-.transcript.collapsed .transcript-line {
-  display: none;
-}
-
-.transcript.collapsed.matched .transcript-line.matched-context {
-  display: block;
-}
-
-.transcript.collapsed:not(.matched) .transcript-line:nth-child(-n + 6) {
-  display: block;
 }
 </style>

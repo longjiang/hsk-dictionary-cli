@@ -3,7 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 text-center youtube-versions-wrapper">
-          <div class="youtube-versions p-3 rounded" :id="`${_uid}-lrc-${lrcIndex}-youtube`">
+          <div
+            class="youtube-versions p-3 rounded"
+            :id="`${_uid}-lrc-${lrcIndex}-youtube`"
+          >
             <YouTubeVideo
               :youtube="lrc.youtube[currentYoutubeIndex]"
               :startTime="
@@ -21,10 +24,7 @@
               <b>{{ currentYoutubeIndex + 1 }}</b>
               of
               {{ lrc.youtube.length }}
-              <button
-                class="btn-small"
-                @click="youtubeNext"
-              >
+              <button class="btn-small" @click="youtubeNext">
                 <font-awesome-icon icon="chevron-right" />
               </button>
             </div>
@@ -35,26 +35,35 @@
                 class="btn btn-danger"
                 @click="addYouTube"
                 v-if="!gettingYouTube"
-              >Get YouTube Videos</button>
+              >
+                Get YouTube Videos
+              </button>
               <Loader v-if="gettingYouTube" />
             </div>
           </div>
         </div>
         <div class="col-md-6 lyrics-wrapper sm-mb2">
-          <div class="transcript">
-            <Annotate tag="div" class="transcript-title" v-html="lrc.artist + '《' + lrc.title + '》'"></Annotate>
-            <hr />
-          </div>
+          <Annotate
+            tag="div"
+            class="transcript-title"
+            v-html="lrc.artist + '《' + lrc.title + '》'"
+          ></Annotate>
+          <button
+            v-if="!removed"
+            class="btn-medium btn-danger"
+            @click="remove"
+          >
+            <font-awesome-icon icon="trash" class="mr-2" />Delete
+          </button>
+          <hr />
           <SyncedTranscript
             ref="transcript"
-            :lines="lrc.content.filter(
-          line => !LRC.rejectLine(line.line)
-          )"
+            :lines="lrc.content.filter(line => line.line.length > 0)"
             :onSeek="seekYouTube"
+            :highlight="entry ? entry.simplified : false"
+            :hsk="entry ? entry.hsk : 'outside'"
+            collapse="true"
           />
-          <button v-if="!removed" class="ml-2 btn-medium btn-danger" @click="remove">
-            <font-awesome-icon icon="trash" />Delete
-          </button>
           <span v-if="removed">
             <font-awesome-icon icon="check" class="ml-2 text-success" />Removed
           </span>
@@ -97,7 +106,7 @@ export default {
   },
   props: {
     entry: {
-      type: Object
+      default: false
     },
     lrc: {
       type: Object
