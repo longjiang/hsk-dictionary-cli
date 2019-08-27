@@ -34,27 +34,6 @@
             v-if="part.definition"
             >{{ part.definition }}</span
           >
-          <!-- component example lookup works but can't seem to get the list to update -->
-          <!-- <button
-          v-if="!part.characters"
-          class="btn btn-small"
-          @click="getPartExamples(part)"
-        >
-          Characters
-        </button>
-        <span v-if="part.getting">Looking up characters...</span>
-        {{ character.examples ? character.examples.length : '' }}
-        <div
-          v-for="character in part.characters"
-          :key="`${character.character}-${charKey}`"
-        >
-          {{ character.examples }}
-          <WordList
-            v-if="character.examples"
-            :words="character.examples"
-            :highlight="character.character"
-          />
-        </div> -->
         </div>
         <div class="etymology" v-if="character.etymology">
           <span v-if="character.etymology.type">

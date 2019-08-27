@@ -1,8 +1,8 @@
 <template>
   <div class="animated-svg-wrapper">
     <img :src="src" class="animated-svg" />
-    <button class="replay-btn show-more mt-2 focus-exclude" @click="playSVG">
-      <i class="glyphicon glyphicon-play"></i> Play Again
+    <button class="replay-btn btn-medium btn-gray mt-2 focus-exclude" @click="playSVG">
+      <font-awesome-icon icon="play" /> Stroke Order
     </button>
   </div>
 </template>
