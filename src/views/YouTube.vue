@@ -56,7 +56,7 @@ export default {
         : 0
     }, 200)
     Helper.scrape(
-      `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-Hans&fmt=srv3`,
+      `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3`,
       $html => {
         for (let p of $html.find('p')) {
           let line = {
@@ -69,7 +69,7 @@ export default {
       }
     ),
       Helper.scrape(
-        `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-Hans&fmt=srv3&tlang=en`,
+        `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3&tlang=en`,
         $html => {
           for (let p of $html.find('p')) {
             let line = {
