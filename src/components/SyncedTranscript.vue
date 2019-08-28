@@ -22,7 +22,7 @@
                 lines[Math.min(lines.length - 1, lineIndex + 1)].starttime
               )
         }"
-        v-on:click="onSeek(line.starttime)"
+        v-on:click="seek(line.starttime)"
         v-html="
           highlight ? Helper.highlight(line.line, highlight, hsk) : line.line
         "
@@ -46,7 +46,7 @@ export default {
       default: false
     },
     onSeek: {
-      default: function(starttime) {}
+      default: false
     },
     highlight: {
       default: false
@@ -59,6 +59,13 @@ export default {
     return {
       Helper,
       currentTime: 0
+    }
+  },
+  methods: {
+    seek(starttime) {
+      if (this.onSeek) {
+        this.onSeek(starttime)
+      }
     }
   }
 }

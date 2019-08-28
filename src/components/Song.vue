@@ -99,6 +99,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.lrc)
     setInterval(() => {
       this.$refs.transcript.currentTime = this.$refs.youtube
         ? this.$refs.youtube.currentTime()
