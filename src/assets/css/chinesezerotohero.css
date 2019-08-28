@@ -11,6 +11,12 @@ body {
   max-height: 4rem;
 }
 
+.sticky {
+  position: sticky;
+  z-index: 2;
+  top: 1rem;
+}
+
 .highlight {
   font-weight: bold;
 }

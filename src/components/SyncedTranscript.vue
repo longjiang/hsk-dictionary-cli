@@ -22,11 +22,20 @@
                 lines[Math.min(lines.length - 1, lineIndex + 1)].starttime
               )
         }"
-        v-on:click="seek(line.starttime)"
-        v-html="
-          highlight ? Helper.highlight(line.line, highlight, hsk) : line.line
-        "
-      ></div>
+        v-on:click="sock(line.starttime)"
+      >
+        <div
+          class="transcript-line-chinese"
+          v-html="
+            highlight ? Helper.highlight(line.line, highlight, hsk) : line.line
+          "
+        ></div>
+        <div
+          v-if="parallellines && parallellines[lineIndex]"
+          class="transcript-line-english"
+          v-html="parallellines[lineIndex].line"
+        ></div>
+      </div>
     </Annotate>
     <ShowMoreButton v-if="collapse" :data-bg-hsk="hsk ? hsk : 'outside'"
       >Show More</ShowMoreButton
@@ -41,6 +50,9 @@ export default {
   props: {
     lines: {
       type: Array
+    },
+    parallellines: {
+      default: false
     },
     collapse: {
       default: false
@@ -62,7 +74,7 @@ export default {
     }
   },
   methods: {
-    seek(starttime) {
+    sock(starttime) {
       if (this.onSeek) {
         this.onSeek(starttime)
       }
