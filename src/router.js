@@ -305,12 +305,27 @@ export default new Router({
       }
     },
     {
-      path: '/youtube/:method?/:args?',
+      path: '/youtube/view/:args?',
       name: 'reader',
-      component: () => import('./views/YouTube.vue'),
+      component: () => import('./views/YouTubeView.vue'),
       props: true,
       meta: {
         title: 'YouTube Reader | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Watch Chinese YouTube videos and study the subtitles.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/youtube/browse/:args?',
+      name: 'reader',
+      component: () => import('./views/YouTubeBrowse.vue'),
+      props: true,
+      meta: {
+        title: 'Study YouTube Subtitles | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',

@@ -2,6 +2,11 @@
   <div class="youtube-view main">
     <div class="container mt-5 mb-5">
       <div class="row">
+        <div class="col-sm-12">
+          <YouTubeNav class="mb-5" />
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <div class="sticky">
             <YouTubeVideo ref="youtube" :youtube="args" />
@@ -23,17 +28,16 @@
 <script>
 import YouTubeVideo from '@/components/YouTubeVideo'
 import SyncedTranscript from '@/components/SyncedTranscript'
+import YouTubeNav from '@/components/YouTubeNav'
 import Helper from '@/lib/helper'
 
 export default {
   components: {
+    YouTubeNav,
     YouTubeVideo,
     SyncedTranscript
   },
   props: {
-    method: {
-      type: String
-    },
     args: {
       type: String
     }
