@@ -13,9 +13,7 @@
           </div>
         </div>
         <div class="col-sm-6" :key="'transcript-' + args">
-          <div v-if="loading">
-            Loading ...
-          </div>
+          <Loader v-if="loading" />
           <SyncedTranscript
             ref="transcript"
             :onSeek="seekYouTube"
