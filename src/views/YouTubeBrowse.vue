@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
-        <div class="jumbotron pt-4 pb-3 mt-3 mb-3">
+        <YouTubeNav class="mb-4"/>
+        <div class="jumbotron bg-light pt-4 pb-3 mt-3 mb-3">
           <h4>
             Study
             <em>any</em> YouTube video that has Chinese closed captions
@@ -16,27 +17,31 @@
             </li>
             <li>
               Click on
-              <b>Filter.</b>, and choose
+              <b>Filter</b>, and choose
               <b>Subtitls/CC.</b>
             </li>
             <li>
-              Look through the results. Many have closed captions, but they are in
-              <em>English.</em> You need to look for
-              <em>Chinese</em> closed captions. These are hard to find. If you cannot find any, look in the suggested channels listed on this page.
+              Open a video that interests you. <br/><small><b>Note:</b> Many have closed captions, but they are
+              in
+              <em>English.</em> You need to look for <em>Chinese</em> closed
+              captions. These are hard to find. If you cannot find any, look in
+              the suggested channels listed on this page.</small>
             </li>
             <li>
-              Copy the video's URL, paste it into the box below, and press Enter or click
+              Copy the video's URL, paste it into the box above, and press <b>Enter</b>
+              or click
               <b>Study.</b>
             </li>
           </ol>
-          <YouTubeNav />
         </div>
 
-        <h4 class="mt-5 mb-5">A collection of YouTube channels with subtitles</h4>
+        <h4 class="mt-5 mb-5">
+          A collection of YouTube channels with subtitles
+        </h4>
         <ul class="list-unstyled p-0">
-          <li v-for="channel in channels" class="rounded shadow p-4">
+          <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
             <a
-              :href="`https://www.youtube.com/channel/${channel.id}`"
+              :href="`https://www.youtube.com/channel/${channel.id}/videos`"
               class="link-unstyled channel"
               target="_blank"
             >
@@ -68,6 +73,13 @@ export default {
           description: "It's like TED, but in China.",
           avatar:
             'https://yt3.ggpht.com/a/AGF-l78U7HhXeKuoOP7SPBlSGU57rheuHFjumzhODw=s288-c-k-c0xffffffff-no-rj-mo'
+        },
+        {
+          id: 'UCYfJG6cGfW84FVLuy7semEg',
+          title: 'Guan Video观视频工作室',
+          description: "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
+          avatar:
+            'https://yt3.ggpht.com/a/AGF-l79IPiVAXo3qD2cie7JPJL6B_PJ1Di3NfBp95Q=s288-c-k-c0xffffffff-no-rj-mo'
         }
       ]
     }
