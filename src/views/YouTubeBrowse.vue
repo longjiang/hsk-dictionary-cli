@@ -61,7 +61,6 @@ export default {
   },
   data() {
     return {
-      url: undefined,
       channels: [
         {
           id: 'UCKFB_rVEFEF3l-onQGvGx1A',

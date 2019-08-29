@@ -8,11 +8,11 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <div class="sticky">
+          <div class="sticky" :key="'youtube-' + args">
             <YouTubeVideo ref="youtube" :youtube="args" />
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" :key="'transcript-' + args">
           <SyncedTranscript
             ref="transcript"
             :onSeek="seekYouTube"
@@ -42,6 +42,11 @@ export default {
       type: String
     }
   },
+  watch: {
+    args() {
+      this.getTranscript()
+    }
+  },
   data() {
     return {
       chinese: [],
@@ -51,40 +56,47 @@ export default {
   methods: {
     seekYouTube(starttime) {
       this.$refs.youtube.seek(starttime)
-    }
-  },
-  mounted() {
-    setInterval(() => {
-      this.$refs.transcript.currentTime = this.$refs.youtube
-        ? this.$refs.youtube.currentTime()
-        : 0
-    }, 200)
-    Helper.scrape(
-      `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3`,
-      $html => {
-        for (let p of $html.find('p')) {
-          let line = {
-            line: $(p).text(),
-            starttime: parseInt($(p).attr('t')) / 1000
-          }
-          this.chinese.push(line)
-        }
-        console.log(this.chinese)
-      }
-    ),
+    },
+    getTranscript() {
+      this.chinese = []
+      this.english = []
       Helper.scrape(
-        `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3&tlang=en`,
+        `https://www.youtube.com/api/timedtext?v=${
+          this.args
+        }&lang=zh-CN&fmt=srv3`,
         $html => {
           for (let p of $html.find('p')) {
             let line = {
               line: $(p).text(),
               starttime: parseInt($(p).attr('t')) / 1000
             }
-            this.english.push(line)
+            this.chinese.push(line)
           }
-          console.log(this.english)
         }
-      )
+      ),
+        Helper.scrape(
+          `https://www.youtube.com/api/timedtext?v=${
+            this.args
+          }&lang=zh-CN&fmt=srv3&tlang=en`,
+          $html => {
+            for (let p of $html.find('p')) {
+              let line = {
+                line: $(p).text(),
+                starttime: parseInt($(p).attr('t')) / 1000
+              }
+              this.english.push(line)
+            }
+          }
+        )
+    }
+  },
+  mounted() {
+    this.getTranscript()
+    setInterval(() => {
+      this.$refs.transcript.currentTime = this.$refs.youtube
+        ? this.$refs.youtube.currentTime()
+        : 0
+    }, 1000)
   }
 }
 </script>

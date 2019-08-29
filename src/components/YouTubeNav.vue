@@ -9,6 +9,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      url: undefined
+    }
+  },
   methods: {
     goto() {
       if (this.url) {

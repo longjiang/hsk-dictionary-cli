@@ -1,7 +1,6 @@
 <template>
   <div class="synced-transcript">
-    <Annotate
-      tag="div"
+    <div
       :class="{
         transcript: true,
         'mb-4': true,
@@ -24,19 +23,21 @@
         }"
         v-on:click="sock(line.starttime)"
       >
-        <div
+        <Annotate
+          tag="div"
           class="transcript-line-chinese"
           v-html="
             highlight ? Helper.highlight(line.line, highlight, hsk) : line.line
           "
-        ></div>
-        <div
+        ></Annotate>
+        <Annotate
+          tag="div"
           v-if="parallellines && parallellines[lineIndex]"
           class="transcript-line-english"
           v-html="parallellines[lineIndex].line"
-        ></div>
+        ></Annotate>
       </div>
-    </Annotate>
+    </div>
     <ShowMoreButton v-if="collapse" :data-bg-hsk="hsk ? hsk : 'outside'"
       >Show More</ShowMoreButton
     >
