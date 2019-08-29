@@ -104,6 +104,26 @@
 
     <nav
       class="secondary-menu text-center"
+      v-if="
+        $route.name &&
+          ($route.name === 'youtube-browse' ||
+            $route.name === 'youtube-view' ||
+            $route.name === 'music')
+      "
+    >
+      <router-link class="secondary-menu-item" :to="{ name: 'youtube-browse' }">
+        <font-awesome-icon :icon="['fab', 'youtube']" />Study YouTube Subtitles
+      </router-link>
+      <router-link
+        class="secondary-menu-item"
+        :to="{ name: 'music' }"
+      >
+        <font-awesome-icon icon="music" />Study Music Lyrics
+      </router-link>
+    </nav>
+
+    <nav
+      class="secondary-menu text-center"
       v-if="$route.name && $route.name.startsWith('articles')"
     >
       <router-link class="secondary-menu-item" :to="{ name: 'articles-wiki' }">

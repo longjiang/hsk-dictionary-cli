@@ -2,13 +2,13 @@
   <!-- ANCHOR img/anchors/character-example.png -->
   <!-- FIXME Handle homonyms (e.g. 称 in 称心如意 should be chèn not chēng) -->
   <div class="entry-character" v-if="text" v-cloak>
-    <div class="row character-example-wrapper mt-4" v-if="characters">
+    <div class="row entry-character-row mt-4" v-if="characters">
       <!-- ANCHOR img/anchors/character.png -->
       <div
-        :class="`col-md-${Math.max(4, Math.floor(12 / text.length))}`"
+        class="entry-character-column"
         v-for="(character, index) in characters"
       >
-        <div class="label song-label">Character</div>
+        <div class="widget-title">Character</div>
         <div class="jumbotron-fluid bg-light p-4">
           <Character
             :character="character"
@@ -53,19 +53,22 @@ export default {
         this.characters = LoadedHanzi.getCharactersInWord(this.text)
       }
     )
-  },
-  methods: {
-    recalculateExampleColumns() {
-      if (this.text) {
-        let $div = $('.character-example-wrapper > div')
-        let span = 12 / this.text.length
-        $div.removeClass()
-        $div.addClass('col-md-' + span)
-      }
-    }
-  },
-  updated() {
-    this.recalculateExampleColumns()
   }
 }
 </script>
+
+<style>
+.character-example-wrapper > div {
+  margin-bottom: 2rem;
+}
+.entry-character-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.entry-character-column {
+  flex: 1;
+  margin: 1rem;
+  min-width: 30rem;
+}
+</style>

@@ -11,7 +11,7 @@
           <div v-if="csv">
             <h5 class="mt-4 mb-4">Your CSV</h5>
             <textarea
-              class="mt1 mb1 form-control"
+              class="mt-2 mb-2 form-control"
               style="overflow:visible"
               :rows="words.length"
               >{{ csv }}</textarea
@@ -19,7 +19,7 @@
           </div>
           <textarea
             v-model="text"
-            class="mt1 mb1 form-control"
+            class="mt-2 mb-2 form-control"
             cols="30"
             rows="10"
             placeholder="Paste your list or Chinese words here to generate a pinyin table"

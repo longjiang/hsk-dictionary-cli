@@ -3,7 +3,7 @@
     <div class="container main mt-5 mb-5">
       <div class="row">
         <div class="col-sm-12">
-          <h2 class="text-center mb-5">Listen to songs and learn the lyrics</h2>
+          <h1 class="mb-5 text-center">Study Music Lyrics</h1>
           <div class="search-compare-wrapper">
             <Search
               placeholder="Lookup a song or artist (in Chinese characters)"

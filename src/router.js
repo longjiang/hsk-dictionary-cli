@@ -226,8 +226,7 @@ export default new Router({
         metaTags: [
           {
             name: 'description',
-            content:
-              'See how Chinese phrases are used in real context..'
+            content: 'See how Chinese phrases are used in real context..'
           }
         ]
       }
@@ -301,6 +300,36 @@ export default new Router({
             name: 'description',
             content:
               'Read Chinese text with pinyin annotation and save new words for review.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/youtube/view/:args?',
+      name: 'youtube-view',
+      component: () => import('./views/YouTubeView.vue'),
+      props: true,
+      meta: {
+        title: 'YouTube Reader | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Watch Chinese YouTube videos and study the subtitles.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/youtube/browse/:args?',
+      name: 'youtube-browse',
+      component: () => import('./views/YouTubeBrowse.vue'),
+      props: true,
+      meta: {
+        title: 'Study YouTube Subtitles | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Watch Chinese YouTube videos and study the subtitles.'
           }
         ]
       }

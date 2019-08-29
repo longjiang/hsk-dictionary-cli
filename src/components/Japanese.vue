@@ -1,14 +1,20 @@
 <template>
   <div class="japanese">
-    <div class="label song-label">Learning Japanese?</div>
+    <div class="widget-title">Learning Japanese?</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="words">
         <div v-for="word in words">
           <div>
             The Japanese word
-            <b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{
-              word.kana
-            }}) means
+            <a
+              :href="`https://ja.zerotohero.ca/#/dictionary/edict/${word.id}`"
+              class="link-unstyled"
+              target="_blank"
+              ><b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{
+                word.kana
+              }})</a
+            >
+            means
             <em>{{
               word.english
                 .replace(/\(.*?\)/g, '')

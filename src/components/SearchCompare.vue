@@ -62,4 +62,53 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+.search-compare-wrapper {
+  display: flex;
+  position: relative;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.search-compare-wrapper .search-wrapper {
+  flex: 1;
+}
+
+.search-compare-wrapper .input-group * {
+  height: 2.3rem;
+}
+
+.btn-random {
+  position: absolute;
+  right: 3rem;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  height: 1.7rem !important;
+  top: 0.3rem;
+  background: #cacaca;
+  border: none;
+}
+
+@media (max-width: 480px) {
+  .compare-btn-text {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .btn-random span {
+    display: none;
+  }
+}
+
+.btn-compare {
+  color: #fd4f1c;
+}
+
+.btn-compare:hover {
+  color: white;
+  background: #fd4f1c;
+}
+</style>

@@ -94,15 +94,10 @@ export default {
 .entry-head-wrapper {
   position: relative;
 }
-
-.entry-head-wrapper .toggle-saved-word {
-  padding: 0;
-  background: none;
-  border: none;
-  margin: 0;
-  color: #ffe597;
-  position: relative;
-  bottom: -0.09em;
-}
   
+
+.measure-word {
+  font-weight: normal;
+  color: #ccc;
+}
 </style>

@@ -2,7 +2,11 @@
   <component
     :is="tag"
     v-observe-visibility="visibilityChanged"
-    :class="{ 'add-pinyin': started, 'show-definition': showDefOn }"
+    :class="{
+      'add-pinyin': started,
+      'show-definition': showDefOn,
+      fullscreen: fullscreenMode
+    }"
   >
     <slot></slot>
     <span
@@ -18,6 +22,20 @@
       v-if="showDef"
     >
       <font-awesome-icon icon="language" />
+    </span>
+    <span
+      class="annotator-fullscreen ml-2 focus-exclude"
+      @click="fullscreenClick"
+      v-if="fullscreen"
+    >
+      <font-awesome-icon icon="expand" />
+    </span>
+    <span
+      class="annotator-close ml-2 focus-exclude"
+      @click="fullscreenClick"
+      v-if="fullscreen && fullscreenMode"
+    >
+      <font-awesome-icon icon="times" />
     </span>
     <textarea class="form-control mb-2" rows="3" v-if="pinyin.length > 0">{{
       `${pinyin.trim()}\n${simplified}\n${traditional}`
@@ -40,6 +58,9 @@ export default {
     showDef: {
       default: true
     },
+    fullscreen: {
+      default: true
+    },
     wordBlockTemplateFilter: {
       type: Function,
       default: Helper.wordBlockTemplateFilter
@@ -50,12 +71,16 @@ export default {
       started: false,
       annotated: false,
       showDefOn: false,
+      fullscreenMode: false,
       pinyin: '',
       simplified: '',
       traditional: ''
     }
   },
   methods: {
+    fullscreenClick() {
+      this.fullscreenMode = !this.fullscreenMode
+    },
     showDefClick() {
       this.showDefOn = !this.showDefOn
     },
@@ -119,11 +144,38 @@ export default {
 </script>
 
 <style lang="scss">
+.add-pinyin.fullscreen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  padding: 3rem;
+  .annotator-copy,
+  .annotator-show-def,
+  .annotator-fullscreen {
+    display: none;
+  }
+  .annotator-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 2.5rem;
+  }
+}
+
 .show-definition .annotator-show-def {
   display: none;
 }
 .annotator-copy,
-.annotator-show-def {
+.annotator-show-def,
+.annotator-fullscreen,
+.annotator-close {
   cursor: pointer;
   opacity: 0.5;
 

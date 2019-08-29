@@ -4,7 +4,15 @@
       <div class="col-sm-12">
         <div>
           <h4>Browse Words by HSK Courses</h4>
-          <p>Each tiny square represents a word in the <a href="https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi" target="_blank">HSK <i class="glyphicon glyphicon-new-window"></i></a> curriculum.</p>
+          <p>
+            Each tiny square represents a word in the
+            <a
+              href="https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi"
+              target="_blank"
+              >HSK <i class="glyphicon glyphicon-new-window"></i
+            ></a>
+            curriculum.
+          </p>
           <hr />
           <Loader class="mt-5" />
           <CourseBrowser />
@@ -28,3 +36,6 @@ export default {
   methods: {}
 }
 </script>
+<style>
+
+</style>

@@ -18,9 +18,9 @@
       <div class="container">
         <div class="row mb-3">
           <div class="col-sm-12 text-center">
-            <router-link to="/"
-              ><img src="img/logo-zh-zth-light.png" class="logo"
-            /></router-link>
+            <router-link to="/">
+              <img src="img/logo-zh-zth-light.png" class="logo" />
+            </router-link>
           </div>
         </div>
       </div>
@@ -41,89 +41,71 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <div>
-              <a href="/" target="_blank" class="mr-4">
+            <div class="zerotohero">
+              <a v-for="language in languages" :href="language.url" target="_blank" class="mr-4">
                 <img
-                  src="img/logo-zh-zth-light.png"
-                  alt="Chinese Zero to Hero"
+                  :src="
+                    `${Config.server}img/logo-${language.code}-zth-light.png`
+                  "
+                  :alt="`${language.name} Zero to Hero`"
                   class="logo-footer"
                 />
               </a>
-              <a
-                href="https://yingyuyingxiong.teachable.com"
-                class="mr-4"
-                target="_blank"
-              >
-                <img
-                  src="img/logo-en-zth-light.png"
-                  alt="English Zero to Hero"
-                  class="logo-footer"
-                />
-              </a>
-              <a href="https://hi.zerotohero.ca" class="mr-4" target="_blank">
-                <img
-                  src="img/logo-hi-zth-light.png"
-                  alt="Hindi Zero to Hero"
-                  class="logo-footer"
-                />
-              </a>
-              <a href="https://ru.zerotohero.ca" class="mr-4">
-                <img
-                  src="img/logo-ru-zth-light.png"
-                  alt="Russian Zero to Hero"
-                  class="logo-footer"
-                />
-              </a>
-              <a href="https://tlh.zerotohero.ca" class="mr-4">
-                <img
-                  src="/img/logo-tlh-zth-light.png"
-                  alt="Klingon Zero to Hero"
-                  class="logo-footer"
-                />
-              </a>
-              <hr class="border-light" style="opacity: 0.5" />
-              <p>
-                <b>Zero to Hero Education, Canada.</b>
-              </p>
             </div>
+            <hr class="border-light" style="opacity: 0.5" />
+            <p>
+              <b>Zero to Hero Education, Canada.</b>
+            </p>
 
             <b>Credits</b>: Most dictionary data from
-            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-              >CC-CEDICT</a
-            >. Images made <a v-on:click="adminClick">possible</a> with
+            <a
+              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+            >CC-CEDICT</a>. Images made
+            <a v-on:click="adminClick">possible</a> with
             <a href="https://source.unsplash.com/">Unsplash Source</a> and
             <a href="https://www.canva.com/photos/">Canva</a>, and
             <a href="https://pixabay.com/">Pixabay</a>. Small images are from
             <a href="https://image.so.com/">360 Photo Search</a>. Character
             component breakdown and stroke animation made possible by
-            <a href="https://github.com/skishore/makemeahanzi"
-              >Make Me a Hanzi</a
-            >. Example sentences and translation from
+            <a
+              href="https://github.com/skishore/makemeahanzi"
+            >Make Me a Hanzi</a>. Example sentences and translation from
             <a href="http://www.jukuu.com/">Jukuu</a>. Related words,
             collocations, example sentences and common mistakes provided by
-            <a href="https://www.sketchengine.eu/">Sketch Engine</a>. Pinyin
+            <a
+              href="https://www.sketchengine.eu/"
+            >Sketch Engine</a>. Pinyin
             annotation with
-            <a href="https://longjiang.github.io/annotator-js/">Annotator.js</a
-            >, which we created ourselves based on the
-            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-              >CC-CEDICT</a
-            >
+            <a
+              href="https://longjiang.github.io/annotator-js/"
+            >Annotator.js</a>, which we created ourselves based on the
+            <a
+              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+            >CC-CEDICT</a>
             dictionary made freely available from
-            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-              >MDBG</a
-            >. Korean hanja readings and definitions uses
-            <a href="https://github.com/dbravender/hanja-dictionary"
-              >hanja-dictionary</a
-            >. Over 7,000 time-synced lyrics (LRCs) from
-            <a href="http://www.22lrc.com/" class="add-pinyin">爱歌词</a> and
+            <a
+              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+            >MDBG</a>. Korean hanja readings and definitions uses
+            <a
+              href="https://github.com/dbravender/hanja-dictionary"
+            >hanja-dictionary</a>. Over 7,000 time-synced lyrics (LRCs) from
+            <a
+              href="http://www.22lrc.com/"
+              class="add-pinyin"
+            >爱歌词</a> and
             <a href="http://www.gecimi.com/" class="add-pinyin">歌词迷</a>.
-            <button @click="toggleFocus" class="btn btn-small focus-hover">
-              Turn {{ focus ? 'off' : 'on' }} Focus Mode
-            </button>
+            <button
+              @click="toggleFocus"
+              class="btn btn-small focus-hover"
+            >Turn {{ focus ? 'off' : 'on' }} Focus Mode</button>
             <hr class="border-light" style="opacity: 0.5" />
             <p>
-              Interesetd in contributing and making the tools available even better? This site is a fully open sourced and 
-              available to be viewed at <a href="https://github.com/longjiang/hsk-dictionary-cli" target="_blank">this github reprository.</a>
+              Interesetd in contributing and making the tools available even better? This site is a fully open sourced and
+              available to be viewed at
+              <a
+                href="https://github.com/longjiang/hsk-dictionary-cli"
+                target="_blank"
+              >this github reprository.</a>
             </p>
           </div>
         </div>
@@ -141,6 +123,7 @@ import Grammar from '@/lib/grammar'
 import Unihan from '@/lib/unihan'
 import Nav from '@/components/Nav'
 import SubNav from '@/components/SubNav'
+import Config from '@/lib/config'
 
 // eslint-disable-next-line no-unused-vars
 
@@ -156,7 +139,9 @@ export default {
       showDefinition: localStorage.getItem('czhShowDefinition') === 'true',
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
-      useTraditional: localStorage.getItem('czhUseTraditional') === 'true'
+      useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
+      languages: [],
+      Config
     }
   },
   methods: {
@@ -187,6 +172,9 @@ export default {
     }
   },
   beforeMount() {
+    $.getJSON(`${Config.server}data/languages.json`, response => {
+      this.languages = response
+    })
     window.annotatorLoads = Annotator.load()
     window.hanziLoads = Hanzi.load()
     window.grammarLoads = Grammar.load()
@@ -194,7 +182,6 @@ export default {
   },
   mounted() {
     Helper.loaderMessage('HSK Dictionary Vue app mounted.')
-    window.entry = undefined
     window.ChineseZeroToHeroApp = this
 
     Helper.loaded(
@@ -213,5 +200,23 @@ export default {
 .logo-footer {
   height: 4rem;
   margin-bottom: 1rem;
+}
+.top-bar {
+  background-color: #3a3a3a;
+  color: white;
+}
+
+footer {
+  padding: 2rem 0;
+  background: #3e3e3e;
+  color: #ccc;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: white;
 }
 </style>

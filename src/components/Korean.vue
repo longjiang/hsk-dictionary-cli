@@ -1,14 +1,18 @@
 <template>
   <div class="korean">
-    <div class="label song-label">Learning Korean?</div>
+    <div class="widget-title">Learning Korean?</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="words">
         <div v-for="word in words">
           <div>
-            The Korean word <b>{{ word.hangul }}</b> [<b :data-hsk="hsk" class="bigger">{{
+            The Korean word <a
+              :href="`https://ko.zerotohero.ca/#/dictionary/kengdic/${word.kid}`"
+              class="link-unstyled"
+              target="_blank"
+              ><b>{{ word.hangul }}</b> [<b :data-hsk="hsk" class="bigger">{{
               word.hanja
             }}</b
-            >] means <em>{{ word.english }}</em
+            >]</a> means <em>{{ word.english }}</em
             >.
           </div>
         </div>

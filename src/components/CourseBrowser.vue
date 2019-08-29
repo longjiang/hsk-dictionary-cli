@@ -1,6 +1,6 @@
 <template>
   <div v-cloak :key="browseKey">
-    <ul class="books mt1">
+    <ul class="books mt-2">
       <li
         class="book"
         v-for="(book, bookIndex) in books"
@@ -11,9 +11,7 @@
           class="book-title collapsed"
           v-on:click="toggleCollapsed"
           :data-bg-hsk="bookIndex"
-        >
-          HSK {{ bookIndex }}
-        </div>
+        >HSK {{ bookIndex }}</div>
         <ul class="lessons collapsed">
           <li
             class="lesson"
@@ -38,10 +36,7 @@
                 :data-dialog="dialogIndex"
                 v-bind:key="'dialog-' + dialogIndex"
               >
-                <div
-                  class="dialog-title collapsed"
-                  v-on:click="toggleCollapsed"
-                >
+                <div class="dialog-title collapsed" v-on:click="toggleCollapsed">
                   Part {{ dialogIndex }}
                   <br />
                   <span
@@ -117,3 +112,135 @@ export default {
   }
 }
 </script>
+<style>
+.tile {
+  height: 0.5rem;
+  width: 1%;
+  display: inline-block;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
+  margin-right: 0.2rem;
+  background-image: url('/img/square.png');
+  background-size: 100%;
+}
+
+.lessons.collapsed,
+.dialogs.collapsed,
+.browse-words.collapsed {
+  display: none;
+}
+
+.browse-words a {
+  text-decoration: none;
+}
+
+.book-title,
+.lesson-title,
+.dialog-title {
+  cursor: pointer;
+}
+
+.books,
+.lessons,
+.dialogs {
+  list-style: none;
+  padding: 0;
+}
+
+.lesson-title br,
+.dialog-title br {
+  margin-top: 0.5rem;
+  display: block;
+  content: '';
+}
+
+.book-title {
+  margin: 1rem 0 0 0;
+}
+
+.book-title:not(.collapsed) {
+  background-color: inherit !important;
+  color: #717171 !important;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+.book-title.collapsed {
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  white-space: nowrap;
+  /* border-radius: 0.2rem; */
+  background-image: url('/img/square.png');
+}
+
+.book[data-book='1'] > .book-title.collapsed {
+  width: 25%;
+  background-size: 4% 16.67%;
+}
+
+.book[data-book='2'] > .book-title.collapsed {
+  width: 25%;
+  background-size: 4% 16.67%;
+}
+
+.book[data-book='3'] > .book-title.collapsed {
+  width: 50%;
+  background-size: 2% 16.67%;
+}
+
+.book[data-book='4'] > .book-title.collapsed {
+  width: 100%;
+  background-size: 1% 16.67%;
+}
+
+.book[data-book='5'] > .book-title.collapsed {
+  width: 100%;
+  height: 5rem;
+  line-height: 4rem;
+  background-size: 1% 8.3%;
+}
+
+.book[data-book='6'] > .book-title.collapsed {
+  width: 100%;
+  height: 10rem;
+  line-height: 9rem;
+  background-size: 1% 4.16%;
+}
+
+.lesson-title {
+  padding: 1rem;
+  border-top: none;
+  font-weight: bold;
+  line-height: 0.5rem;
+}
+
+.lesson-title:not(.collapsed) .tile {
+  display: none;
+}
+
+.lesson-title:last-child {
+  border-radius: 0 0 0 0.5rem;
+}
+
+.dialog {
+  padding-left: 1rem;
+}
+
+.dialog-title {
+  padding: 0.5rem 1rem;
+  /* border: 1px solid #c5c5c5; */
+  border-top: none;
+  line-height: 0.5rem;
+}
+
+.dialog-title:not(.collapsed) .tile {
+  display: none;
+}
+
+.browse-words {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+</style>

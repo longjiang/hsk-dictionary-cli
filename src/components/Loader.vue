@@ -1,7 +1,9 @@
 <template>
   <div id="loader" v-if="test()" class="d-inline-block text-center">
     <div class="heartbeat-loader mb-4"></div>
-    <div><slot>Loading</slot></div>
+    <div>
+      <slot>Loading</slot>
+    </div>
   </div>
 </template>
 
@@ -47,3 +49,5 @@ export default {
   }
 }
 </script>
+<style>
+</style>

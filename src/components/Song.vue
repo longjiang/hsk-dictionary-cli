@@ -21,7 +21,8 @@
               <button class="btn-small" @click="youtubePrev">
                 <font-awesome-icon icon="chevron-left" />
               </button>
-              <b> {{ currentYoutubeIndex + 1 }}</b> of
+              <b>{{ currentYoutubeIndex + 1 }}</b>
+              of
               {{ lrc.youtube.length }}
               <button class="btn-small" @click="youtubeNext">
                 <font-awesome-icon icon="chevron-right" />
@@ -42,63 +43,30 @@
           </div>
         </div>
         <div class="col-md-6 lyrics-wrapper sm-mb2">
-          <Annotate
-            tag="div"
-            :class="{
-              lyrics: true,
-              'mb-4': true,
-              collapsed: collapse,
-              matched: lrc.matchedLines && lrc.matchedLines.length > 0
-            }"
-            :id="'lyrics-' + lrcIndex"
-            data-collapse-target
-          >
-            <div
-              class="lyrics-title"
-              v-html="lrc.artist + '《' + lrc.title + '》'"
-            ></div>
-            <hr />
-            <div
-              v-for="(line, lineIndex) in lrc.content.filter(
-                line => !LRC.rejectLine(line.line)
-              )"
-              :key="lineIndex"
-              :class="{
-                'lyrics-line': true,
-                matched:
-                  lrc.matchedLines && lrc.matchedLines.includes(lineIndex),
-                'matched-context': LRC.inContext(lineIndex, 2, lrc),
-                'lyrics-line-current':
-                  parseFloat(line.starttime) < currentTime &&
-                  currentTime <
-                    parseFloat(
-                      lrc.content[
-                        Math.min(lrc.content.length - 1, lineIndex + 1)
-                      ].starttime
-                    )
-              }"
-              v-on:click="seekYouTube(line.starttime)"
-              v-html="
-                entry
-                  ? Helper.highlight(line.line, entry.simplified, entry.hsk)
-                  : line.line
-              "
-            ></div>
-          </Annotate>
-          <ShowMoreButton
-            v-if="collapse"
-            :data-bg-hsk="entry ? entry.hsk : 'outside'"
-            >Show More</ShowMoreButton
-          >
           <button
             v-if="!removed"
-            class="ml-2 btn-medium btn-danger"
+            class="btn-medium btn-gray"
+            style="float:right"
             @click="remove"
           >
-            <font-awesome-icon icon="trash" /> Delete
+            <font-awesome-icon icon="trash" class="mr-2" />Delete
           </button>
+          <Annotate
+            tag="div"
+            class="transcript-title"
+            v-html="lrc.artist + '《' + lrc.title + '》'"
+          ></Annotate>
+          <hr />
+          <SyncedTranscript
+            ref="transcript"
+            :lines="lrc.content.filter(line => line.line.length > 0)"
+            :onSeek="seekYouTube"
+            :highlight="entry ? entry.simplified : false"
+            :hsk="entry ? entry.hsk : 'outside'"
+            collapse="true"
+          />
           <span v-if="removed">
-            <font-awesome-icon icon="check" class="ml-2 text-success" /> Removed
+            <font-awesome-icon icon="check" class="ml-2 text-success" />Removed
           </span>
         </div>
       </div>
@@ -113,11 +81,13 @@ import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
 import Loader from '@/components/Loader'
+import SyncedTranscript from '@/components/SyncedTranscript'
 import { setInterval } from 'timers'
 
 export default {
   components: {
-    YouTubeVideo
+    YouTubeVideo,
+    SyncedTranscript
   },
   data() {
     return {
@@ -125,20 +95,19 @@ export default {
       Helper,
       removed: false,
       currentYoutubeIndex: 0,
-      gettingYouTube: false,
-      currentTime: 0
+      gettingYouTube: false
     }
   },
   mounted() {
     setInterval(() => {
-      this.currentTime = this.$refs.youtube
+      this.$refs.transcript.currentTime = this.$refs.youtube
         ? this.$refs.youtube.currentTime()
         : 0
     }, 200)
   },
   props: {
     entry: {
-      type: Object
+      default: false
     },
     lrc: {
       type: Object
@@ -216,59 +185,6 @@ export default {
   margin: 0;
 }
 
-.lyrics {
-  min-height: 9.5rem;
-}
-
-.lyrics-line {
-  cursor: pointer;
-  position: relative;
-  color: #666;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-}
-
-.lyrics-line-current,
-.lyrics-line:hover {
-  box-shadow: 0 0 10px rgba(255, 95, 32, 0.301);
-  border-radius: 0.25rem;
-}
-
-.lyrics-line.matched {
-  color: #616161;
-  font-weight: bold;
-}
-
-.lyrics-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.lyrics-line:hover::before {
-  content: '▶︎';
-  font-size: 1.5rem;
-  width: 4rem;
-  line-height: 0.8rem;
-  display: block;
-  color: #f7613540;
-  position: absolute;
-  right: -2rem;
-  bottom: 1rem;
-  font-weight: bold;
-}
-
-.lyrics.collapsed .lyrics-line {
-  display: none;
-}
-
-.lyrics.collapsed.matched .lyrics-line.matched-context {
-  display: block;
-}
-
-.lyrics.collapsed:not(.matched) .lyrics-line:nth-child(-n + 6) {
-  display: block;
-}
-
 .youtube-versions-wrapper,
 .youtube-versions {
   position: sticky;
@@ -279,6 +195,10 @@ export default {
 .youtube-versions {
   background: white;
   margin-bottom: 2rem;
+}
+
+.youtube-versions .youtube:not(:first-child) {
+  display: none;
 }
 
 @media (max-width: 768px) {

@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row">
         <div :class="`col-lg-${6 / scale}`">
-          <div class="image-wrapper">
+          <div class="example-image-wrapper">
             <img
               v-bind:src="
                 `${Config.imageUrl}${entry.hskId}-${entry.simplified}.jpg`
@@ -53,7 +53,7 @@
         </div>
         <div class="row">
           <div class="col-md-6 mb2" v-for="src in unsplashSrcs">
-            <div class="image-wrapper">
+            <div class="example-image-wrapper">
               <img
                 v-bind:src="src"
                 alt
@@ -147,3 +147,48 @@ export default {
   }
 }
 </script>
+
+<style>
+
+
+.example-sentence p,
+.lyrics p {
+  margin: 0;
+}
+
+.example-sentence-word {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.example-sentence .example-sentence-english {
+  margin-top: 0.5rem;
+}
+
+
+.example-image-wrapper {
+  padding-bottom: 56%;
+  height: 0;
+  position: relative;
+}
+
+.example-image {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+
+.unsplash-sources {
+  background: white;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.unsplash-sources img {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+</style>

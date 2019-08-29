@@ -46,14 +46,14 @@ export default {
     })
   },
   // html only, and returns html
-  scrape(url, callback) {
-    $.ajax(Config.scrape + '?' + url).done(function(response) {
+  async scrape(url, callback) {
+    await $.ajax(Config.scrape + '?' + url).done(function(response) {
       // We use 'ownerDocument' so we don't load the images and scripts!
       // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
       var ownerDocument = document.implementation.createHTMLDocument('virtual')
       var $html = $(response, ownerDocument)
       var text = $html.find('a').text()
-      callback($html, response, text)
+      return response ? callback($html, response, text) : null;
     })
   },
   highlight(text, word, level = false) {

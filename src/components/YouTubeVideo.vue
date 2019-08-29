@@ -46,7 +46,9 @@ export default {
   },
   methods: {
     currentTime() {
-      return this.player ? this.player.getCurrentTime() : 0
+      return this.player && this.player.getCurrentTime
+        ? this.player.getCurrentTime()
+        : 0
     },
     loadYouTubeiFrame() {
       let that = this
@@ -96,4 +98,39 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.youtube {
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.youtube iframe,
+.youtube-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.youtube-screen {
+  background-size: cover;
+  background-position: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.youtube-screen::after {
+  content: '';
+  background: url('/img/youtube-red.svg');
+  width: 100px;
+  height: 100px;
+}
+</style>
