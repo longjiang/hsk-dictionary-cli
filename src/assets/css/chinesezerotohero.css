@@ -11,6 +11,12 @@ body {
   max-height: 4rem;
 }
 
+.link-unstyled,
+.link-unstyled:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 .sticky {
   position: sticky;
   z-index: 2;

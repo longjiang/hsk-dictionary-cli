@@ -6,9 +6,15 @@
         <div v-for="word in words">
           <div>
             The Japanese word
-            <b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{
-              word.kana
-            }}) means
+            <a
+              :href="`https://ja.zerotohero.ca/#/dictionary/edict/${word.id}`"
+              class="link-unstyled"
+              target="_blank"
+              ><b :data-hsk="hsk" class="bigger">{{ word.kanji }}</b> ({{
+                word.kana
+              }})</a
+            >
+            means
             <em>{{
               word.english
                 .replace(/\(.*?\)/g, '')
