@@ -156,6 +156,7 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  padding: 3rem;
   .annotator-copy,
   .annotator-show-def,
   .annotator-fullscreen {
