@@ -21,8 +21,25 @@
             :parallellines="this.english"
             v-else-if="!loading && hasSubtitles"
           />
-          <div v-else-if="!loading && !hasSubtitles">
-            No subtitles were found. 
+          <div
+            v-else-if="!loading && !hasSubtitles"
+            class="jumbotron pt-4 pb-3 bg-light"
+          >
+            <h6>
+              Sorry, this YouTube video does not have Chinese closed captions.
+            </h6>
+            <p>
+              You can tell if a YouTube video has closed captions by clicking on
+              the <b>CC</b> icon in the player bar, and click on the
+              <font-awesome-icon icon="cog" /> next to it. If you can find the
+              subtitle with the language
+              <b>Chinese (Mainland, Taiwan, or Hong Kong)</b> then the video has
+              Chinese subtitles.
+            </p>
+            <p>
+              To look for videos with Chinese subtitles, search with a Chinese
+              keyword, and click <b>Filter</b>, then <b>CC</b>.
+            </p>
           </div>
         </div>
       </div>
@@ -59,7 +76,7 @@ export default {
       chinese: [],
       english: [],
       hasSubtitles: false,
-      loading: true,
+      loading: true
     }
   },
   methods: {
@@ -67,47 +84,53 @@ export default {
       this.$refs.youtube.seek(starttime)
     },
     async getTranscript() {
-      this.chinese = [];
-      this.english = [];
+      this.chinese = []
+      this.english = []
       for (let i = 0; i < LANGUAGE_OPTIONS.length; i++) {
         await Helper.scrape(
-          `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${LANGUAGE_OPTIONS[i]}&fmt=srv3`,
+          `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
+            LANGUAGE_OPTIONS[i]
+          }&fmt=srv3`,
           $html => {
             for (let p of $html.find('p')) {
               let line = {
                 line: $(p).text(),
                 starttime: parseInt($(p).attr('t')) / 1000
               }
-              this.chinese.push(line);
+              this.chinese.push(line)
             }
           }
-        );
+        )
         await Helper.scrape(
-          `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${LANGUAGE_OPTIONS[i]}&fmt=srv3&tlang=en`,
+          `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
+            LANGUAGE_OPTIONS[i]
+          }&fmt=srv3&tlang=en`,
           $html => {
             for (let p of $html.find('p')) {
               let line = {
                 line: $(p).text(),
                 starttime: parseInt($(p).attr('t')) / 1000
               }
-              this.english.push(line);
+              this.english.push(line)
             }
           }
-        );
+        )
 
         if (this.english.length > 0 && this.english.length > 0) {
-          this.hasSubtitles = true;
-          break;
+          this.hasSubtitles = true
+          break
         }
       }
-      this.loading = false;
+      this.loading = false
     }
   },
   mounted() {
-    this.getTranscript();
+    this.getTranscript()
     setInterval(() => {
-      this.$refs.transcript.currentTime = this.$refs.youtube ? this.$refs.youtube.currentTime() : 0
-    }, 1000);
+      this.$refs.transcript.currentTime = this.$refs.youtube
+        ? this.$refs.youtube.currentTime()
+        : 0
+    }, 1000)
   }
 }
 </script>
