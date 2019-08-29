@@ -125,4 +125,10 @@ export default {
   bottom: 1rem;
   font-weight: bold;
 }
+
+.transcript-line-english {
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.8em;
+}
 </style>
