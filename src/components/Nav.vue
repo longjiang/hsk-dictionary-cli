@@ -49,11 +49,18 @@
         <i class="glyphicon glyphicon-list"></i>Grammar
       </router-link>
       <router-link
-        class="tab"
-        :to="{ name: 'music' }"
-        title="Listen to Chinese songs and study the lyrics."
+        :class="{
+          tab: true,
+          'router-link-active':
+            $route.name &&
+            ($route.name === 'youtube-browse' ||
+              $route.name === 'youtube-view' ||
+              $route.name === 'music')
+        }"
+        :to="{ name: 'youtube-browse' }"
+        title="Learn Chinese by watching YouTube videos."
       >
-        <font-awesome-icon icon="music" />Music
+        <font-awesome-icon icon="video" />Theater
       </router-link>
       <router-link
         class="tab"

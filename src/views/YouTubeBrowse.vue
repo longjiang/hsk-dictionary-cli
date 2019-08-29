@@ -2,7 +2,7 @@
   <div class="youtube-browse container mt-5 mb-5 main">
     <div class="row">
       <div class="col-sm-12">
-        <h1 class="mb-5">Study YouTube Subtitles</h1>
+        <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
         <div class="jumbotron pt-4 pb-3 mt-3 mb-3">
           <h4>
             Study

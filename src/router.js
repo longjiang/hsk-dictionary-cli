@@ -306,7 +306,7 @@ export default new Router({
     },
     {
       path: '/youtube/view/:args?',
-      name: 'reader',
+      name: 'youtube-view',
       component: () => import('./views/YouTubeView.vue'),
       props: true,
       meta: {
@@ -321,7 +321,7 @@ export default new Router({
     },
     {
       path: '/youtube/browse/:args?',
-      name: 'reader',
+      name: 'youtube-browse',
       component: () => import('./views/YouTubeBrowse.vue'),
       props: true,
       meta: {
