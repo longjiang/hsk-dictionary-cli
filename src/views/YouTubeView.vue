@@ -61,9 +61,7 @@ export default {
       this.chinese = []
       this.english = []
       Helper.scrape(
-        `https://www.youtube.com/api/timedtext?v=${
-          this.args
-        }&lang=zh-CN&fmt=srv3`,
+        `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3`,
         $html => {
           for (let p of $html.find('p')) {
             let line = {
@@ -73,21 +71,19 @@ export default {
             this.chinese.push(line)
           }
         }
-      ),
-        Helper.scrape(
-          `https://www.youtube.com/api/timedtext?v=${
-            this.args
-          }&lang=zh-CN&fmt=srv3&tlang=en`,
-          $html => {
-            for (let p of $html.find('p')) {
-              let line = {
-                line: $(p).text(),
-                starttime: parseInt($(p).attr('t')) / 1000
-              }
-              this.english.push(line)
+      )
+      Helper.scrape(
+        `https://www.youtube.com/api/timedtext?v=${this.args}&lang=zh-CN&fmt=srv3&tlang=en`,
+        $html => {
+          for (let p of $html.find('p')) {
+            let line = {
+              line: $(p).text(),
+              starttime: parseInt($(p).attr('t')) / 1000
             }
+            this.english.push(line)
           }
-        )
+        }
+      )
     }
   },
   mounted() {
