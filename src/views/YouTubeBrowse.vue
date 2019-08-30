@@ -3,11 +3,12 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
-
-        <h4 class="mt-5 mb-5">
-          A collection of YouTube channels with subtitles
+        <h4 class="mt-5">
+          Choose one of the channels below
         </h4>
-        <ul class="list-unstyled p-0">
+        <hr />
+        <p class="mb-5">A collection of YouTube videos with subtitles.</p>
+        <ul class="list-unstyled p-0 mb-5">
           <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
             <a
               :href="`#/youtube/channel/${channel.id}`"
