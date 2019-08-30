@@ -3,7 +3,7 @@
     <div class="container mt-5 mb-5">
       <div class="row">
         <div class="col-sm-12">
-          <YouTubeNav class="mb-5" />
+          <YouTubeNav class="mb-5" ref="search" />
         </div>
       </div>
       <div class="row">
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="col-sm-6" :key="'transcript-' + args">
-          <Loader v-if="loading" />
+          <Loader v-if="loading" :sticky="true" />
           <SyncedTranscript
             ref="transcript"
             :onSeek="seekYouTube"
@@ -69,6 +69,7 @@ export default {
   watch: {
     args() {
       this.getTranscript()
+      this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`
     }
   },
   data() {
@@ -86,6 +87,8 @@ export default {
     async getTranscript() {
       this.chinese = []
       this.english = []
+      this.hasSubtitles = false
+      this.loading = true
       for (let i = 0; i < LANGUAGE_OPTIONS.length; i++) {
         await Helper.scrape(
           `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
@@ -116,7 +119,7 @@ export default {
           }
         )
 
-        if (this.english.length > 0 && this.english.length > 0) {
+        if (this.english.length > 0 && this.chinese.length > 0) {
           this.hasSubtitles = true
           break
         }
@@ -126,10 +129,13 @@ export default {
   },
   mounted() {
     this.getTranscript()
+    this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`
     setInterval(() => {
-      this.$refs.transcript.currentTime = this.$refs.youtube
-        ? this.$refs.youtube.currentTime()
-        : 0
+      if (this.$refs.transcript) {
+        this.$refs.transcript.currentTime = this.$refs.youtube
+          ? this.$refs.youtube.currentTime()
+          : 0
+      }
     }, 1000)
   }
 }
