@@ -43,9 +43,8 @@
         <ul class="list-unstyled p-0">
           <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
             <a
-              :href="`https://www.youtube.com/channel/${channel.id}/videos`"
+              :href="`#/youtube/channel/${channel.id}`"
               class="link-unstyled channel"
-              target="_blank"
             >
               <img :src="channel.avatar" class="channel-avatar" alt />
               <div class="channel-body">
@@ -65,6 +64,11 @@ import YouTubeNav from '@/components/YouTubeNav'
 export default {
   components: {
     YouTubeNav
+  },
+  props: {
+    args: {
+      type: String
+    }
   },
   data() {
     return {
