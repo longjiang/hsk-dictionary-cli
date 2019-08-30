@@ -157,21 +157,25 @@ export default {
         for (let item of $html.find('.yt-shelf-grid-item')) {
           let playlist = {
             id: $(item)
-              .find('.addto-tv-queue-button')
-              .attr('data-list-id'),
+              .find('.yt-uix-tile-link')
+              .attr('href')
+              .replace(/.*list=(.*)/, '$1'),
             title: $(item)
               .find('.yt-uix-tile-link')
               .text()
               .trim(),
-            thumbnail: $(item)
-              .find('[data-ytimg]')
-              .attr('src'),
+            thumbnail:
+              $(item)
+                .find('[data-ytimg]')
+                .attr('data-thumb') ||
+              $(item)
+                .find('[data-ytimg]')
+                .attr('src'),
             count: $(item)
               .find('.formatted-video-count-label b')
               .text()
           }
           playlists.push(playlist)
-          console.log(item, 'playlist item')
         }
         callback(playlists)
       }

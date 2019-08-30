@@ -2,7 +2,11 @@
   <div class="youtube-browse container mt-5 mb-5 main">
     <div class="row">
       <div class="col-sm-12">
-        <h1 v-if="title" class="mb-5 text-center">Playlist: {{ title }}</h1>
+        <h3 v-if="title" class="text-center">Playlist: {{ title }}</h3>
+        <hr />
+        <p class="text-center mb-5">
+          <b>Note:</b> Videos may not have subtitles.
+        </p>
         <YouTubeVideoList :videos="videos" />
       </div>
     </div>

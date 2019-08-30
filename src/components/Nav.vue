@@ -53,9 +53,7 @@
           tab: true,
           'router-link-active':
             $route.name &&
-            ($route.name === 'youtube-browse' ||
-              $route.name === 'youtube-view' ||
-              $route.name === 'music')
+            ($route.name.startsWith('youtube') || $route.name === 'music')
         }"
         :to="{ name: 'youtube-browse' }"
         title="Learn Chinese by watching YouTube videos."
