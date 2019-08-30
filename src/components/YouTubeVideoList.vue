@@ -1,7 +1,7 @@
 <template>
   <div class="youtube-videos">
     <div v-for="video of videos" class="youtube-video media rounded shadow">
-      <a :href="`#/youtube/view/${video.id}`">
+      <a :href="`#/youtube/view/${video.id}`" class="youtube-link">
         <div class="youtube-thumbnail-wrapper aspect-wrapper">
           <img :src="video.thumbnail" class="youtube-thumbnail aspect" />
         </div>
@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .youtube-videos {
   display: flex;
   flex-wrap: wrap;
@@ -30,5 +30,14 @@ export default {
   min-width: 15rem;
   flex: 1;
   margin: 1rem;
+}
+
+a.youtube-link,
+a.youtube-link:hover {
+  color: #666;
+  text-decoration: none;
+  .youtube-title {
+    font-weight: bold;
+  }
 }
 </style>

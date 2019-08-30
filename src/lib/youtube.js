@@ -94,7 +94,10 @@ export default {
       $html => {
         let playlist = {
           id: playlistID,
-          title: $html.find('.pl-header-title').text().trim(),
+          title: $html
+            .find('.pl-header-title')
+            .text()
+            .trim(),
           videos: []
         }
         for (let item of $html.find('.pl-video.yt-uix-tile')) {
@@ -142,6 +145,35 @@ export default {
           channel.videos.push(youtube)
         }
         callback(channel)
+      }
+    )
+  },
+  channelPlaylists(channelID, callback) {
+    // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
+    Helper.scrape2(
+      `https://www.youtube.com/channel/${channelID}/playlists`,
+      $html => {
+        let playlists = []
+        for (let item of $html.find('.yt-shelf-grid-item')) {
+          let playlist = {
+            id: $(item)
+              .find('.addto-tv-queue-button')
+              .attr('data-list-id'),
+            title: $(item)
+              .find('.yt-uix-tile-link')
+              .text()
+              .trim(),
+            thumbnail: $(item)
+              .find('[data-ytimg]')
+              .attr('src'),
+            count: $(item)
+              .find('.formatted-video-count-label b')
+              .text()
+          }
+          playlists.push(playlist)
+          console.log(item, 'playlist item')
+        }
+        callback(playlists)
       }
     )
   }
