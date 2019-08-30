@@ -145,7 +145,7 @@ export default {
     },
     testYouTube() {
       YouTube.channelVideosByProxy(
-        'https://www.youtube.com/user/TEDxTaipei',
+        'UCKFB_rVEFEF3l-onQGvGx1A',
         youtubes => console.log(youtubes)
       )
     }

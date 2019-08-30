@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
-        <YouTubeNav class="mb-4"/>
+        <YouTubeNav class="mb-4" />
         <div class="jumbotron bg-light pt-4 pb-3 mt-3 mb-3">
           <h4>
             Study
@@ -21,14 +21,16 @@
               <b>Subtitls/CC.</b>
             </li>
             <li>
-              Open a video that interests you. <br/><small><b>Note:</b> Many have closed captions, but they are
-              in
-              <em>English.</em> You need to look for <em>Chinese</em> closed
-              captions. These are hard to find. If you cannot find any, look in
-              the suggested channels listed on this page.</small>
+              Open a video that interests you. <br /><small
+                ><b>Note:</b> Many have closed captions, but they are in
+                <em>English.</em> You need to look for <em>Chinese</em> closed
+                captions. These are hard to find. If you cannot find any, look
+                in the suggested channels listed on this page.</small
+              >
             </li>
             <li>
-              Copy the video's URL, paste it into the box above, and press <b>Enter</b>
+              Copy the video's URL, paste it into the box above, and press
+              <b>Enter</b>
               or click
               <b>Study.</b>
             </li>
@@ -77,9 +79,25 @@ export default {
         {
           id: 'UCYfJG6cGfW84FVLuy7semEg',
           title: 'Guan Video观视频工作室',
-          description: "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
+          description:
+            "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
           avatar:
             'https://yt3.ggpht.com/a/AGF-l79IPiVAXo3qD2cie7JPJL6B_PJ1Di3NfBp95Q=s288-c-k-c0xffffffff-no-rj-mo'
+        },
+        {
+          id: 'UCI-aslpo4ZZpatYyGs53DLw',
+          title: 'TEDxTaipei',
+          description:
+            "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
+          avatar:
+            'https://yt3.ggpht.com/a/AGF-l7-7ljVO1FOH9LVcmmT9tI2tA6SeCNoONsU94A=s176-c-k-c0xffffffff-no-rj-mo'
+        },
+        {
+          id: 'UC24Dmp_2aHn_XKOBrR21DGA',
+          title: 'Learn Chinese Slowly',
+          description: '快乐汉语 (Happy Chinese) with subtitles.',
+          avatar:
+            'https://yt3.ggpht.com/a/AGF-l7-2aMAAukOnWKuaEtBR4Aiou2AyxbE8bn8GVA=s288-c-k-c0xffffffff-no-rj-mo'
         }
       ]
     }

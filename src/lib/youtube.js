@@ -44,29 +44,32 @@ export default {
       callback(videoIds)
     })
   },
-  channelVideosByProxy(channelURL, callback) {
+  channelVideosByProxy(channelID, callback) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
-    Helper.scrape2(`${channelURL}/videos`, $html => {
-      let youtubes = []
-      for (let item of $html.find('.yt-lockup-content')) {
-        let badge = $(item).find('.yt-badge')[0]
-        let youtube = {
-          cc: false,
-          title: $(item)
-            .find('.yt-uix-sessionlink')
-            .attr('title'),
-          url:
-            'https://www.youtube.com' +
-            $(item)
+    Helper.scrape2(
+      `https://www.youtube.com/channel/${channelID}/videos`,
+      $html => {
+        let youtubes = []
+        for (let item of $html.find('.yt-lockup-content')) {
+          let badge = $(item).find('.yt-badge')[0]
+          let youtube = {
+            cc: false,
+            title: $(item)
               .find('.yt-uix-sessionlink')
-              .attr('href')
+              .attr('title'),
+            url:
+              'https://www.youtube.com' +
+              $(item)
+                .find('.yt-uix-sessionlink')
+                .attr('href')
+          }
+          if (badge && badge.innerText === 'CC') {
+            youtube.cc = true
+          }
+          youtubes.push(youtube)
         }
-        if (badge && badge.innerText === 'CC') {
-          youtube.cc = true
-        }
-        youtubes.push(youtube)
+        callback(youtubes)
       }
-      callback(youtubes)
-    })
+    )
   }
 }
