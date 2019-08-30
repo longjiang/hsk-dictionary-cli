@@ -155,6 +155,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-size: 3rem;
   padding: 3rem;
   .annotator-copy,
@@ -163,9 +164,14 @@ export default {
     display: none;
   }
   .annotator-close {
+    opacity: 0;
     position: absolute;
     top: 0.75rem;
     right: 2.5rem;
+    transition: 0.5s all ease-in-out;
+  }
+  .annotator-close:hover {
+    opacity: 1;
   }
 }
 
