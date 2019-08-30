@@ -1,5 +1,5 @@
-// const dictionaryServer = 'http://hsk-server.local:8888/'
-const dictionaryServer = 'https://server.chinesezerotohero.com/'
+const dictionaryServer = 'http://hsk-server.local:8888/'
+// const dictionaryServer = 'https://server.chinesezerotohero.com/'
 
 // const lrcServer = 'http://lyrics-search.local:8888/'
 const lrcServer = 'https://lyrics-search.chinesezerotohero.com/'
@@ -11,6 +11,7 @@ export default {
   proxy: dictionaryServer + 'proxy.php',
   jsonProxy: dictionaryServer + 'json-proxy.php',
   scrape: dictionaryServer + 'scrape.php',
+  scrape2: dictionaryServer + 'scrape2.php',
   imageProxy: dictionaryServer + 'image.php',
   listPhotos: dictionaryServer + 'list-photos.php',
   savePhoto: dictionaryServer + 'save-photo.php',

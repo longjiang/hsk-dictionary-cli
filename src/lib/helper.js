@@ -56,6 +56,16 @@ export default {
       return response ? callback($html, response, text) : null;
     })
   },
+  async scrape2(url, callback, cacheLife = -1) {
+    await $.ajax(`${Config.scrape2}?url=${url}&cache_life=${cacheLife}`).done(function(response) {
+      // We use 'ownerDocument' so we don't load the images and scripts!
+      // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
+      var ownerDocument = document.implementation.createHTMLDocument('virtual')
+      var $html = $(response, ownerDocument)
+      var text = $html.find('a').text()
+      return response ? callback($html, response, text) : null;
+    })
+  },
   highlight(text, word, level = false) {
     let levelAttr = level ? ` data-hsk="${level}"` : ''
     if (text) {

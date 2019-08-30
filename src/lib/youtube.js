@@ -1,4 +1,5 @@
 import Config from '@/lib/config'
+import Helper from '@/lib/helper'
 
 export default {
   limit: location.hash.replace('#', ''), // #perpage/page
@@ -7,23 +8,23 @@ export default {
     if (this.limit) {
       url = url + this.limit
     }
-    $.getJSON(url, function(result) {
+    $.getJSON(url, function (result) {
       youtubeVue.lrcs = result
     })
   },
   searchYouTubeByProxy(searchTerm, callback) {
     $.ajax(
       Config.lrcServer +
-        'proxy.php?' +
-        'https://www.youtube.com/results?search_query=' +
-        searchTerm
-    ).done(function(response) {
+      'proxy.php?' +
+      'https://www.youtube.com/results?search_query=' +
+      searchTerm
+    ).done(function (response) {
       var videoIds = []
       // We use 'ownerDocument' so we don't load the images and scripts!
       // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
       var ownerDocument = document.implementation.createHTMLDocument('virtual')
       let $html = $(response, ownerDocument)
-      $html.find('.item-section li .yt-uix-tile-link').each(function() {
+      $html.find('.item-section li .yt-uix-tile-link').each(function () {
         if (
           !$(this)
             .attr('href')
@@ -42,5 +43,18 @@ export default {
       })
       callback(videoIds)
     })
+  },
+  channelVideosByProxy(channelURL, callback) { // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
+    Helper.scrape2(
+      `${channelURL}/videos`,
+      $html => {
+        for (let item of $html.find('.yt-lockup-content')) {
+          let badge = $(item).find('.yt-badge')[0]
+          if (badge && badge.innerText === 'CC') {
+            console.log($(item).find('.yt-uix-sessionlink').attr('title'))
+          }
+        }
+      }
+    )
   }
 }
