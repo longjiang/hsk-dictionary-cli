@@ -13,7 +13,10 @@
         </div>
       </div>
     </div>
-    <div v-if="saved()" class="jumbotron jumbotron-fluid pt-3 pb-3 mb-0 bg-secondary">
+    <div
+      v-if="saved()"
+      class="jumbotron jumbotron-fluid pt-3 pb-3 mb-0 bg-secondary"
+    >
       <div class="container focus-exclude text-center text-light">
         <Paginator
           :items="$store.state.savedWords"
@@ -33,7 +36,10 @@
         <div class="row">
           <div class="col-sm-12 text-center mt-5">
             <EntryHeader :entry="entry"></EntryHeader>
-            <DefinitionsList class="mt-4" :definitions="entry.definitions"></DefinitionsList>
+            <DefinitionsList
+              class="mt-4"
+              :definitions="entry.definitions"
+            ></DefinitionsList>
           </div>
         </div>
       </div>
@@ -75,12 +81,25 @@
               :pinyin="entry.pinyin"
             ></EntryCharacters>
 
-            <WebImages class="mt-5" :text="entry.simplified" :entry="entry" limit="10"></WebImages>
+            <WebImages
+              class="mt-5"
+              :text="entry.simplified"
+              :entry="entry"
+              limit="10"
+            ></WebImages>
 
             <Grammar :text="entry.simplified" class="mt-5"></Grammar>
 
-            <Collocations class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Collocations>
-            <Concordance class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Concordance>
+            <Collocations
+              class="mt-5 mb-5"
+              :text="entry.simplified"
+              :level="entry.hsk"
+            ></Collocations>
+            <Concordance
+              class="mt-5 mb-5"
+              :text="entry.simplified"
+              :level="entry.hsk"
+            ></Concordance>
 
             <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
           </div>
@@ -93,7 +112,15 @@
             <Korean class="mt-5 mb-5" :text="entry.traditional" />
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <EntryYouTube
+              :text="entry.simplified"
+            />
+          </div>
+        </div>
       </div>
+
       <!-- <InstagramButton :entry="entry" class="mb-5"></InstagramButton> -->
 
       <EntryCourseAd :entry="entry" class="focus-exclude"></EntryCourseAd>
@@ -117,6 +144,7 @@ import Mistakes from '@/components/Mistakes.vue'
 import WebImages from '@/components/WebImages.vue'
 import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
+import EntryYouTube from '@/components/EntryYouTube.vue'
 import Helper from '@/lib/helper'
 import DefinitionsList from '@/components/DefinitionsList'
 import EntryDifficulty from '@/components/EntryDifficulty'
@@ -141,6 +169,7 @@ export default {
     DefinitionsList,
     Paginator,
     InstagramButton,
+    EntryYouTube,
     Korean,
     EntryDifficulty,
     Japanese,
@@ -165,7 +194,9 @@ export default {
     show(entry) {
       this.entryKey += 1
       this.entry = entry
-      document.title = `${entry.simplified} (${entry.pinyin}) ${entry.definitions[0].text} | Chinese Zero to Hero`
+      document.title = `${entry.simplified} (${entry.pinyin}) ${
+        entry.definitions[0].text
+      } | Chinese Zero to Hero`
     },
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()

@@ -47,6 +47,47 @@ export default {
       callback(videoIds)
     })
   },
+  search(text, callback, subs = false) {
+    let subsQueryVar = subs ? '&sp=EgIoAQ%253D%253D' : ''
+    Helper.scrape2(
+      `https://www.youtube.com/results?search_query=${text}${subsQueryVar}`,
+      $html => {
+        let videos = []
+        for (let item of $html.find('.yt-lockup-content')) {
+          if (
+            !$(item)
+              .find('.yt-uix-sessionlink')
+              .attr('href')
+              .includes('/channel/') &&
+            !$(item)
+              .find('.yt-uix-sessionlink')
+              .attr('href')
+              .includes('/user/')
+          ) {
+            let badge = $(item).find('.yt-badge')[0]
+            let id = $(item)
+              .find('.yt-uix-sessionlink')
+              .attr('href')
+              .replace('/watch?v=', '')
+            let youtube = {
+              id: id,
+              cc: false,
+              title: $(item)
+                .find('.yt-uix-sessionlink')
+                .attr('title'),
+              thumbnail: this.thumbnail(id),
+              url: 'https://www.youtube.com/watch?v=' + id
+            }
+            if (badge && badge.innerText === 'CC') {
+              youtube.cc = true
+            }
+            videos.push(youtube)
+          }
+        }
+        callback(videos)
+      }
+    )
+  },
   channelVideosByProxy(channelID, callback) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
     Helper.scrape2(
