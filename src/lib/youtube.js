@@ -88,7 +88,30 @@ export default {
       }
     )
   },
-  channelVideosByProxy(channelID, callback) {
+  playlist(playlistID, callback) {
+    Helper.scrape2(
+      `https://www.youtube.com/playlist?list=${playlistID}`,
+      $html => {
+        let playlist = {
+          id: playlistID,
+          title: $html.find('.pl-header-title').text().trim(),
+          videos: []
+        }
+        for (let item of $html.find('.pl-video.yt-uix-tile')) {
+          // console.log(script)
+          let id = $(item).attr('data-video-id')
+          let video = {
+            title: $(item).attr('data-title'),
+            id: id,
+            thumbnail: this.thumbnail(id)
+          }
+          playlist.videos.push(video)
+        }
+        callback(playlist)
+      }
+    )
+  },
+  channel(channelID, callback) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
     Helper.scrape2(
       `https://www.youtube.com/channel/${channelID}/videos`,

@@ -350,6 +350,21 @@ export default new Router({
       }
     },
     {
+      path: '/youtube/playlist/:args?',
+      name: 'youtube-playlist',
+      component: () => import('./views/YouTubePlaylist.vue'),
+      props: true,
+      meta: {
+        title: 'Study YouTube Subtitles | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Watch Chinese YouTube videos and study the subtitles.'
+          }
+        ]
+      }
+    },
+    {
       path: '/articles',
       name: 'articles',
       redirect: '/articles/wiki/list'

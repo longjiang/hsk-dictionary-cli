@@ -64,8 +64,7 @@ export default {
       // https://stackoverflow.com/questions/15113910/jquery-parse-html-without-loading-images
       var ownerDocument = document.implementation.createHTMLDocument('virtual')
       var $html = $(response, ownerDocument)
-      var text = $html.find('a').text()
-      return response ? callback($html, response, text) : null
+      return response ? callback($html, ownerDocument, response) : null
     })
   },
   highlight(text, word, level = false) {
