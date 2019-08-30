@@ -100,9 +100,11 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      this.$refs.transcript.currentTime = this.$refs.youtube
-        ? this.$refs.youtube.currentTime()
-        : 0
+      if (this.$refs.transcript && this.$refs.transcript.currentTime) {
+        this.$refs.transcript.currentTime = this.$refs.youtube
+          ? this.$refs.youtube.currentTime()
+          : 0
+      }
     }, 200)
   },
   props: {

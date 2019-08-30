@@ -114,9 +114,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <EntryYouTube
-              :text="entry.simplified"
-            />
+            <EntryYouTube :text="entry.simplified" />
           </div>
         </div>
       </div>
@@ -192,11 +190,13 @@ export default {
       )
     },
     show(entry) {
-      this.entryKey += 1
-      this.entry = entry
-      document.title = `${entry.simplified} (${entry.pinyin}) ${
-        entry.definitions[0].text
-      } | Chinese Zero to Hero`
+      if (entry) {
+        this.entryKey += 1
+        this.entry = entry
+        document.title = `${entry.simplified} (${entry.pinyin}) ${
+          entry.definitions[0].text
+        } | Chinese Zero to Hero`
+      }
     },
     route() {
       $('#chinesezerotohero')[0].scrollIntoView()
