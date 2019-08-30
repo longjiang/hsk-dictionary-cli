@@ -3,13 +3,32 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
-        <YouTubeNav class="mb-4" />
+
+        <h4 class="mt-5 mb-5">
+          A collection of YouTube channels with subtitles
+        </h4>
+        <ul class="list-unstyled p-0">
+          <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
+            <a
+              :href="`#/youtube/channel/${channel.id}`"
+              class="link-unstyled channel"
+            >
+              <img :src="channel.avatar" class="channel-avatar" alt />
+              <div class="channel-body">
+                <h6>{{ channel.title }}</h6>
+                <div>{{ channel.description }}</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <h4 class="mt-5 mb-5">
+          Study
+          <em>any</em> YouTube video that has Chinese closed captions
+        </h4>
+
         <div class="jumbotron bg-light pt-4 pb-3 mt-3 mb-3">
-          <h4>
-            Study
-            <em>any</em> YouTube video that has Chinese closed captions
-          </h4>
-          <hr />
+          <YouTubeNav class="mb-4" />
           <ol>
             <li>
               Go to YouTube, search a Chinese word. For example
@@ -36,24 +55,6 @@
             </li>
           </ol>
         </div>
-
-        <h4 class="mt-5 mb-5">
-          A collection of YouTube channels with subtitles
-        </h4>
-        <ul class="list-unstyled p-0">
-          <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
-            <a
-              :href="`#/youtube/channel/${channel.id}`"
-              class="link-unstyled channel"
-            >
-              <img :src="channel.avatar" class="channel-avatar" alt />
-              <div class="channel-body">
-                <h6>{{ channel.title }}</h6>
-                <div>{{ channel.description }}</div>
-              </div>
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </div>

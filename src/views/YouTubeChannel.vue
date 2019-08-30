@@ -39,12 +39,27 @@ export default {
       videos: undefined
     }
   },
-  created() {
-    YouTube.channelVideosByProxy(this.args, channel => {
-      console.log(channel)
-      this.title = channel.title
-      this.videos = channel.videos
-    })
+  mounted() {
+    this.update()
+  },
+  methods: {
+    update() {
+      $('#chinesezerotohero')[0].scrollIntoView()
+      this.title = undefined
+      this.videos = undefined
+      YouTube.channelVideosByProxy(this.args, channel => {
+        console.log(channel)
+        this.title = channel.title
+        this.videos = channel.videos
+      })
+    }
+  },
+  watch: {
+    args() {
+      if (this.$route.name === 'youtube-channel') {
+        this.update()
+      }
+    }
   }
 }
 </script>
