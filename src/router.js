@@ -247,6 +247,21 @@ export default new Router({
       }
     },
     {
+      path: '/separable/:method?/:args?',
+      name: 'separable',
+      component: () => import('./views/Separable.vue'),
+      props: true,
+      meta: {
+        title: 'Separable Words | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Chinese verbs that are separable (离合词 líhécí).'
+          }
+        ]
+      }
+    },
+    {
       path: '/grammar',
       name: 'grammar',
       component: () => import('./views/Grammar.vue'),
