@@ -27,16 +27,20 @@
           <div class="example-sentence mt-4">
             <!-- <p class="example-sentence-pinyin">{{ entry.examplePinyin }} <i class="speak glyphicon glyphicon-volume-up" v-bind:data-speak="entry.example"></i></p> -->
 
-            <Annotate tag="p" class="example-sentence-word">
+            <Annotate
+              tag="p"
+              class="example-sentence-word"
+              :copy="true"
+              :showDef="true"
+              :fullscreen="true"
+            >
               <span
                 v-html="
                   Helper.highlight(entry.example, entry.simplified, entry.hsk)
                 "
               ></span>
             </Annotate>
-            <p class="example-sentence-english">
-              {{ entry.exampleTranslation }}
-            </p>
+            <p class="example-sentence-english">{{ entry.exampleTranslation }}</p>
           </div>
         </div>
       </div>
@@ -44,11 +48,7 @@
         <div class="row mb2">
           <div class="col-sm-12">
             Search
-            <input
-              type="text"
-              class="search-image"
-              v-on:keyup.enter="searchImageKeyupEnter"
-            />
+            <input type="text" class="search-image" v-on:keyup.enter="searchImageKeyupEnter" />
           </div>
         </div>
         <div class="row">
@@ -80,8 +80,7 @@
                     HSK.simplifyEnglish(entry.english)
                 "
                 target="_blank"
-                >Search on Canva</a
-              >
+              >Search on Canva</a>
             </div>
           </div>
         </div>
@@ -149,8 +148,6 @@ export default {
 </script>
 
 <style>
-
-
 .example-sentence p,
 .lyrics p {
   margin: 0;
@@ -164,7 +161,6 @@ export default {
 .example-sentence .example-sentence-english {
   margin-top: 0.5rem;
 }
-
 
 .example-image-wrapper {
   padding-bottom: 56%;
@@ -180,7 +176,6 @@ export default {
   position: absolute;
   object-fit: cover;
 }
-
 
 .unsplash-sources {
   background: white;

@@ -2,7 +2,7 @@
   <div class="youtube-browse container mt-5 mb-5 main">
     <div class="row">
       <div class="col-sm-12">
-        <h3 v-if="title" class="text-center">Playlist: {{ title }}</h3>
+        <h3 v-if="title" class="text-center">Playlist: <Annotate>{{ title }}</Annotate></h3>
         <hr />
         <p class="text-center mb-5">
           <b>Note:</b> Videos may not have subtitles.

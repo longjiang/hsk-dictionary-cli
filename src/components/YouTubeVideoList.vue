@@ -5,7 +5,7 @@
         <div class="youtube-thumbnail-wrapper aspect-wrapper">
           <img :src="video.thumbnail" class="youtube-thumbnail aspect" />
         </div>
-        <div class="youtube-title media-body">{{ video.title }}</div>
+        <div class="youtube-title media-body"><Annotate>{{ video.title }}</Annotate></div>
       </a>
     </div>
   </div>
