@@ -232,6 +232,21 @@ export default new Router({
       }
     },
     {
+      path: '/idioms/:method?/:args?',
+      name: 'idioms',
+      component: () => import('./views/Idioms.vue'),
+      props: true,
+      meta: {
+        title: 'Idioms | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Learn Chinese idioms (成语 chéngyǔ).'
+          }
+        ]
+      }
+    },
+    {
       path: '/grammar',
       name: 'grammar',
       component: () => import('./views/Grammar.vue'),
