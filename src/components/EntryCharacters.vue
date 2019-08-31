@@ -69,6 +69,6 @@ export default {
 .entry-character-column {
   flex: 1;
   margin: 1rem;
-  min-width: 30rem;
+  min-width: 20rem;
 }
 </style>
