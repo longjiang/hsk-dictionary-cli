@@ -88,9 +88,10 @@ export default {
       this.chinese = []
       this.english = []
       this.hasSubtitles = false
-      this.loading = true
+      this.loading = true;
+      const promises = [];
       for (let i = 0; i < LANGUAGE_OPTIONS.length; i++) {
-        await Helper.scrape(
+        promises.push(Helper.scrape(
           `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
             LANGUAGE_OPTIONS[i]
           }&fmt=srv3`,
@@ -103,8 +104,8 @@ export default {
               this.chinese.push(line)
             }
           }
-        )
-        await Helper.scrape(
+        ))
+        promises.push(Helper.scrape(
           `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
             LANGUAGE_OPTIONS[i]
           }&fmt=srv3&tlang=en`,
@@ -117,8 +118,8 @@ export default {
               this.english.push(line)
             }
           }
-        )
-
+        ))
+        await Promise.all(promises)
         if (this.english.length > 0 && this.chinese.length > 0) {
           this.hasSubtitles = true
           break
