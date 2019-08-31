@@ -8,7 +8,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <h3 class="mb-5"><Annotate>{{ title }}</Annotate></h3>
+          <h3 class="mb-5" :key="title"><Annotate>{{ title }}</Annotate></h3>
         </div>
       </div>
       <div class="row">
@@ -76,6 +76,7 @@ export default {
   },
   watch: {
     args() {
+      $('#chinesezerotohero')[0].scrollIntoView()
       this.getVideoDetails()
       this.getTranscript()
       this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`
@@ -154,6 +155,7 @@ export default {
     }
   },
   mounted() {
+    $('#chinesezerotohero')[0].scrollIntoView()
     this.getVideoDetails()
     this.getTranscript()
     this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`
