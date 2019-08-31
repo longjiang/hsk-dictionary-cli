@@ -89,25 +89,31 @@ export default {
       this.english = []
       this.hasSubtitles = false
       this.loading = true;
+      let chosenLanguage;
       const promises = [];
-      for (let i = 0; i < LANGUAGE_OPTIONS.length; i++) {
-        promises.push(Helper.scrape(
-          `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
-            LANGUAGE_OPTIONS[i]
-          }&fmt=srv3`,
-          $html => {
-            for (let p of $html.find('p')) {
-              let line = {
-                line: $(p).text(),
-                starttime: parseInt($(p).attr('t')) / 1000
+      for (let language of LANGUAGE_OPTIONS) {
+        promises.push(
+          Helper.scrape(
+            `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
+              language
+            }&fmt=srv3`,
+            $html => {
+              chosenLanguage = language;
+              for (let p of $html.find('p')) {
+                let line = {
+                  line: $(p).text(),
+                  starttime: parseInt($(p).attr('t')) / 1000
+                }
+                this.chinese.push(line)
               }
-              this.chinese.push(line)
             }
-          }
-        ))
-        promises.push(Helper.scrape(
+          ))
+      }
+      await Promise.all(promises)
+      if (this.chinese.length > 0) {
+        await Helper.scrape(
           `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${
-            LANGUAGE_OPTIONS[i]
+            chosenLanguage
           }&fmt=srv3&tlang=en`,
           $html => {
             for (let p of $html.find('p')) {
@@ -118,12 +124,8 @@ export default {
               this.english.push(line)
             }
           }
-        ))
-        await Promise.all(promises)
-        if (this.english.length > 0 && this.chinese.length > 0) {
-          this.hasSubtitles = true
-          break
-        }
+        )
+        this.hasSubtitles = true
       }
       this.loading = false
     }
