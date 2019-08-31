@@ -32,6 +32,7 @@
               $route.name === 'compare' ||
               $route.name === 'phrase' ||
               $route.name === 'levels' ||
+              $route.name === 'idioms' ||
               $route.name.startsWith('explore') ||
               $route.name === 'learn' ||
               $route.name === 'saved-words')

@@ -63,6 +63,7 @@
             $route.name === 'compare' ||
             $route.name === 'phrase' ||
             $route.name === 'levels' ||
+            $route.name === 'idioms' ||
             $route.name === 'learn' ||
             $route.name === 'saved-words' ||
             $route.name.startsWith('explore') ||
@@ -77,6 +78,9 @@
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'browse' }">
         <i class="glyphicon glyphicon-signal"></i>HSK Levels
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'idioms' }">
+        <font-awesome-icon icon="border-all" />Idioms
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'explore-roots' }">
         <i class="glyphicon glyphicon-grain"></i>Roots
