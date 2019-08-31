@@ -64,6 +64,7 @@
             $route.name === 'phrase' ||
             $route.name === 'levels' ||
             $route.name === 'idioms' ||
+            $route.name === 'separable' ||
             $route.name === 'learn' ||
             $route.name === 'saved-words' ||
             $route.name.startsWith('explore') ||
@@ -81,6 +82,9 @@
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'idioms' }">
         <font-awesome-icon icon="border-all" />Idioms
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'separable' }">
+        <font-awesome-icon icon="angle-double-right" />Separables
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'explore-roots' }">
         <i class="glyphicon glyphicon-grain"></i>Roots
