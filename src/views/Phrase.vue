@@ -19,6 +19,7 @@
             <Collocations v-if="args" :text="args" class="mt-5" />
             <Concordance v-if="args" :text="args" class="mt-5" />
             <Mistakes v-if="args" :text="args" class="mt-5" />
+            <EntryYouTube :text="args" class="mt-5" />
           </div>
         </div>
       </div>
@@ -33,6 +34,7 @@ import Mistakes from '@/components/Mistakes'
 import Collocations from '@/components/Collocations'
 import Search from '@/components/Search'
 import WebImages from '@/components/WebImages'
+import EntryYouTube from '@/components/EntryYouTube'
 
 export default {
   components: {
@@ -41,7 +43,8 @@ export default {
     Mistakes,
     Collocations,
     WebImages,
-    Concordance
+    Concordance,
+    EntryYouTube
   },
   props: {
     method: {
