@@ -24,9 +24,14 @@
                     :src="`/img/courses/hsk${hsk}.jpg`"
                     :alt="`HSK ${hsk} Course`"
                     class="img-fluid shadow rounded"
-                  />
-                  <h5 class="mt-2">HSK {{ hsk }} Course</h5></a
-                >
+                    target="_blank"/>
+                  <h5 class="mt-2">
+                    HSK {{ hsk }} Course
+                    <font-awesome-icon
+                      icon="external-link-alt"
+                      class="small ml-1"
+                    /></h5
+                ></a>
               </div>
               <div class="col-sm-6 col-md-4 mb-3">
                 <a
@@ -37,9 +42,14 @@
                     :src="`/img/courses/fluency.jpg`"
                     alt="Path to Fluency Course"
                     class="img-fluid shadow rounded"
-                  />
-                  <h5 class="mt-2">Path to Fluency</h5></a
-                >
+                    target="_blank"/>
+                  <h5 class="mt-2">
+                    Path to Fluency
+                    <font-awesome-icon
+                      icon="external-link-alt"
+                      class="small ml-1"
+                    /></h5
+                ></a>
               </div>
               <div class="col-sm-6 col-md-4 mb-3">
                 <a
@@ -50,21 +60,31 @@
                     :src="`/img/courses/phonetics.jpg`"
                     alt="Phonetics with Chinese Characteristics"
                     class="img-fluid shadow rounded"
-                  />
+                    target="_blank"/>
                   <h5 class="mt-2">
                     Phonetics with Chinese Characteristics
-                  </h5></a
-                >
+                    <font-awesome-icon
+                      icon="external-link-alt"
+                      class="small ml-1"
+                    /></h5
+                ></a>
               </div>
             </div>
           </div>
           <a
             href="https://chinesezerotohero.teachable.com/"
-            class="btn btn-success bigger"
+            class="btn btn-success view-courses pb-1 bigger"
             target="_blank"
-            >View All Courses
-            <font-awesome-icon icon="external-link-alt" class="small ml-1"
-          /></a>
+            >View all of our courses on
+            <img
+              src="/img/teachable_light.png"
+              alt="Teachable"
+              class="logo-small mb-1"
+            />
+          </a>
+          <p class="mt-3">
+            <b>Teachable</b> is an online platform that hosts video courses.
+          </p>
         </div>
       </div>
     </div>

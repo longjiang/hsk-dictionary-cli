@@ -16,12 +16,15 @@
     <!-- To paste images from clipboard directly, download the "Paste Image" extension from mushan -->
     <div class="container-fluid top-bar pt-3">
       <div class="container">
-        <div class="row mb-3">
-          <div class="col-sm-12 text-center">
-            <router-link to="/">
-              <img src="img/logo-zh-zth-light.png" class="logo" />
-            </router-link>
-          </div>
+        <div class="col-sm-12 text-md-center">
+          <router-link to="/">
+            <img src="img/logo-zh-zth-light.png" class="logo" />
+          </router-link>
+          <a
+            class="btn btn-danger btn-sign-in"
+            href="https://sso.teachable.com/secure/133035/users/sign_in"
+            >Login to <img src="/img/teachable_light.png" class="logo-small"
+          /></a>
         </div>
       </div>
       <div class="row mt-3" v-cloak>
@@ -42,7 +45,12 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="zerotohero">
-              <a v-for="language in languages" :href="language.url" target="_blank" class="mr-4">
+              <a
+                v-for="language in languages"
+                :href="language.url"
+                target="_blank"
+                class="mr-4"
+              >
                 <img
                   :src="
                     `${Config.server}img/logo-${language.code}-zth-light.png`
@@ -58,54 +66,48 @@
             </p>
 
             <b>Credits</b>: Most dictionary data from
-            <a
-              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-            >CC-CEDICT</a>. Images made
-            <a v-on:click="adminClick">possible</a> with
+            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+              >CC-CEDICT</a
+            >. Images made <a v-on:click="adminClick">possible</a> with
             <a href="https://source.unsplash.com/">Unsplash Source</a> and
             <a href="https://www.canva.com/photos/">Canva</a>, and
             <a href="https://pixabay.com/">Pixabay</a>. Small images are from
             <a href="https://image.so.com/">360 Photo Search</a>. Character
             component breakdown and stroke animation made possible by
-            <a
-              href="https://github.com/skishore/makemeahanzi"
-            >Make Me a Hanzi</a>. Example sentences and translation from
+            <a href="https://github.com/skishore/makemeahanzi"
+              >Make Me a Hanzi</a
+            >. Example sentences and translation from
             <a href="http://www.jukuu.com/">Jukuu</a>. Related words,
             collocations, example sentences and common mistakes provided by
-            <a
-              href="https://www.sketchengine.eu/"
-            >Sketch Engine</a>. Pinyin
+            <a href="https://www.sketchengine.eu/">Sketch Engine</a>. Pinyin
             annotation with
-            <a
-              href="https://longjiang.github.io/annotator-js/"
-            >Annotator.js</a>, which we created ourselves based on the
-            <a
-              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-            >CC-CEDICT</a>
+            <a href="https://longjiang.github.io/annotator-js/">Annotator.js</a
+            >, which we created ourselves based on the
+            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+              >CC-CEDICT</a
+            >
             dictionary made freely available from
-            <a
-              href="https://www.mdbg.net/chinese/dictionary?page=cedict"
-            >MDBG</a>. Korean hanja readings and definitions uses
-            <a
-              href="https://github.com/dbravender/hanja-dictionary"
-            >hanja-dictionary</a>. Over 7,000 time-synced lyrics (LRCs) from
-            <a
-              href="http://www.22lrc.com/"
-              class="add-pinyin"
-            >爱歌词</a> and
+            <a href="https://www.mdbg.net/chinese/dictionary?page=cedict"
+              >MDBG</a
+            >. Korean hanja readings and definitions uses
+            <a href="https://github.com/dbravender/hanja-dictionary"
+              >hanja-dictionary</a
+            >. Over 7,000 time-synced lyrics (LRCs) from
+            <a href="http://www.22lrc.com/" class="add-pinyin">爱歌词</a> and
             <a href="http://www.gecimi.com/" class="add-pinyin">歌词迷</a>.
-            <button
-              @click="toggleFocus"
-              class="btn btn-small focus-hover"
-            >Turn {{ focus ? 'off' : 'on' }} Focus Mode</button>
+            <button @click="toggleFocus" class="btn btn-small focus-hover">
+              Turn {{ focus ? 'off' : 'on' }} Focus Mode
+            </button>
             <hr class="border-light" style="opacity: 0.5" />
             <p>
-              Interesetd in contributing and making the tools available even better? This site is a fully open sourced and
-              available to be viewed at
+              Interesetd in contributing and making the tools available even
+              better? This site is a fully open sourced and available to be
+              viewed at
               <a
                 href="https://github.com/longjiang/hsk-dictionary-cli"
                 target="_blank"
-              >this github reprository.</a>
+                >this github reprository.</a
+              >
             </p>
           </div>
         </div>
@@ -193,7 +195,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .logo {
   height: 6rem;
 }
@@ -218,5 +220,16 @@ footer a {
 
 footer a:hover {
   color: white;
+}
+
+.btn-sign-in {
+  padding: 0 0.5rem;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  img {
+    height: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
 }
 </style>

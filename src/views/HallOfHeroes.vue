@@ -14,11 +14,11 @@
         </p>
         <div class="text-center mt-5 mb-5 filter">
           <button
-            @click="filter = hero => hero.featured"
+            @click="filter = hero => hero"
             class="btn mr-2"
             data-bg-hsk="outside"
           >
-            Featured
+            All
           </button>
           <button
             v-for="hsk in ['1', '2', '3', '4', '5']"
@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      filter: hero => hero.featured
+      filter: hero => hero
     }
   }
 }

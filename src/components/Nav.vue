@@ -78,7 +78,7 @@
         <font-awesome-icon icon="id-card" />Contact
       </router-link>
       <router-link
-        class="tab tab-info"
+        class="tab"
         :to="{ name: 'settings' }"
         title="Settings"
       >
