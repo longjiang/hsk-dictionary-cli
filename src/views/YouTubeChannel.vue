@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 v-if="title" class="mb-5 text-center"><Annotate>{{ title }}</Annotate></h1>
-        <h4 class="text-center mt-5 mb-5">Videos</h4>
+        <h4 class="text-center mt-5">Videos</h4>
+        <hr class="mb-5"/>
         <YouTubeVideoList :videos="videos" />
         <h4 class="text-center mt-5">Playlists</h4>
         <hr />

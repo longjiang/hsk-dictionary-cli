@@ -10,16 +10,7 @@
         <p class="mb-5">A collection of YouTube videos with subtitles.</p>
         <ul class="list-unstyled p-0 mb-5">
           <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
-            <a
-              :href="`#/youtube/channel/${channel.id}`"
-              class="link-unstyled channel"
-            >
-              <img :src="channel.avatar" class="channel-avatar" alt />
-              <div class="channel-body">
-                <h6>{{ channel.title }}</h6>
-                <div>{{ channel.description }}</div>
-              </div>
-            </a>
+            <YouTubeChannelCard :channel="channel" />
           </li>
         </ul>
 
@@ -63,9 +54,12 @@
 
 <script>
 import YouTubeNav from '@/components/YouTubeNav'
+import YouTubeChannelCard from '@/components/YouTubeChannelCard'
+
 export default {
   components: {
-    YouTubeNav
+    YouTubeNav,
+    YouTubeChannelCard
   },
   props: {
     args: {
@@ -110,20 +104,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.channel {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-.channel-body {
-  flex: 1;
-}
-.channel-avatar {
-  border-radius: 100%;
-  height: 4rem;
-  float: left;
-  margin-right: 1rem;
-}
-</style>
