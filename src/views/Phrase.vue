@@ -19,7 +19,7 @@
             <Collocations v-if="args" :text="args" class="mt-5" />
             <Concordance v-if="args" :text="args" class="mt-5" />
             <Mistakes v-if="args" :text="args" class="mt-5" />
-            <EntryYouTube :text="args" class="mt-5" />
+            <EntryYouTube v-if="args" :text="args" class="mt-5" />
           </div>
         </div>
       </div>
