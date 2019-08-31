@@ -80,7 +80,7 @@ export default {
               word => {
                 document.title = `Words Related to ${word.simplified} (${word.pinyin}) ${word.definitions[0].text}`
                 this.word = word
-                this.$refs.search.entry = word
+                this.$refs.search.dEntry = word
                 this.$refs.search.text = word.simplified
                 this.related = [this.word]
                 SketchEngine.thesaurus(this.word.simplified, response => {
