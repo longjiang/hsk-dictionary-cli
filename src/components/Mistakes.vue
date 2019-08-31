@@ -14,7 +14,7 @@
               {{ mistake.right }}
             </Annotate>
             <span class="mistake-context collapsed" data-collapse-target>
-              <Annotate>{{ mistake.rightContext }}</Annotate>
+              <Annotate :copy="true" :showDef="true" :fullscreen="true">{{ mistake.rightContext }}</Annotate>
             </span>
             <ShowMoreButton class="mb-2 btn-small ml-2">Context</ShowMoreButton>
             <div>
@@ -129,7 +129,6 @@ export default {
 .mistake-flag {
   font-size: 1.5rem;
 }
-
 
 .mistake-description {
   color: #dababa;

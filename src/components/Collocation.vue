@@ -8,6 +8,9 @@
           v-for="Word in collocation.Words"
           v-if="Word.cm"
           class="gramrel-item list-unstyled"
+          :copy="true"
+          :showDef="true"
+          :fullscreen="true"
           tag="li"
         >
           <span

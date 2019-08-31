@@ -30,7 +30,13 @@
             </button>-->
           </div>
           <Loader class="mb-5" />
-          <Annotate v-if="text.length > 0" :key="readerKey">
+          <Annotate
+            v-if="text.length > 0"
+            :key="readerKey"
+            :copy="true"
+            :showDef="true"
+            :fullscreen="true"
+          >
             <div id="reader-annotated" class="focus" v-html="marked"></div>
           </Annotate>
           <ul class="list mt-2">

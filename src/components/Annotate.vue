@@ -53,13 +53,13 @@ export default {
       default: 'span'
     },
     copy: {
-      default: true
+      default: false
     },
     showDef: {
-      default: true
+      default: false
     },
     fullscreen: {
-      default: true
+      default: false
     },
     wordBlockTemplateFilter: {
       type: Function,
