@@ -6,7 +6,7 @@
         <div class="bg-success text-light p-3 text-center mb-5 rounded">
           <h4 class="mb-0">No subscriptions! 😊 Pay once, enjoy forever!</h4>
         </div>
-        <p>
+        <p class="mb-5">
           <b>These are <em>not</em> subscriptions.</b> You pay once and you will own it
           for life. No recurring fees.
         </p>
@@ -14,7 +14,7 @@
           <thead>
             <tr class="table-secondary">
               <th class="text-left">Course</th>
-              <th class="text-left">USD</th>
+              <th class="text-left">Single</th>
               <th class="text-left">Bundle</th>
               <th class="text-left">Course Bundle</th>
             </tr>
@@ -27,14 +27,14 @@
               >
                 HSK 1
               </td>
-              <td class="text-left">$29</td>
+              <td class="text-center"><b>$29</b></td>
               <td class="text-center align-middle" rowspan="4">
-                $134<br /><span style="color:rgb(26,148,6); font-size:12px;"
+                <b>$134</b><br /><span style="color:rgb(26,148,6); font-size:12px;"
                   >Save $24</span
                 >
               </td>
-              <td class="text-center align-middle" rowspan="8">
-                $219 <br /><span style="color:rgb(26,148,6); font-size:12px;"
+              <td class="text-center align-middle" rowspan="7">
+                <b>$219</b> <br /><span style="color:rgb(26,148,6); font-size:12px;"
                   >Save $67</span
                 >
               </td>
@@ -47,7 +47,7 @@
               >
                 HSK 2
               </td>
-              <td class="text-left">$29</td>
+              <td class="text-center"><b>$29</b></td>
             </tr>
 
             <tr>
@@ -57,7 +57,7 @@
               >
                 HSK 3
               </td>
-              <td class="text-left">$36</td>
+              <td class="text-center"><b>$36</b></td>
             </tr>
 
             <tr>
@@ -67,7 +67,7 @@
               >
                 HSK 4
               </td>
-              <td class="text-left">$64</td>
+              <td class="text-center"><b>$64</b></td>
             </tr>
 
             <tr>
@@ -77,9 +77,9 @@
               >
                 HSK 5 + Path to Fluency
               </td>
-              <td class="text-left">$64</td>
+              <td class="text-center"><b>$64</b></td>
               <td class="text-center align-middle" rowspan="3">
-                $109<br /><span style="color:rgb(26,148,6); font-size:12px;"
+                <b>$109</b><br /><span style="color:rgb(26,148,6); font-size:12px;"
                   >Save $48</span
                 >
               </td>
@@ -91,7 +91,7 @@
               >
                 HSK 6 + Path to Fluency
               </td>
-              <td class="text-left">$64</td>
+              <td class="text-center"><b>$64</b></td>
             </tr>
             <tr>
               <td
@@ -100,7 +100,7 @@
               >
                 Path To Fluency
               </td>
-              <td class="text-left">$29</td>
+              <td class="text-center"><b>$29</b></td>
             </tr>
             <tr>
               <td
@@ -109,8 +109,7 @@
               >
                 Pronunciation
               </td>
-              <td class="text-left">FREE</td>
-              <td class="text-left" rowspan="3"></td>
+              <td class="text-center" colspan="3"><b>FREE</b></td>
             </tr>
           </tbody>
         </table>

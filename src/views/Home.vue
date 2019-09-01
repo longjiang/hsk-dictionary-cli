@@ -44,7 +44,9 @@
           <div style="font-size: 1.5rem; font-weight: 100;">ALL COURSES</div>
           <div style="font-weight: 700; font-size: 3rem">25% OFF</div>
           <div>Ends: September 5</div>
-          <div class="mt-3"><span class="mr-2">Coupon Code</span><code>SUMMER25</code></div>
+          <div class="mt-3">
+            <span class="mr-2">Coupon Code</span><code>SUMMER25</code>
+          </div>
         </div>
       </div>
       <img
