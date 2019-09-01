@@ -17,7 +17,7 @@ export default {
   methods: {
     goto() {
       if (this.url) {
-        let id = this.url.replace(/.*\?v=(.*)/, '$1')
+        let id = this.url.replace('https://youtu.be/', '').replace(/.*\?v=([^&]*).*/, '$1')
         location.hash = '#/youtube/view/' + id
       }
     }
