@@ -27,7 +27,7 @@
           <td>
             <Annotate>{{ idiom.sourcePeriod }}</Annotate>
           </td>
-          <td>
+          <td style="min-width: 30rem">
             <Annotate
               >{{ idiom.sourceAuthor }} {{ idiom.sourceBook }}
               {{ idiom.sourceChapter }}：{{ idiom.sourceQuote }}</Annotate
