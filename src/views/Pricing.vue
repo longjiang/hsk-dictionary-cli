@@ -6,17 +6,29 @@
         <div class="bg-success text-light p-3 text-center mb-5 rounded">
           <h4 class="mb-0">No subscriptions! 😊 Pay once, enjoy forever!</h4>
         </div>
-        <p class="mb-5">
-          <b>These are <em>not</em> subscriptions.</b> You pay once and you will own it
-          for life. No recurring fees.
+        <p class="mb-3">
+          <b>These are <em>not</em> subscriptions.</b> You pay once and you will
+          own it for life. No recurring fees.
         </p>
-        <table class="table table-bordered">
+        <p>
+          Currency:
+          <select v-if="rates" name="" id="" v-model="currency" class="mb-3">
+            <option
+              v-for="(rate, symbol) in rates"
+              :value="symbol"
+              :selected="currency === symbol"
+              >{{ symbol.replace('CNY', 'RMB') }}</option
+            >
+          </select>
+        </p>
+
+        <table class="table table-bordered" :key="key">
           <thead>
             <tr class="table-secondary">
               <th class="text-left">Course</th>
-              <th class="text-left">Single</th>
-              <th class="text-left">Bundle</th>
-              <th class="text-left">Course Bundle</th>
+              <th class="text-center">Single</th>
+              <th class="text-center">Bundle</th>
+              <th class="text-center">Course Bundle</th>
             </tr>
           </thead>
           <tbody class="table-hover">
@@ -27,15 +39,19 @@
               >
                 HSK 1
               </td>
-              <td class="text-center"><b>$29</b></td>
+              <td class="text-center">
+                <b>{{ money(29) }}</b>
+              </td>
               <td class="text-center align-middle" rowspan="4">
-                <b>$134</b><br /><span style="color:rgb(26,148,6); font-size:12px;"
-                  >Save $24</span
+                <b>{{ money(134) }}</b
+                ><br /><span style="color:rgb(26,148,6); font-size:12px;"
+                  >Save {{ money(24) }}</span
                 >
               </td>
               <td class="text-center align-middle" rowspan="7">
-                <b>$219</b> <br /><span style="color:rgb(26,148,6); font-size:12px;"
-                  >Save $67</span
+                <b>{{ money(219) }}</b> <br /><span
+                  style="color:rgb(26,148,6); font-size:12px;"
+                  >Save {{ money(67) }}</span
                 >
               </td>
             </tr>
@@ -47,7 +63,9 @@
               >
                 HSK 2
               </td>
-              <td class="text-center"><b>$29</b></td>
+              <td class="text-center">
+                <b>{{ money(29) }}</b>
+              </td>
             </tr>
 
             <tr>
@@ -57,7 +75,9 @@
               >
                 HSK 3
               </td>
-              <td class="text-center"><b>$36</b></td>
+              <td class="text-center">
+                <b>{{ money(36) }}</b>
+              </td>
             </tr>
 
             <tr>
@@ -67,7 +87,9 @@
               >
                 HSK 4
               </td>
-              <td class="text-center"><b>$64</b></td>
+              <td class="text-center">
+                <b>{{ money(64) }}</b>
+              </td>
             </tr>
 
             <tr>
@@ -77,10 +99,13 @@
               >
                 HSK 5 + Path to Fluency
               </td>
-              <td class="text-center"><b>$64</b></td>
+              <td class="text-center">
+                <b>{{ money(64) }}</b>
+              </td>
               <td class="text-center align-middle" rowspan="3">
-                <b>$109</b><br /><span style="color:rgb(26,148,6); font-size:12px;"
-                  >Save $48</span
+                <b>{{ money(109) }}</b
+                ><br /><span style="color:rgb(26,148,6); font-size:12px;"
+                  >Save {{ money(48) }}</span
                 >
               </td>
             </tr>
@@ -91,7 +116,9 @@
               >
                 HSK 6 + Path to Fluency
               </td>
-              <td class="text-center"><b>$64</b></td>
+              <td class="text-center">
+                <b>{{ money(64) }}</b>
+              </td>
             </tr>
             <tr>
               <td
@@ -100,7 +127,9 @@
               >
                 Path To Fluency
               </td>
-              <td class="text-center"><b>$29</b></td>
+              <td class="text-center">
+                <b>{{ money(29) }}</b>
+              </td>
             </tr>
             <tr>
               <td
@@ -130,7 +159,62 @@
 </template>
 
 <script>
-export default {}
+import fx from 'money'
+import accounting from 'accounting'
+
+export default {
+  props: {
+    args: {
+      default: 'USD'
+    }
+  },
+  data() {
+    return {
+      accounting,
+      currency: this.args,
+      key: 'USD',
+      rates: undefined
+    }
+  },
+  methods: {
+    money(n) {
+      if (this.rates) {
+        return accounting
+          .formatMoney(
+            Math.round(fx.convert(n, { from: 'USD', to: this.currency })),
+            { symbol: this.currency, format: '%v %s', precision: 0 }
+          )
+          .replace('CNY', 'RMB')
+      } else {
+        return n + ' USD'
+      }
+    }
+  },
+  watch: {
+    args() {
+      this.currency = this.args
+    },
+    currency() {
+      location.hash = '#/pricing/' + this.currency
+    }
+  },
+  created() {
+    // Load exchange rates data via AJAX:
+    $.getJSON(
+      // NB: using Open Exchange Rates here, but you can use any source!
+      'https://api.exchangeratesapi.io/latest',
+      data => {
+        // Check money.js has finished loading:
+        this.rates = data.rates
+        this.key = this.currency
+        if (typeof fx !== 'undefined' && fx.rates) {
+          fx.rates = data.rates
+          fx.base = data.base
+        }
+      }
+    )
+  }
+}
 </script>
 
 <style scoped></style>

@@ -105,7 +105,7 @@ export default new Router({
       }
     },
     {
-      path: '/pricing',
+      path: '/pricing/:args?',
       name: 'pricing',
       component: () => import('./views/Pricing.vue'),
       props: true,
