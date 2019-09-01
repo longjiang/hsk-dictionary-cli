@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5">Pricing Chart</h1>
+        <Sale class="mb-5 rounded" />
         <div class="bg-success text-light p-3 text-center mb-5 rounded">
           <h4 class="mb-0">No subscriptions! 😊 Pay once, enjoy forever!</h4>
         </div>
@@ -40,16 +41,15 @@
                 HSK 1
               </td>
               <td class="text-center">
-                <b>{{ money(29) }}</b>
+                <span v-html="price(29, {sale: true})"></span>
               </td>
               <td class="text-center align-middle" rowspan="4">
-                <b>{{ money(134) }}</b
-                ><br /><span style="color:rgb(26,148,6); font-size:12px;"
+                <span v-html="price(134, {sale: true})"></span><br /><span style="color:rgb(26,148,6); font-size:12px;"
                   >Save {{ money(24) }}</span
                 >
               </td>
               <td class="text-center align-middle" rowspan="7">
-                <b>{{ money(219) }}</b> <br /><span
+                <span v-html="price(219, {sale: true})"></span> <br /><span
                   style="color:rgb(26,148,6); font-size:12px;"
                   >Save {{ money(67) }}</span
                 >
@@ -64,7 +64,7 @@
                 HSK 2
               </td>
               <td class="text-center">
-                <b>{{ money(29) }}</b>
+                <span v-html="price(29, {sale: true})"></span>
               </td>
             </tr>
 
@@ -76,7 +76,7 @@
                 HSK 3
               </td>
               <td class="text-center">
-                <b>{{ money(36) }}</b>
+                <span v-html="price(36, {sale: true})"></span>
               </td>
             </tr>
 
@@ -88,7 +88,7 @@
                 HSK 4
               </td>
               <td class="text-center">
-                <b>{{ money(64) }}</b>
+                <span v-html="price(64, {sale: true})"></span>
               </td>
             </tr>
 
@@ -100,11 +100,11 @@
                 HSK 5 + Path to Fluency
               </td>
               <td class="text-center">
-                <b>{{ money(64) }}</b>
+                <span v-html="price(64, {sale: true})"></span>
               </td>
               <td class="text-center align-middle" rowspan="3">
-                <b>{{ money(109) }}</b
-                ><br /><span style="color:rgb(26,148,6); font-size:12px;"
+                <span v-html="price(109, {sale: true})"></span>
+                <br /><span style="color:rgb(26,148,6); font-size:12px;"
                   >Save {{ money(48) }}</span
                 >
               </td>
@@ -117,7 +117,7 @@
                 HSK 6 + Path to Fluency
               </td>
               <td class="text-center">
-                <b>{{ money(64) }}</b>
+                <span v-html="price(64, {sale: true})"></span>
               </td>
             </tr>
             <tr>
@@ -128,7 +128,7 @@
                 Path To Fluency
               </td>
               <td class="text-center">
-                <b>{{ money(29) }}</b>
+                <span v-html="price(29, {sale: true})"></span>
               </td>
             </tr>
             <tr>
@@ -161,8 +161,12 @@
 <script>
 import fx from 'money'
 import accounting from 'accounting'
+import Sale from '@/components/Sale'
 
 export default {
+  components: {
+    Sale
+  },
   props: {
     args: {
       default: 'USD'
@@ -188,6 +192,14 @@ export default {
       } else {
         return n + ' USD'
       }
+    },
+    price(n, options) {
+      if (options.sale === true) {
+        return `<strike>${this.money(n)}</strike><br/><span class="sale-price">SALE: <b>${this.money(n * 0.75)}</b></span>`
+      } else {
+        return `<b>${this.money(n)}</b>`
+      }
+
     }
   },
   watch: {
@@ -217,4 +229,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style>
+.sale-price {
+  color: red;
+}
+</style>
