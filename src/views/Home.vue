@@ -60,7 +60,7 @@
       class="jumbotron-fluid bg-dark p-5 text-light mb-0 courses"
       style="position: relative"
     >
-      <div class="container text-center" style="foreround">
+      <div class="container text-center foreground">
         <h3 class="mb-4">Online Chinese Courses at All Levels</h3>
         <p>
           We provide online Chinese courses at all levels, from
