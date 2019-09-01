@@ -29,21 +29,51 @@
       />
     </div>
     <div
+      class="jumbotron-fluid bg-dark p-5 text-light mb-0 text-center"
+      style="position: relative"
+    >
+      <div class="foreground text-center">
+        <h2 style="margin-bottom: -1rem">
+          <span
+            style="display: inline-block; background-color: orange; transform: rotate(-6deg);"
+            class="p-3 shadow"
+            >5-DAY END-OF-SUMMER SALE!</span
+          >
+        </h2>
+        <div data-bg-hsk="5" class="p-4 d-inline-block">
+          <div style="font-size: 1.5rem; font-weight: 100;">ALL COURSES</div>
+          <div style="font-weight: 700; font-size: 3rem">25% OFF</div>
+          <div>Ends: September 5</div>
+          <div class="mt-3"><span class="mr-2">Coupon Code</span><code>SUMMER25</code></div>
+        </div>
+      </div>
+      <img
+        src="/img/end-of-summer.jpg"
+        alt=""
+        class="img-background"
+        style="opacity: 0.4"
+      />
+    </div>
+    <div
       class="jumbotron-fluid bg-dark p-5 text-light mb-0 courses"
       style="position: relative"
     >
-      <div class="container text-center" style="z-index: 2; position: relative;">
+      <div class="container text-center" style="foreround">
         <h3 class="mb-4">Online Chinese Courses at All Levels</h3>
         <p>
           We provide online Chinese courses at all levels, from
-          <a href="http://chinesezerotohero.teachable.com" style="color: white; font-weight: bold;">HSK 1 to HSK 6</a>.
+          <a
+            href="http://chinesezerotohero.teachable.com"
+            style="color: white; font-weight: bold;"
+            >HSK 1 to HSK 6</a
+          >.
         </p>
         <p>
           If you don't know what HSK is, check this
           <a
             href="https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi"
             target="_blank"
-             style="color: white; font-weight: bold;"
+            style="color: white; font-weight: bold;"
             >Wikipedia article</a
           >.
         </p>
@@ -53,7 +83,12 @@
           >Browse All Courses</a
         >
       </div>
-      <img src="/img/ultimate-bundle.jpg" alt="" class="img-background" style="opacity: 0.2"/>
+      <img
+        src="/img/ultimate-bundle.jpg"
+        alt=""
+        class="img-background"
+        style="opacity: 0.2"
+      />
     </div>
     <div class="jumbotron-fluid mb-0 pb-0 pt-0">
       <div class="container">
@@ -75,7 +110,8 @@
             <p>
               We regularly post "word of the day" images and grammar poster
               images. Get your daily dose of Chinese by following our Instagram
-              account. We regularly upload grammar and vocabulary videos on IGTV as well.
+              account. We regularly upload grammar and vocabulary videos on IGTV
+              as well.
             </p>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
@@ -164,6 +200,11 @@ export default {
 .photo-ken {
   height: 90%;
   left: 0;
+}
+
+.foreground {
+  z-index: 2;
+  position: relative;
 }
 
 .img-background {
