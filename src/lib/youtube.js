@@ -50,47 +50,48 @@ export default {
   search(text, callback, subs = false) {
     let subsQueryVar = subs ? '&sp=EgIoAQ%253D%253D' : ''
     Helper.scrape2(
-      `https://www.youtube.com/results?search_query=${text.replace(/ /g, '+')}${subsQueryVar}`,
-      $html => {
-        let videos = []
-        for (let item of $html.find('.yt-lockup-content')) {
-          if (
-            !$(item)
+      `https://www.youtube.com/results?search_query=${text.replace(
+        / /g,
+        '+'
+      )}${subsQueryVar}`
+    ).then($html => {
+      let videos = []
+      for (let item of $html.find('.yt-lockup-content')) {
+        if (
+          !$(item)
+            .find('.yt-uix-sessionlink')
+            .attr('href')
+            .includes('/channel/') &&
+          !$(item)
+            .find('.yt-uix-sessionlink')
+            .attr('href')
+            .includes('/user/')
+        ) {
+          let badge = $(item).find('.yt-badge')[0]
+          let id = $(item)
+            .find('.yt-uix-sessionlink')
+            .attr('href')
+            .replace('/watch?v=', '')
+          let youtube = {
+            id: id,
+            cc: false,
+            title: $(item)
               .find('.yt-uix-sessionlink')
-              .attr('href')
-              .includes('/channel/') &&
-            !$(item)
-              .find('.yt-uix-sessionlink')
-              .attr('href')
-              .includes('/user/')
-          ) {
-            let badge = $(item).find('.yt-badge')[0]
-            let id = $(item)
-              .find('.yt-uix-sessionlink')
-              .attr('href')
-              .replace('/watch?v=', '')
-            let youtube = {
-              id: id,
-              cc: false,
-              title: $(item)
-                .find('.yt-uix-sessionlink')
-                .attr('title'),
-              thumbnail: this.thumbnail(id),
-              url: 'https://www.youtube.com/watch?v=' + id
-            }
-            if (badge && badge.innerText === 'CC') {
-              youtube.cc = true
-            }
-            videos.push(youtube)
+              .attr('title'),
+            thumbnail: this.thumbnail(id),
+            url: 'https://www.youtube.com/watch?v=' + id
           }
+          if (badge && badge.innerText === 'CC') {
+            youtube.cc = true
+          }
+          videos.push(youtube)
         }
-        callback(videos)
       }
-    )
+      callback(videos)
+    })
   },
   playlist(playlistID, callback) {
-    Helper.scrape2(
-      `https://www.youtube.com/playlist?list=${playlistID}`,
+    Helper.scrape2(`https://www.youtube.com/playlist?list=${playlistID}`).then(
       $html => {
         let playlist = {
           id: playlistID,
@@ -116,8 +117,7 @@ export default {
   },
   channel(channelID, callback) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
-    Helper.scrape2(
-      `https://www.youtube.com/channel/${channelID}/videos`,
+    Helper.scrape2(`https://www.youtube.com/channel/${channelID}/videos`).then(
       $html => {
         let channel = {
           id: channelID,
@@ -151,34 +151,33 @@ export default {
   channelPlaylists(channelID, callback) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
     Helper.scrape2(
-      `https://www.youtube.com/channel/${channelID}/playlists`,
-      $html => {
-        let playlists = []
-        for (let item of $html.find('.yt-shelf-grid-item')) {
-          let playlist = {
-            id: $(item)
-              .find('.yt-uix-tile-link')
-              .attr('href')
-              .replace(/.*list=(.*)/, '$1'),
-            title: $(item)
-              .find('.yt-uix-tile-link')
-              .text()
-              .trim(),
-            thumbnail:
-              $(item)
-                .find('[data-ytimg]')
-                .attr('data-thumb') ||
-              $(item)
-                .find('[data-ytimg]')
-                .attr('src'),
-            count: $(item)
-              .find('.formatted-video-count-label b')
-              .text()
-          }
-          playlists.push(playlist)
+      `https://www.youtube.com/channel/${channelID}/playlists`
+    ).then($html => {
+      let playlists = []
+      for (let item of $html.find('.yt-shelf-grid-item')) {
+        let playlist = {
+          id: $(item)
+            .find('.yt-uix-tile-link')
+            .attr('href')
+            .replace(/.*list=(.*)/, '$1'),
+          title: $(item)
+            .find('.yt-uix-tile-link')
+            .text()
+            .trim(),
+          thumbnail:
+            $(item)
+              .find('[data-ytimg]')
+              .attr('data-thumb') ||
+            $(item)
+              .find('[data-ytimg]')
+              .attr('src'),
+          count: $(item)
+            .find('.formatted-video-count-label b')
+            .text()
         }
-        callback(playlists)
+        playlists.push(playlist)
       }
-    )
+      callback(playlists)
+    })
   }
 }
