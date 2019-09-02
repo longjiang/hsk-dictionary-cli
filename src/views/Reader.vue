@@ -8,10 +8,9 @@
             Write or paste in some Chinese text (in simplified or traditional
             characters), and pinyin-annotated text will show up below the
             textbox. You can also use
-            <b>Markdown or HTML tags</b>. Everything
-            is autosaved to your browser’s
-            <code>localStorage</code>, so even if
-            you refresh your browser everything you entered is still here.
+            <b>Markdown or HTML tags</b>. Everything is autosaved to your
+            browser’s <code>localStorage</code>, so even if you refresh your
+            browser everything you entered is still here.
           </p>
           <div class="mt-4 mb-5">
             <textarea
@@ -22,33 +21,38 @@
               placeholder="Enter your Chinese text here. Markdown and HTML also supported."
               v-model="text"
             ></textarea>
-            <!-- <button
-              class="btn btn-success btn-block mt-4"
-              v-on:click="startClick"
-            > 
-              Add Pinyin
-            </button>-->
           </div>
           <Loader class="mb-5" />
-          <Annotate
+          <div
             v-if="text.length > 0"
             :key="readerKey"
-            :copy="true"
-            :showDef="true"
-            :fullscreen="true"
+            id="reader-annotated"
+            class="focus"
           >
-            <div id="reader-annotated" class="focus" v-html="marked"></div>
-          </Annotate>
+            <Annotate
+              tag="div"
+              v-for="line of marked
+                .trim()
+                .replace(/<(div|p|li|h1|h2|h3|h4|h5|h6)/g, '\n<$1')
+                .split('\n')"
+              v-if="line.trim().length > 0"
+              :copy="true"
+              :showDef="true"
+              :fullscreen="true"
+              ><div v-html="line.trim()"
+            /></Annotate>
+          </div>
+
           <ul class="list mt-2">
             <li>
               Use
-              <font-awesome-icon icon="copy" class="ml-1 mr-1" />to get
-              copiable text.
+              <font-awesome-icon icon="copy" class="ml-1 mr-1" />to get copiable
+              text.
             </li>
             <li>
               Use
-              <font-awesome-icon icon="language" class="ml-1 mr-1" />to
-              show definitions above.
+              <font-awesome-icon icon="language" class="ml-1 mr-1" />to show
+              definitions above.
             </li>
             <li>
               If you always want to see definitions, go to
@@ -64,21 +68,25 @@
           <div>
             <h4 class="mb-4">Not sure what to read?</h4>
             <p>
-              <a href="https://news.sogou.com/?w=03021800" target="_blank">搜狗新闻</a>
+              <a href="https://news.sogou.com/?w=03021800" target="_blank"
+                >搜狗新闻</a
+              >
               (
-              <a href="https://news.sogou.com" target="_blank">https://news.sogou.com</a>) is a popular Chinese news site.
+              <a href="https://news.sogou.com" target="_blank"
+                >https://news.sogou.com</a
+              >) is a popular Chinese news site.
             </p>
             <p>
               For news sites in Taiwan and Hong Kong, check out
               <a
                 href="https://news.google.com/?hl=zh-TW&amp;gl=TW&amp;ceid=TW:zh-Hant"
                 target="_blank"
-              >Google News Taiwan</a>
+                >Google News Taiwan</a
+              >
               and
-              <a
-                href="https://hk.news.yahoo.com/"
-                target="_blank"
-              >Yahoo News Hong Kong</a>.
+              <a href="https://hk.news.yahoo.com/" target="_blank"
+                >Yahoo News Hong Kong</a
+              >.
             </p>
 
             <hr />
@@ -88,7 +96,8 @@
               <b>video lesson</b> from our
               <a
                 href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
-              >Path to Fluency Course</a>
+                >Path to Fluency Course</a
+              >
               tells you how to get interesting online Chinese content for
               reading:
               <a
@@ -105,16 +114,24 @@
           <h4 class="mb-4">Using Desktop Google Chrome?</h4>
           <p>
             Install the
-            <b>“Add Pinyin” Chrome extension</b> to read all Chinese
-            webpages with pinyin annotation.
+            <b>“Add Pinyin” Chrome extension</b> to read all Chinese webpages
+            with pinyin annotation.
           </p>
-          <img src="img/extension-screenshot-1.jpg" alt class="img-fluid mb-4 shadow rounded" />
+          <img
+            src="img/extension-screenshot-1.jpg"
+            alt
+            class="img-fluid mb-4 shadow rounded"
+          />
           <div class="shadow rounded p-4 text-center">
             <a
               href="https://chrome.google.com/webstore/detail/add-pinyin-chinese-zero-t/nhhoiplgolfammoegggnjojoaljjbojg"
               target="_blank"
             >
-              <img src="img/chrome-store.png" alt="Chrome Web Store" style="width: 15rem" />
+              <img
+                src="img/chrome-store.png"
+                alt="Chrome Web Store"
+                style="width: 15rem"
+              />
             </a>
             <a
               class="btn btn-danger mt-3 pl-3 pr-3"
@@ -130,10 +147,9 @@
             <b>In China? Can’t access Google?</b> Install the extension package
             manually using developer mode.
           </p>
-          <a
-            href="files/czh-reader-extension.zip"
-            download
-          >Download extension package for developer mode</a>
+          <a href="files/czh-reader-extension.zip" download
+            >Download extension package for developer mode</a
+          >
           <p class="mt-3 mb-0">
             This downloads a
             <code>.zip</code> file.
@@ -167,13 +183,13 @@
             <a href="https://chinesezerotohero.teachable.com/p/path-to-fluency">
               <img src="img/courses/fluency.jpg" class="course-cover" />
             </a>
-            <br />Learn how to progress
-            <em>beyond the HSK</em> toward fluency
+            <br />Learn how to progress <em>beyond the HSK</em> toward fluency
             with our
             <a
               href="https://chinesezerotohero.teachable.com/p/path-to-fluency"
               class="video-course"
-            >Path to Fluency Video Course</a>
+              >Path to Fluency Video Course</a
+            >
           </div>
         </div>
       </div>

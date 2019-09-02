@@ -2,34 +2,36 @@
   <component
     :is="tag"
     v-observe-visibility="visibilityChanged"
+    style="clear: both"
     :class="{
       'add-pinyin': started,
       'show-definition': showDefOn,
       fullscreen: fullscreenMode
     }"
   >
-    <slot></slot>
-    <span
-      class="annotator-copy ml-1 focus-exclude"
-      @click="copyClick"
-      v-if="copy"
-    >
-      <font-awesome-icon icon="copy" />
-    </span>
-    <span
-      class="annotator-show-def ml-2 focus-exclude"
-      @click="showDefClick"
-      v-if="showDef"
-    >
-      <font-awesome-icon icon="language" />
-    </span>
-    <span
-      class="annotator-fullscreen ml-2 focus-exclude"
-      @click="fullscreenClick"
-      v-if="fullscreen"
-    >
-      <font-awesome-icon icon="expand" />
-    </span>
+    <div class="annotator-buttons">
+      <span
+        class="annotator-copy ml-1 focus-exclude"
+        @click="copyClick"
+        v-if="copy"
+      >
+        <font-awesome-icon icon="copy" />
+      </span>
+      <span
+        class="annotator-show-def ml-2 focus-exclude"
+        @click="showDefClick"
+        v-if="showDef"
+      >
+        <font-awesome-icon icon="language" />
+      </span>
+      <span
+        class="annotator-fullscreen ml-2 focus-exclude"
+        @click="fullscreenClick"
+        v-if="fullscreen"
+      >
+        <font-awesome-icon icon="expand" />
+      </span>
+    </div>
     <span
       class="annotator-close ml-2 focus-exclude"
       @click="fullscreenClick"
@@ -37,6 +39,8 @@
     >
       <font-awesome-icon icon="times" />
     </span>
+    <span v-if="content" v-html="content" />
+    <slot></slot>
     <textarea class="form-control mb-2" rows="3" v-if="pinyin.length > 0">{{
       `${pinyin.trim()}\n${simplified}\n${traditional}`
     }}</textarea>
@@ -59,6 +63,9 @@ export default {
       default: false
     },
     fullscreen: {
+      default: false
+    },
+    content: {
       default: false
     },
     wordBlockTemplateFilter: {
@@ -156,6 +163,7 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: scroll;
   font-size: 3rem;
   padding: 3rem;
   .annotator-copy,
@@ -178,13 +186,14 @@ export default {
 .show-definition .annotator-show-def {
   display: none;
 }
-.annotator-copy,
-.annotator-show-def,
-.annotator-fullscreen,
-.annotator-close {
+
+.annotator-buttons {
+  float: right;
+}
+
+.annotator-buttons > * {
   cursor: pointer;
   opacity: 0.5;
-
   &:hover {
     opacity: 1;
   }
