@@ -39,6 +39,7 @@
               :copy="true"
               :showDef="true"
               :fullscreen="true"
+              class="mb-3"
               ><div v-html="line.trim()"
             /></Annotate>
           </div>
@@ -228,7 +229,8 @@ export default {
   },
   computed: {
     marked() {
-      return Marked(this.text) || this.text
+      return Marked(this.text.replace(/^ {4,}/gm, '')) // 4 spaces in a row would emit <code>!
+        || this.text 
     }
   },
   watch: {

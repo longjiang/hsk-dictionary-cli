@@ -10,18 +10,11 @@
     }"
   >
     <div class="annotator-buttons">
-      <span
-        class="annotator-copy ml-1 focus-exclude"
-        @click="copyClick"
-        v-if="copy"
-      >
+      <Speak :text="text()" style="color: inherit" />
+      <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
         <font-awesome-icon icon="copy" />
       </span>
-      <span
-        class="annotator-show-def ml-2 focus-exclude"
-        @click="showDefClick"
-        v-if="showDef"
-      >
+      <span class="annotator-show-def ml-2 focus-exclude" @click="showDefClick" v-if="showDef">
         <font-awesome-icon icon="language" />
       </span>
       <span
@@ -87,6 +80,9 @@ export default {
   methods: {
     fullscreenClick() {
       this.fullscreenMode = !this.fullscreenMode
+    },
+    text() {
+      return $(this.$slots.default[0].elm).text()
     },
     showDefClick() {
       this.showDefOn = !this.showDefOn
@@ -193,7 +189,7 @@ export default {
 
 .annotator-buttons > * {
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.2;
   &:hover {
     opacity: 1;
   }
