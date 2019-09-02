@@ -30,6 +30,7 @@
             <Annotate
               tag="p"
               class="example-sentence-word"
+              :speak="true"
               :copy="true"
               :showDef="true"
               :fullscreen="true"

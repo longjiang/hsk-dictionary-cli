@@ -10,7 +10,7 @@
     }"
   >
     <div class="annotator-buttons">
-      <Speak :text="text()" style="color: inherit" />
+      <Speak v-if="speak" :text="text()" style="color: inherit" />
       <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
         <font-awesome-icon icon="copy" />
       </span>
@@ -48,6 +48,9 @@ export default {
   props: {
     tag: {
       default: 'span'
+    },
+    speak: {
+      default: false
     },
     copy: {
       default: false

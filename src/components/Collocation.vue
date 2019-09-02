@@ -8,6 +8,7 @@
           v-for="Word in collocation.Words"
           v-if="Word.cm"
           class="gramrel-item list-unstyled"
+          :speak="true"
           :copy="true"
           :showDef="true"
           :fullscreen="true"

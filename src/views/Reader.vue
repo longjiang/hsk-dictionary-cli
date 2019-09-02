@@ -36,6 +36,7 @@
                 .replace(/<(div|p|li|h1|h2|h3|h4|h5|h6)/g, '\n<$1')
                 .split('\n')"
               v-if="line.trim().length > 0"
+              :speak="true"
               :copy="true"
               :showDef="true"
               :fullscreen="true"

@@ -5,7 +5,14 @@
       <div v-if="examples && examples.length > 0">
         <ul v-if="examples" class="collapsed list-unstyled" data-collapse-target>
           <li v-for="example in examples">
-            <Annotate tag="div" class="pt-2 pb-2" :copy="true" :showDef="true" :fullscreen="true">
+            <Annotate
+              tag="div"
+              class="pt-2 pb-2"
+              :speak="true"
+              :copy="true"
+              :showDef="true"
+              :fullscreen="true"
+            >
               <span v-html="Helper.highlight(example.chinese, text, level)"></span>
             </Annotate>
             <div v-if="example.english">{{ example.english }}</div>

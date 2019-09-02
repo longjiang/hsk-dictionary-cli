@@ -14,7 +14,12 @@
               {{ mistake.right }}
             </Annotate>
             <span class="mistake-context collapsed" data-collapse-target>
-              <Annotate :copy="true" :showDef="true" :fullscreen="true">{{ mistake.rightContext }}</Annotate>
+              <Annotate
+                :speak="true"
+                :copy="true"
+                :showDef="true"
+                :fullscreen="true"
+              >{{ mistake.rightContext }}</Annotate>
             </span>
             <ShowMoreButton class="mb-2 btn-small ml-2">Context</ShowMoreButton>
             <div>
