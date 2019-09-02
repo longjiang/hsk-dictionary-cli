@@ -23,7 +23,7 @@
           </select>
         </p>
 
-        <table class="table table-bordered" :key="key">
+        <table class="table table-bordered pricing-table" :key="key">
           <thead>
             <tr class="table-secondary">
               <th class="text-left">Course</th>
@@ -36,9 +36,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#F6B000;"
+                data-bg-hsk="1"
               >
-                HSK 1
+                <a href="https://courses.chinesezerotohero.com/p/hsk-1-course">HSK 1</a>
               </td>
               <td class="text-center">
                 <span v-html="price(29, {sale: true})"></span>
@@ -59,9 +59,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#2D7F97;"
+                data-bg-hsk="2"
               >
-                HSK 2
+                <a href="https://courses.chinesezerotohero.com/p/hsk-2-course">HSK 2</a>
               </td>
               <td class="text-center">
                 <span v-html="price(29, {sale: true})"></span>
@@ -71,9 +71,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#FF771E;"
+                data-bg-hsk="3"
               >
-                HSK 3
+                <a href="https://courses.chinesezerotohero.com/p/hsk-3-course">HSK 3</a>
               </td>
               <td class="text-center">
                 <span v-html="price(36, {sale: true})"></span>
@@ -83,9 +83,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#BB1B17;"
+                data-bg-hsk="4"
               >
-                HSK 4
+                <a href="https://courses.chinesezerotohero.com/p/hsk-4-course">HSK 4</a>
               </td>
               <td class="text-center">
                 <span v-html="price(64, {sale: true})"></span>
@@ -95,9 +95,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#1A386D;"
+                data-bg-hsk="5"
               >
-                HSK 5 + Path to Fluency
+                <a href="https://courses.chinesezerotohero.com/p/hsk-5-course">HSK 5 + Path to Fluency</a>
               </td>
               <td class="text-center">
                 <span v-html="price(64, {sale: true})"></span>
@@ -112,9 +112,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#6A3368;"
+                data-bg-hsk="6"
               >
-                HSK 6 + Path to Fluency
+                <a href="https://courses.chinesezerotohero.com/p/hsk-6-course">HSK 6 + Path to Fluency</a>
               </td>
               <td class="text-center">
                 <span v-html="price(64, {sale: true})"></span>
@@ -123,9 +123,9 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:#1c545a;"
+                style="background-color: #004d81"
               >
-                Path To Fluency
+                <a href="https://chinesezerotohero.teachable.com/p/path-to-fluency">Path To Fluency</a>
               </td>
               <td class="text-center">
                 <span v-html="price(29, {sale: true})"></span>
@@ -134,11 +134,29 @@
             <tr>
               <td
                 class="text-left text-light"
-                style="background-color:rgba(58,68,118,0.76);"
+                style="background-color: #c92706;"
               >
-                Pronunciation
+                <a href="https://chinesezerotohero.teachable.com/p/phonetics-with-chinese-characteristics">Pronunciation</a>
               </td>
               <td class="text-center" colspan="3"><b>FREE</b></td>
+            </tr>
+            <tr>
+              <td
+                class="text-left text-light"
+                data-bg-hsk="outside"
+              >
+                <a href="#/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg">Hero Academy</a>
+              </td>
+              <td class="text-center" colspan="3"><b>FREE</b></td>
+            </tr>
+            <tr>
+              <td
+                class="text-left text-light"
+                data-bg-hsk="outside"
+              >
+                <a href="#/view">Dictionary</a>, <a href="#/grammar">Grammar</a>, <a href="#/youtube/browse">Theater</a>, <a href="#/reader">Reader</a> and other learning tools offered on this website.
+              </td>
+              <td class="text-center align-middle" colspan="3"><b>FREE</b></td>
             </tr>
           </tbody>
         </table>
@@ -232,5 +250,15 @@ export default {
 <style>
 .sale-price {
   color: red;
+}
+.pricing-table td:first-child,
+.pricing-table th:first-child {
+  font-weight: bold;
+  max-width: 10rem;
+}
+
+.pricing-table a,
+.pricing-table a:hover {
+  color: white;
 }
 </style>
