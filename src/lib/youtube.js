@@ -20,7 +20,7 @@ export default {
       Config.lrcServer +
         'proxy.php?' +
         'https://www.youtube.com/results?search_query=' +
-        searchTerm
+        searchTerm.replace(/ /g, '+')
     ).done(function(response) {
       var videoIds = []
       // We use 'ownerDocument' so we don't load the images and scripts!
@@ -50,7 +50,7 @@ export default {
   search(text, callback, subs = false) {
     let subsQueryVar = subs ? '&sp=EgIoAQ%253D%253D' : ''
     Helper.scrape2(
-      `https://www.youtube.com/results?search_query=${text}${subsQueryVar}`,
+      `https://www.youtube.com/results?search_query=${text.replace(/ /g, '+')}${subsQueryVar}`,
       $html => {
         let videos = []
         for (let item of $html.find('.yt-lockup-content')) {
