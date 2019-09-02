@@ -1,5 +1,5 @@
 <template>
-  <div class="container main mt-5 mb-5">
+  <div class="container main pt-5 pb-5" id="book-view">
     <div class="row mb-5">
       <div class="col-sm-12">
         <BookNav ref="search" />
@@ -72,7 +72,7 @@ export default {
   },
   watch: {
     args() {
-      $('#chinesezerotohero')[0].scrollIntoView()
+      $('#book-view')[0].scrollIntoView()
       this.getBook()
       this.getChapter()
       this.$refs.search.url = decodeURIComponent(this.args)
