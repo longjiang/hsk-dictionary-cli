@@ -335,7 +335,7 @@ export default new Router({
       }
     },
     {
-      path: '/book/:method?/:arg?',
+      path: '/book/:method?/:args?',
       name: 'book',
       component: () => import('./views/Book.vue'),
       props: true,
