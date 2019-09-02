@@ -17,6 +17,19 @@
           <h6>《{{ bookTitle }}》</h6>
           <p>{{ bookAuthor }}</p>
         </Annotate>
+        <div class="list-group text-left">
+          <a
+            v-for="chapter in chapters"
+            :class="{
+              'list-group-item': true,
+              active:
+                location.hash ===
+                `#/book/view/${encodeURIComponent(chapter.url)}`
+            }"
+            :href="`#/book/view/${encodeURIComponent(chapter.url)}`"
+            >{{ chapter.title }}</a
+          >
+        </div>
       </div>
       <div class="col-md-8" :key="'chapter-' + chapterTitle">
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
@@ -49,10 +62,12 @@ export default {
     return {
       Config,
       bookTitle: '',
+      chapters: [],
       bookThumbnail: undefined,
       chapterTitle: '',
       bookAuthor: '',
-      content: ''
+      content: '',
+      location
     }
   },
   watch: {
@@ -65,6 +80,7 @@ export default {
   },
   methods: {
     async getBook() {
+      this.chapters = []
       let $bookHTML = await Helper.scrape2(
         decodeURIComponent(this.args).replace(/[^/]*$/, '')
       )
@@ -77,6 +93,12 @@ export default {
         .text()
         .trim()
         .replace('作者：', '')
+      for (let a of $bookHTML.find('.book-list a')) {
+        this.chapters.push({
+          title: $(a).attr('title'),
+          url: $(a).attr('href')
+        })
+      }
       this.bookThumbnail = $bookHTML.find('.book-img img').attr('src')
     },
     async getChapter() {
