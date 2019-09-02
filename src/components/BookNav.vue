@@ -1,8 +1,10 @@
 <template>
   <b-input-group>
-    <b-form-input v-model="url" placeholder="Book URL" />
+    <b-form-input v-model="url" @keyup.enter="goto" placeholder="Book URL from various websites" />
     <b-input-group-append>
-      <b-button variant="danger" @click="goto" @keyup.enter="goto">Study</b-button>
+      <b-button variant="danger" @click="goto"
+        >Study</b-button
+      >
     </b-input-group-append>
   </b-input-group>
 </template>
@@ -24,5 +26,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

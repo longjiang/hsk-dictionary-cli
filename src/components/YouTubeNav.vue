@@ -1,8 +1,8 @@
 <template>
   <b-input-group>
-    <b-form-input v-model="url" placeholder="YouTube URL" />
+    <b-form-input v-model="url" @keyup.enter="goto" placeholder="YouTube URL" />
     <b-input-group-append>
-      <b-button variant="danger" @click="goto" @keyup.enter="goto">Study</b-button>
+      <b-button variant="danger" @click="goto">Study</b-button>
     </b-input-group-append>
   </b-input-group>
 </template>

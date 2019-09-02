@@ -34,7 +34,7 @@
       <div class="col-md-8" :key="'chapter-' + chapterTitle">
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
         <Annotate>
-          <div class="book-chapter" v-html="content"></div>
+          <div class="book-chapter" v-html="chapterContent"></div>
         </Annotate>
       </div>
     </div>
@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import Helper from '@/lib/helper'
 import Config from '@/lib/config'
+import Library from '@/lib/library'
 import BookNav from '@/components/BookNav'
 
 export default {
@@ -61,60 +61,37 @@ export default {
   data() {
     return {
       Config,
-      bookTitle: '',
-      chapters: [],
       bookThumbnail: undefined,
-      chapterTitle: '',
+      bookTitle: '',
       bookAuthor: '',
-      content: '',
+      chapters: [],
+      chapterTitle: '',
+      chapterContent: '',
       location
     }
   },
   watch: {
     args() {
-      $('#book-view')[0].scrollIntoView()
-      this.getBook()
-      this.getChapter()
-      this.$refs.search.url = decodeURIComponent(this.args)
+      this.updateURL()
     }
   },
   methods: {
-    async getBook() {
-      this.chapters = []
-      let $bookHTML = await Helper.scrape2(
-        decodeURIComponent(this.args).replace(/[^/]*$/, '')
-      )
-      this.bookTitle = $bookHTML
-        .find('.book-describe h1')
-        .text()
-        .trim()
-      this.bookAuthor = $bookHTML
-        .find('.book-describe h1 + p')
-        .text()
-        .trim()
-        .replace('作者：', '')
-      for (let a of $bookHTML.find('.book-list a')) {
-        this.chapters.push({
-          title: $(a).attr('title'),
-          url: $(a).attr('href')
-        })
-      }
-      this.bookThumbnail = $bookHTML.find('.book-img img').attr('src')
+    async updateURL() {
+      $('#book-view')[0].scrollIntoView()
+      let url = decodeURIComponent(this.args)
+      this.$refs.search.url = url
+      let chapter = await Library.getChapter(url)
+      this.bookThumbnail = chapter.book.thumbnail
+      this.bookTitle = chapter.book.title
+      this.bookAuthor = chapter.book.author
+      this.chapters = chapter.book.chapters
+      this.chapterTitle = chapter.title
+      this.chapterContent = chapter.content
     },
-    async getChapter() {
-      let $chapterHTML = await Helper.scrape2(decodeURIComponent(this.args))
-      this.chapterTitle = $chapterHTML
-        .find('#nr_title')
-        .text()
-        .trim()
-      this.content = $chapterHTML.find('#nr1').html()
-    }
   },
   async mounted() {
     if (this.method === 'view') {
-      this.$refs.search.url = decodeURIComponent(this.args)
-      this.getBook()
-      this.getChapter()
+      this.updateURL()
     }
   }
 }
