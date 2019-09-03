@@ -89,7 +89,8 @@ export default {
       fullscreenMode: false,
       pinyin: '',
       simplified: '',
-      traditional: ''
+      traditional: '',
+      sentences: []
     }
   },
   methods: {

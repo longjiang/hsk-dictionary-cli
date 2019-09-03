@@ -62,18 +62,7 @@
       <div class="col-md-8" :key="'chapter-' + encodeURIComponent(chapterTitle)">
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
         <div class="chapter-content">
-          <Annotate
-            tag="div"
-            v-for="line of chapterContent
-              .trim()
-              .replace(/<(div|p|li|h1|h2|h3|h4|h5|h6)/g, '\n<$1')
-              .split('\n')"
-            v-if="line.trim().length > 0"
-            :speak="true"
-            :copy="true"
-          >
-            <div v-html="line.trim()" />
-          </Annotate>
+          <SpeechBar :html="chapterContent" />
         </div>
       </div>
     </div>
@@ -84,6 +73,7 @@
 import Config from '@/lib/config'
 import Library from '@/lib/library'
 import SimpleSearch from '@/components/SimpleSearch'
+import SpeechBar from '@/components/SpeechBar'
 
 export default {
   props: {
@@ -95,7 +85,8 @@ export default {
     }
   },
   components: {
-    SimpleSearch
+    SimpleSearch,
+    SpeechBar
   },
   data() {
     return {
