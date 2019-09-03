@@ -86,7 +86,9 @@ export default {
     }
   },
   mounted() {
-    this.recursive(this.$slots.default[0].elm)
+    if (this.$slots.default) {
+      this.recursive(this.$slots.default[0].elm)
+    }
   },
   methods: {
     breakSentences(text) {
