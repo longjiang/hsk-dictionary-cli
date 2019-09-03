@@ -49,6 +49,14 @@ export default {
         $chapterHTML.find('.mw-editsection').remove()
         $chapterHTML.find('#headerContainer').remove()
         $chapterHTML.find('#toc').remove()
+        $chapterHTML
+          .find('*')
+          .contents()
+          .each(function() {
+            if (this.nodeType === Node.COMMENT_NODE) {
+              $(this).remove()
+            }
+          })
         return {
           title: $chapterHTML
             .find('#firstHeading')
