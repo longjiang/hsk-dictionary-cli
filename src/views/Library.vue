@@ -79,16 +79,32 @@ export default {
       location,
       booklists: [
         {
-          title: 'Chinese Classics',
-          url: 'https://www.luoxia.com/jingdian/'
-        },
-        {
-          title: 'Chinese Classics',
+          title: 'Classics',
           url: 'https://zh.wikisource.org/wiki/Portal:%E5%85%B8%E7%B1%8D'
         },
         {
-          title: 'Translated International Classics',
-          url: 'https://www.luoxia.com/mingzhu/'
+          title: 'Great Works of Literature',
+          url: 'https://www.luoxia.com/jingdian/'
+        },
+        {
+          title: 'Classical Novels',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E5%B0%8F%E8%AF%B4'
+        },
+        {
+          title: 'Poetry',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E8%AF%97%E6%AD%8C'
+        },
+        {
+          title: 'Prose',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E6%95%A3%E6%96%87'
+        },
+        {
+          title: 'History',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E5%8F%B2%E6%9B%B8'
+        },
+        {
+          title: 'Religion and Scripture',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E5%AE%97%E6%95%99'
         },
         {
           title: 'Romance',
@@ -107,9 +123,13 @@ export default {
           url: 'https://www.luoxia.com/jinyong/'
         },
         {
+          title: 'Translated International Classics',
+          url: 'https://www.luoxia.com/mingzhu/'
+        },
+        {
           title: 'More from Luoxia.com',
           url: 'https://www.luoxia.com/'
-        },
+        }
       ]
     }
   }

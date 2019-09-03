@@ -26,7 +26,9 @@
             alt="Book cover"
             class="mb-4 shadow book-thumb"
           />
-          <div>{{ book.title }}</div></a
+          <Annotate tag="h6"><b>{{ book.title }}</b></Annotate>
+          <Annotate tag="small" v-if="book.author">{{ book.author }}</Annotate>
+          </a
         >
       </li>
     </ul>

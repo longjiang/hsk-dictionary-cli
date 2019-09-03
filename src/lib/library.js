@@ -45,7 +45,7 @@ export default {
           book = await this.getBook(bookURL)
           book.url = bookURL
         }
-        $chapterHTML.find('.mw-parser-output > table:first-child').remove()
+        $chapterHTML.find('.mw-parser-output > table:first-of-type').remove()
         $chapterHTML.find('.mw-editsection').remove()
         $chapterHTML.find('#headerContainer').remove()
         $chapterHTML.find('#toc').remove()
