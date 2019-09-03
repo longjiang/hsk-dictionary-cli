@@ -43,7 +43,7 @@ body {
 .sticky {
   position: sticky;
   z-index: 2;
-  top: 1rem;
+  top: 0;
 }
 
 .highlight {

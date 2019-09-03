@@ -1,8 +1,17 @@
 <template>
-  <div v-if="html">
-    <div class="speech-bar mb-4">
-      <button>
-        <font-awesome-icon icon="play" @click="play()" />
+  <div v-if="html" id="speech-container">
+    <div class="speech-bar mb-4 sticky bg-white pt-2 pb-2">
+      <button @click="previous()">
+        <font-awesome-icon icon="chevron-left" />
+      </button>
+      <button v-if="!speaking" @click="play()">
+        <font-awesome-icon icon="play" />
+      </button>
+      <button v-if="speaking" @click="pause()">
+        <font-awesome-icon icon="pause" />
+      </button>
+      <button @click="next()">
+        <font-awesome-icon icon="chevron-right" />
       </button>
     </div>
     <Annotate
@@ -32,7 +41,10 @@ export default {
   data() {
     return {
       sentences: [],
-      current: 0
+      current: 0,
+      speechSynthesis,
+      utterance: undefined,
+      speaking: false
     }
   },
   mounted() {
@@ -57,14 +69,57 @@ export default {
       }
       return text
     },
-    play() {
+    update() {
       for (let sentence of this.sentences) {
         $(sentence).removeClass('current')
       }
       const sentence = this.sentences[this.current]
       $(sentence).addClass('current')
-      this.current =
-        this.current === this.sentences.length - 1 ? 0 : this.current + 1
+    },
+    speak(text) {
+      this.utterance = new SpeechSynthesisUtterance(text)
+      this.utterance.lang = 'zh-CN'
+      speechSynthesis.speak(this.utterance)
+    },
+    scroll(sentence) {
+      if (sentence.offsetHeight > 0) {
+        sentence.scrollIntoView()
+        window.scrollBy(
+          0,
+          document.documentElement.clientHeight / -2 +
+            (sentence.offsetHeight || 0) / 2
+        )
+      }
+    },
+    play() {
+      this.update()
+      this.speaking = true
+      const sentence = this.sentences[this.current]
+      this.speak(this.sentenceText(sentence))
+      this.utterance.onend = () => {
+        this.next()
+      }
+    },
+    pause() {
+      speechSynthesis.cancel()
+      this.utterance.onend = undefined
+      this.speaking = false
+    },
+    previous() {
+      this.current = Math.max(0, this.current - 1)
+      this.update()
+      if (this.speaking) {
+        this.pause()
+        this.play()
+      }
+    },
+    next() {
+      this.current = Math.min(this.sentences.length - 1, this.current + 1)
+      this.update()
+      if (this.speaking) {
+        this.pause()
+        this.play()
+      }
     }
   }
 }
