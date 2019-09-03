@@ -70,7 +70,6 @@ export default {
       header: true,
       complete: results => {
         this.idioms = results.data.sort((a, b) => a.periodStart - b.periodStart)
-        console.log(this.idioms)
       }
     })
   }

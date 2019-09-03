@@ -146,9 +146,7 @@ export default {
             `.tooltip-entries .tooltip-entry:eq(${i}) span.tooltip-entry-character`
           )
           .wrap(
-            `<a href="#/view/cedict/${
-              candidate.identifier
-            }" class="tooltip-entry-character"></a>`
+            `<a href="#/view/cedict/${candidate.identifier}" class="tooltip-entry-character"></a>`
           )
       }
       let newHTML = $newHtml.html()
@@ -180,7 +178,7 @@ export default {
     console.log('loaderMessage()', message)
     if (this.loaderMessages.length > 4) {
       $('.loading-messages').html(
-        `<b>10 more beats...</b><br>It gets faster next time.`
+        '<b>10 more beats...</b><br>It gets faster next time.'
       )
     } else {
       $('.loading-messages').html(`${message}`)
@@ -188,5 +186,25 @@ export default {
   },
   ucFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
+  },
+  absoluteURL(base, relative) {
+    if (relative.startsWith('#')) {
+      return base + relative
+    }
+    if (relative.startsWith('/')) {
+      const protocal = base.replace(/(.*):\/\/.*/, '$1')
+      const host = base.replace(/.*\/\/([^/]*).*/, '$1')
+      return `${protocal}://${host}${relative}`
+    }
+    var stack = base.split('/'),
+      parts = relative.split('/')
+    stack.pop() // remove current file name (or empty string)
+    // (omit if "base" is the current folder without trailing slash)
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i] == '.') continue
+      if (parts[i] == '..') stack.pop()
+      else stack.push(parts[i])
+    }
+    return stack.join('/')
   }
 }

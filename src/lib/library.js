@@ -5,21 +5,16 @@ export default {
     {
       host: 'zh.wikisource.org',
       name: 'Wikisource',
-      logo: 'https://zh.wikisource.org/static/images/project-logos/zhwikisource-2x.png',
+      logo:
+        'https://zh.wikisource.org/static/images/project-logos/zhwikisource-2x.png',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
         $bookHTML.find('.sisitem').remove()
         let chapters = []
-        for (let li of $bookHTML.find(
-          '.mw-parser-output ul:first-of-type li'
-        )) {
+        for (let a of $bookHTML.find('.mw-parser-output li a')) {
           chapters.push({
-            title: $(li).text(),
-            url:
-              'https://zh.wikisource.org' +
-              $(li)
-                .find('a')
-                .attr('href')
+            title: $(a).text(),
+            url: Helper.absoluteURL(url, decodeURIComponent($(a).attr('href')))
           })
         }
         let as = $bookHTML.find(
@@ -69,7 +64,9 @@ export default {
           .find('.mw-parser-output > p:first-child, #toc, .mw-editsection')
           .remove()
         let list = []
-        for (let a of $html.find('.mw-parser-output li a:first-of-type:not(.new)')) {
+        for (let a of $html.find(
+          '.mw-parser-output li a:first-of-type:not(.new)'
+        )) {
           list.push({
             url: 'https://zh.wikisource.org' + $(a).attr('href'),
             title: $(a)
@@ -159,7 +156,6 @@ export default {
     }
   ],
   source(url) {
-    console.log(url)
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
     const source = this.sources.find(source => source.host === host)
     return source

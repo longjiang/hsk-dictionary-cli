@@ -86,10 +86,14 @@ export default {
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
       let book = await Library.getBook(url)
-      this.bookThumbnail = book.thumbnail
-      this.bookTitle = book.title
-      this.bookAuthor = book.author
-      this.chapters = book.chapters
+      if (book.chapters.length > 0) {
+        this.bookThumbnail = book.thumbnail
+        this.bookTitle = book.title
+        this.bookAuthor = book.author
+        this.chapters = book.chapters
+      } else {
+        location.hash = '#/book/chapter/' + encodeURIComponent(this.args)
+      }
     }
   },
   async mounted() {

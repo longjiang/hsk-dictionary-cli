@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 text-center" :key="'book-' + bookTitle">
+      <div class="col-md-4 text-center">
         <a
           :href="`#/book/index/${encodeURIComponent(bookURL)}`"
           class="link-unstyled"
@@ -59,7 +59,7 @@
           >
         </div>
       </div>
-      <div class="col-md-8" :key="'chapter-' + chapterTitle">
+      <div class="col-md-8" :key="'chapter-' + encodeURIComponent(chapterTitle)">
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
         <div class="chapter-content">
           <Annotate
@@ -121,6 +121,8 @@ export default {
       $('#book-chapter')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
+      this.chapterTitle = ''
+      this.chapterContent = ''
       let chapter = await Library.getChapter(url)
       this.bookThumbnail = chapter.book.thumbnail
       this.bookTitle = chapter.book.title
