@@ -367,12 +367,12 @@ export default new Router({
       }
     },
     {
-      path: '/library/:method?/:args?',
-      name: 'library',
-      component: () => import('./views/Library.vue'),
+      path: '/book/list/:args?',
+      name: 'book-list',
+      component: () => import('./views/BookList.vue'),
       props: true,
       meta: {
-        title: 'Library | Chinese Zero to Hero',
+        title: 'Books | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',

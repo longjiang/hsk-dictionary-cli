@@ -1,11 +1,11 @@
 <template>
   <div class="container main pt-5 pb-5" id="library-browse">
-    <h1 class="mb-5">Library</h1>
+    <h1 class="mb-5">Book List</h1>
     <SimpleSearch
       placeholder="Enter the URL of a book list from a variety of eBook websites"
       :action="
         url => {
-          location.hash = '#/library/browse/' + encodeURIComponent(url)
+          location.hash = '#/book/list/' + encodeURIComponent(url)
         }
       "
       ref="search"
