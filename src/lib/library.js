@@ -113,6 +113,25 @@ export default {
         let bookURL = url.replace(/[^/]*$/, '')
         chapter.book = await this.getBook(bookURL)
         return chapter
+      },
+      async getBooklist(url) {
+        let $html = await Helper.scrape2(url)
+        let list = []
+        for (let li of $html.find('.pop-book2')) {
+          list.push({
+            url:
+              $(li)
+                .find('a')
+                .attr('href'),
+            title: $(li)
+              .find('a')
+              .attr('title'),
+            thumbnail: $(li)
+              .find('img')
+              .attr('src')
+          })
+        }
+        return list
       }
     }
   ],

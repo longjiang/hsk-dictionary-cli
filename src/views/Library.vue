@@ -18,7 +18,7 @@
           <img
             :src="
               book.thumbnail
-                ? `${Config.imageProxy}?${bookThumbnail}`
+                ? `${Config.imageProxy}?${book.thumbnail}`
                 : `/img/book-thumb-${Math.floor(Math.random() * 10)}.jpg`
             "
             alt="Book cover"
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Config from '@/lib/config'
 import Library from '@/lib/library'
 import SimpleSearch from '@/components/SimpleSearch'
 
@@ -49,6 +50,7 @@ export default {
   },
   data() {
     return {
+      Config,
       location,
       booklist: []
     }
