@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 text-center">
+      <div class="col-md-4 text-center" :key="'book-' + bookTitle">
         <a
           :href="`#/book/index/${encodeURIComponent(bookURL)}`"
           class="link-unstyled"
