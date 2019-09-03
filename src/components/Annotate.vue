@@ -15,18 +15,10 @@
         :text="text()"
         style="position: relative; top: 0.08rem; position: relative;"
       />
-      <span
-        class="annotator-copy ml-1 focus-exclude"
-        @click="copyClick"
-        v-if="copy"
-      >
+      <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
         <font-awesome-icon icon="copy" />
       </span>
-      <span
-        class="annotator-show-def ml-2 focus-exclude"
-        @click="showDefClick"
-        v-if="showDef"
-      >
+      <span class="annotator-show-def ml-2 focus-exclude" @click="showDefClick" v-if="showDef">
         <font-awesome-icon icon="language" />
       </span>
       <span
@@ -93,7 +85,36 @@ export default {
       sentences: []
     }
   },
+  mounted() {
+    this.recursive(this.$slots.default[0].elm)
+  },
   methods: {
+    breakSentences(text) {
+      text = text.replace(/([。！？：])/g, '$1SENTENCEENDING!!!')
+      let sentences = text.split('SENTENCEENDING!!!')
+      return sentences
+    },
+    recursive(node) {
+      if (node.nodeType === 3) {
+        // textNode
+        // break setnences
+        let sentences = this.breakSentences(node.nodeValue)
+        for (let sentence of sentences) {
+          let span = $(`<span class="sentence">${sentence}</span>`)
+          $(node).before(span)
+        }
+        $(node).remove()
+      } else {
+        // work with child nodes
+        let nodes = []
+        for (let n of node.childNodes) {
+          nodes.push(n)
+        }
+        for (let n of nodes) {
+          this.recursive(n)
+        }
+      }
+    },
     empty() {
       return (
         $(this.$el)
