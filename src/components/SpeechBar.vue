@@ -1,18 +1,20 @@
 <template>
   <div v-if="html" id="speech-container">
     <div class="speech-bar mb-4 sticky bg-white pt-2 pb-2">
-      <button @click="previous()">
-        <font-awesome-icon icon="chevron-left" />
-      </button>
-      <button v-if="!speaking" @click="play()">
-        <font-awesome-icon icon="play" />
-      </button>
-      <button v-if="speaking" @click="pause()">
-        <font-awesome-icon icon="pause" />
-      </button>
-      <button @click="next()">
-        <font-awesome-icon icon="chevron-right" />
-      </button>
+      <b-button-group class="d-flex">
+        <b-button @click="previous()">
+          <font-awesome-icon icon="chevron-left" />
+        </b-button>
+        <b-button v-if="!speaking" @click="play()">
+          <font-awesome-icon icon="play" />
+        </b-button>
+        <b-button v-if="speaking" @click="pause()">
+          <font-awesome-icon icon="pause" />
+        </b-button>
+        <b-button @click="next()">
+          <font-awesome-icon icon="chevron-right" />
+        </b-button>
+      </b-button-group>
     </div>
     <Annotate
       tag="div"
