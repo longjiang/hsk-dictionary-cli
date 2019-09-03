@@ -43,7 +43,7 @@
               </p>
               <p>
                 <strong>Jon's Reddit:</strong>
-                <a href="https://www.reddit.com/user/ChineseZeroToHero">
+                <a href="https://www.reddit.com/user/ChineseZeroToHero/submitted/">
                   u/ChineseZeroToHero</a
                 >
               </p>

@@ -10,7 +10,7 @@
             A <em>separable</em> verb (for example, 唱歌) consists of a verb
             (唱) and an object (歌). Because of this, they can take the
             following forms. Note that a variety of measure words and
-            complements can be used, not just the ones listed in the cart.
+            complements can be used, not just the ones listed in the chart.
           </Annotate>
         </p>
         <table

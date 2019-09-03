@@ -104,7 +104,7 @@
             </a>
             <p>
               Jon is
-              <a href="https://www.reddit.com/user/chinesezerotohero"
+              <a href="https://www.reddit.com/user/ChineseZeroToHero/submitted/"
                 >u/ChineseZeroToHero</a
               >
               on Reddit. He regularly posts Chinese-learning resources and
@@ -113,7 +113,7 @@
             </p>
             <p>
               We encourage you to follow Jon at
-              <a href="https://www.reddit.com/user/chinesezerotohero"
+              <a href="https://www.reddit.com/user/ChineseZeroToHero/submitted/"
                 >u/ChineseZeroToHero</a
               >, and also monitor
               <a href="https://www.reddit.com/r/ChineseLanguage/"

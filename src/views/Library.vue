@@ -23,6 +23,23 @@
             >
           </li>
         </ul>
+        <h1 class="text-center" style="margin-bottom: 6rem">Authors</h1>
+        <ul class="list-unstyled p-0 mb-5 booklists">
+          <li v-for="booklist in authors" class="text-center mb-5">
+            <a
+              class="link-unstyled"
+              :href="`#/book/list/${encodeURIComponent(booklist.url)}`"
+            >
+              <img :src="`/img/books-${Math.floor(Math.random() * 10)}.png`" class="shadowed book-thumb mb-4" />
+              <h5 class="mt-3">
+                <Annotate tag="b">{{ booklist.title }}</Annotate>
+              </h5>
+              <p class="mb-0" style="color: #aaa">
+                Source: {{ Library.source(booklist.url).name }}
+              </p></a
+            >
+          </li>
+        </ul>
 
         <h4 class="mt-5 mb-5 text-center">
           Read
@@ -52,6 +69,10 @@
             <li>
               Luoxia, example URL:
               <code>https://<b>www.luoxia.com</b>/banshengyuan/</code>
+            </li>
+            <li>
+              51Shucheng.com or .net, example URL:
+              <code>https://<b>www.51shucheng.net</b>/kehuan/santi</code>
             </li>
           </ul>
         </div>
@@ -119,10 +140,6 @@ export default {
           url: 'https://www.luoxia.com/yuanzhu/'
         },
         {
-          title: 'Martial Arts Stories by Jin Yong',
-          url: 'https://www.luoxia.com/jinyong/'
-        },
-        {
           title: 'Translated International Classics',
           url: 'https://www.luoxia.com/mingzhu/'
         },
@@ -130,6 +147,37 @@ export default {
           title: 'More from Luoxia.com',
           url: 'https://www.luoxia.com/'
         }
+      ],
+      authors: [
+        {
+          title: '郭敬明',
+          url: 'https://www.51shucheng.net/zuojia/guojingming'
+        },
+        {
+          title: '韩寒',
+          url: 'https://www.51shucheng.net/zuojia/hanhan'
+        },
+        {
+          title: '金庸',
+          url: 'https://www.luoxia.com/jinyong/'
+        },
+        {
+          title: '金庸',
+          url: 'https://www.51shucheng.net/zuojia/jinyong'
+        },
+        {
+          title: '刘慈欣',
+          url: 'https://www.51shucheng.net/zuojia/liucixin'
+        },
+        {
+          title: '路遥',
+          url: 'https://www.51shucheng.net/zuojia/luyao'
+        },
+        {
+          title: '路遥',
+          url: 'https://www.51shucheng.net/zuojia/luyao'
+        }
+
       ]
     }
   }
