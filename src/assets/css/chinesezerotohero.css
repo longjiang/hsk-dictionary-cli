@@ -29,6 +29,11 @@ body {
   height: 10rem;
 }
 
+.shadowed {
+  -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+  filter: drop-shadow(5px 5px 5px  rgba(0,0,0,0.3));
+}
+
 .link-unstyled,
 .link-unstyled:hover {
   color: inherit;

@@ -4,6 +4,7 @@ export default {
   sources: [
     {
       host: 'zh.wikisource.org',
+      name: 'Wikisource',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
         $bookHTML.find('.sisitem').remove()
@@ -77,6 +78,7 @@ export default {
     },
     {
       host: 'www.luoxia.com',
+      name: 'Luoxia 落霞小说',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
         let book = {

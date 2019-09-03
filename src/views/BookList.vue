@@ -1,5 +1,5 @@
 <template>
-  <div class="container main pt-5 pb-5" id="library-browse">
+  <div class="container main pt-5 pb-5" id="book-list">
     <h1 class="mb-5">Book List</h1>
     <SimpleSearch
       placeholder="Enter the URL of a book list from a variety of eBook websites"
@@ -13,8 +13,10 @@
     />
     <ul class="list-unstyled booklist">
       <li v-for="book in booklist" class="booklist-item text-center">
-        <a :href="`#/book/index/${encodeURIComponent(book.url)}`" class="link-unstyled"
-          >
+        <a
+          :href="`#/book/index/${encodeURIComponent(book.url)}`"
+          class="link-unstyled"
+        >
           <img
             :src="
               book.thumbnail
@@ -62,7 +64,7 @@ export default {
   },
   methods: {
     async updateURL() {
-      $('#library-browse')[0].scrollIntoView()
+      $('#book-list')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
       this.booklist = []
@@ -70,9 +72,7 @@ export default {
     }
   },
   async mounted() {
-    if (this.method === 'browse') {
-      this.updateURL()
-    }
+    this.updateURL()
   }
 }
 </script>
