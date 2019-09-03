@@ -26,24 +26,34 @@
           <p>{{ bookAuthor }}</p>
         </Annotate>
         <div class="list-group text-left">
-          <a
+          <Annotate
+            tag="a"
             v-for="chapter in chapters"
             :class="{
               'list-group-item': true,
+              'link-unstyled': true,
               active:
                 location.hash ===
                 `#/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
             :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
-            >{{ chapter.title }}</a
+            >{{ chapter.title }}</Annotate
           >
         </div>
       </div>
       <div class="col-md-8" :key="'chapter-' + chapterTitle">
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
-        <Annotate>
-          <div class="book-chapter" v-html="chapterContent"></div>
-        </Annotate>
+        <div class="chapter-content">
+          <Annotate
+            v-for="line of chapterContent
+              .trim()
+              .replace(/<(div|p|li|h1|h2|h3|h4|h5|h6)/g, '\n<$1')
+              .split('\n')"
+            v-if="line.trim().length > 0"
+          >
+            <div v-html="line.trim()"></div>
+          </Annotate>
+        </div>
       </div>
     </div>
   </div>
@@ -98,9 +108,7 @@ export default {
     }
   },
   async mounted() {
-    if (this.method === 'chapter') {
-      this.updateURL()
-    }
+    this.updateURL()
   }
 }
 </script>

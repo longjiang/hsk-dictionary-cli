@@ -6,6 +6,7 @@ export default {
       host: 'zh.wikisource.org',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
+        $bookHTML.find('.sisitem').remove()
         let chapters = []
         for (let li of $bookHTML.find(
           '.mw-parser-output ul:first-of-type li'
@@ -19,7 +20,15 @@ export default {
                 .attr('href')
           })
         }
-        return chapters
+        let as = $bookHTML.find(
+          '#headerContainer > table:first-child td:nth-child(3) a'
+        )
+        return {
+          title: $bookHTML.find('#firstHeading').text(),
+          author: $(as[as.length - 1]).text(),
+          thumbnail: '',
+          chapters
+        }
       },
       async getChapter(url) {
         let $chapterHTML = await Helper.scrape2(url)
@@ -38,7 +47,7 @@ export default {
         const bookPath = $chapterHTML.find('.subpages a').attr('href')
         if (bookPath) {
           const bookURL = 'https://zh.wikisource.org' + bookPath
-          book.chapters = await this.getBook(bookURL)
+          book = await this.getBook(bookURL)
         }
         return {
           title: $chapterHTML
@@ -101,14 +110,18 @@ export default {
       }
     }
   ],
-  getChapter(url) {
+  source(url) {
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
     const source = this.sources.find(source => source.host === host)
-    return source.getChapter(url)
+    return source
+  },
+  getBook(url) {
+    return this.source(url).getBook(url)
+  },
+  getChapter(url) {
+    return this.source(url).getChapter(url)
   },
   getBooklist(url) {
-    const host = url.replace(/.*\/\/([^/]*).*/, '$1')
-    const source = this.sources.find(source => source.host === host)
-    return source.getBooklist(url)
+    return this.source(url).getBooklist(url)
   }
 }

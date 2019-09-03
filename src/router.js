@@ -335,12 +335,28 @@ export default new Router({
       }
     },
     {
-      path: '/book/:method?/:args?',
-      name: 'book',
+      path: '/book/chapter/:args?',
+      name: 'book-chapter',
       component: () => import('./views/BookChapter.vue'),
       props: true,
       meta: {
         title: 'Book Chapter | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'Read free, open Chinese books with pinyin annotation and save new words for review.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/book/index/:args?',
+      name: 'book-index',
+      component: () => import('./views/BookIndex.vue'),
+      props: true,
+      meta: {
+        title: 'Book | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',

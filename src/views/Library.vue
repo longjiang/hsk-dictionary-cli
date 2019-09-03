@@ -13,7 +13,7 @@
     />
     <ul class="list-unstyled booklist">
       <li v-for="book in booklist" class="booklist-item text-center">
-        <a :href="`#/book/view/${encodeURIComponent(book.url)}`"
+        <a :href="`#/book/index/${encodeURIComponent(book.url)}`"
           ><div
             class="booklist-item-thumb shadow mb-2"
             data-bg-hsk="outside"

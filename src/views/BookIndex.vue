@@ -1,12 +1,12 @@
 <template>
-  <div class="container main pt-5 pb-5" id="book-chapter">
+  <div class="container main pt-5 pb-5" id="book-index">
     <div class="row mb-5">
       <div class="col-sm-12">
         <SimpleSearch
-          placeholder="Enter the URL of a book chapter from a variety of eBook websites"
+          placeholder="Enter the URL of a book from a variety of eBook websites"
           :action="
             url => {
-              location.hash = '#/book/chapter/' + encodeURIComponent(url)
+              location.hash = '#/book/index/' + encodeURIComponent(url)
             }
           "
           ref="search"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 text-center" :key="'book-' + bookTitle">
+      <div class="col-sm-12 text-center" :key="'book-' + bookTitle">
         <img
           v-if="bookThumbnail"
           :src="`${Config.imageProxy}?${bookThumbnail}`"
@@ -26,24 +26,20 @@
           <p>{{ bookAuthor }}</p>
         </Annotate>
         <div class="list-group text-left">
-          <a
+          <Annotate
+            tag="a"
             v-for="chapter in chapters"
             :class="{
               'list-group-item': true,
+              'link-unstyled': true,
               active:
                 location.hash ===
                 `#/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
             :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
-            >{{ chapter.title }}</a
+            >{{ chapter.title }}</Annotate
           >
         </div>
-      </div>
-      <div class="col-md-8" :key="'chapter-' + chapterTitle">
-        <Annotate tag="h1">{{ chapterTitle }}</Annotate>
-        <Annotate>
-          <div class="book-chapter" v-html="chapterContent"></div>
-        </Annotate>
       </div>
     </div>
   </div>
@@ -73,8 +69,6 @@ export default {
       bookTitle: '',
       bookAuthor: '',
       chapters: [],
-      chapterTitle: '',
-      chapterContent: '',
       location
     }
   },
@@ -85,22 +79,18 @@ export default {
   },
   methods: {
     async updateURL() {
-      $('#book-chapter')[0].scrollIntoView()
+      $('#book-index')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
-      let chapter = await Library.getChapter(url)
-      this.bookThumbnail = chapter.book.thumbnail
-      this.bookTitle = chapter.book.title
-      this.bookAuthor = chapter.book.author
-      this.chapters = chapter.book.chapters
-      this.chapterTitle = chapter.title
-      this.chapterContent = chapter.content
+      let book = await Library.getBook(url)
+      this.bookThumbnail = book.thumbnail
+      this.bookTitle = book.title
+      this.bookAuthor = book.author
+      this.chapters = book.chapters
     }
   },
   async mounted() {
-    if (this.method === 'chapter') {
-      this.updateURL()
-    }
+    this.updateURL()
   }
 }
 </script>
