@@ -337,10 +337,10 @@ export default new Router({
     {
       path: '/book/:method?/:args?',
       name: 'book',
-      component: () => import('./views/Book.vue'),
+      component: () => import('./views/BookChapter.vue'),
       props: true,
       meta: {
-        title: 'Book | Chinese Zero to Hero',
+        title: 'Book Chapter | Chinese Zero to Hero',
         metaTags: [
           {
             name: 'description',

@@ -1,12 +1,90 @@
 <template>
-  <div class="container main pt-5 pb-5">
-    <h1>Library</h1>
+  <div class="container main pt-5 pb-5" id="library-browse">
+    <h1 class="mb-5">Library</h1>
+    <SimpleSearch
+      placeholder="Enter the URL of a book list from a variety of eBook websites"
+      :action="
+        url => {
+          location.hash = '#/library/browse/' + encodeURIComponent(url)
+        }
+      "
+      ref="search"
+      class="mb-5"
+    />
+    <ul class="list-unstyled booklist">
+      <li v-for="book in booklist" class="booklist-item text-center">
+        <a :href="`#/book/view/${encodeURIComponent(book.url)}`"
+          ><div
+            class="booklist-item-thumb shadow mb-2"
+            data-bg-hsk="outside"
+          ></div>
+          <div>{{ book.title }}</div></a
+        >
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import Library from '@/lib/library'
-export default {}
+import SimpleSearch from '@/components/SimpleSearch'
+
+export default {
+  props: {
+    args: {
+      type: String
+    },
+    method: {
+      type: String
+    }
+  },
+  components: {
+    SimpleSearch
+  },
+  data() {
+    return {
+      location,
+      booklist: []
+    }
+  },
+  watch: {
+    args() {
+      this.updateURL()
+    }
+  },
+  methods: {
+    async updateURL() {
+      $('#library-browse')[0].scrollIntoView()
+      let url = decodeURIComponent(this.args)
+      this.$refs.search.text = url
+      this.booklist = []
+      this.booklist = await Library.getBooklist(url)
+    }
+  },
+  async mounted() {
+    if (this.method === 'browse') {
+      this.updateURL()
+    }
+  }
+}
 </script>
 
-<style></style>
+<style lang="scss">
+.booklist {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.booklist-item {
+  flex: 1;
+  min-width: 10rem;
+  margin: 1rem;
+  border-radius: 0.3rem;
+}
+.booklist-item-thumb {
+  width: 5rem;
+  height: calc(5rem * 1.33);
+  display: inline-block;
+}
+</style>
