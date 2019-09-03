@@ -36,7 +36,10 @@
       <router-link class="secondary-menu-item" :to="{ name: 'courses' }">
         <font-awesome-icon icon="chalkboard-teacher" />Language Courses
       </router-link>
-      <router-link class="secondary-menu-item" to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg">
+      <router-link
+        class="secondary-menu-item"
+        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
+      >
         <font-awesome-icon icon="school" />Hero Academy
       </router-link>
       <router-link
@@ -118,8 +121,8 @@
       class="secondary-menu text-center"
       v-if="
         $route.name &&
-          ($route.name.startsWith('youtube') || $route.name === 'music') && 
-            $route.path !== '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
+          ($route.name.startsWith('youtube') || $route.name === 'music') &&
+          $route.path !== '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'youtube-browse' }">
@@ -127,6 +130,22 @@
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'music' }">
         <font-awesome-icon icon="music" />Study Music Lyrics
+      </router-link>
+    </nav>
+
+    <nav
+      class="secondary-menu text-center"
+      v-if="
+        ($route.name &&
+          ($route.name.startsWith('book') || $route.name === 'library')) ||
+          $route.name === 'reader'
+      "
+    >
+      <router-link class="secondary-menu-item" :to="{ name: 'library' }">
+        <font-awesome-icon icon="book-open" />Library
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'reader' }">
+        <font-awesome-icon icon="file-alt" />Text Reader
       </router-link>
     </nav>
 

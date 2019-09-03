@@ -76,6 +76,7 @@ export default {
   data() {
     return {
       Library,
+      location,
       booklists: [
         {
           title: 'Chinese Classics',

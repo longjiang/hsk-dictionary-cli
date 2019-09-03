@@ -53,13 +53,16 @@
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
         <div class="chapter-content">
           <Annotate
+            tag="div"
             v-for="line of chapterContent
               .trim()
               .replace(/<(div|p|li|h1|h2|h3|h4|h5|h6)/g, '\n<$1')
               .split('\n')"
             v-if="line.trim().length > 0"
+            :speak="true"
+            :copy="true"
           >
-            <div v-html="line.trim()"></div>
+            <div v-html="line.trim()" />
           </Annotate>
         </div>
       </div>

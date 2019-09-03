@@ -9,12 +9,24 @@
       fullscreen: fullscreenMode
     }"
   >
-    <div class="annotator-buttons">
-      <Speak v-if="speak" :text="text()" style="color: inherit" />
-      <span class="annotator-copy ml-1 focus-exclude" @click="copyClick" v-if="copy">
+    <div class="annotator-buttons" v-if="!empty()">
+      <Speak
+        v-if="speak"
+        :text="text()"
+        style="position: relative; top: 0.08rem; position: relative;"
+      />
+      <span
+        class="annotator-copy ml-1 focus-exclude"
+        @click="copyClick"
+        v-if="copy"
+      >
         <font-awesome-icon icon="copy" />
       </span>
-      <span class="annotator-show-def ml-2 focus-exclude" @click="showDefClick" v-if="showDef">
+      <span
+        class="annotator-show-def ml-2 focus-exclude"
+        @click="showDefClick"
+        v-if="showDef"
+      >
         <font-awesome-icon icon="language" />
       </span>
       <span
@@ -81,6 +93,13 @@ export default {
     }
   },
   methods: {
+    empty() {
+      return (
+        $(this.$el)
+          .text()
+          .trim() === ''
+      )
+    },
     fullscreenClick() {
       this.fullscreenMode = !this.fullscreenMode
     },
@@ -165,6 +184,7 @@ export default {
   overflow: scroll;
   font-size: 3rem;
   padding: 3rem;
+  .speak,
   .annotator-copy,
   .annotator-show-def,
   .annotator-fullscreen {
@@ -182,17 +202,18 @@ export default {
   }
 }
 
-.show-definition .annotator-show-def {
+#chinesezerotohero.show-definition .annotator-show-def {
   display: none;
 }
 
 .annotator-buttons {
   float: right;
+  padding: 0 0 0.5rem 0.5rem;
 }
 
-.annotator-buttons > * {
+.annotator-buttons > *:not(.speak) {
   cursor: pointer;
-  opacity: 0.2;
+  opacity: 0.3;
   &:hover {
     opacity: 1;
   }

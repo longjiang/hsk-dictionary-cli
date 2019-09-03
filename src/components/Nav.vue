@@ -62,14 +62,19 @@
         :to="{ name: 'youtube-browse' }"
         title="Learn Chinese by watching YouTube videos."
       >
-        <font-awesome-icon icon="video" />Theater
+        <font-awesome-icon icon="video" />Audio-Visual
       </router-link>
       <router-link
-        class="tab"
-        :to="{ name: 'reader' }"
-        title="Read your text with annotation"
+        :class="{
+          tab: true,
+          'router-link-active':
+            $route.name &&
+            ($route.name.startsWith('book') || $route.name === 'library' || $route.name === 'reader' )
+        }"
+        :to="{ name: 'library' }"
+        title="Improve your Chinese through reading"
       >
-        <font-awesome-icon icon="book-open" />Reader
+        <font-awesome-icon icon="book-open" />Reading
       </router-link>
       <router-link
         class="tab"
