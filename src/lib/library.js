@@ -77,17 +77,8 @@ export default {
     },
     {
       host: 'www.luoxia.com',
-      async getChapter(url) {
-        let $chapterHTML = await Helper.scrape2(url)
-        let chapter = {
-          title: $chapterHTML
-            .find('#nr_title')
-            .text()
-            .trim(),
-          content: $chapterHTML.find('#nr1').html()
-        }
-        this.chapters = []
-        let $bookHTML = await Helper.scrape2(url.replace(/[^/]*$/, ''))
+      async getBook(url) {
+        let $bookHTML = await Helper.scrape2(url)
         let book = {
           title: $bookHTML
             .find('.book-describe h1')
@@ -107,7 +98,20 @@ export default {
             url: $(a).attr('href')
           })
         }
-        chapter.book = book
+        return book
+      },
+      async getChapter(url) {
+        let $chapterHTML = await Helper.scrape2(url)
+        let chapter = {
+          title: $chapterHTML
+            .find('#nr_title')
+            .text()
+            .trim(),
+          content: $chapterHTML.find('#nr1').html()
+        }
+        this.chapters = []
+        let bookURL = url.replace(/[^/]*$/, '')
+        chapter.book = await this.getBook(bookURL)
         return chapter
       }
     }
