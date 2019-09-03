@@ -25,6 +25,10 @@ body {
   object-fit: cover;
 }
 
+.book-thumb {
+  height: 10rem;
+}
+
 .link-unstyled,
 .link-unstyled:hover {
   color: inherit;

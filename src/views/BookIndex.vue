@@ -16,10 +16,13 @@
     <div class="row">
       <div class="col-sm-12 text-center" :key="'book-' + bookTitle">
         <img
-          v-if="bookThumbnail"
-          :src="`${Config.imageProxy}?${bookThumbnail}`"
+          :src="
+            bookThumbnail
+              ? `${Config.imageProxy}?${bookThumbnail}`
+              : `/img/book-thumb-${Math.floor(Math.random() * 10)}.jpg`
+          "
           alt="Book cover"
-          class="mb-4"
+          class="mb-4 shadow book-thumb"
         />
         <Annotate v-if="bookTitle">
           <h6>《{{ bookTitle }}》</h6>

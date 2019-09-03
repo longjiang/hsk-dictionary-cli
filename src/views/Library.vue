@@ -13,11 +13,17 @@
     />
     <ul class="list-unstyled booklist">
       <li v-for="book in booklist" class="booklist-item text-center">
-        <a :href="`#/book/index/${encodeURIComponent(book.url)}`"
-          ><div
-            class="booklist-item-thumb shadow mb-2"
-            data-bg-hsk="outside"
-          ></div>
+        <a :href="`#/book/index/${encodeURIComponent(book.url)}`" class="link-unstyled"
+          >
+          <img
+            :src="
+              book.thumbnail
+                ? `${Config.imageProxy}?${bookThumbnail}`
+                : `/img/book-thumb-${Math.floor(Math.random() * 10)}.jpg`
+            "
+            alt="Book cover"
+            class="mb-4 shadow book-thumb"
+          />
           <div>{{ book.title }}</div></a
         >
       </li>

@@ -24,6 +24,7 @@ export default {
           '#headerContainer > table:first-child td:nth-child(3) a'
         )
         return {
+          url: url,
           title: $bookHTML.find('#firstHeading').text(),
           author: $(as[as.length - 1]).text(),
           thumbnail: '',
@@ -48,6 +49,7 @@ export default {
         if (bookPath) {
           const bookURL = 'https://zh.wikisource.org' + bookPath
           book = await this.getBook(bookURL)
+          book.url = bookURL
         }
         return {
           title: $chapterHTML
@@ -116,12 +118,12 @@ export default {
     return source
   },
   getBook(url) {
-    return this.source(url).getBook(url)
+    return this.source(url) ? this.source(url).getBook(url) : false
   },
   getChapter(url) {
-    return this.source(url).getChapter(url)
+    return this.source(url) ? this.source(url).getChapter(url) : false
   },
   getBooklist(url) {
-    return this.source(url).getBooklist(url)
+    return this.source(url) ? this.source(url).getBooklist(url) : false
   }
 }

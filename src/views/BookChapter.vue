@@ -15,16 +15,24 @@
     </div>
     <div class="row">
       <div class="col-md-4 text-center" :key="'book-' + bookTitle">
-        <img
-          v-if="bookThumbnail"
-          :src="`${Config.imageProxy}?${bookThumbnail}`"
-          alt="Book cover"
-          class="mb-4"
-        />
-        <Annotate v-if="bookTitle">
-          <h6>《{{ bookTitle }}》</h6>
-          <p>{{ bookAuthor }}</p>
-        </Annotate>
+        <a
+          :href="`#/book/index/${encodeURIComponent(bookURL)}`"
+          class="link-unstyled"
+        >
+          <img
+            :src="
+              bookThumbnail
+                ? `${Config.imageProxy}?${bookThumbnail}`
+                : `/img/book-thumb-${Math.floor(Math.random() * 10)}.jpg`
+            "
+            alt="Book cover"
+            class="mb-4 shadow book-thumb"
+          />
+          <Annotate v-if="bookTitle">
+            <h6>《{{ bookTitle }}》</h6>
+            <p>{{ bookAuthor }}</p>
+          </Annotate>
+        </a>
         <div class="list-group text-left">
           <Annotate
             tag="a"
@@ -82,6 +90,7 @@ export default {
       bookThumbnail: undefined,
       bookTitle: '',
       bookAuthor: '',
+      bookURL: '',
       chapters: [],
       chapterTitle: '',
       chapterContent: '',
@@ -102,6 +111,7 @@ export default {
       this.bookThumbnail = chapter.book.thumbnail
       this.bookTitle = chapter.book.title
       this.bookAuthor = chapter.book.author
+      this.bookURL = chapter.book.url
       this.chapters = chapter.book.chapters
       this.chapterTitle = chapter.title
       this.chapterContent = chapter.content
