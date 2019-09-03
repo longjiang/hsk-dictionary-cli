@@ -58,10 +58,20 @@ export default {
       return text
     },
     play() {
-      console.log(this.sentenceText(this.sentences[this.current]))
+      for (let sentence of this.sentences) {
+        $(sentence).removeClass('current')
+      }
+      const sentence = this.sentences[this.current]
+      $(sentence).addClass('current')
       this.current =
         this.current === this.sentences.length - 1 ? 0 : this.current + 1
     }
   }
 }
 </script>
+
+<style lang="scss">
+.sentence.current {
+  background-color: rgba(212, 212, 255, 0.5);
+}
+</style>
