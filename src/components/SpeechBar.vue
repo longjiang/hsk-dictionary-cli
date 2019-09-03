@@ -14,6 +14,9 @@
         <b-button @click="next()">
           <font-awesome-icon icon="chevron-right" />
         </b-button>
+        <b-dropdown right text="Switch Voice">
+          <b-dropdown-item v-for="(voice, index) in voices" @click="setvoice(index)">{{ voice.name }}</b-dropdown-item>
+        </b-dropdown>
       </b-button-group>
     </div>
     <Annotate
@@ -45,8 +48,14 @@ export default {
       sentences: [],
       current: 0,
       speechSynthesis,
+      voice: 0,
       utterance: undefined,
       speaking: false
+    }
+  },
+  computed: {
+    voices() {
+      return speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('zh'))
     }
   },
   mounted() {
@@ -58,6 +67,9 @@ export default {
     }
   },
   methods: {
+    setvoice(index) {
+      this.voice = index
+    },
     sentenceText(sentence) {
       let text = ''
       for (let block of $(sentence).find('.word-block, .word-block-text')) {
@@ -80,7 +92,7 @@ export default {
     },
     speak(text) {
       this.utterance = new SpeechSynthesisUtterance(text)
-      this.utterance.lang = 'zh-CN'
+      this.utterance.voice = this.voices[this.voice]
       speechSynthesis.speak(this.utterance)
     },
     scroll(sentence) {
