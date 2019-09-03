@@ -14,11 +14,14 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-8" :key="'chapter-' + encodeURIComponent(chapterTitle)">
+        <Annotate tag="h1">{{ chapterTitle }}</Annotate>
+        <div class="chapter-content">
+          <SpeechBar :html="chapterContent" />
+        </div>
+      </div>
       <div class="col-md-4 text-center" :key="'book-' + bookTitle">
-        <a
-          :href="`#/book/index/${encodeURIComponent(bookURL)}`"
-          class="link-unstyled"
-        >
+        <a :href="`#/book/index/${encodeURIComponent(bookURL)}`" class="link-unstyled">
           <img
             :src="
               bookThumbnail
@@ -55,14 +58,7 @@
                 `#/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
             :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
-            >{{ chapter.title }}</Annotate
-          >
-        </div>
-      </div>
-      <div class="col-md-8" :key="'chapter-' + encodeURIComponent(chapterTitle)">
-        <Annotate tag="h1">{{ chapterTitle }}</Annotate>
-        <div class="chapter-content">
-          <SpeechBar :html="chapterContent" />
+          >{{ chapter.title }}</Annotate>
         </div>
       </div>
     </div>
