@@ -2,7 +2,15 @@
   <div class="container main pt-5 pb-5" id="book-view">
     <div class="row mb-5">
       <div class="col-sm-12">
-        <BookNav ref="search" />
+        <SimpleSearch
+          placeholder="Enter the URL of a book chapter from a variety of eBook websites"
+          :action="
+            url => {
+              location.hash = '#/book/view/' + encodeURIComponent(url)
+            }
+          "
+          ref="search"
+        />
       </div>
     </div>
     <div class="row">
@@ -44,7 +52,7 @@
 <script>
 import Config from '@/lib/config'
 import Library from '@/lib/library'
-import BookNav from '@/components/BookNav'
+import SimpleSearch from '@/components/SimpleSearch'
 
 export default {
   props: {
@@ -56,7 +64,7 @@ export default {
     }
   },
   components: {
-    BookNav
+    SimpleSearch
   },
   data() {
     return {
@@ -79,7 +87,7 @@ export default {
     async updateURL() {
       $('#book-view')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
-      this.$refs.search.url = url
+      this.$refs.search.text = url
       let chapter = await Library.getChapter(url)
       this.bookThumbnail = chapter.book.thumbnail
       this.bookTitle = chapter.book.title
@@ -87,7 +95,7 @@ export default {
       this.chapters = chapter.book.chapters
       this.chapterTitle = chapter.title
       this.chapterContent = chapter.content
-    },
+    }
   },
   async mounted() {
     if (this.method === 'view') {

@@ -8,20 +8,13 @@ export default {
         let $chapterHTML = await Helper.scrape2(url)
         const bookURL =
           'https://zh.wikisource.org' +
-          $chapterHTML
-            .find(
-              '#headerContainer > table:nth-child(2) table td b:first-of-type a'
-            )
-            .attr('href')
+          $chapterHTML.find('.subpages a').attr('href')
+        let as = $chapterHTML.find(
+          '#headerContainer > table:first-child td:nth-child(3) a'
+        )
         let book = {
-          title: $chapterHTML
-            .find(
-              '#headerContainer > table:nth-child(2) table td b:first-of-type a'
-            )
-            .text(),
-          author: $chapterHTML
-            .find('#headerContainer > table:first-child td:nth-child(3) a')
-            .text(),
+          title: $chapterHTML.find('.subpages a').text(),
+          author: $(as[as.length - 1]).text(),
           thumbnail: '',
           chapters: []
         }

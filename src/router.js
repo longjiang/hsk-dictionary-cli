@@ -351,6 +351,22 @@ export default new Router({
       }
     },
     {
+      path: '/library/:method?/:args?',
+      name: 'library',
+      component: () => import('./views/Library.vue'),
+      props: true,
+      meta: {
+        title: 'Library | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content:
+              'Read free, open Chinese books with pinyin annotation and save new words for review.'
+          }
+        ]
+      }
+    },
+    {
       path: '/youtube/view/:args?',
       name: 'youtube-view',
       component: () => import('./views/YouTubeView.vue'),

@@ -1,0 +1,32 @@
+<template>
+  <b-input-group>
+    <b-form-input
+      v-model="text"
+      @keyup.enter="goto"
+      :placeholder="placeholder"
+    />
+    <b-input-group-append>
+      <b-button variant="danger" @click="action(text)">Go</b-button>
+    </b-input-group-append>
+  </b-input-group>
+</template>
+
+<script>
+export default {
+  props: {
+    placeholder: {
+      default: ''
+    },
+    action: {
+      type: Function
+    }
+  },
+  data() {
+    return {
+      text: undefined
+    }
+  }
+}
+</script>
+
+<style></style>
