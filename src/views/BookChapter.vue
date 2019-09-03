@@ -14,14 +14,29 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8" :key="'chapter-' + encodeURIComponent(chapterTitle)">
+      <div
+        class="col-md-8"
+        :key="'chapter-' + encodeURIComponent(chapterTitle)"
+      >
         <Annotate tag="h1">{{ chapterTitle }}</Annotate>
         <div class="chapter-content">
           <SpeechBar :html="chapterContent" />
         </div>
+        <b-button-group class="d-flex">
+          <b-button variant="light" v-if="previous" @click="previousClick">
+            <font-awesome-icon icon="chevron-up" class="mr-2" />Previous
+          </b-button>
+          <b-button variant="light" v-if="next" @click="nextClick">
+            Next
+            <font-awesome-icon icon="chevron-down" class="ml-2" />
+          </b-button>
+        </b-button-group>
       </div>
       <div class="col-md-4 text-center" :key="'book-' + bookTitle">
-        <a :href="`#/book/index/${encodeURIComponent(bookURL)}`" class="link-unstyled">
+        <a
+          :href="`#/book/index/${encodeURIComponent(bookURL)}`"
+          class="link-unstyled"
+        >
           <img
             :src="
               bookThumbnail
@@ -46,6 +61,14 @@
             />
           </a>
         </div>
+        <b-button-group class="d-flex mb-3">
+          <b-button variant="light" v-if="previous" @click="previousClick">
+            <font-awesome-icon icon="chevron-up" class="mr-2" />
+          </b-button>
+          <b-button variant="light" v-if="next" @click="nextClick">
+            <font-awesome-icon icon="chevron-down" class="ml-2" />
+          </b-button>
+        </b-button-group>
         <div class="list-group text-left">
           <Annotate
             tag="a"
@@ -58,7 +81,8 @@
                 `#/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
             :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
-          >{{ chapter.title }}</Annotate>
+            >{{ chapter.title }}</Annotate
+          >
         </div>
       </div>
     </div>
@@ -103,6 +127,38 @@ export default {
       this.updateURL()
     }
   },
+  computed: {
+    previous() {
+      if (this.chapters) {
+        let index = this.chapters.findIndex(
+          chapter => chapter.url === this.args
+        )
+        if (index && index > 0 && this.chapters[index - 1]) {
+          return this.chapters[index - 1].url
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    },
+    next() {
+      let next = false
+      if (this.chapters) {
+        let index = this.chapters.findIndex(
+          chapter => chapter.url === this.args
+        )
+        if (
+          index !== undefined &&
+          index < this.chapters.length - 1 &&
+          this.chapters[index + 1]
+        ) {
+          next = this.chapters[index + 1].url
+        }
+      }
+      return next
+    }
+  },
   methods: {
     async updateURL() {
       $('#book-chapter')[0].scrollIntoView()
@@ -120,6 +176,12 @@ export default {
         this.bookAuthor = chapter.book.author
         this.bookURL = chapter.book.url
       }
+    },
+    previousClick() {
+      location.hash = `#/book/chapter/${encodeURIComponent(this.previous)}`
+    },
+    nextClick() {
+      location.hash = `#/book/chapter/${encodeURIComponent(this.next)}`
     }
   },
   async mounted() {

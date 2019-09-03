@@ -14,7 +14,7 @@
         <b-button @click="next()">
           <font-awesome-icon icon="chevron-right" />
         </b-button>
-        <b-dropdown right text="Switch Voice">
+        <b-dropdown right text="Switch Voice" style="flex: 1">
           <b-dropdown-item v-for="(voice, index) in voices" @click="setvoice(index)">{{ voice.name }}</b-dropdown-item>
         </b-dropdown>
       </b-button-group>
