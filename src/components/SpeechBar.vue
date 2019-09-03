@@ -30,13 +30,37 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      sentences: [],
+      current: 0
+    }
+  },
+  mounted() {
+    this.sentences = []
+    for (let annotate of this.$children) {
+      for (let sentence of $(annotate.$el).find('.sentence')) {
+        this.sentences.push(sentence)
+      }
+    }
   },
   methods: {
-    play() {
-      for(let annotate of this.$children) {
-        console.log(annotate)
+    sentenceText(sentence) {
+      let text = ''
+      for (let block of $(sentence).find('.word-block, .word-block-text')) {
+        if ($(block).is('.word-block-text')) {
+          text += $(block).text()
+        } else {
+          text += $(block)
+            .find('.word-block-simplified')
+            .text()
+        }
       }
+      return text
+    },
+    play() {
+      console.log(this.sentenceText(this.sentences[this.current]))
+      this.current =
+        this.current === this.sentences.length - 1 ? 0 : this.current + 1
     }
   }
 }
