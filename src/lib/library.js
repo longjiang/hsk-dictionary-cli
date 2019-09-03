@@ -5,6 +5,7 @@ export default {
     {
       host: 'zh.wikisource.org',
       name: 'Wikisource',
+      logo: 'https://zh.wikisource.org/static/images/project-logos/zhwikisource-2x.png',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
         $bookHTML.find('.sisitem').remove()
@@ -43,15 +44,16 @@ export default {
           thumbnail: '',
           chapters: []
         }
-        $chapterHTML.find('.mw-editsection').remove()
-        $chapterHTML.find('#headerContainer').remove()
-        $chapterHTML.find('#toc').remove()
         const bookPath = $chapterHTML.find('.subpages a').attr('href')
         if (bookPath) {
           const bookURL = 'https://zh.wikisource.org' + bookPath
           book = await this.getBook(bookURL)
           book.url = bookURL
         }
+        $chapterHTML.find('.mw-parser-output > table:first-child').remove()
+        $chapterHTML.find('.mw-editsection').remove()
+        $chapterHTML.find('#headerContainer').remove()
+        $chapterHTML.find('#toc').remove()
         return {
           title: $chapterHTML
             .find('#firstHeading')
@@ -63,9 +65,11 @@ export default {
       },
       async getBooklist(url) {
         let $html = await Helper.scrape2(url)
-        $html.find('#toc, .mw-editsection').remove()
+        $html
+          .find('.mw-parser-output > p:first-child, #toc, .mw-editsection')
+          .remove()
         let list = []
-        for (let a of $html.find('.mw-parser-output a')) {
+        for (let a of $html.find('.mw-parser-output li a:first-of-type:not(.new)')) {
           list.push({
             url: 'https://zh.wikisource.org' + $(a).attr('href'),
             title: $(a)
@@ -79,6 +83,7 @@ export default {
     {
       host: 'www.luoxia.com',
       name: 'Luoxia 落霞小说',
+      logo: 'https://www.luoxia.com/theme/img/logo.svg',
       async getBook(url) {
         let $bookHTML = await Helper.scrape2(url)
         let book = {
@@ -119,25 +124,42 @@ export default {
       async getBooklist(url) {
         let $html = await Helper.scrape2(url)
         let list = []
-        for (let li of $html.find('.pop-book2')) {
-          list.push({
-            url:
-              $(li)
+        if (url === 'https://www.luoxia.com/') {
+          for (let a of $html.find('.hot-book a')) {
+            list.push({
+              url: $(a).attr('href'),
+              title: $(a)
+                .find('.pop-tit')
+                .text(),
+              author: $(a)
+                .find('.pop-intro')
+                .text()
+            })
+          }
+        } else {
+          for (let li of $html.find('.pop-book2')) {
+            list.push({
+              url: $(li)
                 .find('a')
                 .attr('href'),
-            title: $(li)
-              .find('a')
-              .attr('title'),
-            thumbnail: $(li)
-              .find('img')
-              .attr('src')
-          })
+              title: $(li)
+                .find('a')
+                .attr('title'),
+              author: $(li)
+                .find('.pop-intro')
+                .text(),
+              thumbnail: $(li)
+                .find('img')
+                .attr('src')
+            })
+          }
         }
         return list
       }
     }
   ],
   source(url) {
+    console.log(url)
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
     const source = this.sources.find(source => source.host === host)
     return source

@@ -83,6 +83,10 @@ export default {
           url: 'https://www.luoxia.com/jingdian/'
         },
         {
+          title: 'Chinese Classics',
+          url: 'https://zh.wikisource.org/wiki/Portal:%E5%85%B8%E7%B1%8D'
+        },
+        {
           title: 'Translated International Classics',
           url: 'https://www.luoxia.com/mingzhu/'
         },
@@ -103,8 +107,8 @@ export default {
           url: 'https://www.luoxia.com/jinyong/'
         },
         {
-          title: 'Chinese Classics',
-          url: 'https://www.luoxia.com/jingdian/'
+          title: 'More from Luoxia.com',
+          url: 'https://www.luoxia.com/'
         },
       ]
     }

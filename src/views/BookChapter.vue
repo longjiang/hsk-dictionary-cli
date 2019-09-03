@@ -33,6 +33,16 @@
             <p>{{ bookAuthor }}</p>
           </Annotate>
         </a>
+        <div class="bg-light p-4 mb-3 rounded">
+          <a :href="args" class="link-unstyled" target="_blank">
+            Read the original on
+            <img
+              class="logo-small ml-2"
+              :src="Library.source(args).logo"
+              :alt="Library.source(args).name"
+            />
+          </a>
+        </div>
         <div class="list-group text-left">
           <Annotate
             tag="a"
@@ -90,6 +100,7 @@ export default {
   data() {
     return {
       Config,
+      Library,
       bookThumbnail: undefined,
       bookTitle: '',
       bookAuthor: '',
