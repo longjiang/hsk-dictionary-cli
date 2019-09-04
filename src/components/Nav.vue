@@ -57,8 +57,8 @@
             $route.name &&
             ($route.name.startsWith('youtube') || $route.name === 'music')
         }"
-        :to="{ name: 'youtube-browse' }"
-        title="Learn Chinese by watching YouTube videos."
+        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
+        title="Learn Chinese with audio-visual material."
       >
         <font-awesome-icon icon="video" />Audio-Visual
       </router-link>
