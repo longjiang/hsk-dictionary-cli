@@ -1,14 +1,14 @@
-import ShuchengNet from '@/lib/library-sources/51shucheng-net'
-import ShuchengCom from '@/lib/library-sources/51shucheng-com'
+import Shucheng from '@/lib/library-sources/51shucheng'
 import Wikisource from '@/lib/library-sources/wikisource'
+import Wikipedia from '@/lib/library-sources/wikipedia'
 import Luoxia from '@/lib/library-sources/luoxia'
 import WOL from '@/lib/library-sources/wol'
 
 export default {
-  sources: [ShuchengNet, ShuchengCom, Wikisource, Luoxia, WOL],
+  sources: [Shucheng, Wikisource, Luoxia, Wikipedia, WOL],
   source(url) {
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
-    const source = this.sources.find(source => source.host === host)
+    const source = this.sources.find(source => host.match(source.host))
     return source
   },
   getBook(url) {

@@ -1,13 +1,13 @@
 import Helper from '@/lib/helper'
 
 export default {
-  host: 'www.51shucheng.net',
-  name: '无忧书城 51shucheng.net',
+  host: /www\.51shucheng\.(net|com)/,
+  name: '无忧书城 51shucheng.com',
   logo: 'https://www.51shucheng.net/images/logo.png',
   async getBooklist(url) {
     let $html = await Helper.scrape2(url)
     let list = []
-    for (let a of $html.find('.zuojia table a')) {
+    for (let a of $html.find('.zuojia table a, .mulu-list a')) {
       list.push({
         title: $(a).text(),
         url: $(a).attr('href')
