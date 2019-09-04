@@ -1,5 +1,5 @@
 <template>
-  <div class="youtube-browse container pt-5 pb-5 main">
+  <div class="container pt-5 pb-5 main" id="library">
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Library</h1>
@@ -9,10 +9,7 @@
         </p>
         <ul class="list-unstyled p-0 mb-5 booklists">
           <li v-for="booklist in booklists" class="text-center mb-5">
-            <a
-              class="link-unstyled"
-              :href="`#/book/list/${encodeURIComponent(booklist.url)}`"
-            >
+            <a class="link-unstyled" :href="`#/book/list/${encodeURIComponent(booklist.url)}`">
               <img
                 :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
                 class="shadowed book-thumb mb-4"
@@ -20,19 +17,14 @@
               <h5 class="mt-3">
                 <b>{{ booklist.title }}</b>
               </h5>
-              <p class="mb-0" style="color: #aaa">
-                Source: {{ Library.source(booklist.url).name }}
-              </p></a
-            >
+              <p class="mb-0" style="color: #aaa">Source: {{ Library.source(booklist.url).name }}</p>
+            </a>
           </li>
         </ul>
         <h1 class="text-center" style="margin-bottom: 6rem">Authors</h1>
         <ul class="list-unstyled p-0 mb-5 booklists">
           <li v-for="booklist in authors" class="text-center mb-5">
-            <a
-              class="link-unstyled"
-              :href="`#/book/list/${encodeURIComponent(booklist.url)}`"
-            >
+            <a class="link-unstyled" :href="`#/book/list/${encodeURIComponent(booklist.url)}`">
               <img
                 :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
                 class="shadowed book-thumb mb-4"
@@ -40,22 +32,33 @@
               <h5 class="mt-3">
                 <Annotate tag="b">{{ booklist.title }}</Annotate>
               </h5>
-              <p class="mb-0" style="color: #aaa">
-                Source: {{ Library.source(booklist.url).name }}
-              </p></a
-            >
+              <p class="mb-0" style="color: #aaa">Source: {{ Library.source(booklist.url).name }}</p>
+            </a>
+          </li>
+        </ul>
+
+        <h1 class="text-center" style="margin-bottom: 6rem">Wikipedia</h1>
+        <ul class="list-unstyled p-0 mb-5 booklists">
+          <li v-for="booklist in wikipedia" class="text-center mb-5">
+            <a class="link-unstyled" :href="`#/book/list/${encodeURIComponent(booklist.url)}`">
+              <img
+                :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
+                class="shadowed book-thumb mb-4"
+              />
+              <h5 class="mt-3">
+                <Annotate tag="b">{{ booklist.title }}</Annotate>
+              </h5>
+            </a>
           </li>
         </ul>
 
         <h1 class="text-center mb-4">Graded Readers</h1>
 
-        <p class="text-center lead mb-5">
-          More graded readers from around the web.
-        </p>
+        <p class="text-center lead mb-5">More graded readers from around the web.</p>
         <ul class="cards list-unstyled">
           <li class="text-center card" v-for="item in externalGradedReaders">
-            <a :href="item.url" class="link-unstyled"
-              ><h5 class="mb-3">
+            <a :href="item.url" class="link-unstyled">
+              <h5 class="mb-3">
                 {{ item.title }}
                 <font-awesome-icon icon="external-link-alt" />
               </h5>
@@ -83,7 +86,8 @@
             ref="search"
           />
           <p>
-            We can work with these content providers. <b>Copy paste</b> URLs
+            We can work with these content providers.
+            <b>Copy paste</b> URLs
             like the following into the above text box and enjoy reading!
           </p>
           <ul>
@@ -115,6 +119,13 @@ export default {
     return {
       Library,
       location,
+      wikipedia: [
+        {
+          title: 'Categorized Articles on Wikipedia',
+          url:
+            'https://zh.wikipedia.org/wiki/Wikipedia:%E5%88%86%E9%A1%9E%E7%B4%A2%E5%BC%95'
+        }
+      ],
       externalGradedReaders: [
         {
           title: 'Chinese Reading Practice',

@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     update() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       this.title = undefined
       this.videos = []
       YouTube.channel(

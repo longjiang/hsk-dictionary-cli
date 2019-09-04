@@ -214,7 +214,6 @@ export default {
   },
   methods: {
     route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       let method = this.$route.params.method
       let args = this.$route.params.args.split(',')
       if (method && args) {

@@ -56,6 +56,12 @@ export default {
           $(this).remove()
         }
       })
+    for (let a of $chapterHTML.find('.mw-parser-output a')) {
+      $(a).attr(
+        'href',
+        Helper.absoluteURL(url, decodeURIComponent($(a).attr('href')))
+      )
+    }
     return {
       title: $chapterHTML
         .find('#firstHeading')

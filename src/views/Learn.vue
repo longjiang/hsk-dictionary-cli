@@ -91,7 +91,6 @@ export default {
       }
     },
     route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.method) {
         this.method = this.$route.params.method
         if (this.method == 'saved') {

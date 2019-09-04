@@ -57,11 +57,6 @@ export default {
   data() {
     return {}
   },
-  methods: {
-    route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
-    }
-  },
   watch: {
     args() {
       if (this.$route.name === 'dictionary') {

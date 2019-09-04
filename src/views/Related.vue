@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.arg) {
         this.word = undefined
         this.related = []

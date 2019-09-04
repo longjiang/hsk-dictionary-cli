@@ -199,7 +199,6 @@ export default {
       }
     },
     route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.method && this.$route.params.arg) {
         const method = this.$route.params.method
         const arg = this.$route.params.arg

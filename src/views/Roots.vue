@@ -103,7 +103,6 @@ export default {
       }
     },
     route() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.$route.params.arg) {
         this.rootCharacter = undefined
         this.rootWords = []

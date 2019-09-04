@@ -76,7 +76,6 @@ export default {
   },
   watch: {
     args() {
-      $('#chinesezerotohero')[0].scrollIntoView()
       this.getVideoDetails()
       this.getTranscript()
       this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`
@@ -155,7 +154,6 @@ export default {
     }
   },
   mounted() {
-    $('#chinesezerotohero')[0].scrollIntoView()
     this.getVideoDetails()
     this.getTranscript()
     this.$refs.search.url = `https://www.youtube.com/watch?v=${this.args}`

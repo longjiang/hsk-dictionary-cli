@@ -58,7 +58,6 @@ export default {
     }
   },
   mounted() {
-    $('#chinesezerotohero')[0].scrollIntoView()
     this.loadGrammar()
   },
   watch: {

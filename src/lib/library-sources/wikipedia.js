@@ -8,15 +8,6 @@ export default {
     'https://zh.wikipedia.org/static/images/project-logos/zhwiki-hans-2x.png',
   async getChapter(url) {
     let $chapterHTML = await Helper.scrape2(url)
-    let as = $chapterHTML.find(
-      '#headerContainer > table:first-child td:nth-child(3) a'
-    )
-    let book = {
-      title: $chapterHTML.find('.subpages a').text(),
-      author: $(as[as.length - 1]).text(),
-      thumbnail: '',
-      chapters: []
-    }
     $chapterHTML.find('.mw-parser-output > table:first-of-type').remove()
     $chapterHTML.find('.mw-editsection').remove()
     $chapterHTML.find('#headerContainer').remove()
@@ -40,6 +31,12 @@ export default {
       .find('#firstHeading')
       .text()
       .trim()
+    for (let a of $chapterHTML.find('.mw-parser-output a')) {
+      $(a).attr(
+        'href',
+        Helper.absoluteURL(url, decodeURIComponent($(a).attr('href')))
+      )
+    }
     return {
       title: title,
       content: $chapterHTML.find('.mw-parser-output').html(),
@@ -51,36 +48,25 @@ export default {
   },
   async getBook(url) {
     let $bookHTML = await Helper.scrape2(url)
-    $bookHTML.find('.sisitem').remove()
     let chapters = []
-    for (let a of $bookHTML.find('.mw-parser-output li a')) {
+    for (let a of $bookHTML.find('#mw-pages li a')) {
       chapters.push({
-        title: $(a).text(),
+        title: $(a).attr('title'),
         url: Helper.absoluteURL(url, decodeURIComponent($(a).attr('href')))
       })
     }
-    let as = $bookHTML.find(
-      '#headerContainer > table:first-child td:nth-child(3) a'
-    )
     return {
       url: url,
       title: $bookHTML.find('#firstHeading').text(),
-      author: $(as[as.length - 1]).text(),
-      thumbnail: '',
       chapters
     }
   },
   async getBooklist(url) {
     let $html = await Helper.scrape2(url)
-    $html
-      .find('.mw-parser-output > p:first-child, #toc, .mw-editsection')
-      .remove()
     let list = []
-    for (let a of $html.find(
-      '.mw-parser-output li a:first-of-type:not(.new)'
-    )) {
+    for (let a of $html.find('#mw-content-text a')) {
       list.push({
-        url: 'https://zh.wikisource.org' + $(a).attr('href'),
+        url: 'https://zh.wikipedia.org' + $(a).attr('href'),
         title: $(a)
           .text()
           .trim()

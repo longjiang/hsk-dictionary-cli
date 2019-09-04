@@ -66,7 +66,6 @@ export default {
   },
   methods: {
     async updateURL() {
-      $('#book-list')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
       this.booklist = []

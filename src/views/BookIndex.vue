@@ -86,7 +86,6 @@ export default {
       this.bookTitle = ''
       this.bookAuthor = ''
       this.chapters = []
-      $('#book-index')[0].scrollIntoView()
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
       let book = await Library.getBook(url)

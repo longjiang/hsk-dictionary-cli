@@ -65,7 +65,6 @@ export default {
       this.notFound = false
       this.loading = false
       this.lrcs = []
-      $('#chinesezerotohero')[0].scrollIntoView()
       if (this.method && this.args) {
         let method = this.method
         let args = this.args.split(',')
