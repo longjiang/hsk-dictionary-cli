@@ -402,6 +402,21 @@ export default new Router({
       }
     },
     {
+      path: '/youtube/search/:args?',
+      name: 'youtube-search',
+      component: () => import('./views/YouTubeSearch.vue'),
+      props: true,
+      meta: {
+        title: 'YouTube Reader | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Watch Chinese YouTube videos and study the subtitles.'
+          }
+        ]
+      }
+    },
+    {
       path: '/youtube/view/:args?',
       name: 'youtube-view',
       component: () => import('./views/YouTubeView.vue'),

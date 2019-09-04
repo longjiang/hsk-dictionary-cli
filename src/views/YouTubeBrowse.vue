@@ -3,13 +3,22 @@
     <div class="row">
       <div class="col-sm-12">
         <h1 class="mb-5 text-center">Study YouTube Subtitles</h1>
-        <h4 class="mt-5">
-          Choose one of the channels below
+        <h4 class="mt-5 mb-5 text-center">Search YouTube</h4>
+        <SimpleSearch
+          placeholder="Enter a search term in Chinese..."
+          :action="
+            url => {
+              location.hash = '#/youtube/search/' + encodeURIComponent(url)
+            }
+          "
+          ref="search"
+          class="mb-5"
+        />
+        <h4 class="mt-5 mb-5 text-center">
+          Recommended Channels
         </h4>
-        <hr />
-        <p class="mb-5">A collection of YouTube videos with subtitles.</p>
-        <ul class="list-unstyled p-0 mb-5">
-          <li v-for="channel in channels" class="rounded shadow p-4 mb-4">
+        <ul class="list-unstyled p-0 mb-5 cards">
+          <li v-for="channel in channels" class="p-4 mb-4 card">
             <YouTubeChannelCard :channel="channel" />
           </li>
         </ul>
@@ -55,11 +64,13 @@
 <script>
 import YouTubeNav from '@/components/YouTubeNav'
 import YouTubeChannelCard from '@/components/YouTubeChannelCard'
+import SimpleSearch from '@/components/SimpleSearch'
 
 export default {
   components: {
     YouTubeNav,
-    YouTubeChannelCard
+    YouTubeChannelCard,
+    SimpleSearch
   },
   props: {
     args: {
@@ -68,11 +79,12 @@ export default {
   },
   data() {
     return {
+      location,
       channels: [
         {
           id: 'UCKFB_rVEFEF3l-onQGvGx1A',
           title: '一席',
-          description: "It's like TED, but in China.",
+          description: 'It\'s like TED, but in China.',
           avatar:
             'https://yt3.ggpht.com/a/AGF-l78U7HhXeKuoOP7SPBlSGU57rheuHFjumzhODw=s288-c-k-c0xffffffff-no-rj-mo'
         },
@@ -80,7 +92,7 @@ export default {
           id: 'UCYfJG6cGfW84FVLuy7semEg',
           title: 'Guan Video观视频工作室',
           description:
-            "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
+            'Look for videos with \'CC\', and make sure the subtitles are in Chinese.',
           avatar:
             'https://yt3.ggpht.com/a/AGF-l79IPiVAXo3qD2cie7JPJL6B_PJ1Di3NfBp95Q=s288-c-k-c0xffffffff-no-rj-mo'
         },
@@ -88,7 +100,7 @@ export default {
           id: 'UCI-aslpo4ZZpatYyGs53DLw',
           title: 'TEDxTaipei',
           description:
-            "Look for videos with 'CC', and make sure the subtitles are in Chinese.",
+            'Look for videos with \'CC\', and make sure the subtitles are in Chinese.',
           avatar:
             'https://yt3.ggpht.com/a/AGF-l7-7ljVO1FOH9LVcmmT9tI2tA6SeCNoONsU94A=s176-c-k-c0xffffffff-no-rj-mo'
         },
