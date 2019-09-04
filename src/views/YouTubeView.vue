@@ -8,14 +8,15 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <h3 class="mb-5" :key="title"><Annotate>{{ title }}</Annotate></h3>
+          <h3 :key="title"><Annotate>{{ title }}</Annotate></h3>
+          <hr class="mt-0" />
+          <YouTubeChannelCard v-if="channel" :channel="channel" class="mb-5" />
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <div class="sticky" :key="'youtube-' + args">
+        <div class="col-md-6 sticky">
+          <div class="sticky pt-3 pb-3 bg-white" :key="'youtube-' + args">
             <YouTubeVideo ref="youtube" :youtube="args" />
-            <YouTubeChannelCard v-if="channel" :channel="channel" class="mt-4" />
           </div>
         </div>
         <div class="col-sm-6" :key="'transcript-' + args">
