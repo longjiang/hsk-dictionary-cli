@@ -2,7 +2,7 @@
   <b-input-group>
     <b-form-input
       v-model="text"
-      @keyup.enter="goto"
+      @keyup.enter="action(text)"
       :placeholder="placeholder"
     />
     <b-input-group-append>

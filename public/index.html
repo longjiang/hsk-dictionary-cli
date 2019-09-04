@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta property="og:image" content="/img/logo-zh-zth-circle.png">
+    <meta property="og:image" content="/img/logo-zh-zth-circle.png" />
 
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <link rel="stylesheet" href="vendor/tipped/tipped.css" />
@@ -20,6 +20,20 @@
     </noscript>
     <div id="chinesezerotohero"></div>
     <div id="test"></div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-1846573-20"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'UA-1846573-20')
+    </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/pinyinify/pinyinify.js"></script>
     <script src="vendor/tipped/tipped.js"></script>
