@@ -56,7 +56,7 @@ export default {
       return response ? callback($html, response, text) : null
     })
   },
-  async scrape2(url, callback, cacheLife = -1) {
+  async scrape2(url, cacheLife = -1) {
     return new Promise(resolve => {
       $.ajax(
         `${Config.scrape2}?url=${encodeURIComponent(

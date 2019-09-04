@@ -47,13 +47,14 @@ export default {
       callback(videoIds)
     })
   },
-  search(text, callback, subs = false) {
+  search(text, callback, subs = false, cacheLife = -1) {
     let subsQueryVar = subs ? '&sp=EgIoAQ%253D%253D' : ''
     Helper.scrape2(
       `https://www.youtube.com/results?search_query=${text.replace(
         / /g,
         '+'
-      )}${subsQueryVar}`
+      )}${subsQueryVar}`,
+      cacheLife
     ).then($html => {
       let videos = []
       for (let item of $html.find('.yt-lockup-content')) {
@@ -90,68 +91,71 @@ export default {
       callback(videos)
     })
   },
-  playlist(playlistID, callback) {
-    Helper.scrape2(`https://www.youtube.com/playlist?list=${playlistID}`).then(
-      $html => {
-        let playlist = {
-          id: playlistID,
-          title: $html
-            .find('.pl-header-title')
-            .text()
-            .trim(),
-          videos: []
-        }
-        for (let item of $html.find('.pl-video.yt-uix-tile')) {
-          // console.log(script)
-          let id = $(item).attr('data-video-id')
-          let video = {
-            title: $(item).attr('data-title'),
-            id: id,
-            thumbnail: this.thumbnail(id)
-          }
-          playlist.videos.push(video)
-        }
-        callback(playlist)
+  playlist(playlistID, callback, cacheLife = -1) {
+    Helper.scrape2(
+      `https://www.youtube.com/playlist?list=${playlistID}`,
+      cacheLife
+    ).then($html => {
+      let playlist = {
+        id: playlistID,
+        title: $html
+          .find('.pl-header-title')
+          .text()
+          .trim(),
+        videos: []
       }
-    )
-  },
-  channel(channelID, callback) {
-    // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
-    Helper.scrape2(`https://www.youtube.com/channel/${channelID}/videos`).then(
-      $html => {
-        let channel = {
-          id: channelID,
-          title: $html.find('.branded-page-header-title-link').attr('title'),
-          videos: []
+      for (let item of $html.find('.pl-video.yt-uix-tile')) {
+        // console.log(script)
+        let id = $(item).attr('data-video-id')
+        let video = {
+          title: $(item).attr('data-title'),
+          id: id,
+          thumbnail: this.thumbnail(id)
         }
-        for (let item of $html.find('.yt-lockup-content')) {
-          let badge = $(item).find('.yt-badge')[0]
-          let id = $(item)
-            .find('.yt-uix-sessionlink')
-            .attr('href')
-            .replace('/watch?v=', '')
-          let youtube = {
-            id: id,
-            cc: false,
-            title: $(item)
-              .find('.yt-uix-sessionlink')
-              .attr('title'),
-            thumbnail: this.thumbnail(id),
-            url: 'https://www.youtube.com/watch?v=' + id
-          }
-          if (badge && badge.innerText === 'CC') {
-            youtube.cc = true
-          }
-          channel.videos.push(youtube)
-        }
-        callback(channel)
+        playlist.videos.push(video)
       }
-    )
+      callback(playlist)
+    })
   },
-  channelPlaylists(channelID, callback) {
+  channel(channelID, callback, cacheLife = -1) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
     Helper.scrape2(
-      `https://www.youtube.com/channel/${channelID}/playlists`
+      `https://www.youtube.com/channel/${channelID}/videos`,
+      cacheLife
+    ).then($html => {
+      let channel = {
+        id: channelID,
+        title: $html.find('.branded-page-header-title-link').attr('title'),
+        videos: []
+      }
+      for (let item of $html.find('.yt-lockup-content')) {
+        let badge = $(item).find('.yt-badge')[0]
+        let id = $(item)
+          .find('.yt-uix-sessionlink')
+          .attr('href')
+          .replace('/watch?v=', '')
+        let youtube = {
+          id: id,
+          cc: false,
+          title: $(item)
+            .find('.yt-uix-sessionlink')
+            .attr('title'),
+          thumbnail: this.thumbnail(id),
+          url: 'https://www.youtube.com/watch?v=' + id
+        }
+        if (badge && badge.innerText === 'CC') {
+          youtube.cc = true
+        }
+        channel.videos.push(youtube)
+      }
+      callback(channel)
+    })
+  },
+  channelPlaylists(channelID, callback, cacheLife = -1) {
+    // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
+    Helper.scrape2(
+      `https://www.youtube.com/channel/${channelID}/playlists`,
+      cacheLife
     ).then($html => {
       let playlists = []
       for (let item of $html.find('.yt-shelf-grid-item')) {

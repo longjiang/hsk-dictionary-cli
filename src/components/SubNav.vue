@@ -29,18 +29,11 @@
           $route.name === 'video-count' ||
           $route.name === 'pricing' ||
           $route.name === 'course-release-schedule' ||
-          $route.name === 'textbooks-workbooks' ||
-          $route.path === '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
+          $route.name === 'textbooks-workbooks'
       "
     >
       <router-link class="secondary-menu-item" :to="{ name: 'courses' }">
         <font-awesome-icon icon="chalkboard-teacher" />Language Courses
-      </router-link>
-      <router-link
-        class="secondary-menu-item"
-        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
-      >
-        <font-awesome-icon icon="school" />Hero Academy
       </router-link>
       <router-link
         class="secondary-menu-item"
@@ -121,15 +114,20 @@
       class="secondary-menu text-center"
       v-if="
         $route.name &&
-          ($route.name.startsWith('youtube') || $route.name === 'music') &&
-          $route.path !== '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
+          ($route.name.startsWith('youtube') || $route.name === 'music')
       "
     >
+      <router-link
+        class="secondary-menu-item"
+        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
+      >
+        <font-awesome-icon icon="school" />Hero Academy
+      </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'youtube-browse' }">
-        <font-awesome-icon :icon="['fab', 'youtube']" />Study YouTube Subtitles
+        <font-awesome-icon :icon="['fab', 'youtube']" />YouTube Transcript
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'music' }">
-        <font-awesome-icon icon="music" />Study Music Lyrics
+        <font-awesome-icon icon="music" />Music Video Lyrics
       </router-link>
     </nav>
 

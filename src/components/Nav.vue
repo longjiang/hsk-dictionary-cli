@@ -9,8 +9,7 @@
             $route.name === 'textbooks-workbooks' ||
             $route.name === 'video-count' ||
             $route.name === 'pricing' ||
-            $route.name === 'course-release-schedule' ||
-            $route.path === '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
+            $route.name === 'course-release-schedule'
         }"
         :to="{ name: 'courses' }"
         title="Courses"
@@ -56,8 +55,7 @@
           tab: true,
           'router-link-active':
             $route.name &&
-            ($route.name.startsWith('youtube') || $route.name === 'music') &&
-            $route.path !== '/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg'
+            ($route.name.startsWith('youtube') || $route.name === 'music')
         }"
         :to="{ name: 'youtube-browse' }"
         title="Learn Chinese by watching YouTube videos."
