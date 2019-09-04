@@ -5,7 +5,7 @@ import Luoxia from '@/lib/library-sources/luoxia'
 import WOL from '@/lib/library-sources/wol'
 
 export default {
-  sources: [Shucheng, Wikisource, Luoxia, Wikipedia, WOL],
+  sources: [Luoxia, Shucheng, WOL, Wikipedia, Wikisource],
   source(url) {
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
     const source = this.sources.find(source => host.match(source.host))

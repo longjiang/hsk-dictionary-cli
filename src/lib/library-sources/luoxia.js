@@ -4,6 +4,7 @@ export default {
   host: 'www.luoxia.com',
   name: 'Luoxia 落霞小说',
   logo: 'https://www.luoxia.com/theme/img/logo.svg',
+  example: 'https://www.luoxia.com/banshengyuan/',
   async getBook(url) {
     let $bookHTML = await Helper.scrape2(url)
     let book = {

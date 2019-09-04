@@ -87,21 +87,9 @@
             like the following into the above text box and enjoy reading!
           </p>
           <ul>
-            <li>
-              Wiki Source, example URL:
-              <code>https://<b>zh.wikisource.org</b>/wiki/西遊記</code>
-            </li>
-            <li>
-              Luoxia, example URL:
-              <code>https://<b>www.luoxia.com</b>/banshengyuan/</code>
-            </li>
-            <li>
-              51Shucheng.com or .net, example URL:
-              <code>https://<b>www.51shucheng.net</b>/kehuan/santi</code>
-            </li>
-            <li>
-              Watchtower Online Library: 
-              <code>https://<b>wol.jw.org</b>/cmn-Hans/wol/d/r23/lp-chs/2013646</code>
+            <li v-for="source in Library.sources">
+              {{ source.name }}, example URL:
+              <code v-html="`${source.example}`"></code>
             </li>
           </ul>
         </div>
