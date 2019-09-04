@@ -28,7 +28,9 @@ export default {
 .channel-body {
   flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
 }
 .channel-avatar {
   border-radius: 100%;
