@@ -15,7 +15,11 @@
           <font-awesome-icon icon="chevron-right" />
         </b-button>
         <b-dropdown right text="Switch Voice" style="flex: 1">
-          <b-dropdown-item v-for="(voice, index) in voices" @click="setvoice(index)">{{ voice.name }}</b-dropdown-item>
+          <b-dropdown-item
+            v-for="(voice, index) in voices"
+            @click="setvoice(index)"
+            >{{ voice.name }}</b-dropdown-item
+          >
         </b-dropdown>
       </b-button-group>
     </div>
@@ -55,7 +59,9 @@ export default {
   },
   computed: {
     voices() {
-      return speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('zh'))
+      return speechSynthesis
+        .getVoices()
+        .filter(voice => voice.lang.startsWith('zh'))
     }
   },
   mounted() {
@@ -109,14 +115,23 @@ export default {
       this.update()
       this.speaking = true
       const sentence = this.sentences[this.current]
-      this.speak(this.sentenceText(sentence))
-      this.utterance.onend = () => {
+      let text = this.sentenceText(sentence)
+      if (text.length === 0) {
         this.next()
+        return
+      }
+      this.speak(text)
+      if (this.utterance) {
+        this.utterance.onend = () => {
+          this.next()
+        }
       }
     },
     pause() {
       speechSynthesis.cancel()
-      this.utterance.onend = undefined
+      if (this.utterance) {
+        this.utterance.onend = undefined
+      }
       this.speaking = false
     },
     previous() {
@@ -128,11 +143,13 @@ export default {
       }
     },
     next() {
-      this.current = Math.min(this.sentences.length - 1, this.current + 1)
-      this.update()
-      if (this.speaking) {
-        this.pause()
-        this.play()
+      if (this.current + 1 < this.sentences.length) {
+        this.current++
+        this.update()
+        if (this.speaking) {
+          this.pause()
+          this.play()
+        }
       }
     }
   }

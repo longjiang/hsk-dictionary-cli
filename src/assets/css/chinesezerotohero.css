@@ -25,6 +25,19 @@ body {
   object-fit: cover;
 }
 
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  padding: 1.5rem;
+  margin: 1rem;
+  flex: 1;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  min-width: 20rem;
+}
+
 .book-thumb {
   height: 10rem;
 }

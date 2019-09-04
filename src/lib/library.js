@@ -58,7 +58,7 @@ export default {
       async getBooklist(url) {
         let $html = await Helper.scrape2(url)
         let list = []
-        for (let a of $html.find('.zuojia table a')) {
+        for (let a of $html.find('.zuojia table a, .mulu-list a')) {
           list.push({
             title: $(a).text(),
             url: $(a).attr('href')
