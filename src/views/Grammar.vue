@@ -5,7 +5,7 @@
         <div class="col-sm-12">
           <div class="focus text-center">
             <h3 class="mb-3">Ultimate Chinese Grammar Cheatsheet</h3>
-            <p class="mb-5">
+            <p>
               Here is a list of all grammar notes from HSK 1 to 6 included in
               the
               <a
@@ -19,6 +19,12 @@
               <a href="http://www.cltguides.com/user/yufaka.action"
                 >CLT Guides</a
               >.
+            </p>
+            <p class="mb-5">
+              <b>Download</b> the list as a
+              <a href="/data/grammar.csv.txt">CSV</a>,
+              <a href="/files/grammar.numbers">Apple Numbers file</a> (recommended),
+              or <a href="/files/grammar.xlsx">Microsoft Excel file</a> 🤦‍♂️.
             </p>
           </div>
         </div>

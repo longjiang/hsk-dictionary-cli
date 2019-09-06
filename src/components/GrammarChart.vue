@@ -29,7 +29,7 @@
         ><font-awesome-icon icon="download" class="mr-1" />Download CSV</a
       >
     </div>
-    <div class="tabs">
+    <div class="tabs text-center">
       <button @click="level = undefined" class="tab text-light bg-dark">
         All 🤦
       </button>
