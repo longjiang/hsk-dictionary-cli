@@ -28,7 +28,7 @@
         class="photo-jon d-none d-md-block"
       />
     </div>
-    <Sale />
+    <!-- <Sale /> -->
     <div
       class="jumbotron-fluid bg-dark p-5 text-light mb-0 courses"
       style="position: relative"
