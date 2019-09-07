@@ -114,13 +114,12 @@
       class="secondary-menu text-center"
       v-if="
         $route.name &&
-          ($route.name.startsWith('youtube') || $route.name === 'music')
+          ($route.name.startsWith('youtube') ||
+            $route.name === 'hero-academy' ||
+            $route.name === 'music')
       "
     >
-      <router-link
-        class="secondary-menu-item"
-        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
-      >
+      <router-link class="secondary-menu-item" :to="{ name: 'hero-academy' }">
         <font-awesome-icon icon="school" />Hero Academy
       </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'youtube-browse' }">

@@ -5,7 +5,7 @@ Vue.use(Router)
 
 export default new Router({
   scrollBehavior(to, from, savedPosition) {
-    return { x: 0, y: 168 }
+    return { x: 0, y: 0 }
   },
   routes: [
     {
@@ -397,6 +397,21 @@ export default new Router({
             name: 'description',
             content:
               'Read free, open Chinese books with pinyin annotation and save new words for review.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/hero-academy',
+      name: 'hero-academy',
+      component: () => import('./views/HeroAcademy.vue'),
+      props: true,
+      meta: {
+        title: 'Hero Academy | Chinese Zero to Hero',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Learn Chinese by learning subject matters in Chinese.'
           }
         ]
       }

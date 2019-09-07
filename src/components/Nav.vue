@@ -55,9 +55,11 @@
           tab: true,
           'router-link-active':
             $route.name &&
-            ($route.name.startsWith('youtube') || $route.name === 'music')
+            ($route.name.startsWith('youtube') ||
+              $route.name === 'hero-academy' ||
+              $route.name === 'music')
         }"
-        to="/youtube/channel/UCMoxI3OhLuyItB8__6iuJhg"
+        :to="{ name: 'hero-academy' }"
         title="Learn Chinese with audio-visual material."
       >
         <font-awesome-icon icon="video" />Audio-Visual
@@ -67,7 +69,9 @@
           tab: true,
           'router-link-active':
             $route.name &&
-            ($route.name.startsWith('book') || $route.name === 'library' || $route.name === 'reader' )
+            ($route.name.startsWith('book') ||
+              $route.name === 'library' ||
+              $route.name === 'reader')
         }"
         :to="{ name: 'library' }"
         title="Improve your Chinese through reading"
@@ -84,11 +88,7 @@
       <router-link class="tab" :to="{ name: 'contact' }" title="Contact Us">
         <font-awesome-icon icon="id-card" />Contact
       </router-link>
-      <router-link
-        class="tab"
-        :to="{ name: 'settings' }"
-        title="Settings"
-      >
+      <router-link class="tab" :to="{ name: 'settings' }" title="Settings">
         <i class="glyphicon glyphicon-cog"></i>Settings
       </router-link>
     </nav>
