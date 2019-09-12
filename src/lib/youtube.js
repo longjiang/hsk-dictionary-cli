@@ -151,6 +151,42 @@ export default {
       callback(channel)
     })
   },
+  mapChannelPlaylistsData(item) {
+    return {
+      id: item.id,
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.standard.url,
+      count: item.contentDetails.itemCount,
+      data: item
+    }
+  },
+  channelPlayListsByAPI(channelID, cacheLife = -1) {
+    return new Promise(resolve => {
+      $.getJSON(
+        `https://server.chinesezerotohero.com/youtube-playlist.php?channel=${channelID}&cache_life=${cacheLife}`
+      ).then(response => {
+        let playlists = []
+        if (response.data.items) {
+          playlists = response.data.items.map(this.mapChannelPlaylistsData)
+        }
+        let nextPageToken = response.data.nextPageToken
+        if (nextPageToken) {
+          $.getJSON(
+            `https://server.chinesezerotohero.com/youtube-playlist.php?channel=${channelID}&page_token=${nextPageToken}&cache_life=${cacheLife}`
+          ).then(response => {
+            if (response.data.items) {
+              playlists = playlists.concat(
+                response.data.items.map(this.mapChannelPlaylistsData)
+              )
+              resolve(playlists)
+            }
+          })
+        } else {
+          resolve(playlists)
+        }
+      })
+    })
+  },
   channelPlaylists(channelID, callback, cacheLife = -1) {
     // channelURL: https://www.youtube.com/user/TEDxTaipei https://www.youtube.com/channel/UCKFB_rVEFEF3l-onQGvGx1A
     Helper.scrape2(
