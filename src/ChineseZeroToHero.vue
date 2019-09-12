@@ -44,22 +44,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <div class="zerotohero">
-              <a
-                v-for="language in languages"
-                :href="language.url"
-                target="_blank"
-                class="mr-4"
-              >
-                <img
-                  :src="
-                    `${Config.server}img/logo-${language.code}-zth-light.png`
-                  "
-                  :alt="`${language.name} Zero to Hero`"
-                  class="logo-footer"
-                />
-              </a>
-            </div>
+            <LanguageLogos />
             <hr class="border-light" style="opacity: 0.5" />
             <p>
               <b>Zero to Hero Education, Canada.</b>
@@ -125,6 +110,7 @@ import Grammar from '@/lib/grammar'
 import Unihan from '@/lib/unihan'
 import Nav from '@/components/Nav'
 import SubNav from '@/components/SubNav'
+import LanguageLogos from '@/components/LanguageLogos'
 import Config from '@/lib/config'
 
 // eslint-disable-next-line no-unused-vars
@@ -132,7 +118,8 @@ import Config from '@/lib/config'
 export default {
   components: {
     Nav,
-    SubNav
+    SubNav,
+    LanguageLogos
   },
   data: function() {
     return {
@@ -142,7 +129,6 @@ export default {
       hidePinyinExceptSaved:
         localStorage.getItem('czhHidePinyinExceptSaved') === 'true',
       useTraditional: localStorage.getItem('czhUseTraditional') === 'true',
-      languages: [],
       Config
     }
   },
@@ -174,9 +160,6 @@ export default {
     }
   },
   beforeMount() {
-    $.getJSON(`${Config.server}data/languages.json`, response => {
-      this.languages = response
-    })
     window.annotatorLoads = Annotator.load()
     window.hanziLoads = Hanzi.load()
     window.grammarLoads = Grammar.load()
