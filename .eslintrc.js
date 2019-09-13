@@ -28,6 +28,12 @@ module.exports = {
           'args': 'after-used'
         }
       ],
+      'no-empty': [
+        'error',
+        {
+          'allowEmptyCatch': true
+        }
+      ],
       indent: [
         'error',
         2
