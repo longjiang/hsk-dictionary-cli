@@ -46,7 +46,7 @@
               </h5>
               <div :key="l2Key + i + j * 1000">
                 <ul class="dewey-l3" v-if="showL2[i][j]">
-                  <li v-for="(l3, k) of l2.children">
+                  <li v-for="l3 of l2.children">
                     <h6>
                       <span class="dewey-code ml-3">{{ l3.code }}</span>
                       <Annotate
