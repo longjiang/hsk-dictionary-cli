@@ -37,8 +37,6 @@
 
 <script>
 import Helper from '@/lib/helper'
-import DefinitionsList from '@/components/DefinitionsList.vue'
-import Frequency from '@/components/Frequency.vue'
 
 export default {
   props: {
@@ -51,8 +49,6 @@ export default {
     }
   },
   components: {
-    DefinitionsList,
-    Frequency
   },
   data() {
     return {
