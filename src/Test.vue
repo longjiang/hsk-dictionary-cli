@@ -97,7 +97,6 @@ import Helper from '@/lib/helper'
 import Merge from '@/lib/merge-hsk-cedict'
 import Unihan from '@/lib/unihan'
 import YouTube from '@/lib/youtube'
-import Papa from 'papaparse'
 import $ from 'jquery'
 
 export default {

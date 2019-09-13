@@ -74,7 +74,6 @@
 import Helper from '@/lib/helper'
 import WordListExtended from '@/components/WordListExtended.vue'
 import EntryCharacters from '@/components/EntryCharacters.vue'
-import $ from 'jquery'
 
 export default {
   components: {

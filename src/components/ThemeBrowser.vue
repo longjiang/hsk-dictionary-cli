@@ -72,7 +72,6 @@
 import $ from 'jquery'
 import Helper from '@/lib/helper'
 import Dewey from '@/lib/dewey'
-import Annotator from '@/lib/annotator'
 
 export default {
   data() {

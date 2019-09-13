@@ -47,7 +47,6 @@ import WordListExtended from '@/components/WordListExtended.vue'
 import Search from '@/components/Search.vue'
 import SketchEngine from '@/lib/sketch-engine'
 import Merge from '@/components/Merge'
-import $ from 'jquery'
 
 export default {
   components: {

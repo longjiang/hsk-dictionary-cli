@@ -49,7 +49,6 @@
 <script>
 import Helper from '@/lib/helper'
 import Config from '@/lib/config'
-import $ from 'jquery'
 
 export default {
   props: ['id', 'text', 'pinyin', 'hsk', 'definitions'],

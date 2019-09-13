@@ -148,7 +148,6 @@ import EntryDifficulty from '@/components/EntryDifficulty'
 import Korean from '@/components/Korean'
 import Japanese from '@/components/Japanese'
 import Paginator from '@/components/Paginator'
-import $ from 'jquery'
 
 export default {
   components: {

@@ -57,7 +57,6 @@
 <script>
 import Decomposition from '@/components/Decomposition.vue'
 import DefinitionsList from '@/components/DefinitionsList.vue'
-import Vue from 'vue'
 import Helper from '@/lib/helper'
 
 export default {

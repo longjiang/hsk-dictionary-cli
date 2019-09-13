@@ -38,11 +38,8 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import Config from '@/lib/config'
 import Helper from '@/lib/helper'
-import RedditArticlesList from '@/components/RedditArticlesList.vue'
-import RedditArticle from '@/components/RedditArticle.vue'
 
 export default {
   components: {

@@ -22,6 +22,12 @@ module.exports = {
       'vue'
     ],
     rules: {
+      'no-unused-vars': [
+        'error',
+        {
+          'args': 'after-used'
+        }
+      ],
       indent: [
         'error',
         2
