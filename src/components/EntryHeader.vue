@@ -2,6 +2,11 @@
   <!-- ANCHOR img/anchors/entry.png  -->
   <div class="entry-head-wrapper" v-if="entry">
     <div>
+      <div class="mb-2 text-center">
+        <div class="frequency-level d-inline-block pl-4 pr-4" v-bind:data-bg-hsk="entry.hsk">
+          <strong>{{ entry.hsk === 'outside' ? 'Non-HSK' : 'HSK ' + entry.hsk }}</strong>
+        </div>
+      </div>
       <div v-if="entry.measureWords" style="display:inline-block">
         <div class="entry-pinyin measure-word-pinyin">
           yī {{ entry.measureWords[0].pinyin }}

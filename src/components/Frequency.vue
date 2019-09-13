@@ -14,8 +14,7 @@
       ></div>
     </div>
     <div v-if="showText" class="text-center mt-1 frequency-text">
-      <b>{{ Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4) }}%</b>
-      as common as “的”
+      Frequency index: <b>{{ Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4) }}%</b>
     </div>
   </div>
 </template>

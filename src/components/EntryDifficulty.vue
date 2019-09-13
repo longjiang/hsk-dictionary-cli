@@ -1,10 +1,7 @@
 <template>
   <div class="entry-difficulty">
-    <div class="widget-title">Difficulty</div>
+    <div class="widget-title">Frequency</div>
     <div class="jumbotron-fluid bg-light p-4">
-      <div class="frequency-level text-center" v-bind:data-bg-hsk="entry.hsk">
-        {{ entry.hsk === 'outside' ? 'Non-HSK' : 'HSK ' + entry.hsk }}
-      </div>
       <div class="frequency mt-1">
         <div
           class="frequency-fill"
@@ -13,8 +10,7 @@
         ></div>
       </div>
       <div v-if="showText" class="text-center mt-1 frequency-text">
-        <b>{{ Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4) }}%</b>
-        as common as “的”
+        Frequency Index: <b>{{ Math.round((Math.log10(1 + entry.rank * 10000) * 100) / 4) }}%</b>
       </div>
     </div>
   </div>

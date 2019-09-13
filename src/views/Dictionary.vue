@@ -13,10 +13,7 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="saved()"
-      class="jumbotron jumbotron-fluid pt-3 pb-3 mb-0 bg-secondary"
-    >
+    <div v-if="saved()" class="jumbotron jumbotron-fluid pt-3 pb-3 mb-0 bg-secondary">
       <div class="container focus-exclude text-center text-light">
         <Paginator
           :items="$store.state.savedWords"
@@ -34,12 +31,9 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 text-center mt-5">
+          <div class="col-sm-12 text-center">
             <EntryHeader :entry="entry"></EntryHeader>
-            <DefinitionsList
-              class="mt-4"
-              :definitions="entry.definitions"
-            ></DefinitionsList>
+            <DefinitionsList class="mb-4" :definitions="entry.definitions"></DefinitionsList>
           </div>
         </div>
       </div>
@@ -53,13 +47,9 @@
         </div>
       </div>
       <div class="container">
-        <div class="row mt-5">
-          <div class="col-sm-6">
-            <EntryDifficulty :entry="entry" />
-          </div>
-          <div class="col-sm-6">
-            <EntryDisambiguation :entry="entry"></EntryDisambiguation>
-          </div>
+        <div class="row mt-5 d-flex" style="flex-wrap: wrap">
+          <EntryDifficulty :entry="entry" style="flex: 1" class="m-3" />
+          <EntryDisambiguation :entry="entry" class="m-3" style="flex: 1; min-width: 20rem;"></EntryDisambiguation>
         </div>
       </div>
 
@@ -81,35 +71,22 @@
               :pinyin="entry.pinyin"
             ></EntryCharacters>
 
-            <WebImages
-              class="mt-5"
-              :text="entry.simplified"
-              :entry="entry"
-              limit="10"
-            ></WebImages>
+            <WebImages class="mt-5" :text="entry.simplified" :entry="entry" limit="10"></WebImages>
 
             <Grammar :text="entry.simplified" class="mt-5"></Grammar>
 
-            <Collocations
-              class="mt-5 mb-5"
-              :text="entry.simplified"
-              :level="entry.hsk"
-            ></Collocations>
-            <Concordance
-              class="mt-5 mb-5"
-              :text="entry.simplified"
-              :level="entry.hsk"
-            ></Concordance>
+            <Collocations class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Collocations>
+            <Concordance class="mt-5 mb-5" :text="entry.simplified" :level="entry.hsk"></Concordance>
 
-            <Mistakes class="mt-5 mb-5" :text="entry.simplified"></Mistakes>
+            <Mistakes class="mt-5" :text="entry.simplified"></Mistakes>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-5">
           <div class="col-sm-6">
-            <Japanese class="mt-5 mb-5" :text="entry.traditional" />
+            <Japanese class="mb-5" :text="entry.traditional" />
           </div>
           <div class="col-sm-6">
-            <Korean class="mt-5 mb-5" :text="entry.traditional" />
+            <Korean class="mb-5" :text="entry.traditional" />
           </div>
         </div>
         <div class="row">
@@ -193,9 +170,7 @@ export default {
       if (entry) {
         this.entryKey += 1
         this.entry = entry
-        document.title = `${entry.simplified} (${entry.pinyin}) ${
-          entry.definitions[0].text
-        } | Chinese Zero to Hero`
+        document.title = `${entry.simplified} (${entry.pinyin}) ${entry.definitions[0].text} | Chinese Zero to Hero`
       }
     },
     route() {
