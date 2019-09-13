@@ -101,14 +101,14 @@ export default {
         grammarHTML += `
           <div class="tooltip-entry">
             <a class="d-block mb-2" href="#/grammar/view/${point.id}" data-hsk="${
-          point.book
-        }"><strong>Grammar ${point.code}</strong></a>
+  point.book
+}"><strong>Grammar ${point.code}</strong></a>
             <a class="tooltip-entry-character" href="#/grammar/view/${
-              point.id
-            }">${structureHTML}</a>
+  point.id
+}">${structureHTML}</a>
             <button onclick="window.AnnotatorTooltip.speak('${
-              point.structure
-            }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+  point.structure
+}');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
             <div class="tooltip-entry-definition">${point.english}</div>
           </div>`
       }
@@ -124,12 +124,12 @@ export default {
         entriesHTML += `
         <div class="tooltip-entry">
           <span class="tooltip-entry-character"><b data-hsk="${
-            candidate.hsk
-          }">${candidate.simplified}</b> (${candidate.traditional})</span>
+  candidate.hsk
+}">${candidate.simplified}</b> (${candidate.traditional})</span>
           <span class="tooltip-entry-pinyin">${candidate.pinyin}</span>
           <button onclick="window.AnnotatorTooltip.speak('${
-            candidate.simplified
-          }');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
+  candidate.simplified
+}');  return false" class="btn speak"><i class="glyphicon glyphicon-volume-up"></i></button>
           ${$definitionsList.html()}
         </div>`
       }

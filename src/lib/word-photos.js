@@ -6,7 +6,7 @@ export default {
   savePhoto(word, url, callback) {
     $.getJSON(
       `${Config.savePhoto}?id=${word.hskId}&word=${
-      word.simplified
+        word.simplified
       }&url=${encodeURIComponent(url)}`,
       callback
     )
@@ -49,7 +49,7 @@ export default {
   getWebImages(strWord, callback, proxy = `${Config.proxy}?`) {
     $.getJSON(
       `${
-      proxy
+        proxy
       }http://image.so.com/j?q=${strWord}&src=srp&correct=&sn=0&pn=10`,
       response => {
         let images = [] // images = [{_thumb: "http://...", img: "http://..."}, {...}, {...}]
