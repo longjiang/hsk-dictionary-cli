@@ -74,18 +74,28 @@ const HSKCEDICT = {
     if (this.isChinese(text)) {
       results = this._data.filter(
         row => row.simplified.includes(text) || row.traditional.includes(text)
-      )
+      ).sort((a, b) => b.weight - a.weight)
     } else {
+      text = text.toLowerCase().trim()
       results = this._data.filter(row => {
         return (
           this.removeTones(row.pinyin.replace(/ /g, '')).includes(
             text.replace(/ /g, '')
           ) || row.search.includes(text)
         )
+      }).slice(0,1000).sort((a, b) => b.weight - a.weight).slice(0,100).sort((a,b) => {
+        let am = a.search.match(new RegExp('^' + text + '\\b'))
+        let bm = b.search.match(new RegExp('^' + text + '\\b'))
+        if (!am && bm) {
+          return 1
+        } else if (am && !bm) {
+          return -1
+        } else {
+          return 0
+        }
       })
     }
     if (results) {
-      results = results.sort((a, b) => b.weight - a.weight)
       if (limit) {
         results = results.slice(0, limit)
       }
@@ -154,7 +164,7 @@ const HSKCEDICT = {
     let hskCEDICT = this
     let augmented = Object.assign({}, row)
     this._maxWeight = Math.max(augmented.weight, this._maxWeight)
-    augmented.search = augmented.definitions
+    augmented.search = augmented.definitions.toLowerCase()
     augmented.identifier = `${augmented.traditional},${augmented.pinyin.replace(
       / /g,
       '_'
