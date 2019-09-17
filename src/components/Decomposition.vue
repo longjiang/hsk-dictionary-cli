@@ -126,11 +126,11 @@ export default {
             }
             $template = $(`
             <div class="part-pinyin part-pinyin-${node.character}">${
-              childCharacter.pinyin
-            }</div>
+  childCharacter.pinyin
+}</div>
             <div class="part-character part-character-${
-              node.character
-            }"><a ${href}>${childCharacter.character}</a></div>`)
+  node.character
+}"><a ${href}>${childCharacter.character}</a></div>`)
           }
           if (node.parent) {
             node.selector = `${node.parent.selector} > .description-${

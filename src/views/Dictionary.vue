@@ -117,7 +117,6 @@ import EntryHeader from '@/components/EntryHeader.vue'
 import EntryLyrics from '@/components/EntryLyrics.vue'
 import Mistakes from '@/components/Mistakes.vue'
 import WebImages from '@/components/WebImages.vue'
-import InstagramButton from '@/components/InstagramButton.vue'
 import SearchCompare from '@/components/SearchCompare.vue'
 import EntryYouTube from '@/components/EntryYouTube.vue'
 import Helper from '@/lib/helper'
@@ -126,7 +125,6 @@ import EntryDifficulty from '@/components/EntryDifficulty'
 import Korean from '@/components/Korean'
 import Japanese from '@/components/Japanese'
 import Paginator from '@/components/Paginator'
-import $ from 'jquery'
 
 export default {
   components: {
@@ -143,7 +141,6 @@ export default {
     Mistakes,
     DefinitionsList,
     Paginator,
-    InstagramButton,
     EntryYouTube,
     Korean,
     EntryDifficulty,

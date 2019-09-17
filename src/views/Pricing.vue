@@ -179,11 +179,9 @@
 <script>
 import fx from 'money'
 import accounting from 'accounting'
-import Sale from '@/components/Sale'
 
 export default {
   components: {
-    Sale
   },
   props: {
     args: {

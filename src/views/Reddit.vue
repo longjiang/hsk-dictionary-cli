@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import Config from '@/lib/config'
 import Helper from '@/lib/helper'
 import RedditArticlesList from '@/components/RedditArticlesList.vue'

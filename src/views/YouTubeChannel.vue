@@ -20,13 +20,11 @@
 </template>
 
 <script>
-import YouTubeNav from '@/components/YouTubeNav'
 import YouTubeVideoList from '@/components/YouTubeVideoList'
 import YouTubePlaylists from '@/components/YouTubePlaylists'
 import YouTube from '@/lib/youtube'
 export default {
   components: {
-    YouTubeNav,
     YouTubeVideoList,
     YouTubePlaylists
   },

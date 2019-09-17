@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import PinyinSquared from '@/lib/pinyin-squared'
 import Vue from 'vue'
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)

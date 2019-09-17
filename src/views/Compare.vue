@@ -186,7 +186,6 @@ import SearchCompare from '@/components/SearchCompare.vue'
 import Helper from '@/lib/helper'
 import Korean from '@/components/Korean'
 import Japanese from '@/components/Japanese'
-import $ from 'jquery'
 
 export default {
   components: {

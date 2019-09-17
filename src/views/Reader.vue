@@ -203,7 +203,6 @@
 <script>
 import $ from 'jquery'
 import Helper from '@/lib/helper'
-import Annotator from '@/lib/annotator'
 import Marked from 'marked'
 
 const Reader = {

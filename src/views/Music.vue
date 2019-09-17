@@ -33,12 +33,9 @@
 </template>
 
 <script>
-import Helper from '@/lib/helper'
-import Loader from '@/components/Loader'
 import LRC from '@/lib/lrc'
 import Search from '@/components/Search'
 import Song from '@/components/Song'
-import $ from 'jquery'
 
 export default {
   components: {

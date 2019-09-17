@@ -38,7 +38,6 @@
 
 <script>
 import GrammarChart from '@/components/GrammarChart.vue'
-import $ from 'jquery'
 
 export default {
   components: {

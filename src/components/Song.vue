@@ -80,7 +80,6 @@ import Helper from '@/lib/helper'
 import YouTubeVideo from '@/components/YouTubeVideo'
 import YouTube from '@/lib/youtube'
 import Config from '@/lib/config'
-import Loader from '@/components/Loader'
 import SyncedTranscript from '@/components/SyncedTranscript'
 import { setInterval } from 'timers'
 

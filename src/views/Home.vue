@@ -155,12 +155,10 @@
 
 <script>
 import YouTubeVideo from '@/components/YouTubeVideo'
-import Sale from '@/components/Sale'
 
 export default {
   components: {
-    YouTubeVideo,
-    Sale
+    YouTubeVideo
   }
 }
 </script>

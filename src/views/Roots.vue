@@ -73,15 +73,12 @@
 <script>
 import Helper from '@/lib/helper'
 import WordListExtended from '@/components/WordListExtended.vue'
-import DefinitionsList from '@/components/DefinitionsList.vue'
 import EntryCharacters from '@/components/EntryCharacters.vue'
-import $ from 'jquery'
 
 export default {
   components: {
     EntryCharacters,
-    WordListExtended,
-    DefinitionsList
+    WordListExtended
   },
   beforeMount() {
     this.route()

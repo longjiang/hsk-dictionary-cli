@@ -16,12 +16,10 @@
 </template>
 
 <script>
-import YouTubeNav from '@/components/YouTubeNav'
 import YouTubeVideoList from '@/components/YouTubeVideoList'
 import YouTube from '@/lib/youtube'
 export default {
   components: {
-    YouTubeNav,
     YouTubeVideoList
   },
   props: {

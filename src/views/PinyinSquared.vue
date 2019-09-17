@@ -92,7 +92,7 @@ export default {
   },
   created() {
     // Load typekit
-    ;(function(d) {
+    (function(d) {
       var config = {
           kitId: 'yfx5xjt',
           scriptTimeout: 3000,

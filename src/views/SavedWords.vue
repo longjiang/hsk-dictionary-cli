@@ -108,11 +108,11 @@ export default {
       savedWords: [],
       selectedCsvOptions: ['simplified', 'traditional', 'pinyin', 'definitions', 'measureWords'],
       csvOptions: [
-          { text: 'Simplified', value: 'simplified' },
-          { text: 'Traditional', value: 'traditional' },
-          { text: 'Pinyin', value: 'pinyin' },
-          { text: 'Definitions', value: 'definitions' },
-          { text: 'Measure Words', value: 'measureWords' }
+        { text: 'Simplified', value: 'simplified' },
+        { text: 'Traditional', value: 'traditional' },
+        { text: 'Pinyin', value: 'pinyin' },
+        { text: 'Definitions', value: 'definitions' },
+        { text: 'Measure Words', value: 'measureWords' }
       ]
     }
   },
@@ -124,74 +124,74 @@ export default {
       this.updateWords()
     },
     selectedCsvOptions() {
-      $('#export-textarea').val(this.csv());
+      $('#export-textarea').val(this.csv())
     },
   },
   mounted() {
-    this.updateWords();
+    this.updateWords()
   },
   methods: {
     updateWords() {
-      this.savedWords = [];
+      this.savedWords = []
 
       Helper.loaded(
         (LoadedAnnotator, LoadedHSKCEDICT, loadedGrammar, LoadedHanzi) => {
-          this.loaded = true;
+          this.loaded = true
           this.savedWordIds.forEach((word) => {
-            const identifier = word.join(',').replace(/ /g, '_');
+            const identifier = word.join(',').replace(/ /g, '_')
             LoadedHSKCEDICT.getByIdentifier(
               entry => this.savedWords.push(entry),
               [identifier],
-            );
-          });
+            )
+          })
         }
-      );
+      )
     },
     csv() {
       if (this.savedWords.length <= 0) {
-        return '';
+        return ''
       }
 
       return (
         this.savedWords.map((word) => {
-          let textToDisplay = '';
+          let textToDisplay = ''
 
           if (this.selectedCsvOptions.includes('simplified')) {
-            textToDisplay += `${word.simplified}\t`;
+            textToDisplay += `${word.simplified}\t`
           }  
           
           if (this.selectedCsvOptions.includes('traditional')) {
-            textToDisplay += `${word.traditional}\t`;
+            textToDisplay += `${word.traditional}\t`
           }    
           
           if (this.selectedCsvOptions.includes('pinyin')) {
-            textToDisplay += `${word.pinyin}\t`;
+            textToDisplay += `${word.pinyin}\t`
           }       
           
           if (this.selectedCsvOptions.includes('definitions')) {
             const definitions = word.definitions.map(function(definition) {
               return definition.text
-            }).join(', ');
+            }).join(', ')
 
-            textToDisplay += `${definitions}\t`;
+            textToDisplay += `${definitions}\t`
           }
 
           if (this.selectedCsvOptions.includes('measureWords')) {
-            const hasMeasureWords = word.measureWords && word.measureWords.length > 0;
-            let measureWords = '';
+            const hasMeasureWords = word.measureWords && word.measureWords.length > 0
+            let measureWords = ''
             
             if (hasMeasureWords) {
               measureWords = word.measureWords.map((measureWord) => {
                 return `${measureWord.simplified} (${measureWord.traditional}, ${measureWord.pinyin})`
-              }).join(', ');
+              }).join(', ')
             }
 
             textToDisplay += `${measureWords}\t`
           }
 
-          return textToDisplay;
+          return textToDisplay
         }).join('\n')
-      );
+      )
     },
     showImportClick() {
       $('.import-wrapper').toggleClass('hidden')
@@ -205,8 +205,8 @@ export default {
         'Are you sure you want to remove all your saved words?'
       )
       if (confirmed) {
-        this.$store.dispatch('removeAllSavedWords');
-        $('.export-wrapper').toggleClass('hidden', true);
+        this.$store.dispatch('removeAllSavedWords')
+        $('.export-wrapper').toggleClass('hidden', true)
 
       }
     },
@@ -222,7 +222,7 @@ export default {
               for (let candidates of annotated) {
                 for (let candidate of candidates) {
                   if (candidate.pinyin) {
-                    this.$store.dispatch('addSavedWord', candidate.identifier);
+                    this.$store.dispatch('addSavedWord', candidate.identifier)
                   }
                 }
               }
