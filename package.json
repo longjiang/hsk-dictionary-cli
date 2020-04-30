@@ -29,7 +29,7 @@
     "gbk.js": "^0.3.0",
     "hashids": "^1.2.2",
     "html2canvas": "^1.0.0-rc.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "kyujitai": "^1.0.0",
     "marked": "^0.7.0",
     "money": "^0.2.0",
