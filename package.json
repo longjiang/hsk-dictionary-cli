@@ -16,7 +16,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "accounting": "^0.4.1",
     "animejs": "^3.1.0",
-    "aws-sdk": "^2.517.0",
+    "aws-sdk": "^2.814.0",
     "bootstrap": "^4.3.1",
     "bootstrap-table": "^1.15.4",
     "bootstrap-vue": "^2.0.0-rc.27",
